@@ -3,45 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>เว็บเกมแนะนำ</title>
+  <title>เว็บเกม</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- แถบนำทาง -->
-  <div class="navbar">
-    <div class="logo">
-      <img src="https://via.placeholder.com/120x40?text=LOGO" alt="Logo" />
-    </div>
-    <div class="menu">
-      <a href="#"><img src="https://via.placeholder.com/30?text=เกม" alt="เกม" /></a>
-      <a href="#"><img src="https://via.placeholder.com/30?text=หน้า" alt="หน้าหลัก" /></a>
-      <div class="dropdown">
-        <img src="https://via.placeholder.com/30?text=บัญชี" alt="บัญชี" class="dropbtn" onclick="toggleDropdown()" />
-        <div class="dropdown-content" id="accountMenu">
-          <a href="#" onclick="login()">ล็อกอิน / สมัครสมาชิก</a>
-          <a href="#">ข้อมูลสมาชิก</a>
-          <a href="#" onclick="toggleContact()">ติดต่อเรา</a>
-          <div class="sub-contact" id="contactOptions" style="display:none;">
-            <a href="https://line.me">Line</a>
-            <a href="#">แชทสด</a>
-          </div>
-          <a href="https://yourdonatelink.com" target="_blank">Support / Donate</a>
-          <a href="#" id="logout" style="display:none;">ออกจากระบบ</a>
-        </div>
-      </div>
-    </div>
+  <!-- โลโก้และหัวข้อ -->
+  <div class="header">
+    <img src="https://via.placeholder.com/120x40?text=LOGO" alt="Logo" class="logo" />
+    <h2>เกมแนะนำ</h2>
   </div>
 
-  <!-- หัวข้อเกม -->
-  <h2>เกมแนะนำ</h2>
-
-  <!-- สไลด์เกม -->
+  <!-- สไลด์ภาพ -->
   <div class="slider-container">
     <div class="slider">
       <div class="slide"><img src="https://via.placeholder.com/800x200/ff5555/ffffff?text=ภาพ1" /></div>
       <div class="slide"><img src="https://via.placeholder.com/800x200/55ff55/ffffff?text=ภาพ2" /></div>
       <div class="slide"><img src="https://via.placeholder.com/800x200/5555ff/ffffff?text=ภาพ3" /></div>
+    </div>
+  </div>
+
+  <!-- เมนูด้านล่าง -->
+  <div class="bottom-nav">
+    <a href="#"><img src="https://via.placeholder.com/40?text=เกม" alt="เกม" /></a>
+    <a href="#"><img src="https://via.placeholder.com/40?text=หน้า" alt="หน้าหลัก" /></a>
+    <div class="dropdown">
+      <img src="https://via.placeholder.com/40?text=บัญชี" alt="บัญชี" onclick="toggleDropdown()" />
+      <div class="dropdown-content" id="accountMenu">
+        <a href="#" onclick="login()">ล็อกอิน / สมัครสมาชิก</a>
+        <a href="#">ข้อมูลสมาชิก</a>
+        <a href="#" onclick="toggleContact()">ติดต่อเรา</a>
+        <div class="sub-contact" id="contactOptions" style="display:none;">
+          <a href="#">Line</a>
+          <a href="#">แชท</a>
+        </div>
+        <a href="https://yourdonatelink.com" target="_blank">Support / Donate</a>
+        <a href="#" id="logout" style="display:none;">ออกจากระบบ</a>
+      </div>
     </div>
   </div>
 
