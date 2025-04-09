@@ -1,68 +1,65 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เว็บไซต์</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            display: flex;
-            justify-content: center;
-            background-color: #333;
-            padding: 10px;
-        }
-        .navbar button {
-            color: white;
-            background-color: #444;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-        }
-        .navbar button:hover {
-            background-color: #555;
-        }
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            background-color: #333;
-            padding: 10px;
-        }
-        .footer button {
-            color: white;
-            background-color: #444;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        .footer button:hover {
-            background-color: #555;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เว็บไซต์เกม</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Prompt', sans-serif;
+      background-color: #111;
+      color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .slider-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      height: 200px;
+    }
+
+    .slider {
+      display: flex;
+      width: 300%;
+      animation: slide 9s infinite linear;
+    }
+
+    .slide {
+      min-width: 100%;
+      transition: transform 1s;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    @keyframes slide {
+      0%   { transform: translateX(0%); }
+      33%  { transform: translateX(-100%); }
+      66%  { transform: translateX(-200%); }
+      100% { transform: translateX(0%); }
+    }
+  </style>
 </head>
 <body>
-    <div class="navbar">
-        <button>ปุ่ม 1</button>
-        <button>ปุ่ม 2</button>
-        <button>ปุ่ม 3</button>
-    </div>
 
-    <div class="content">
-        <!-- เนื้อหาของหน้าเว็บ -->
-    </div>
+  <h2>เกมแนะนำ</h2>
 
-    <div class="footer">
-        <button>เกม</button>
-        <button>หน้าหลัก</button>
-        <button>บัญชี</button>
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slide"><img src="https://via.placeholder.com/800x200/ff5555/ffffff?text=ภาพ1" alt="ภาพ1"></div>
+      <div class="slide"><img src="https://via.placeholder.com/800x200/55ff55/ffffff?text=ภาพ2" alt="ภาพ2"></div>
+      <div class="slide"><img src="https://via.placeholder.com/800x200/5555ff/ffffff?text=ภาพ3" alt="ภาพ3"></div>
     </div>
+  </div>
+
 </body>
 </html>
