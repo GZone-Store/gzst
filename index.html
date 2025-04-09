@@ -1,65 +1,50 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เว็บไซต์เกม</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Prompt', sans-serif;
-      background-color: #111;
-      color: #fff;
-    }
-
-    h2 {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .slider-container {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      height: 200px;
-    }
-
-    .slider {
-      display: flex;
-      width: 300%;
-      animation: slide 9s infinite linear;
-    }
-
-    .slide {
-      min-width: 100%;
-      transition: transform 1s;
-    }
-
-    .slide img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    @keyframes slide {
-      0%   { transform: translateX(0%); }
-      33%  { transform: translateX(-100%); }
-      66%  { transform: translateX(-200%); }
-      100% { transform: translateX(0%); }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เว็บเกมแนะนำ</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <h2>เกมแนะนำ</h2>
-
-  <div class="slider-container">
-    <div class="slider">
-      <div class="slide"><img src="https://via.placeholder.com/800x200/ff5555/ffffff?text=ภาพ1" alt="ภาพ1"></div>
-      <div class="slide"><img src="https://via.placeholder.com/800x200/55ff55/ffffff?text=ภาพ2" alt="ภาพ2"></div>
-      <div class="slide"><img src="https://via.placeholder.com/800x200/5555ff/ffffff?text=ภาพ3" alt="ภาพ3"></div>
+  <!-- แถบนำทาง -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="https://via.placeholder.com/120x40?text=LOGO" alt="Logo" />
+    </div>
+    <div class="menu">
+      <a href="#"><img src="https://via.placeholder.com/30?text=เกม" alt="เกม" /></a>
+      <a href="#"><img src="https://via.placeholder.com/30?text=หน้า" alt="หน้าหลัก" /></a>
+      <div class="dropdown">
+        <img src="https://via.placeholder.com/30?text=บัญชี" alt="บัญชี" class="dropbtn" onclick="toggleDropdown()" />
+        <div class="dropdown-content" id="accountMenu">
+          <a href="#" onclick="login()">ล็อกอิน / สมัครสมาชิก</a>
+          <a href="#">ข้อมูลสมาชิก</a>
+          <a href="#" onclick="toggleContact()">ติดต่อเรา</a>
+          <div class="sub-contact" id="contactOptions" style="display:none;">
+            <a href="https://line.me">Line</a>
+            <a href="#">แชทสด</a>
+          </div>
+          <a href="https://yourdonatelink.com" target="_blank">Support / Donate</a>
+          <a href="#" id="logout" style="display:none;">ออกจากระบบ</a>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- หัวข้อเกม -->
+  <h2>เกมแนะนำ</h2>
+
+  <!-- สไลด์เกม -->
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slide"><img src="https://via.placeholder.com/800x200/ff5555/ffffff?text=ภาพ1" /></div>
+      <div class="slide"><img src="https://via.placeholder.com/800x200/55ff55/ffffff?text=ภาพ2" /></div>
+      <div class="slide"><img src="https://via.placeholder.com/800x200/5555ff/ffffff?text=ภาพ3" /></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
