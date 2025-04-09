@@ -3,45 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>เว็บเกม</title>
+  <title>เว็บไซต์เกม</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- โลโก้และหัวข้อ -->
-  <div class="header">
-    <img src="https://via.placeholder.com/120x40?text=LOGO" alt="Logo" class="logo" />
-    <h2>เกมแนะนำ</h2>
-  </div>
+  <!-- ส่วนหัว -->
+  <header class="header">
+    <img src="https://via.placeholder.com/80x40.png?text=GZONE" alt="GZONE Logo" class="logo" />
+    <h1>เว็บไซต์เกม</h1>
+  </header>
 
-  <!-- สไลด์ภาพ -->
-  <div class="slider-container">
+  <!-- เนื้อหา -->
+  <main class="content">
+
+    <!-- เกมแนะนำ -->
+    <h2 class="section-title">เกมแนะนำ</h2>
+
+    <!-- สไลด์รูป -->
     <div class="slider">
-      <div class="slide"><img src="https://via.placeholder.com/800x200/ff5555/ffffff?text=ภาพ1" /></div>
-      <div class="slide"><img src="https://via.placeholder.com/800x200/55ff55/ffffff?text=ภาพ2" /></div>
-      <div class="slide"><img src="https://via.placeholder.com/800x200/5555ff/ffffff?text=ภาพ3" /></div>
-    </div>
-  </div>
-
-  <!-- เมนูด้านล่าง -->
-  <div class="bottom-nav">
-    <a href="#"><img src="https://via.placeholder.com/40?text=เกม" alt="เกม" /></a>
-    <a href="#"><img src="https://via.placeholder.com/40?text=หน้า" alt="หน้าหลัก" /></a>
-    <div class="dropdown">
-      <img src="https://via.placeholder.com/40?text=บัญชี" alt="บัญชี" onclick="toggleDropdown()" />
-      <div class="dropdown-content" id="accountMenu">
-        <a href="#" onclick="login()">ล็อกอิน / สมัครสมาชิก</a>
-        <a href="#">ข้อมูลสมาชิก</a>
-        <a href="#" onclick="toggleContact()">ติดต่อเรา</a>
-        <div class="sub-contact" id="contactOptions" style="display:none;">
-          <a href="#">Line</a>
-          <a href="#">แชท</a>
-        </div>
-        <a href="https://yourdonatelink.com" target="_blank">Support / Donate</a>
-        <a href="#" id="logout" style="display:none;">ออกจากระบบ</a>
+      <div class="slides">
+        <a href="https://rov.in.th" target="_blank"><img src="https://via.placeholder.com/300x150?text=ROV" alt="ROV" /></a>
+        <img src="https://via.placeholder.com/300x150?text=Free+Fire" alt="Free Fire" />
+        <a href="#"><img src="https://via.placeholder.com/300x150?text=PUBG" alt="PUBG" /></a>
       </div>
     </div>
-  </div>
+
+    <!-- เกมยอดนิยม -->
+    <h3 class="section-subtitle">เกมยอดนิยม</h3>
+
+    <div class="game-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/0/0e/Rov_icon.png" alt="ROV" />
+      <div class="game-name">ROV</div>
+    </div>
+
+    <div class="game-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/4/4e/Garena_Free_Fire_logo.png" alt="Free Fire" />
+      <div class="game-name">Free Fire</div>
+    </div>
+
+  </main>
+
+  <!-- เมนูด้านล่าง -->
+  <nav class="bottom-nav">
+    <a href="#">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="หน้าหลัก" />
+      <span>หน้าหลัก</span>
+    </a>
+    <a href="#">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/search.png" alt="ค้นหา" />
+      <span>ค้นหา</span>
+    </a>
+    <a href="#">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="บัญชี" />
+      <span>บัญชี</span>
+    </a>
+  </nav>
 
   <script src="script.js"></script>
 </body>
