@@ -1,107 +1,123 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: sans-serif;
-  background: #111;
+  padding: 0;
+}
+
+body {
+  font-family: 'Kanit', sans-serif;
+  background-color: #0c1021;
   color: white;
-  padding-bottom: 80px; /* เผื่อไว้สำหรับเมนูล่าง */
+  padding-bottom: 80px;
 }
 
 .header {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  gap: 15px;
+  justify-content: center;
+  position: relative;
+  background-color: #000;
+  padding: 10px;
 }
 
 .logo {
+  position: absolute;
+  left: 15px;
   height: 40px;
 }
 
-h2 {
-  margin: 0;
+.header h1 {
+  font-size: 20px;
+  color: white;
+}
+
+.content {
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 /* สไลด์ */
-.slider-container {
-  width: 100%;
+.slider {
   overflow: hidden;
-  position: relative;
-  height: 200px;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 20px;
+  border-radius: 10px;
 }
 
-.slider {
+.slides {
   display: flex;
   width: 300%;
-  animation: slide 9s infinite linear;
+  animation: slide 9s infinite;
 }
 
-.slide {
-  min-width: 100%;
-}
-
-.slide img {
+.slides img {
   width: 100%;
-  height: 200px;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 @keyframes slide {
-  0%   { transform: translateX(0%); }
-  33%  { transform: translateX(-100%); }
-  66%  { transform: translateX(-200%); }
+  0% { transform: translateX(0%); }
+  33% { transform: translateX(-100%); }
+  66% { transform: translateX(-200%); }
   100% { transform: translateX(0%); }
 }
 
-/* เมนูด้านล่าง */
+/* เกมยอดนิยม */
+.game-card {
+  background-color: #1a1a1a;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 0 5px #222;
+}
+
+.game-card img {
+  height: 40px;
+}
+
+.game-name {
+  font-size: 18px;
+}
+
+/* เมนูล่าง */
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
-  background: #222;
+  width: 100%;
+  background-color: #000;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 60px;
-  border-top: 1px solid #333;
-  z-index: 100;
+  height: 70px;
+  border-top: 2px solid #333;
+}
+
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
 }
 
 .bottom-nav img {
-  height: 35px;
-  cursor: pointer;
-}
-
-/* เมนูย่อย */
-.dropdown {
-  position: relative;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  bottom: 60px;
-  right: 0;
-  background: #333;
-  padding: 10px;
-  border-radius: 8px;
-  min-width: 180px;
-  z-index: 99;
-}
-
-.dropdown-content a {
-  display: block;
-  padding: 8px;
-  color: white;
-  text-decoration: none;
-}
-
-.dropdown-content a:hover {
-  background: #444;
-}
-
-.sub-contact {
-  margin-left: 10px;
-  padding-left: 10px;
-  border-left: 2px solid #555;
+  height: 25px;
+  margin-bottom: 3px;
 }
