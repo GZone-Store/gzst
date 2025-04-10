@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="th"><head>
+<!DOCTYPE html>
+<html lang="th">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>gzone store</title>
@@ -8,184 +10,222 @@
     body {
       margin: 0;
       font-family: sans-serif;
-      background-color: #f5f3ff;
-    }header {
-  background-color: #7e22ce;
-  color: white;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
+      background-color: #1e1b2e;
+      color: #f5f3ff;
+    }
 
-header img {
-  height: 30px;
-  position: absolute;
-  left: 10px;
-}
+    header {
+      background-color: #4c1d95;
+      color: white;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
 
-header h1 {
-  margin: 0;
-  font-size: 20px;
-}
+    header img {
+      height: 30px;
+      position: absolute;
+      left: 10px;
+    }
 
-.announcement {
-  background-color: #ede9fe;
-  color: #7e22ce;
-  padding: 5px 0;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  position: relative;
-}
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
 
-.announcement span {
-  display: inline-block;
-  padding-left: 100%;
-  animation: marquee 10s linear infinite;
-}
+    .announcement {
+      background-color: #2e1065;
+      color: #e0e7ff;
+      padding: 5px 0;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+    }
 
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
+    .announcement span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 10s linear infinite;
+    }
 
-.swiper {
-  width: 100%;
-  height: 160px;
-  margin-top: 10px;
-}
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
 
-.swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    .swiper {
+      width: 100%;
+      height: 160px;
+      margin-top: 10px;
+    }
 
-.section-title {
-  margin: 20px;
-  font-weight: bold;
-  color: #333;
-}
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-.game-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
+    .section-title {
+      margin: 20px;
+      font-weight: bold;
+      color: #f5f3ff;
+    }
 
-.game-card {
-  background: white;
-  border-radius: 10px;
-  padding: 10px;
-  width: 150px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+    .game-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
 
-.game-card img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 6px;
-}
+    .game-card {
+      background: #2a2438;
+      border-radius: 10px;
+      padding: 10px;
+      width: 150px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+    }
 
-.download-btn {
-  margin-top: 10px;
-  padding: 5px 10px;
-  background-color: #9333ea;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
+    .game-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
 
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  background-color: white;
-  border-top: 1px solid #ddd;
-}
+    .download-btn {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #9333ea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
 
-.bottom-nav a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 5px;
-  color: #7e22ce;
-  font-size: 12px;
-  text-decoration: none;
-}
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background-color: #1e1b2e;
+      border-top: 1px solid #444;
+      z-index: 999;
+    }
 
-.account-page button {
-  display: block;
-  width: 90%;
-  margin: 10px auto;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: none;
-  background-color: #ede9fe;
-  color: #333;
-}
+    .bottom-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5px;
+      color: #c084fc;
+      font-size: 12px;
+      text-decoration: none;
+    }
 
-.logout {
-  background-color: #fee2e2 !important;
-  color: #dc2626 !important;
-  margin-top: 30px !important;
-}
+    .account-page {
+      display: none;
+    }
+
+    .account-page.active {
+      display: block;
+    }
+
+    .account-page button {
+      display: block;
+      width: 90%;
+      margin: 10px auto;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #ede9fe;
+      color: #333;
+    }
+
+    .logout {
+      background-color: #fee2e2 !important;
+      color: #dc2626 !important;
+      margin-top: 30px !important;
+    }
+
+    .swiper, .announcement, .game-list, .section-title {
+      display: none;
+    }
+
+    #home .swiper,
+    #home .announcement,
+    #home .game-list,
+    #home .section-title {
+      display: block;
+    }
 
   </style>
-</head><body>
+</head>
+<body>
   <header>
     <img src="logo.png" alt="Logo" />
-    <h1>Game Store</h1>
-  </header>  <div class="announcement">
-    <span>รับโบนัสพิเศษเมื่อสมัครวันนี้!</span>
-  </div>  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><a href="#link1"><img src="banner1.png" alt="Banner 1"></a></div>
-      <div class="swiper-slide"><a href="#link2"><img src="banner2.png" alt="Banner 2"></a></div>
-      <div class="swiper-slide"><a href="#link3"><img src="banner3.png" alt="Banner 3"></a></div>
+    <h1><span id="site-title">Game Store</span></h1>
+  </header>
+
+  <div id="home">
+    <div class="announcement">
+      <span>รับโบนัสพิเศษเมื่อสมัครวันนี้!</span>
     </div>
-    <div class="swiper-pagination"></div>
-  </div>  <div class="section-title">เกมยอดนิยม</div>
-  <div class="game-list">
-    <div class="game-card">
-      <img src="game1.png" alt="Game 1" />
-      <p>Graffiti Rush</p>
-      <button class="download-btn">ดาวน์โหลด</button>
+
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><a href="#link1"><img src="banner1.png" alt="Banner 1"></a></div>
+        <div class="swiper-slide"><a href="#link2"><img src="banner2.png" alt="Banner 2"></a></div>
+        <div class="swiper-slide"><a href="#link3"><img src="banner3.png" alt="Banner 3"></a></div>
+      </div>
+      <div class="swiper-pagination"></div>
     </div>
-    <div class="game-card">
-      <img src="game2.png" alt="Game 2" />
-      <p>Lucky Neko</p>
-      <button class="download-btn">ดาวน์โหลด</button>
+
+    <div class="section-title">เกมยอดนิยม</div>
+    <div class="game-list">
+      <div class="game-card">
+        <img src="game1.png" alt="Game 1" />
+        <p>Graffiti Rush</p>
+        <button class="download-btn">ดาวน์โหลด</button>
+      </div>
+      <div class="game-card">
+        <img src="game2.png" alt="Game 2" />
+        <p>Lucky Neko</p>
+        <button class="download-btn">ดาวน์โหลด</button>
+      </div>
     </div>
-  </div>  <div class="account-page">
+  </div>
+
+  <div id="account" class="account-page">
     <button>เข้าสู่ระบบ / สร้างบัญชี</button>
     <button>บัญชีของฉัน</button>
     <button>ติดต่อ (Telegram / Line)</button>
     <button>Support / Donate</button>
     <button class="logout">ออกจากระบบ</button>
-  </div>  <div class="bottom-nav">
-    <a href="#">
+  </div>
+
+  <div class="bottom-nav">
+    <a href="#" onclick="switchPage('home')">
       <img src="icon-game.png" width="24" height="24">
       <span>เกม</span>
     </a>
-    <a href="#">
+    <a href="#" onclick="switchPage('home')">
       <img src="icon-home.png" width="24" height="24">
       <span>หน้าหลัก</span>
     </a>
-    <a href="#">
+    <a href="#" onclick="switchPage('account')">
       <img src="icon-account.png" width="24" height="24">
       <span>บัญชี</span>
     </a>
-  </div>  <script>
+  </div>
+
+  <script>
     const swiper = new Swiper(".mySwiper", {
       loop: true,
       autoplay: {
@@ -197,4 +237,14 @@ header h1 {
         clickable: true,
       },
     });
-  </script></body></html>
+
+    function switchPage(page) {
+      document.getElementById("home").style.display = page === "home" ? "block" : "none";
+      document.getElementById("account").classList.toggle("active", page === "account");
+    }
+
+    // เปลี่ยนชื่อเว็บง่ายๆ
+    document.getElementById("site-title").innerText = "G-ZONE STORE";
+  </script>
+</body>
+</html>
