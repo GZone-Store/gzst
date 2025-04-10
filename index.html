@@ -1,46 +1,60 @@
 <!DOCTYPE html><html lang="th"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Store</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <title>welcome to GZone</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f5fb;
+      font-family: sans-serif;
+      background-color: #f5f3ff;
     }header {
-  background-color: #7c4dff;
+  background-color: #7e22ce;
   color: white;
+  padding: 10px;
   display: flex;
   align-items: center;
-  padding: 10px 15px;
+  justify-content: center;
+  position: relative;
 }
 
 header img {
   height: 30px;
-  margin-right: 10px;
+  position: absolute;
+  left: 10px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 20px;
 }
 
 .announcement {
-  background-color: #ede7f6;
-  color: #6a1b9a;
+  background-color: #ede9fe;
+  color: #7e22ce;
+  padding: 5px 0;
   text-align: center;
-  padding: 6px;
-  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
 }
 
-.section {
-  display: none;
-  padding: 10px;
+.announcement span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 10s linear infinite;
 }
 
-.section.active {
-  display: block;
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
 .swiper {
   width: 100%;
   height: 160px;
+  margin-top: 10px;
 }
 
 .swiper-slide img {
@@ -49,126 +63,138 @@ header img {
   object-fit: cover;
 }
 
-h2 {
-  margin-top: 20px;
-  font-size: 18px;
+.section-title {
+  margin: 20px;
+  font-weight: bold;
   color: #333;
 }
 
 .game-list {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 .game-card {
-  flex: 1 1 calc(50% - 10px);
-  background-color: white;
+  background: white;
   border-radius: 10px;
   padding: 10px;
+  width: 150px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .game-card img {
   width: 100%;
-  border-radius: 8px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
-.game-card button {
-  margin-top: 5px;
-  background-color: #7c4dff;
+.download-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #9333ea;
   color: white;
   border: none;
-  padding: 6px 12px;
   border-radius: 5px;
 }
 
 .bottom-nav {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: space-around;
   background-color: white;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #ddd;
 }
 
-.bottom-nav div {
-  padding: 10px;
-  text-align: center;
-  flex: 1;
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  color: #7e22ce;
   font-size: 12px;
-  color: #7c4dff;
+  text-decoration: none;
 }
 
-.account-menu button {
+.account-page button {
   display: block;
-  width: 100%;
-  padding: 10px;
-  background: white;
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
   border: none;
-  border-bottom: 1px solid #eee;
-  text-align: left;
+  background-color: #ede9fe;
   color: #333;
-  font-size: 15px;
 }
 
 .logout {
-  color: red;
+  background-color: #fee2e2 !important;
+  color: #dc2626 !important;
+  margin-top: 30px !important;
 }
 
   </style>
 </head><body>
   <header>
-    <img src="logo.png" alt="Logo">
-    <strong>Game Store</strong>
-  </header>  <div class="announcement">รับโบนัสพิเศษเมื่อสมัครวันนี้!</div>  <!-- หน้าหลัก -->  <div id="home" class="section active">
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><a href="#"><img src="banner1.png" /></a></div>
-        <div class="swiper-slide"><a href="#"><img src="banner2.png" /></a></div>
-        <div class="swiper-slide"><a href="#"><img src="banner3.png" /></a></div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div><h2>เกมยอดนิยม</h2>
-<div class="game-list">
-  <div class="game-card">
-    <img src="game1.png" alt="Game 1">
-    <p>Graffiti Rush</p>
-    <button>ดาวน์โหลด</button>
-  </div>
-  <div class="game-card">
-    <img src="game2.png" alt="Game 2">
-    <p>Lucky Neko</p>
-    <button>ดาวน์โหลด</button>
-  </div>
-</div>
-
-  </div>  <!-- หน้าเกม -->  <div id="games" class="section">
-    <h2>หมวดหมู่เกม (ตัวอย่าง)</h2>
-    <p>เร็ว ๆ นี้...</p>
-  </div>  <!-- หน้าบัญชี -->  <div id="account" class="section">
-    <div class="account-menu">
-      <button onclick="alert('เข้าสู่ระบบจำลอง')">เข้าสู่ระบบ / สมัครบัญชี</button>
-      <button>บัญชีของฉัน</button>
-      <button onclick="alert('ติดต่อผ่าน Telegram หรือ Line')">ติดต่อ (Telegram / Line)</button>
-      <button>Support / Donate</button>
-      <button class="logout">ออกจากระบบ</button>
+    <img src="logo.png" alt="Logo" />
+    <h1>Game Store</h1>
+  </header>  <div class="announcement">
+    <span>รับโบนัสพิเศษเมื่อสมัครวันนี้!</span>
+  </div>  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><a href="#link1"><img src="banner1.png" alt="Banner 1"></a></div>
+      <div class="swiper-slide"><a href="#link2"><img src="banner2.png" alt="Banner 2"></a></div>
+      <div class="swiper-slide"><a href="#link3"><img src="banner3.png" alt="Banner 3"></a></div>
     </div>
+    <div class="swiper-pagination"></div>
+  </div>  <div class="section-title">เกมยอดนิยม</div>
+  <div class="game-list">
+    <div class="game-card">
+      <img src="game1.png" alt="Game 1" />
+      <p>Graffiti Rush</p>
+      <button class="download-btn">ดาวน์โหลด</button>
+    </div>
+    <div class="game-card">
+      <img src="game2.png" alt="Game 2" />
+      <p>Lucky Neko</p>
+      <button class="download-btn">ดาวน์โหลด</button>
+    </div>
+  </div>  <div class="account-page">
+    <button>เข้าสู่ระบบ / สร้างบัญชี</button>
+    <button>บัญชีของฉัน</button>
+    <button>ติดต่อ (Telegram / Line)</button>
+    <button>Support / Donate</button>
+    <button class="logout">ออกจากระบบ</button>
   </div>  <div class="bottom-nav">
-    <div onclick="switchTab('games')">เกม</div>
-    <div onclick="switchTab('home')">หน้าหลัก</div>
-    <div onclick="switchTab('account')">บัญชี</div>
-  </div>  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>  <script>
-    const switchTab = (tab) => {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.getElementById(tab).classList.add('active');
-    }
-
-    new Swiper('.swiper', {
+    <a href="#">
+      <img src="icon-game.png" width="24" height="24">
+      <span>เกม</span>
+    </a>
+    <a href="#">
+      <img src="icon-home.png" width="24" height="24">
+      <span>หน้าหลัก</span>
+    </a>
+    <a href="#">
+      <img src="icon-account.png" width="24" height="24">
+      <span>บัญชี</span>
+    </a>
+  </div>  <script>
+    const swiper = new Swiper(".mySwiper", {
       loop: true,
-      autoplay: { delay: 3000 },
-      pagination: { el: '.swiper-pagination' },
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
     });
   </script></body></html>
