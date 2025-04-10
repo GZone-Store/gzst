@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="th">
+<!DOCTYPE html><html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,205 +9,281 @@
     body {
       margin: 0;
       font-family: sans-serif;
-      background-color: #f9f9fc;
-      color: #111;
-    }
-
-    header {
       background-color: #1e1b2e;
-      color: white;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
+      color: #f5f3ff;
+    }header {
+  background-color: #7e22ce;
+  color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
-    header img {
-      height: 30px;
-      position: absolute;
-      left: 10px;
-    }
+header img {
+  height: 30px;
+  position: absolute;
+  left: 10px;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 20px;
-    }
+header h1 {
+  margin: 0;
+  font-size: 20px;
+}
 
-    .announcement {
-      background-color: #ede9fe;
-      color: #7e22ce;
-      padding: 5px 0;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      position: relative;
-    }
+.announcement {
+  background-color: #ede9fe;
+  color: #7e22ce;
+  padding: 5px 0;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
 
-    .announcement span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: marquee 10s linear infinite;
-    }
+.announcement span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 10s linear infinite;
+}
 
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
 
-    .swiper {
-      width: 100%;
-      height: 160px;
-      margin-top: 10px;
-    }
+.swiper {
+  width: 100%;
+  height: 160px;
+  margin-top: 10px;
+}
 
-    .swiper-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .section-title {
-      margin: 20px;
-      font-weight: bold;
-      color: #333;
-    }
+.section-title {
+  margin: 20px;
+  font-weight: bold;
+  color: #e5e3fa;
+}
 
-    .game-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      padding-bottom: 80px; /* กันชนไม่ให้โดนเมนูล่างบัง */
-    }
+.game-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
 
-    .game-card {
-      background: white;
-      border-radius: 10px;
-      padding: 10px;
-      width: 150px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+.game-card {
+  background: #2c273f;
+  border-radius: 10px;
+  padding: 10px;
+  width: 150px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
 
-    .game-card img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
+.game-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
 
-    .download-btn {
-      margin-top: 10px;
-      padding: 5px 10px;
-      background-color: #9333ea;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
+.download-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #9333ea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      background-color: #1e1b2e;
-      border-top: 1px solid #ddd;
-      z-index: 999;
-    }
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: #2c273f;
+  border-top: 1px solid #7e22ce;
+  z-index: 999;
+}
 
-    .bottom-nav a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 8px;
-      color: #ede9fe;
-      font-size: 12px;
-      text-decoration: none;
-    }
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  color: #a78bfa;
+  font-size: 12px;
+  text-decoration: none;
+}
 
-    .account-page {
-      display: none;
-      padding-bottom: 100px;
-    }
+.account-page, .login-page, .register-page {
+  display: none;
+  padding: 20px;
+}
 
-    .account-page.active {
-      display: block;
-    }
+.account-page.active, .login-page.active, .register-page.active, .home-page.active {
+  display: block;
+}
 
-    .account-page button {
-      display: block;
-      width: 90%;
-      margin: 10px auto;
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      background-color: #ede9fe;
-      color: #333;
-    }
+.account-page button, .login-page button, .register-page button {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ede9fe;
+  color: #333;
+}
 
-    .logout {
-      background-color: #fee2e2 !important;
-      color: #dc2626 !important;
-      margin-top: 30px !important;
-    }
+.logout {
+  background-color: #fee2e2 !important;
+  color: #dc2626 !important;
+  margin-top: 30px !important;
+}
+
+.dropdown {
+  margin: 10px auto;
+  width: 90%;
+}
+
+.dropdown select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+input[type="text"], input[type="password"] {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
   </style>
 </head>
 <body>
   <header>
     <img src="logo.png" alt="Logo" />
-    <h1 id="page-title">Game Store</h1>
-  </header>
-
-  <div class="announcement" id="announcement-bar">
+    <h1 id="header-title">Game Store</h1>
+  </header>  <div class="announcement home-page active">
     <span>รับโบนัสพิเศษเมื่อสมัครวันนี้!</span>
-  </div>
-
-  <div class="swiper mySwiper" id="banner-section">
+  </div>  <div class="swiper mySwiper home-page active">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><a href="#home"><img src="banner1.png" alt="Banner 1"></a></div>
-      <div class="swiper-slide"><a href="#home"><img src="banner2.png" alt="Banner 2"></a></div>
-      <div class="swiper-slide"><a href="#home"><img src="banner3.png" alt="Banner 3"></a></div>
+      <div class="swiper-slide"><a href="#"><img src="banner1.png" alt="Banner 1"></a></div>
+      <div class="swiper-slide"><a href="#"><img src="banner2.png" alt="Banner 2"></a></div>
+      <div class="swiper-slide"><a href="#"><img src="banner3.png" alt="Banner 3"></a></div>
     </div>
     <div class="swiper-pagination"></div>
-  </div>
-
-  <div id="home-section">
-    <div class="section-title">เกมยอดนิยม</div>
-    <div class="game-list">
-      <p style="width: 100%; text-align: center; color: #aaa; font-size: 16px;">
-        เกมจะมีเร็วๆนี้!!
-      </p>
+  </div>  <div class="section-title home-page active">เกมยอดนิยม</div>
+  <div class="game-list home-page active">
+    <div class="game-card">
+      <img src="game1.png" alt="Game 1" />
+      <p>Graffiti Rush</p>
+      <a href="https://example.com/game1.apk" class="download-btn">ดาวน์โหลด</a>
     </div>
-  </div>
-
-  <div class="account-page" id="account-section">
-    <button>เข้าสู่ระบบ / สร้างบัญชี</button>
+    <div class="game-card">
+      <img src="game2.png" alt="Game 2" />
+      <p>Lucky Neko</p>
+      <a href="https://example.com/game2.apk" class="download-btn">ดาวน์โหลด</a>
+    </div>
+  </div>  <div class="section-title account-page">บัญชีของคุณ</div>
+  <div class="account-page">
+    <button onclick="showPage('login')">เข้าสู่ระบบ / สร้างบัญชี</button>
     <button>บัญชีของฉัน</button>
-    <button>ติดต่อ (Telegram / Line)</button>
-    <button>Support / Donate</button>
-    <button class="logout">ออกจากระบบ</button>
-  </div>
-
-  <div class="bottom-nav">
-    <a href="#game" onclick="showSection('game')">
+    <div class="dropdown">
+      <select onchange="window.open(this.value)">
+        <option value="">ติดต่อ (Telegram / Line)</option>
+        <option value="https://t.me/yourchannel">Telegram</option>
+        <option value="https://line.me/ti/p/yourlineid">Line</option>
+      </select>
+    </div>
+    <button onclick="alert('ขอบคุณสำหรับการสนับสนุน!')">Support / Donate</button>
+    <button class="logout" onclick="logout()">ออกจากระบบ</button>
+  </div>  <div class="login-page">
+    <input type="text" id="username" placeholder="ชื่อผู้ใช้">
+    <input type="password" id="password" placeholder="รหัสผ่าน">
+    <button onclick="login()">เข้าสู่ระบบ</button>
+    <button onclick="showPage('register')">สร้างบัญชีใหม่</button>
+  </div>  <div class="register-page">
+    <input type="text" id="newuser" placeholder="ชื่อผู้ใช้ใหม่">
+    <input type="password" id="newpass" placeholder="รหัสผ่านใหม่">
+    <button onclick="register()">สมัครสมาชิก</button>
+    <button onclick="showPage('login')">กลับ</button>
+  </div>  <div class="bottom-nav">
+    <a href="#" onclick="showPage('home')">
       <img src="icon-game.png" width="24" height="24">
       <span>เกม</span>
     </a>
-    <a href="#home" onclick="showSection('home')">
+    <a href="#" onclick="showPage('home')">
       <img src="icon-home.png" width="24" height="24">
       <span>หน้าหลัก</span>
     </a>
-    <a href="#account" onclick="showSection('account')">
+    <a href="#" onclick="showPage('account')">
       <img src="icon-account.png" width="24" height="24">
       <span>บัญชี</span>
     </a>
-  </div>
+  </div>  <script>
+    let currentUser = null;
 
-  <script>
+    function showPage(page) {
+      document.querySelectorAll('.home-page, .account-page, .login-page, .register-page')
+        .forEach(p => p.classList.remove('active'));
+
+      if (page === 'home') {
+        document.querySelectorAll('.home-page').forEach(p => p.classList.add('active'));
+      } else if (page === 'account') {
+        document.querySelector('.account-page').classList.add('active');
+      } else if (page === 'login') {
+        document.querySelector('.login-page').classList.add('active');
+      } else if (page === 'register') {
+        document.querySelector('.register-page').classList.add('active');
+      }
+    }
+
+    function login() {
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+      if (localStorage.getItem(u) === p) {
+        currentUser = u;
+        alert('เข้าสู่ระบบสำเร็จ');
+        showPage('account');
+      } else {
+        alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+      }
+    }
+
+    function register() {
+      const u = document.getElementById('newuser').value;
+      const p = document.getElementById('newpass').value;
+      if (u && p) {
+        localStorage.setItem(u, p);
+        alert('สมัครสมาชิกสำเร็จ');
+        showPage('login');
+      } else {
+        alert('กรุณากรอกข้อมูลให้ครบ');
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      alert('ออกจากระบบแล้ว');
+      showPage('home');
+    }
+
     const swiper = new Swiper(".mySwiper", {
       loop: true,
       autoplay: {
@@ -220,32 +295,5 @@
         clickable: true,
       },
     });
-
-    function showSection(section) {
-      // ซ่อนทุกส่วน
-      document.getElementById('home-section').style.display = 'none';
-      document.getElementById('account-section').classList.remove('active');
-      document.getElementById('banner-section').style.display = 'none';
-      document.getElementById('announcement-bar').style.display = 'none';
-
-      // เปลี่ยนข้อความหัวข้อ
-      const title = document.getElementById('page-title');
-      if (section === 'home') {
-        title.textContent = "Game Store";
-        document.getElementById('home-section').style.display = 'block';
-        document.getElementById('banner-section').style.display = 'block';
-        document.getElementById('announcement-bar').style.display = 'block';
-      } else if (section === 'account') {
-        title.textContent = "บัญชีของคุณ";
-        document.getElementById('account-section').classList.add('active');
-      } else if (section === 'game') {
-        title.textContent = "คลังเกม";
-        document.getElementById('home-section').style.display = 'block';
-      }
-    }
-
-    // เริ่มต้นแสดงหน้า Home
-    showSection('home');
-  </script>
-</body>
+  </script></body>
 </html>
