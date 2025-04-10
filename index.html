@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Download Site</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -20,26 +21,31 @@
     }
   </style>
 </head>
-<body class="text-gray-800 text-sm max-w-md mx-auto">  <!-- Header -->  <header class="flex items-center p-4 bg-purple-700 text-white">
+<body class="text-gray-800 text-sm max-w-sm mx-auto relative pb-20">  <!-- Header -->  <header class="flex items-center p-3 bg-purple-700 text-white">
     <img src="logo.png" alt="Logo" class="h-8 mr-3">
     <h1 class="text-base font-semibold">Game Store</h1>
   </header>  <!-- Notification Bar -->  <div class="bg-purple-100 text-purple-800 text-xs p-2">
     <div class="marquee">ประกาศ: เกมใหม่อัปเดตแล้ว! รับโบนัสพิเศษเมื่อสมัครวันนี้!</div>
-  </div>  <!-- Banner Carousel -->  <div class="relative overflow-hidden">
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <a href="https://example.com/game1" class="swiper-slide">
-          <img src="banner1.png" alt="Banner 1" class="w-full h-40 object-cover">
+  </div>  <!-- Banner Carousel -->  <div class="swiper mySwiper w-full h-40">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <a href="https://example.com/game1">
+          <img src="banner1.png" alt="Banner 1" class="w-full h-full object-cover">
         </a>
-        <a href="https://example.com/game2" class="swiper-slide">
-          <img src="banner2.png" alt="Banner 2" class="w-full h-40 object-cover">
+      </div>
+      <div class="swiper-slide">
+        <a href="https://example.com/game2">
+          <img src="banner2.png" alt="Banner 2" class="w-full h-full object-cover">
         </a>
-        <a href="https://example.com/game3" class="swiper-slide">
-          <img src="banner3.png" alt="Banner 3" class="w-full h-40 object-cover">
+      </div>
+      <div class="swiper-slide">
+        <a href="https://example.com/game3">
+          <img src="banner3.png" alt="Banner 3" class="w-full h-full object-cover">
         </a>
       </div>
     </div>
-  </div>  <!-- Game List -->  <section class="p-4">
+    <div class="swiper-pagination"></div>
+  </div>  <!-- Main Content -->  <main id="mainContent" class="p-4">
     <h2 class="text-base font-bold mb-2">เกมยอดนิยม</h2>
     <div class="grid grid-cols-2 gap-4">
       <div class="bg-white rounded-xl shadow p-2">
@@ -57,20 +63,7 @@
         </div>
       </div>
     </div>
-  </section>  <!-- Bottom Navigation -->  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-1 shadow text-xs">
-    <button onclick="alert('เกม')" class="flex flex-col items-center text-gray-600">
-      <img src="icon-games.png" class="h-5 mb-0.5">
-      เกม
-    </button>
-    <button onclick="alert('หน้าหลัก')" class="flex flex-col items-center text-purple-700">
-      <img src="icon-home.png" class="h-5 mb-0.5">
-      หน้าหลัก
-    </button>
-    <button onclick="toggleAccountMenu()" class="flex flex-col items-center text-gray-600">
-      <img src="icon-account.png" class="h-5 mb-0.5">
-      บัญชี
-    </button>
-  </nav>  <!-- Account Menu (Full Width) -->  <div id="accountMenu" class="fixed inset-x-0 bottom-14 z-50 bg-white border-t rounded-t-xl shadow-lg p-4 hidden">
+  </main>  <!-- Account Page -->  <section id="accountPage" class="hidden p-4">
     <div id="notLoggedIn">
       <button class="w-full bg-purple-600 text-white py-2 rounded">เข้าสู่ระบบ / สร้างบัญชี</button>
     </div>
@@ -87,23 +80,47 @@
       <button class="w-full text-left py-2 px-4 bg-red-100 text-red-600 rounded">ออกจากระบบ</button>
     </div>
     <button onclick="toggleLoginStatus()" class="mt-2 text-xs underline text-gray-400 w-full text-center">[จำลอง] สลับสถานะเข้าสู่ระบบ</button>
-  </div>  <!-- Swiper JS -->  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>  <script>
-    const swiper = new Swiper('.swiper', {
+  </section>  <!-- Bottom Navigation -->  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2 shadow text-xs z-50">
+    <button onclick="showPage('games')" class="flex flex-col items-center text-gray-600">
+      <img src="icon-games.png" class="h-5 mb-0.5">
+      เกม
+    </button>
+    <button onclick="showPage('main')" class="flex flex-col items-center text-purple-700">
+      <img src="icon-home.png" class="h-5 mb-0.5">
+      หน้าหลัก
+    </button>
+    <button onclick="showPage('account')" class="flex flex-col items-center text-gray-600">
+      <img src="icon-account.png" class="h-5 mb-0.5">
+      บัญชี
+    </button>
+  </nav>  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>  <script>
+    const swiper = new Swiper(".mySwiper", {
       loop: true,
-      autoplay: { delay: 3000 },
-      slidesPerView: 1,
-      spaceBetween: 0,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+      },
     });
 
-    function toggleAccountMenu() {
-      const menu = document.getElementById('accountMenu');
-      menu.classList.toggle('hidden');
-    }
     function toggleLoginStatus() {
-      const notLoggedIn = document.getElementById('notLoggedIn');
-      const loggedIn = document.getElementById('loggedIn');
-      notLoggedIn.classList.toggle('hidden');
-      loggedIn.classList.toggle('hidden');
+      const notLoggedIn = document.getElementById("notLoggedIn");
+      const loggedIn = document.getElementById("loggedIn");
+      notLoggedIn.classList.toggle("hidden");
+      loggedIn.classList.toggle("hidden");
+    }
+
+    function showPage(page) {
+      document.getElementById("mainContent").classList.add("hidden");
+      document.getElementById("accountPage").classList.add("hidden");
+
+      if (page === 'main') {
+        document.getElementById("mainContent").classList.remove("hidden");
+      } else if (page === 'account') {
+        document.getElementById("accountPage").classList.remove("hidden");
+      }
     }
   </script></body>
 </html>
