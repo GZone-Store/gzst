@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
+<!DOCTYPE html><html lang="th"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gzone store</title>
+  <title>Game Store</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <style>
@@ -11,250 +9,192 @@
       margin: 0;
       font-family: sans-serif;
       background-color: #f5f3ff;
-    }
-    header {
-      background-color: #7e22ce;
-      color: white;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    header img {
-      height: 30px;
-      position: absolute;
-      left: 10px;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 20px;
-    }
-    .announcement {
-      background-color: #ede9fe;
-      color: #7e22ce;
-      padding: 5px 0;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      position: relative;
-    }
-    .announcement span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: marquee 10s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    .swiper {
-      width: 100%;
-      height: 160px;
-      margin-top: 10px;
-    }
-    .swiper-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .section-title {
-      margin: 20px;
-      font-weight: bold;
-      color: #333;
-    }
-    .game-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    .game-card {
-      background: white;
-      border-radius: 10px;
-      padding: 10px;
-      width: 150px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    .game-card img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-    .download-btn {
-      margin-top: 10px;
-      padding: 5px 10px;
-      background-color: #9333ea;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      background-color: white;
-      border-top: 1px solid #ddd;
-      z-index: 1000;
-    }
-    .bottom-nav a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 5px;
-      color: #7e22ce;
-      font-size: 12px;
-      text-decoration: none;
-    }
-    .account-page button {
-      display: block;
-      width: 90%;
-      margin: 10px auto;
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      background-color: #ede9fe;
-      color: #333;
-    }
-    .logout {
-      background-color: #fee2e2 !important;
-      color: #dc2626 !important;
-      margin-top: 30px !important;
-    }
-    .content {
-      margin-bottom: 60px; /* Reserve space for the fixed navigation */
-    }
-    /* Hide sections by default */
-    #games-section, #account-section {
-      display: none;
-    }
-    /* When active, show the section */
-    .active {
-      display: block;
-    }
+    }header {
+  background-color: #7e22ce;
+  color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+header img {
+  height: 30px;
+  position: absolute;
+  left: 10px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.announcement {
+  background-color: #ede9fe;
+  color: #7e22ce;
+  padding: 5px 0;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.announcement span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.swiper {
+  width: 100%;
+  height: 160px;
+  margin-top: 10px;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.section-title {
+  margin: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.game-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.game-card {
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  width: 150px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.game-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.download-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #9333ea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  border-top: 1px solid #ddd;
+}
+
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  color: #7e22ce;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.account-page button {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ede9fe;
+  color: #333;
+}
+
+.logout {
+  background-color: #fee2e2 !important;
+  color: #dc2626 !important;
+  margin-top: 30px !important;
+}
+
   </style>
-</head>
-<body>
-
-<header>
-  <img src="logo.png" alt="Logo" />
-  <h1>Game Store</h1>
-</header>
-
-<div class="announcement">
-  <span>รับโบนัสพิเศษเมื่อสมัครวันนี้!</span>
-</div>
-
-<!-- Main content for "หน้าหลัก" -->
-<div id="main-section" class="content">
-  <div class="swiper mySwiper">
+</head><body>
+  <header>
+    <img src="logo.png" alt="Logo" />
+    <h1>Game Store</h1>
+  </header>  <div class="announcement">
+    <span>รับโบนัสพิเศษเมื่อสมัครวันนี้!</span>
+  </div>  <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide"><a href="#link1"><img src="banner1.png" alt="Banner 1"></a></div>
       <div class="swiper-slide"><a href="#link2"><img src="banner2.png" alt="Banner 2"></a></div>
       <div class="swiper-slide"><a href="#link3"><img src="banner3.png" alt="Banner 3"></a></div>
     </div>
     <div class="swiper-pagination"></div>
-  </div>
-
-  <div class="section-title">เกมยอดนิยม</div>
+  </div>  <div class="section-title">เกมยอดนิยม</div>
   <div class="game-list">
     <div class="game-card">
       <img src="game1.png" alt="Game 1" />
       <p>Graffiti Rush</p>
-      <a href="download-link-1" class="download-btn">ดาวน์โหลด</a>
+      <button class="download-btn">ดาวน์โหลด</button>
     </div>
     <div class="game-card">
       <img src="game2.png" alt="Game 2" />
       <p>Lucky Neko</p>
-      <a href="download-link-2" class="download-btn">ดาวน์โหลด</a>
+      <button class="download-btn">ดาวน์โหลด</button>
     </div>
-  </div>
-</div>
-
-<!-- Main content for "เกม" -->
-<div id="games-section" class="content">
-  <div class="section-title">เกม</div>
-  <p>ขณะนี้ยังไม่มีเกม</p>
-</div>
-
-<!-- Account Page Section -->
-<div id="account-section" class="account-page content">
-  <button onclick="showLogin()">เข้าสู่ระบบ / สร้างบัญชี</button>
-  <button onclick="showAccount()">บัญชีของฉัน</button>
-  <button onclick="toggleContact()">ติดต่อ (Telegram / Line)</button>
-  <button>Support / Donate</button>
-  <button class="logout" onclick="logout()">ออกจากระบบ</button>
-</div>
-
-<!-- Bottom Navigation -->
-<div class="bottom-nav">
-  <a href="#" onclick="showGames()">
-    <img src="icon-game.png" width="24" height="24">
-    <span>เกม</span>
-  </a>
-  <a href="#" onclick="showMain()">
-    <img src="icon-home.png" width="24" height="24">
-    <span>หน้าหลัก</span>
-  </a>
-  <a href="#" onclick="showAccountPage()">
-    <img src="icon-account.png" width="24" height="24">
-    <span>บัญชี</span>
-  </a>
-</div>
-
-<script>
-  const swiper = new Swiper(".mySwiper", {
-    loop: true,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: false,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-  });
-
-  function showMain() {
-    document.getElementById('main-section').classList.add('active');
-    document.getElementById('games-section').classList.remove('active');
-    document.getElementById('account-section').classList.remove('active');
-  }
-
-  function showGames() {
-    document.getElementById('main-section').classList.remove('active');
-    document.getElementById('games-section').classList.add('active');
-    document.getElementById('account-section').classList.remove('active');
-  }
-
-  function showAccountPage() {
-    document.getElementById('main-section').classList.remove('active');
-    document.getElementById('games-section').classList.remove('active');
-    document.getElementById('account-section').classList.add('active');
-  }
-
-  function showLogin() {
-    alert('เปิดหน้าเข้าสู่ระบบ / สร้างบัญชี');
-  }
-
-  function showAccount() {
-    alert('เปิดหน้าบัญชี');
-  }
-
-  function toggleContact() {
-    alert('ติดต่อ (Telegram / Line)');
-  }
-
-  function logout() {
-    alert('ออกจากระบบ');
-  }
-</script>
-
-</body>
-</html>
+  </div>  <div class="account-page">
+    <button>เข้าสู่ระบบ / สร้างบัญชี</button>
+    <button>บัญชีของฉัน</button>
+    <button>ติดต่อ (Telegram / Line)</button>
+    <button>Support / Donate</button>
+    <button class="logout">ออกจากระบบ</button>
+  </div>  <div class="bottom-nav">
+    <a href="#">
+      <img src="icon-game.png" width="24" height="24">
+      <span>เกม</span>
+    </a>
+    <a href="#">
+      <img src="icon-home.png" width="24" height="24">
+      <span>หน้าหลัก</span>
+    </a>
+    <a href="#">
+      <img src="icon-account.png" width="24" height="24">
+      <span>บัญชี</span>
+    </a>
+  </div>  <script>
+    const swiper = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+  </script></body></html>
