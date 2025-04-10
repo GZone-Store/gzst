@@ -3,28 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>วงล้อหมุน</title>
+  <title>ระบบสุ่มรางวัล</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>เล่นวงล้อหมุน</h1>
-    <div class="wheel-container">
-      <div id="wheel" class="wheel">
-        <div class="section">รางวัล 1</div>
-        <div class="section">รางวัล 2</div>
-        <div class="section">รางวัล 3</div>
-        <div class="section">รางวัล 4</div>
-        <div class="section">รางวัล 5</div>
-        <div class="section">รางวัล 6</div>
-      </div>
-      <button id="spin-button">หมุนวงล้อ</button>
-    </div>
-    <div class="ads">
-      <!-- ใส่โค้ดโฆษณาจาก Google AdSense หรือบริการอื่นๆ -->
-      <p>โฆษณา</p>
+    <h1>ระบบสุ่มรางวัล</h1>
+    <label for="options">กรุณากรอกตัวเลือกที่ต้องการสุ่ม (คั่นด้วยจุลภาค):</label>
+    <input type="text" id="options" placeholder="เลข1, เลข2, เลข3, เลข4" />
+    <button id="spin-button">สุ่มรางวัล</button>
+  </div>
+
+  <!-- ป็อปอัพผลการสุ่ม -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>ยินดีด้วยคุณ</h2>
+      <p id="result-text">เลข 3 คือผู้ชนะ</p>
+      <button id="close-button">ข้าม</button>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
