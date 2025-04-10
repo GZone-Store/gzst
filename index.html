@@ -1,221 +1,30 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Store</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #f5f3ff;
-    }
-
-    header {
-      background-color: #7e22ce;
-      color: white;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    header img {
-      height: 30px;
-      position: absolute;
-      left: 10px;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 20px;
-    }
-
-    .announcement {
-      background-color: #ede9fe;
-      color: #7e22ce;
-      padding: 5px 0;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .announcement span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: marquee 10s linear infinite;
-    }
-
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-
-    .swiper {
-      width: 100%;
-      height: 160px;
-      margin-top: 10px;
-    }
-
-    .swiper-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .section-title {
-      margin: 20px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .game-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .game-card {
-      background: white;
-      border-radius: 10px;
-      padding: 10px;
-      width: 150px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .game-card img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .download-btn {
-      margin-top: 10px;
-      padding: 5px 10px;
-      background-color: #9333ea;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      background-color: white;
-      border-top: 1px solid #ddd;
-    }
-
-    .bottom-nav a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 5px;
-      color: #7e22ce;
-      font-size: 12px;
-      text-decoration: none;
-    }
-
-    .account-page button {
-      display: block;
-      width: 90%;
-      margin: 10px auto;
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      background-color: #ede9fe;
-      color: #333;
-    }
-
-    .logout {
-      background-color: #fee2e2 !important;
-      color: #dc2626 !important;
-      margin-top: 30px !important;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>วงล้อหมุน</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <header>
-    <img src="logo.png" alt="Logo" />
-    <h1>Game Store</h1>
-  </header>
-
-  <div class="announcement">
-    <span>รับโบนัสพิเศษเมื่อสมัครวันนี้!</span>
-  </div>
-
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><a href="#link1"><img src="banner1.png" alt="Banner 1"></a></div>
-      <div class="swiper-slide"><a href="#link2"><img src="banner2.png" alt="Banner 2"></a></div>
-      <div class="swiper-slide"><a href="#link3"><img src="banner3.png" alt="Banner 3"></a></div>
+  <div class="container">
+    <h1>เล่นวงล้อหมุน</h1>
+    <div class="wheel-container">
+      <div id="wheel" class="wheel">
+        <div class="section">รางวัล 1</div>
+        <div class="section">รางวัล 2</div>
+        <div class="section">รางวัล 3</div>
+        <div class="section">รางวัล 4</div>
+        <div class="section">รางวัล 5</div>
+        <div class="section">รางวัล 6</div>
+      </div>
+      <button id="spin-button">หมุนวงล้อ</button>
     </div>
-    <div class="swiper-pagination"></div>
-  </div>
-
-  <div class="section-title">เกมยอดนิยม</div>
-  <div class="game-list">
-    <div class="game-card">
-      <img src="game1.png" alt="Game 1" />
-      <p>Graffiti Rush</p>
-      <button class="download-btn">ดาวน์โหลด</button>
-    </div>
-    <div class="game-card">
-      <img src="game2.png" alt="Game 2" />
-      <p>Lucky Neko</p>
-      <button class="download-btn">ดาวน์โหลด</button>
+    <div class="ads">
+      <!-- ใส่โค้ดโฆษณาจาก Google AdSense หรือบริการอื่นๆ -->
+      <p>โฆษณา</p>
     </div>
   </div>
-
-  <div class="account-page">
-    <button>เข้าสู่ระบบ / สร้างบัญชี</button>
-    <button>บัญชีของฉัน</button>
-    <button>ติดต่อ (Telegram / Line)</button>
-    <button>Support / Donate</button>
-    <button class="logout">ออกจากระบบ</button>
-  </div>
-
-  <div class="bottom-nav">
-    <a href="#">
-      <img src="icon-game.png" width="24" height="24">
-      <span>เกม</span>
-    </a>
-    <a href="#">
-      <img src="icon-home.png" width="24" height="24">
-      <span>หน้าหลัก</span>
-    </a>
-    <a href="#">
-      <img src="icon-account.png" width="24" height="24">
-      <span>บัญชี</span>
-    </a>
-  </div>
-
-  <script>
-    const swiper = new Swiper(".mySwiper", {
-      loop: true,
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
-
 </html>
