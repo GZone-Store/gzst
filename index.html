@@ -1,28 +1,84 @@
-<!DOCTYPE html>
-<html lang="th">
+<!DOCTYPE html><html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ระบบสุ่มรางวัล</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Download</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="manifest" href="/manifest.json">
+  <style>
+    .bottom-nav {
+      @apply fixed bottom-0 left-0 right-0 flex justify-around bg-purple-900 text-white py-2 z-50;
+    }
+    .game-card {
+      @apply bg-white rounded-2xl shadow-md p-3 mb-4 w-full max-w-xs;
+    }
+    .scrolling-banner {
+      animation: scroll-left 20s linear infinite;
+    }
+    @keyframes scroll-left {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
 </head>
-<body>
-  <div class="container">
-    <h1>ระบบสุ่มรางวัล</h1>
-    <label for="options">กรุณากรอกตัวเลือกที่ต้องการสุ่ม (คั่นด้วยจุลภาค):</label>
-    <input type="text" id="options" placeholder="เลข1, เลข2, เลข3, เลข4" />
-    <button id="spin-button">สุ่มรางวัล</button>
-  </div>
-
-  <!-- ป็อปอัพผลการสุ่ม -->
-  <div id="popup" class="popup">
-    <div class="popup-content">
-      <h2>ยินดีด้วยคุณ</h2>
-      <p id="result-text">เลข 3 คือผู้ชนะ</p>
-      <button id="close-button">ข้าม</button>
+<body class="bg-purple-100">
+  <!-- โลโก้ + แบนเนอร์ -->
+  <div class="bg-gradient-to-r from-pink-300 to-blue-300 p-4">
+    <img src="/logo.png" alt="โลโก้" class="w-32">
+    <div class="relative overflow-hidden rounded-xl mt-4">
+      <div class="flex transition-all duration-500" id="banner-carousel">
+        <img src="/banner1.png" class="w-full" alt="Banner 1">
+        <img src="/banner2.png" class="w-full" alt="Banner 2">
+        <img src="/banner3.png" class="w-full" alt="Banner 3">
+      </div>
     </div>
-  </div>
+  </div>  <!-- ประกาศ -->  <div class="bg-purple-800 text-white py-2 px-4 mt-2">
+    <div class="scrolling-banner whitespace-nowrap">ประกาศ: อัปเดตเกมใหม่ทุกวัน! ดาวน์โหลดฟรี ไม่มีโฆษณา!</div>
+  </div>  <!-- ฟอร์มล็อกอิน -->  <div class="p-4 max-w-md mx-auto">
+    <div class="bg-white rounded-xl shadow-md p-6">
+      <h2 class="text-xl font-bold text-purple-800 mb-4 text-center">เข้าสู่ระบบ</h2>
+      <form action="/login" method="POST">
+        <label class="block mb-2 text-sm text-gray-700">ชื่อผู้ใช้</label>
+        <input type="text" name="username" class="w-full px-3 py-2 border rounded-lg mb-4" required><label class="block mb-2 text-sm text-gray-700">รหัสผ่าน</label>
+    <input type="password" name="password" class="w-full px-3 py-2 border rounded-lg mb-4" required>
 
-  <script src="script.js"></script>
-</body>
+    <button type="submit" class="bg-purple-700 text-white w-full py-2 rounded-lg">เข้าสู่ระบบ</button>
+    <p class="text-center text-sm text-gray-500 mt-4">ยังไม่มีบัญชี? <a href="/register" class="text-purple-700 underline">สมัครสมาชิก</a></p>
+  </form>
+</div>
+
+  </div>  <!-- หน้าเกม -->  <div class="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+    <div class="game-card">
+      <img src="/game1.png" alt="เกม 1" class="rounded-xl mb-2">
+      <h3 class="text-center font-bold text-purple-900">เกม A</h3>
+      <button class="bg-purple-600 text-white rounded-full px-4 py-1 mt-2 w-full">ดาวน์โหลด</button>
+    </div>
+    <div class="game-card">
+      <img src="/game2.png" alt="เกม 2" class="rounded-xl mb-2">
+      <h3 class="text-center font-bold text-purple-900">เกม B</h3>
+      <button class="bg-purple-600 text-white rounded-full px-4 py-1 mt-2 w-full">ดาวน์โหลด</button>
+    </div>
+    <!-- เพิ่มเกมอื่นๆ ด้านล่างนี้ -->
+  </div>  <!-- เมนูด้านล่าง -->  <div class="bottom-nav">
+    <a href="#games" class="flex flex-col items-center">
+      <img src="/icon-games.png" class="w-6 h-6">
+      <span class="text-xs">เกม</span>
+    </a>
+    <a href="#home" class="flex flex-col items-center">
+      <img src="/icon-home.png" class="w-6 h-6">
+      <span class="text-xs">หน้าหลัก</span>
+    </a>
+    <a href="#account" class="flex flex-col items-center">
+      <img src="/icon-user.png" class="w-6 h-6">
+      <span class="text-xs">บัญชี</span>
+    </a>
+  </div>  <script>
+    // Carousel Banner Auto Slide
+    let carousel = document.getElementById('banner-carousel');
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % 3;
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+    }, 4000);
+  </script></body>
 </html>
