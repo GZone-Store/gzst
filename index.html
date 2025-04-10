@@ -1,126 +1,172 @@
-<!DOCTYPE html><html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Download Site</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+<!DOCTYPE html><html lang="th"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Store</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f9f7fc;
-    }
-    .marquee {
-      overflow: hidden;
-      white-space: nowrap;
-      animation: marquee 10s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5fa;
+      color: #222;
+    }header {
+  background-color: #6a0dad;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+header img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+header h1 {
+  font-size: 18px;
+  color: white;
+  margin: 0;
+}
+
+.notice-bar {
+  background-color: #e6d5f7;
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.swiper {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-slide img {
+  width: 90%;
+  border-radius: 10px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 20px 10px 10px;
+}
+
+.game-list {
+  display: flex;
+  gap: 10px;
+  padding: 0 10px;
+}
+
+.game-card {
+  flex: 1;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.game-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.download-btn {
+  background-color: #a44fff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #ccc;
+}
+
+.bottom-nav a {
+  flex: 1;
+  text-align: center;
+  padding: 8px 0;
+  font-size: 12px;
+  color: #6a0dad;
+  text-decoration: none;
+}
+
+.bottom-nav img {
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin: 0 auto 2px;
+}
+
   </style>
-</head>
-<body class="text-gray-800 text-sm max-w-sm mx-auto relative pb-20">  <!-- Header -->  <header class="flex items-center p-3 bg-purple-700 text-white">
-    <img src="logo.png" alt="Logo" class="h-8 mr-3">
-    <h1 class="text-base font-semibold">Game Store</h1>
-  </header>  <!-- Notification Bar -->  <div class="bg-purple-100 text-purple-800 text-xs p-2">
-    <div class="marquee">ประกาศ: เกมใหม่อัปเดตแล้ว! รับโบนัสพิเศษเมื่อสมัครวันนี้!</div>
-  </div>  <!-- Banner Carousel -->  <div class="swiper mySwiper w-full h-40">
+</head><body>
+  <header>
+    <img src="logo.png" alt="Logo">
+    <h1>Game Store</h1>
+  </header>  <div class="notice-bar">รับโบนัสพิเศษเมื่อสมัครวันนี้!</div>  <div class="swiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-        <a href="https://example.com/game1">
-          <img src="banner1.png" alt="Banner 1" class="w-full h-full object-cover">
-        </a>
+        <a href="https://example.com/banner1"><img src="banner1.png" alt="Banner 1"></a>
       </div>
       <div class="swiper-slide">
-        <a href="https://example.com/game2">
-          <img src="banner2.png" alt="Banner 2" class="w-full h-full object-cover">
-        </a>
+        <a href="https://example.com/banner2"><img src="banner2.png" alt="Banner 2"></a>
       </div>
       <div class="swiper-slide">
-        <a href="https://example.com/game3">
-          <img src="banner3.png" alt="Banner 3" class="w-full h-full object-cover">
-        </a>
+        <a href="https://example.com/banner3"><img src="banner3.png" alt="Banner 3"></a>
       </div>
     </div>
     <div class="swiper-pagination"></div>
-  </div>  <!-- Main Content -->  <main id="mainContent" class="p-4">
-    <h2 class="text-base font-bold mb-2">เกมยอดนิยม</h2>
-    <div class="grid grid-cols-2 gap-4">
-      <div class="bg-white rounded-xl shadow p-2">
-        <img src="game1.png" alt="Game 1" class="w-full h-24 object-cover rounded">
-        <div class="mt-2 text-center">
-          <p class="font-semibold">Graffiti Rush</p>
-          <button class="mt-1 bg-purple-600 text-white px-3 py-1 rounded text-xs">ดาวน์โหลด</button>
-        </div>
-      </div>
-      <div class="bg-white rounded-xl shadow p-2">
-        <img src="game2.png" alt="Game 2" class="w-full h-24 object-cover rounded">
-        <div class="mt-2 text-center">
-          <p class="font-semibold">Lucky Neko</p>
-          <button class="mt-1 bg-purple-600 text-white px-3 py-1 rounded text-xs">ดาวน์โหลด</button>
-        </div>
-      </div>
+  </div>  <div class="section-title">เกมยอดนิยม</div>
+  <div class="game-list">
+    <div class="game-card">
+      <img src="game1.png" alt="Game 1">
+      <div>Graffiti Rush</div>
+      <button class="download-btn">ดาวน์โหลด</button>
     </div>
-  </main>  <!-- Account Page -->  <section id="accountPage" class="hidden p-4">
-    <div id="notLoggedIn">
-      <button class="w-full bg-purple-600 text-white py-2 rounded">เข้าสู่ระบบ / สร้างบัญชี</button>
+    <div class="game-card">
+      <img src="game2.png" alt="Game 2">
+      <div>Lucky Neko</div>
+      <button class="download-btn">ดาวน์โหลด</button>
     </div>
-    <div id="loggedIn" class="hidden space-y-2">
-      <button class="w-full text-left py-2 px-4 bg-gray-100 rounded">บัญชีของฉัน</button>
-      <details class="bg-gray-100 rounded">
-        <summary class="cursor-pointer py-2 px-4">ติดต่อ</summary>
-        <div class="pl-6 pb-2">
-          <a href="#" class="block py-1 text-blue-600">Telegram</a>
-          <a href="#" class="block py-1 text-green-600">Line</a>
-        </div>
-      </details>
-      <button class="w-full text-left py-2 px-4 bg-gray-100 rounded">Support / Donate</button>
-      <button class="w-full text-left py-2 px-4 bg-red-100 text-red-600 rounded">ออกจากระบบ</button>
-    </div>
-    <button onclick="toggleLoginStatus()" class="mt-2 text-xs underline text-gray-400 w-full text-center">[จำลอง] สลับสถานะเข้าสู่ระบบ</button>
-  </section>  <!-- Bottom Navigation -->  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2 shadow text-xs z-50">
-    <button onclick="showPage('games')" class="flex flex-col items-center text-gray-600">
-      <img src="icon-games.png" class="h-5 mb-0.5">
+  </div>  <div class="bottom-nav">
+    <a href="#">
+      <img src="game-icon.png" alt="เกม">
       เกม
-    </button>
-    <button onclick="showPage('main')" class="flex flex-col items-center text-purple-700">
-      <img src="icon-home.png" class="h-5 mb-0.5">
+    </a>
+    <a href="#">
+      <img src="home-icon.png" alt="หน้าหลัก">
       หน้าหลัก
-    </button>
-    <button onclick="showPage('account')" class="flex flex-col items-center text-gray-600">
-      <img src="icon-account.png" class="h-5 mb-0.5">
+    </a>
+    <a href="#">
+      <img src="account-icon.png" alt="บัญชี">
       บัญชี
-    </button>
-  </nav>  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>  <script>
-    const swiper = new Swiper(".mySwiper", {
+    </a>
+  </div>  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>  <script>
+    const swiper = new Swiper('.swiper', {
       loop: true,
       autoplay: {
-        delay: 4000,
+        delay: 3000,
         disableOnInteraction: false,
       },
       pagination: {
-        el: ".swiper-pagination",
+        el: '.swiper-pagination',
+        clickable: true,
       },
     });
-
-    function toggleLoginStatus() {
-      const notLoggedIn = document.getElementById("notLoggedIn");
-      const loggedIn = document.getElementById("loggedIn");
-      notLoggedIn.classList.toggle("hidden");
-      loggedIn.classList.toggle("hidden");
-    }
-
-    function showPage(page) {
-      document.getElementById("mainContent").classList.add("hidden");
-      document.getElementById("accountPage").classList.add("hidden");
-
-      if (page === 'main') {
-        document.getElementById("mainContent").classList.remove("hidden");
-      } else if (page === 'account') {
-        document.getElementById("accountPage").classList.remove("hidden");
-      }
-    }
-  </script></body>
-</html>
+  </script></body></html>
