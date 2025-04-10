@@ -130,6 +130,14 @@
     .content {
       margin-bottom: 60px; /* Reserve space for the fixed navigation */
     }
+    /* Hide sections by default */
+    #games-section, #account-section {
+      display: none;
+    }
+    /* When active, show the section */
+    .active {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -143,17 +151,17 @@
   <span>รับโบนัสพิเศษเมื่อสมัครวันนี้!</span>
 </div>
 
-<div class="swiper mySwiper">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide"><a href="#link1"><img src="banner1.png" alt="Banner 1"></a></div>
-    <div class="swiper-slide"><a href="#link2"><img src="banner2.png" alt="Banner 2"></a></div>
-    <div class="swiper-slide"><a href="#link3"><img src="banner3.png" alt="Banner 3"></a></div>
+<!-- Main content for "หน้าหลัก" -->
+<div id="main-section" class="content">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><a href="#link1"><img src="banner1.png" alt="Banner 1"></a></div>
+      <div class="swiper-slide"><a href="#link2"><img src="banner2.png" alt="Banner 2"></a></div>
+      <div class="swiper-slide"><a href="#link3"><img src="banner3.png" alt="Banner 3"></a></div>
+    </div>
+    <div class="swiper-pagination"></div>
   </div>
-  <div class="swiper-pagination"></div>
-</div>
 
-<!-- Main content -->
-<div class="content">
   <div class="section-title">เกมยอดนิยม</div>
   <div class="game-list">
     <div class="game-card">
@@ -166,14 +174,17 @@
       <p>Lucky Neko</p>
       <a href="download-link-2" class="download-btn">ดาวน์โหลด</a>
     </div>
-    <div class="game-card">
-      <p>ขณะนี้ยังไม่มีเกม</p>
-    </div>
   </div>
 </div>
 
+<!-- Main content for "เกม" -->
+<div id="games-section" class="content">
+  <div class="section-title">เกม</div>
+  <p>ขณะนี้ยังไม่มีเกม</p>
+</div>
+
 <!-- Account Page Section -->
-<div class="account-page">
+<div id="account-section" class="account-page content">
   <button onclick="showLogin()">เข้าสู่ระบบ / สร้างบัญชี</button>
   <button onclick="showAccount()">บัญชีของฉัน</button>
   <button onclick="toggleContact()">ติดต่อ (Telegram / Line)</button>
@@ -181,16 +192,17 @@
   <button class="logout" onclick="logout()">ออกจากระบบ</button>
 </div>
 
+<!-- Bottom Navigation -->
 <div class="bottom-nav">
-  <a href="#games">
+  <a href="#" onclick="showGames()">
     <img src="icon-game.png" width="24" height="24">
     <span>เกม</span>
   </a>
-  <a href="#main">
+  <a href="#" onclick="showMain()">
     <img src="icon-home.png" width="24" height="24">
     <span>หน้าหลัก</span>
   </a>
-  <a href="#account">
+  <a href="#" onclick="showAccountPage()">
     <img src="icon-account.png" width="24" height="24">
     <span>บัญชี</span>
   </a>
@@ -208,6 +220,24 @@
       clickable: true,
     },
   });
+
+  function showMain() {
+    document.getElementById('main-section').classList.add('active');
+    document.getElementById('games-section').classList.remove('active');
+    document.getElementById('account-section').classList.remove('active');
+  }
+
+  function showGames() {
+    document.getElementById('main-section').classList.remove('active');
+    document.getElementById('games-section').classList.add('active');
+    document.getElementById('account-section').classList.remove('active');
+  }
+
+  function showAccountPage() {
+    document.getElementById('main-section').classList.remove('active');
+    document.getElementById('games-section').classList.remove('active');
+    document.getElementById('account-section').classList.add('active');
+  }
 
   function showLogin() {
     alert('เปิดหน้าเข้าสู่ระบบ / สร้างบัญชี');
