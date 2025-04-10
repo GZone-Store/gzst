@@ -2,69 +2,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Game Store</title>
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f5fa;
-      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5fb;
     }header {
-  background-color: #6a0dad;
-  padding: 10px;
+  background-color: #7c4dff;
+  color: white;
   display: flex;
   align-items: center;
+  padding: 10px 15px;
 }
 
 header img {
-  width: 40px;
+  height: 30px;
   margin-right: 10px;
 }
 
-header h1 {
-  font-size: 18px;
-  color: white;
-  margin: 0;
+.announcement {
+  background-color: #ede7f6;
+  color: #6a1b9a;
+  text-align: center;
+  padding: 6px;
+  font-size: 14px;
 }
 
-.notice-bar {
-  background-color: #e6d5f7;
-  padding: 5px 10px;
-  text-align: center;
-  font-size: 14px;
+.section {
+  display: none;
+  padding: 10px;
+}
+
+.section.active {
+  display: block;
 }
 
 .swiper {
   width: 100%;
-  height: auto;
-  margin-top: 10px;
-}
-
-.swiper-slide {
-  display: flex;
-  justify-content: center;
+  height: 160px;
 }
 
 .swiper-slide img {
-  width: 90%;
-  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.section-title {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 20px 10px 10px;
+h2 {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
 }
 
 .game-list {
   display: flex;
   gap: 10px;
-  padding: 0 10px;
+  flex-wrap: wrap;
 }
 
 .game-card {
-  flex: 1;
-  background: white;
+  flex: 1 1 calc(50% - 10px);
+  background-color: white;
   border-radius: 10px;
   padding: 10px;
   text-align: center;
@@ -73,100 +72,103 @@ header h1 {
 
 .game-card img {
   width: 100%;
-  height: 100px;
-  object-fit: cover;
   border-radius: 8px;
 }
 
-.download-btn {
-  background-color: #a44fff;
+.game-card button {
+  margin-top: 5px;
+  background-color: #7c4dff;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 5px;
-  margin-top: 10px;
 }
 
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 100%;
-  background-color: white;
   display: flex;
   justify-content: space-around;
+  background-color: white;
   border-top: 1px solid #ccc;
 }
 
-.bottom-nav a {
-  flex: 1;
+.bottom-nav div {
+  padding: 10px;
   text-align: center;
-  padding: 8px 0;
+  flex: 1;
   font-size: 12px;
-  color: #6a0dad;
-  text-decoration: none;
+  color: #7c4dff;
 }
 
-.bottom-nav img {
-  width: 24px;
-  height: 24px;
+.account-menu button {
   display: block;
-  margin: 0 auto 2px;
+  width: 100%;
+  padding: 10px;
+  background: white;
+  border: none;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  color: #333;
+  font-size: 15px;
+}
+
+.logout {
+  color: red;
 }
 
   </style>
 </head><body>
   <header>
     <img src="logo.png" alt="Logo">
-    <h1>Game Store</h1>
-  </header>  <div class="notice-bar">รับโบนัสพิเศษเมื่อสมัครวันนี้!</div>  <div class="swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <a href="https://example.com/banner1"><img src="banner1.png" alt="Banner 1"></a>
+    <strong>Game Store</strong>
+  </header>  <div class="announcement">รับโบนัสพิเศษเมื่อสมัครวันนี้!</div>  <!-- หน้าหลัก -->  <div id="home" class="section active">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><a href="#"><img src="banner1.png" /></a></div>
+        <div class="swiper-slide"><a href="#"><img src="banner2.png" /></a></div>
+        <div class="swiper-slide"><a href="#"><img src="banner3.png" /></a></div>
       </div>
-      <div class="swiper-slide">
-        <a href="https://example.com/banner2"><img src="banner2.png" alt="Banner 2"></a>
-      </div>
-      <div class="swiper-slide">
-        <a href="https://example.com/banner3"><img src="banner3.png" alt="Banner 3"></a>
-      </div>
-    </div>
-    <div class="swiper-pagination"></div>
-  </div>  <div class="section-title">เกมยอดนิยม</div>
-  <div class="game-list">
-    <div class="game-card">
-      <img src="game1.png" alt="Game 1">
-      <div>Graffiti Rush</div>
-      <button class="download-btn">ดาวน์โหลด</button>
-    </div>
-    <div class="game-card">
-      <img src="game2.png" alt="Game 2">
-      <div>Lucky Neko</div>
-      <button class="download-btn">ดาวน์โหลด</button>
+      <div class="swiper-pagination"></div>
+    </div><h2>เกมยอดนิยม</h2>
+<div class="game-list">
+  <div class="game-card">
+    <img src="game1.png" alt="Game 1">
+    <p>Graffiti Rush</p>
+    <button>ดาวน์โหลด</button>
+  </div>
+  <div class="game-card">
+    <img src="game2.png" alt="Game 2">
+    <p>Lucky Neko</p>
+    <button>ดาวน์โหลด</button>
+  </div>
+</div>
+
+  </div>  <!-- หน้าเกม -->  <div id="games" class="section">
+    <h2>หมวดหมู่เกม (ตัวอย่าง)</h2>
+    <p>เร็ว ๆ นี้...</p>
+  </div>  <!-- หน้าบัญชี -->  <div id="account" class="section">
+    <div class="account-menu">
+      <button onclick="alert('เข้าสู่ระบบจำลอง')">เข้าสู่ระบบ / สมัครบัญชี</button>
+      <button>บัญชีของฉัน</button>
+      <button onclick="alert('ติดต่อผ่าน Telegram หรือ Line')">ติดต่อ (Telegram / Line)</button>
+      <button>Support / Donate</button>
+      <button class="logout">ออกจากระบบ</button>
     </div>
   </div>  <div class="bottom-nav">
-    <a href="#">
-      <img src="game-icon.png" alt="เกม">
-      เกม
-    </a>
-    <a href="#">
-      <img src="home-icon.png" alt="หน้าหลัก">
-      หน้าหลัก
-    </a>
-    <a href="#">
-      <img src="account-icon.png" alt="บัญชี">
-      บัญชี
-    </a>
-  </div>  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>  <script>
-    const swiper = new Swiper('.swiper', {
+    <div onclick="switchTab('games')">เกม</div>
+    <div onclick="switchTab('home')">หน้าหลัก</div>
+    <div onclick="switchTab('account')">บัญชี</div>
+  </div>  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>  <script>
+    const switchTab = (tab) => {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(tab).classList.add('active');
+    }
+
+    new Swiper('.swiper', {
       loop: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
+      autoplay: { delay: 3000 },
+      pagination: { el: '.swiper-pagination' },
     });
   </script></body></html>
