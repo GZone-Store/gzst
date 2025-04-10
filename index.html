@@ -20,62 +20,81 @@
     }
   </style>
 </head>
-<body class="text-gray-800">  <!-- Header -->  <header class="flex items-center p-4 bg-purple-700 text-white">
-    <img src="logo.png" alt="Logo" class="h-10 mr-4">
-    <h1 class="text-lg font-semibold">Game Store</h1>
-  </header>  <!-- Notification Bar -->  <div class="bg-purple-100 text-purple-800 text-sm p-2">
+<body class="text-gray-800 text-sm max-w-md mx-auto">  <!-- Header -->  <header class="flex items-center p-4 bg-purple-700 text-white">
+    <img src="logo.png" alt="Logo" class="h-8 mr-3">
+    <h1 class="text-base font-semibold">Game Store</h1>
+  </header>  <!-- Notification Bar -->  <div class="bg-purple-100 text-purple-800 text-xs p-2">
     <div class="marquee">ประกาศ: เกมใหม่อัปเดตแล้ว! รับโบนัสพิเศษเมื่อสมัครวันนี้!</div>
-  </div>  <!-- Banner Slide (mockup) -->  <div class="w-full overflow-hidden">
-    <img src="banner1.png" alt="Banner" class="w-full h-40 object-cover">
+  </div>  <!-- Banner Carousel -->  <div class="relative overflow-hidden">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <a href="https://example.com/game1" class="swiper-slide">
+          <img src="banner1.png" alt="Banner 1" class="w-full h-40 object-cover">
+        </a>
+        <a href="https://example.com/game2" class="swiper-slide">
+          <img src="banner2.png" alt="Banner 2" class="w-full h-40 object-cover">
+        </a>
+        <a href="https://example.com/game3" class="swiper-slide">
+          <img src="banner3.png" alt="Banner 3" class="w-full h-40 object-cover">
+        </a>
+      </div>
+    </div>
   </div>  <!-- Game List -->  <section class="p-4">
-    <h2 class="text-lg font-bold mb-2">เกมยอดนิยม</h2>
+    <h2 class="text-base font-bold mb-2">เกมยอดนิยม</h2>
     <div class="grid grid-cols-2 gap-4">
       <div class="bg-white rounded-xl shadow p-2">
         <img src="game1.png" alt="Game 1" class="w-full h-24 object-cover rounded">
         <div class="mt-2 text-center">
           <p class="font-semibold">Graffiti Rush</p>
-          <button class="mt-1 bg-purple-600 text-white px-3 py-1 rounded text-sm">ดาวน์โหลด</button>
+          <button class="mt-1 bg-purple-600 text-white px-3 py-1 rounded text-xs">ดาวน์โหลด</button>
         </div>
       </div>
       <div class="bg-white rounded-xl shadow p-2">
         <img src="game2.png" alt="Game 2" class="w-full h-24 object-cover rounded">
         <div class="mt-2 text-center">
           <p class="font-semibold">Lucky Neko</p>
-          <button class="mt-1 bg-purple-600 text-white px-3 py-1 rounded text-sm">ดาวน์โหลด</button>
+          <button class="mt-1 bg-purple-600 text-white px-3 py-1 rounded text-xs">ดาวน์โหลด</button>
         </div>
       </div>
     </div>
-  </section>  <!-- Bottom Navigation -->  <nav class="fixed bottom-0 w-full bg-white border-t flex justify-around py-2 shadow">
-    <button onclick="alert('เกม')" class="flex flex-col items-center text-sm text-gray-600">
-      <img src="icon-games.png" class="h-6 mb-1">
+  </section>  <!-- Bottom Navigation -->  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-1 shadow text-xs">
+    <button onclick="alert('เกม')" class="flex flex-col items-center text-gray-600">
+      <img src="icon-games.png" class="h-5 mb-0.5">
       เกม
     </button>
-    <button onclick="alert('หน้าหลัก')" class="flex flex-col items-center text-sm text-purple-700">
-      <img src="icon-home.png" class="h-6 mb-1">
+    <button onclick="alert('หน้าหลัก')" class="flex flex-col items-center text-purple-700">
+      <img src="icon-home.png" class="h-5 mb-0.5">
       หน้าหลัก
     </button>
-    <button onclick="toggleAccountMenu()" class="flex flex-col items-center text-sm text-gray-600">
-      <img src="icon-account.png" class="h-6 mb-1">
+    <button onclick="toggleAccountMenu()" class="flex flex-col items-center text-gray-600">
+      <img src="icon-account.png" class="h-5 mb-0.5">
       บัญชี
     </button>
-  </nav>  <!-- Account Menu (Toggle) -->  <div id="accountMenu" class="fixed bottom-16 right-2 w-64 bg-white border rounded-xl shadow-lg p-4 hidden">
+  </nav>  <!-- Account Menu (Full Width) -->  <div id="accountMenu" class="fixed inset-x-0 bottom-14 z-50 bg-white border-t rounded-t-xl shadow-lg p-4 hidden">
     <div id="notLoggedIn">
       <button class="w-full bg-purple-600 text-white py-2 rounded">เข้าสู่ระบบ / สร้างบัญชี</button>
     </div>
-    <div id="loggedIn" class="hidden">
-      <button class="w-full text-left py-1 hover:bg-gray-100">บัญชีของฉัน</button>
-      <details class="mb-2">
-        <summary class="cursor-pointer py-1 hover:bg-gray-100">ติดต่อ</summary>
-        <div class="pl-4 text-sm">
+    <div id="loggedIn" class="hidden space-y-2">
+      <button class="w-full text-left py-2 px-4 bg-gray-100 rounded">บัญชีของฉัน</button>
+      <details class="bg-gray-100 rounded">
+        <summary class="cursor-pointer py-2 px-4">ติดต่อ</summary>
+        <div class="pl-6 pb-2">
           <a href="#" class="block py-1 text-blue-600">Telegram</a>
           <a href="#" class="block py-1 text-green-600">Line</a>
         </div>
       </details>
-      <button class="w-full text-left py-1 hover:bg-gray-100">Support / Donate</button>
-      <button class="w-full text-left py-1 text-red-600 hover:bg-red-100">ออกจากระบบ</button>
+      <button class="w-full text-left py-2 px-4 bg-gray-100 rounded">Support / Donate</button>
+      <button class="w-full text-left py-2 px-4 bg-red-100 text-red-600 rounded">ออกจากระบบ</button>
     </div>
-    <button onclick="toggleLoginStatus()" class="mt-2 text-xs underline text-gray-400">[จำลอง] สลับสถานะเข้าสู่ระบบ</button>
-  </div>  <script>
+    <button onclick="toggleLoginStatus()" class="mt-2 text-xs underline text-gray-400 w-full text-center">[จำลอง] สลับสถานะเข้าสู่ระบบ</button>
+  </div>  <!-- Swiper JS -->  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>  <script>
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: { delay: 3000 },
+      slidesPerView: 1,
+      spaceBetween: 0,
+    });
+
     function toggleAccountMenu() {
       const menu = document.getElementById('accountMenu');
       menu.classList.toggle('hidden');
