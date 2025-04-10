@@ -144,12 +144,6 @@
       margin-top: 30px !important;
     }
 
-    /* ให้แบนเนอร์เลื่อน */
-    .announcement {
-      background-color: #7e22ce;
-      color: white;
-    }
-
     /* เปลี่ยนสีเว็บไซต์ */
     body {
       background-color: #1f1f1f;
@@ -176,16 +170,6 @@
   <!-- Announcement -->
   <div class="announcement">
     <span>รับโบนัสพิเศษเมื่อสมัครวันนี้!</span>
-  </div>
-
-  <!-- Banner Slider (Only in Main Page) -->
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><a href="#link1"><img src="banner1.png" alt="Banner 1"></a></div>
-      <div class="swiper-slide"><a href="#link2"><img src="banner2.png" alt="Banner 2"></a></div>
-      <div class="swiper-slide"><a href="#link3"><img src="banner3.png" alt="Banner 3"></a></div>
-    </div>
-    <div class="swiper-pagination"></div>
   </div>
 
   <!-- Main Page Content -->
@@ -252,7 +236,15 @@
 
     // Example function for login / account details
     function loginForm() {
-      alert("ฟังก์ชันเข้าสู่ระบบ/สมัครสมาชิกยังไม่พร้อมใช้งาน");
+      let username = prompt("กรุณากรอกชื่อผู้ใช้งาน:");
+      let password = prompt("กรุณากรอกรหัสผ่าน:");
+
+      // In real app, use backend to verify the credentials
+      if (username === "test" && password === "1234") {
+        alert("เข้าสู่ระบบสำเร็จ");
+      } else {
+        alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+      }
     }
 
     function accountDetails() {
@@ -260,7 +252,14 @@
     }
 
     function contactForm() {
-      alert("ฟังก์ชันติดต่อผ่าน Telegram / Line ยังไม่พร้อมใช้งาน");
+      let contactChoice = prompt("กรุณาเลือกช่องทางการติดต่อ:\n1. Telegram\n2. Line");
+      if (contactChoice === "1") {
+        alert("ติดต่อผ่าน Telegram: https://t.me/yourchannel");
+      } else if (contactChoice === "2") {
+        alert("ติดต่อผ่าน Line: @yourlineid");
+      } else {
+        alert("ไม่มีช่องทางการติดต่อที่เลือก");
+      }
     }
 
     function logout() {
