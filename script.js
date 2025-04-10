@@ -1,11 +1,23 @@
 document.getElementById('spin-button').addEventListener('click', function() {
-  const wheel = document.getElementById('wheel');
-  const spinAngle = Math.floor(Math.random() * 360 + 720); // สุ่มมุมหมุน
-  wheel.style.transition = "transform 4s ease-out";
-  wheel.style.transform = `rotate(${spinAngle}deg)`;
+  const optionsInput = document.getElementById('options').value;
+  const optionsArray = optionsInput.split(',').map(option => option.trim());
+  
+  if (optionsArray.length === 0 || optionsArray[0] === '') {
+    alert('กรุณากรอกตัวเลือกที่ต้องการสุ่ม');
+    return;
+  }
 
-  // เพิ่มการแสดงผลโฆษณาหลังการหมุน
-  setTimeout(() => {
-    document.querySelector('.ads').style.display = 'block';  // แสดงโฆษณา
-  }, 4000); // โฆษณาจะแสดงหลังจากหมุนเสร็จ
+  const randomIndex = Math.floor(Math.random() * optionsArray.length);
+  const result = optionsArray[randomIndex];
+
+  // แสดงผลป็อปอัพ
+  document.getElementById('result-text').textContent = `ยินดีด้วยคุณ ${result} คือผู้ชนะ`;
+
+  const popup = document.getElementById('popup');
+  popup.style.display = 'flex';
+});
+
+// การปิดป็อปอัพและกลับไปที่หน้าหลัก
+document.getElementById('close-button').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'none';
 });
