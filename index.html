@@ -31,6 +31,17 @@
     const googleProvider = new GoogleAuthProvider();
     const facebookProvider = new FacebookAuthProvider();
 
+    // ตรวจสอบสถานะการเข้าสู่ระบบ
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        alert("ยินดีต้อนรับ " + user.email);
+        closeModal();
+      } else {
+        console.log("ผู้ใช้ไม่ได้ล็อกอิน");
+      }
+    });
+
+    // ฟังก์ชันสมัครสมาชิก
     window.register = () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
@@ -42,38 +53,67 @@
       }
 
       createUserWithEmailAndPassword(auth, email, password)
-        .then(() => alert("สมัครสมาชิกสำเร็จ"))
+        .then(() => {
+          alert("สมัครสมาชิกสำเร็จ");
+          closeModal();
+        })
         .catch(error => alert("เกิดข้อผิดพลาด: " + error.message));
     };
 
+    // ฟังก์ชันเข้าสู่ระบบ
     window.login = () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
       signInWithEmailAndPassword(auth, email, password)
-        .then(() => alert("เข้าสู่ระบบสำเร็จ"))
+        .then(() => {
+          alert("เข้าสู่ระบบสำเร็จ");
+          closeModal(); // ปิด Modal เมื่อเข้าสู่ระบบสำเร็จ
+        })
         .catch(error => alert("เข้าสู่ระบบล้มเหลว: " + error.message));
     };
 
+    // ฟังก์ชันออกจากระบบ
     window.logout = () => {
-      signOut(auth).then(() => alert("ออกจากระบบแล้ว"));
+      signOut(auth).then(() => {
+        alert("ออกจากระบบแล้ว");
+        closeModal(); // ปิด Modal เมื่อออกจากระบบ
+      });
     };
 
+    // ฟังก์ชันเข้าสู่ระบบด้วย Google
     window.loginWithGoogle = () => {
       signInWithPopup(auth, googleProvider)
-        .then(() => alert("เข้าสู่ระบบด้วย Google สำเร็จ"))
+        .then(() => {
+          alert("เข้าสู่ระบบด้วย Google สำเร็จ");
+          closeModal(); // ปิด Modal เมื่อเข้าสู่ระบบสำเร็จ
+        })
         .catch(error => alert("ผิดพลาด: " + error.message));
     };
 
+    // ฟังก์ชันเข้าสู่ระบบด้วย Facebook
     window.loginWithFacebook = () => {
       signInWithPopup(auth, facebookProvider)
-        .then(() => alert("เข้าสู่ระบบด้วย Facebook สำเร็จ"))
+        .then(() => {
+          alert("เข้าสู่ระบบด้วย Facebook สำเร็จ");
+          closeModal(); // ปิด Modal เมื่อเข้าสู่ระบบสำเร็จ
+        })
         .catch(error => alert("ผิดพลาด: " + error.message));
     };
 
+    // ฟังก์ชันเข้าสู่ระบบด้วย Line
     window.loginWithLine = () => {
       alert("Firebase ยังไม่รองรับ Line โดยตรง กรุณาใช้ Google หรือ Facebook แทนครับ");
     };
+
+    // ฟังก์ชันเปิด/ปิด Modal
+    function openModal() {
+      document.getElementById("authModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("authModal").style.display = "none";
+    }
   </script>
   <style>
     body { margin: 0; font-family: sans-serif; background: #fff; color: #000; }
@@ -181,14 +221,5 @@
     </div>
   </div>
 
-  <script>
-    function openModal() {
-      document.getElementById("authModal").style.display = "flex";
-    }
-
-    function closeModal() {
-      document.getElementById("authModal").style.display = "none";
-    }
-  </script>
 </body>
 </html>
