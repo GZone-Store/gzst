@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="th">
+<!DOCTYPE html><html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,154 +50,42 @@
     }
     .card a:hover {
       background-color: #7a27c9;
-    }
+    }    .navbar {       position: fixed;       bottom: 0;       left: 0;       right: 0;       background-color: black;       display: flex;       justify-content: space-around;       padding: 10px 0;       z-index: 10;     }
 
-    .navbar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: black;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      z-index: 10;
-    }
+    .nav-btn {       display: flex;       flex-direction: column;       align-items: center;       color: white;       text-decoration: none;     }
 
-    .nav-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: white;
-      text-decoration: none;
-    }
+    .nav-btn img {       height: 24px;       margin-bottom: 5px;     }
 
-    .nav-btn img {
-      height: 24px;
-      margin-bottom: 5px;
-    }
+    .nav-btn span {       font-size: 12px;     }   </style>
 
-    .nav-btn span {
-      font-size: 12px;
-    }
-  </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">  <!-- Header -->   <header class="flex items-center justify-between p-4 bg-black shadow-md sticky top-0 z-10">     <img src="assets/images/logo.png" alt="Logo" class="h-10"> <!-- โลโก้ -->     <h1 class="text-xl font-bold w-full text-center">เว็บไซต์เกม</h1>   </header>
 
-  <!-- Header -->
-  <header class="flex items-center justify-between p-4 bg-black shadow-md sticky top-0 z-10">
-    <img src="assets/images/logo.png" alt="Logo" class="h-10"> <!-- โลโก้ -->
-    <h1 class="text-xl font-bold w-full text-center">เว็บไซต์เกม</h1>
-  </header>
+  <!-- Carousel -->   <div id="carousel-container" class="p-4">     <h2 class="text-xl mb-2 text-center">เกมแนะนำ</h2>     <div class="carousel">       <div class="carousel-track">         <div class="carousel-item"><img src="assets/images/game1.jpg" class="w-full rounded-xl" alt="Game 1" /></div>         <div class="carousel-item"><img src="assets/images/game2.jpg" class="w-full rounded-xl" alt="Game 2" /></div>         <div class="carousel-item"><img src="assets/images/game3.jpg" class="w-full rounded-xl" alt="Game 3" /></div>       </div>     </div>   </div>
 
-  <!-- Carousel -->
-  <div id="carousel-container" class="p-4">
-    <h2 class="text-xl mb-2 text-center">เกมแนะนำ</h2>
-    <div class="carousel">
-      <div class="carousel-track">
-        <div class="carousel-item"><img src="assets/images/game1.jpg" class="w-full rounded-xl" alt="Game 1" /></div>
-        <div class="carousel-item"><img src="assets/images/game2.jpg" class="w-full rounded-xl" alt="Game 2" /></div>
-        <div class="carousel-item"><img src="assets/images/game3.jpg" class="w-full rounded-xl" alt="Game 3" /></div>
-      </div>
-    </div>
-  </div>
+  <!-- Main Content -->   <main id="page-content" class="p-4 overflow-auto flex-1"></main>
 
-  <!-- Main Content -->
-  <main id="page-content" class="p-4 overflow-auto flex-1"></main>
+  <!-- Navigation -->   <nav class="navbar">     <a href="#" class="nav-btn" data-page="home">       <img src="assets/images/home-icon.png" alt="Home">       <span>หน้าหลัก</span>     </a>     <a href="#" class="nav-btn" data-page="search">       <img src="assets/images/search-icon.png" alt="Search">       <span>ค้นหา</span>     </a>     <a href="#" class="nav-btn" data-page="account">       <img src="assets/images/account-icon.png" alt="Account">       <span>บัญชี</span>     </a>   </nav>
 
-  <!-- Navigation -->
-  <nav class="navbar">
-    <a href="#" class="nav-btn" data-page="home">
-      <img src="assets/images/home-icon.png" alt="Home">
-      <span>หน้าหลัก</span>
-    </a>
-    <a href="#" class="nav-btn" data-page="search">
-      <img src="assets/images/search-icon.png" alt="Search">
-      <span>ค้นหา</span>
-    </a>
-    <a href="#" class="nav-btn" data-page="account">
-      <img src="assets/images/account-icon.png" alt="Account">
-      <span>บัญชี</span>
-    </a>
-  </nav>
+  <script>     const gameList = [       { name: "ROV", image: "game1.jpg", link: "https://play.google.com/store/apps/details?id=com.garena.game.kgth" },       { name: "Free Fire", image: "game2.jpg", link: "https://example.com/freefire" },       { name: "PUBG", image: "game3.jpg", link: "https://example.com/pubg" },       { name: "Genshin Impact", image: "game4.jpg", link: "https://example.com/genshin" },       { name: "Valorant", image: "game5.jpg", link: "https://example.com/valorant" },     ];
 
-  <script>
-    const gameList = [
-      { name: "ROV", image: "game1.jpg", link: "https://play.google.com/store/apps/details?id=com.garena.game.kgth" },
-      { name: "Free Fire", image: "game2.jpg", link: "https://example.com/freefire" },
-      { name: "PUBG", image: "game3.jpg", link: "https://example.com/pubg" },
-      { name: "Genshin Impact", image: "game4.jpg", link: "https://example.com/genshin" },
-      { name: "Valorant", image: "game5.jpg", link: "https://example.com/valorant" },
-    ];
+    const pages = {       home:         <h2 class="text-2xl mb-4">เกมยอดนิยม</h2>         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">           ${gameList.map(game =>             <div class="card">               <a href="${game.link}" target="_blank">                 <img src="assets/images/${game.image}" class="rounded-xl mb-2" alt="${game.name}">                 <h3 class="text-lg font-semibold">${game.name}</h3>               </a>             </div>           ).join('')}         </div>       ,       search:          <h2 class="text-2xl mb-4">ค้นหาเกม</h2>         <input type="text" id="searchInput" placeholder="พิมพ์ชื่อเกม..." class="w-full p-2 text-black rounded mb-4">         <div id="searchResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>       ,       account:          <h2 class="text-2xl mb-4 text-center">บัญชีของฉัน</h2>         <div class="card"><a href="https://help.example.com" target="_blank" class="text-white no-underline">ช่วยเหลือ</a></div>         <div class="card"><a href="https://donate.example.com" target="_blank" class="text-white no-underline">Donate/Support</a></div>            };
 
-    const pages = {
-      home: `
-        <h2 class="text-2xl mb-4">เกมยอดนิยม</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          ${gameList.map(game => `
-            <div class="card">
-              <a href="${game.link}" target="_blank">
-                <img src="assets/images/${game.image}" class="rounded-xl mb-2" alt="${game.name}">
-                <h3 class="text-lg font-semibold">${game.name}</h3>
-              </a>
-            </div>
-          `).join('')}
-        </div>
-      `,
-      search: `
-        <h2 class="text-2xl mb-4">ค้นหาเกม</h2>
-        <input type="text" id="searchInput" placeholder="พิมพ์ชื่อเกม..." class="w-full p-2 text-black rounded mb-4">
-        <div id="searchResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-      `,
-      account: `
-        <h2 class="text-2xl mb-4 text-center">บัญชีของฉัน</h2>
-        <div class="card"><a href="https://help.example.com" target="_blank" class="text-white no-underline">ช่วยเหลือ</a></div>
-        <div class="card"><a href="https://donate.example.com" target="_blank" class="text-white no-underline">Donate/Support</a></div>
-      `
-    };
+    const contentEl = document.getElementById('page-content');     const navBtns = document.querySelectorAll('.nav-btn');     const carouselContainer = document.getElementById('carousel-container');
 
-    const contentEl = document.getElementById('page-content');
-    const navBtns = document.querySelectorAll('.nav-btn');
-    const carouselContainer = document.getElementById('carousel-container');
+    function loadPage(page) {       contentEl.innerHTML = pages[page];
 
-    function loadPage(page) {
-      contentEl.innerHTML = pages[page];
+      navBtns.forEach(btn => btn.classList.remove('active'));       document.querySelector([data-page="${page}"]).classList.add('active');
 
-      navBtns.forEach(btn => btn.classList.remove('active'));
-      document.querySelector(`[data-page="${page}"]`).classList.add('active');
+      if (carouselContainer) {         carouselContainer.style.display = (page === "home") ? "block" : "none";       }
 
-      if (carouselContainer) {
-        carouselContainer.style.display = (page === "home") ? "block" : "none";
-      }
+      if (page === "search") {         const searchInput = document.getElementById("searchInput");         const results = document.getElementById("searchResults");
 
-      if (page === "search") {
-        const searchInput = document.getElementById("searchInput");
-        const results = document.getElementById("searchResults");
+        searchInput.addEventListener("input", () => {           const query = searchInput.value.toLowerCase();           results.innerHTML = gameList             .filter(game => game.name.toLowerCase().includes(query))             .map(game =>                <div class="card">                 <a href="${game.link}" target="_blank">                   <img src="assets/images/${game.image}" class="rounded-xl mb-2" alt="${game.name}">                   <h3 class="text-lg font-semibold">${game.name}</h3>                 </a>               </div>             ).join('');         });       }     }
 
-        searchInput.addEventListener("input", () => {
-          const query = searchInput.value.toLowerCase();
-          results.innerHTML = gameList
-            .filter(game => game.name.toLowerCase().includes(query))
-            .map(game => `
-              <div class="card">
-                <a href="${game.link}" target="_blank">
-                  <img src="assets/images/${game.image}" class="rounded-xl mb-2" alt="${game.name}">
-                  <h3 class="text-lg font-semibold">${game.name}</h3>
-                </a>
-              </div>
-            `).join('');
-        });
-      }
-    }
+    navBtns.forEach(btn => {       btn.addEventListener("click", () => {         const page = btn.getAttribute("data-page");         loadPage(page);       });     });
 
-    navBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const page = btn.getAttribute("data-page");
-        loadPage(page);
-      });
-    });
+    loadPage("home");   </script>
 
-    loadPage("home");
-  </script>
 </body>
 </html>
