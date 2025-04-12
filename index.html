@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="th">
+<!DOCTYPE html>
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,6 +28,7 @@
     .banner-img {
       flex-shrink: 0;
       width: 100%;
+      object-fit: cover;
     }
   </style>
 </head>
@@ -36,50 +38,60 @@
     <!-- โลโก้ -->
     <div class="w-full py-4 px-6 flex justify-start items-center">
       <img src="logo.png" alt="โลโก้ GZone" class="h-8 w-auto" id="logo">
-    </div><!-- แบนเนอร์ -->
-<div class="relative overflow-hidden">
-  <div id="bannerContainer" class="flex transition-transform duration-700 ease-in-out">
-    <a href="#"><img src="banner1.jpg" alt="แบนเนอร์ 1" class="banner-img"></a>
-    <a href="#"><img src="banner2.jpg" alt="แบนเนอร์ 2" class="banner-img"></a>
-    <a href="#"><img src="banner3.jpg" alt="แบนเนอร์ 3" class="banner-img"></a>
-  </div>
-  <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex">
-    <span class="dot" data-index="0"></span>
-    <span class="dot" data-index="1"></span>
-    <span class="dot" data-index="2"></span>
-  </div>
-</div>
-
-<!-- กล่องประกาศ -->
-<div class="mt-2 mb-4 mx-4 p-2 text-sm bg-purple-900 rounded overflow-x-auto whitespace-nowrap">
-  ประกาศ: ยินดีต้อนรับสู่เว็บไซต์ GZone ดาวน์โหลดเกมฟรี!
-</div>
-
-<!-- เมนูเกมยอดนิยม -->
-<div class="px-4">
-  <h2 class="text-xl font-semibold mb-2">เกมยอดนิยม</h2>
-  <div class="grid grid-cols-2 gap-4">
-    <div class="bg-white text-black p-2 rounded-xl">
-      <img src="game1.jpg" alt="เกม 1" class="w-full rounded-md">
-      <h3 class="text-sm font-medium mt-1">เกมที่หนึ่ง</h3>
-      <button class="mt-1 bg-purple-700 text-white px-2 py-1 rounded">ดาวน์โหลด</button>
     </div>
-    <div class="bg-white text-black p-2 rounded-xl">
-      <img src="game2.jpg" alt="เกม 2" class="w-full rounded-md">
-      <h3 class="text-sm font-medium mt-1">เกมที่สอง</h3>
-      <button class="mt-1 bg-purple-700 text-white px-2 py-1 rounded">ดาวน์โหลด</button>
+
+    <!-- แบนเนอร์ -->
+    <div class="relative overflow-hidden">
+      <div id="bannerContainer" class="flex transition-transform duration-700 ease-in-out">
+        <a href="#"><img src="banner1.jpg" alt="แบนเนอร์ 1" class="banner-img"></a>
+        <a href="#"><img src="banner2.jpg" alt="แบนเนอร์ 2" class="banner-img"></a>
+        <a href="#"><img src="banner3.jpg" alt="แบนเนอร์ 3" class="banner-img"></a>
+      </div>
+      <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex">
+        <span class="dot" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+      </div>
+    </div>
+
+    <!-- กล่องประกาศ -->
+    <div class="mt-2 mb-4 mx-4 p-1 text-sm bg-purple-900 rounded overflow-x-auto whitespace-nowrap text-center text-white text-opacity-90">
+      ประกาศ: ยินดีต้อนรับสู่เว็บไซต์ GZone ดาวน์โหลดเกมฟรี!
+    </div>
+
+    <!-- เมนูเกมยอดนิยม -->
+    <div class="px-4">
+      <h2 class="text-xl font-semibold mb-2">เกมยอดนิยม</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-white text-black p-2 rounded-xl">
+          <img src="game1.jpg" alt="เกม 1" class="w-full rounded-md">
+          <h3 class="text-sm font-medium mt-1">เกมที่หนึ่ง</h3>
+          <button class="mt-1 bg-purple-700 text-white px-2 py-1 rounded">ดาวน์โหลด</button>
+        </div>
+        <div class="bg-white text-black p-2 rounded-xl">
+          <img src="game2.jpg" alt="เกม 2" class="w-full rounded-md">
+          <h3 class="text-sm font-medium mt-1">เกมที่สอง</h3>
+          <button class="mt-1 bg-purple-700 text-white px-2 py-1 rounded">ดาวน์โหลด</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-  </div>  <!-- หน้าค้นหา -->  <div id="searchPage" class="hidden px-4 py-6">
+  <!-- หน้าค้นหา -->
+  <div id="searchPage" class="hidden px-4 py-6">
     <h2 class="text-xl font-bold mb-4">ค้นหา</h2>
     <input type="text" placeholder="ค้นหาเกม..." class="w-full p-2 rounded bg-gray-100 text-black">
     <div class="mt-4">[เมนูย่อยจำลอง]</div>
-  </div>  <!-- หน้าบัญชี -->  <div id="accountPage" class="hidden px-4 py-6">
+  </div>
+
+  <!-- หน้าบัญชี -->
+  <div id="accountPage" class="hidden px-4 py-6">
     <h2 class="text-xl font-bold mb-4">บัญชีของฉัน</h2>
     <div>[เมนูย่อยจำลอง]</div>
-  </div>  <!-- แถบเมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around py-2 border-t border-purple-800">
+  </div>
+
+  <!-- แถบเมนูด้านล่าง -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around py-2 border-t border-purple-800">
     <button onclick="showPage('home')" class="flex flex-col items-center no-highlight">
       <img src="home-icon.png" alt="หน้าแรก" class="h-6 w-6">
       <span class="text-xs">หน้าแรก</span>
@@ -92,17 +104,21 @@
       <img src="account-icon.png" alt="บัญชี" class="h-6 w-6">
       <span class="text-xs">บัญชี</span>
     </button>
-  </nav>  <script>
+  </nav>
+
+  <script>
     let currentBanner = 0;
-    const banners = document.querySelectorAll('#bannerContainer img');
+    const banners = document.querySelectorAll('#bannerContainer .banner-img');
     const container = document.getElementById('bannerContainer');
     const dots = document.querySelectorAll('.dot');
     let autoScroll = true;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
     function showBanner(index) {
       container.style.transform = `translateX(-${index * 100}%)`;
       dots.forEach(dot => dot.classList.remove('active'));
-      dots[index].classList.add('active');
+      if (dots[index]) dots[index].classList.add('active');
       currentBanner = index;
     }
 
@@ -114,8 +130,20 @@
       });
     });
 
-    container.addEventListener('touchstart', () => autoScroll = false);
-    container.addEventListener('touchend', () => resetAutoScroll());
+    container.addEventListener('touchstart', e => {
+      autoScroll = false;
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    container.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        showBanner((currentBanner + 1) % banners.length);
+      } else if (touchEndX - touchStartX > 50) {
+        showBanner((currentBanner - 1 + banners.length) % banners.length);
+      }
+      resetAutoScroll();
+    });
 
     function resetAutoScroll() {
       setTimeout(() => autoScroll = true, 3000);
@@ -135,5 +163,6 @@
     }
 
     showPage('home');
-  </script></body>
+  </script>
+</body>
 </html>
