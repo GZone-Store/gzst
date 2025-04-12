@@ -19,30 +19,37 @@
       background-color: #a855f7;
       width: 12px;
     }
+    .animate-marquee {
+      animation: marquee 15s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
   </style>
 </head><body class="flex flex-col min-h-screen">
   <!-- หน้าแรก -->
   <div id="home" class="flex-grow">
     <!-- โลโก้ -->
-    <div class="text-center py-3 bg-[#1a1a2e] text-purple-400 text-2xl font-bold">
-      <img src="logo.png" alt="GZone Logo" class="mx-auto w-16 h-16 mb-1" />
+    <div class="text-center py-4 bg-[#1a1a2e] text-purple-400 text-2xl font-bold">
+      <img src="logo.png" alt="GZone Logo" class="mx-auto w-20 h-20 mb-2" />
       GZone
     </div><!-- แบนเนอร์ -->
-<div class="relative w-full overflow-hidden mt-2">
+<div class="relative w-full overflow-hidden mt-4">
   <div id="banner-container" class="flex transition-transform duration-500 ease-in-out">
-    <a href="#"><img src="banner1.jpg" alt="Banner 1" class="w-full object-cover"></a>
-    <a href="#"><img src="banner2.jpg" alt="Banner 2" class="w-full object-cover"></a>
-    <a href="#"><img src="banner3.jpg" alt="Banner 3" class="w-full object-cover"></a>
+    <a href="#"><img src="banner1.jpg" alt="Banner 1" class="w-full object-cover rounded-lg"></a>
+    <a href="#"><img src="banner2.jpg" alt="Banner 2" class="w-full object-cover rounded-lg"></a>
+    <a href="#"><img src="banner3.jpg" alt="Banner 3" class="w-full object-cover rounded-lg"></a>
   </div>
   <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1 banner-dots">
-    <span class="h-2 w-2 bg-white rounded-full opacity-70"></span>
-    <span class="h-2 w-2 bg-white rounded-full opacity-70"></span>
-    <span class="h-2 w-2 bg-white rounded-full opacity-70"></span>
+    <span class="h-1.5 w-1.5 bg-white rounded-full opacity-70"></span>
+    <span class="h-1.5 w-1.5 bg-white rounded-full opacity-70"></span>
+    <span class="h-1.5 w-1.5 bg-white rounded-full opacity-70"></span>
   </div>
 </div>
 
 <!-- ประกาศ -->
-<div class="bg-purple-900 text-white text-sm py-2 px-4 mt-2 overflow-hidden whitespace-nowrap animate-marquee">
+<div class="bg-purple-900 text-white text-sm py-2 px-4 mt-4 overflow-hidden whitespace-nowrap animate-marquee">
   ประกาศ: ยินดีต้อนรับสู่เว็บไซต์ GZone ดาวน์โหลดเกมฟรี ไม่มีโฆษณาเกินจริง!
 </div>
 
