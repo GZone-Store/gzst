@@ -1,120 +1,102 @@
-<!DOCTYPE html><html lang="th"><head>
+<!DOCTYPE html><html lang="th">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GZone - หน้าแรก</title>
+  <title>GZone</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      font-family: 'Kanit', sans-serif;
-      background-color: #0e0e14;
-      color: #ffffff;
+      background-color: #0f0d1a;
+      color: #ffffffcc;
     }
-    .active {
-      color: #a855f7;
-    }
-    .banner-dots span {
-      transition: all 0.3s;
-    }
-    .banner-dots span.active {
-      background-color: #a855f7;
-      width: 12px;
-    }
-    .animate-marquee {
-      animation: marquee 15s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
+    .banner-indicator {
+      width: 8px;
+      height: 8px;
     }
   </style>
-</head><body class="flex flex-col min-h-screen">
-  <!-- หน้าแรก -->
-  <div id="home" class="flex-grow">
-    <!-- โลโก้ -->
-    <div class="text-center py-4 bg-[#1a1a2e] text-purple-400 text-2xl font-bold">
-      <img src="logo.png" alt="GZone Logo" class="mx-auto w-20 h-20 mb-2" />
-      GZone
-    </div><!-- แบนเนอร์ -->
-<div class="relative w-full overflow-hidden mt-4">
-  <div id="banner-container" class="flex transition-transform duration-500 ease-in-out">
-    <a href="#"><img src="banner1.jpg" alt="Banner 1" class="w-full object-cover rounded-lg"></a>
-    <a href="#"><img src="banner2.jpg" alt="Banner 2" class="w-full object-cover rounded-lg"></a>
-    <a href="#"><img src="banner3.jpg" alt="Banner 3" class="w-full object-cover rounded-lg"></a>
-  </div>
-  <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1 banner-dots">
-    <span class="h-1.5 w-1.5 bg-white rounded-full opacity-70"></span>
-    <span class="h-1.5 w-1.5 bg-white rounded-full opacity-70"></span>
-    <span class="h-1.5 w-1.5 bg-white rounded-full opacity-70"></span>
-  </div>
-</div>
+</head>
+<body class="flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="bg-[#1c1b2d] p-4 flex justify-center items-center shadow-md">
+    <img src="logo.png" alt="GZone Logo" class="h-10 mr-2">
+    <span class="text-white text-xl font-bold">GZone</span>
+  </header>  <!-- หน้าแรก -->  <main class="flex-1">
+    <!-- แบนเนอร์เลื่อนอัตโนมัติ -->
+    <section class="relative overflow-hidden">
+      <div id="banner" class="flex transition-transform duration-700 ease-in-out">
+        <a href="#"><img src="banner1.jpg" class="w-full object-cover" /></a>
+        <a href="#"><img src="banner2.jpg" class="w-full object-cover" /></a>
+        <a href="#"><img src="banner3.jpg" class="w-full object-cover" /></a>
+      </div>
+      <div id="indicators" class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
+        <div class="banner-indicator bg-white rounded-full opacity-50"></div>
+        <div class="banner-indicator bg-white rounded-full opacity-50"></div>
+        <div class="banner-indicator bg-white rounded-full opacity-50"></div>
+      </div>
+    </section><!-- ประกาศ -->
+<section class="bg-[#1c1b2d] p-2 mt-4">
+  <marquee behavior="scroll" direction="left">ประกาศข่าวสารต่าง ๆ ของ GZone จะอยู่ตรงนี้</marquee>
+</section>
 
-<!-- ประกาศ -->
-<div class="bg-purple-900 text-white text-sm py-2 px-4 mt-4 overflow-hidden whitespace-nowrap animate-marquee">
-  ประกาศ: ยินดีต้อนรับสู่เว็บไซต์ GZone ดาวน์โหลดเกมฟรี ไม่มีโฆษณาเกินจริง!
-</div>
-
-<!-- เกมยอดนิยม -->
-<div class="p-4">
-  <h2 class="text-xl font-bold mb-2 text-purple-300">เกมยอดนิยม</h2>
+<!-- เมนูเกมยอดนิยม -->
+<section class="p-4">
+  <h2 class="text-lg font-semibold mb-2">เกมยอดนิยม</h2>
   <div class="grid grid-cols-2 gap-4">
-    <div class="bg-[#1e1e2e] p-2 rounded-2xl">
-      <img src="game1.jpg" class="rounded-xl mb-2" />
-      <h3 class="text-white text-sm font-semibold">เกมที่หนึ่ง</h3>
-      <button class="bg-purple-600 text-white mt-1 px-2 py-1 rounded-full text-xs">ดาวน์โหลด</button>
+    <div class="bg-[#2a2940] p-2 rounded-xl text-center">
+      <img src="game1.jpg" alt="Game 1" class="rounded-xl mb-2">
+      <div>Game 1</div>
+      <button class="bg-purple-700 text-white mt-2 px-4 py-1 rounded-full">ดาวน์โหลด</button>
     </div>
-    <div class="bg-[#1e1e2e] p-2 rounded-2xl">
-      <img src="game2.jpg" class="rounded-xl mb-2" />
-      <h3 class="text-white text-sm font-semibold">เกมที่สอง</h3>
-      <button class="bg-purple-600 text-white mt-1 px-2 py-1 rounded-full text-xs">ดาวน์โหลด</button>
+    <div class="bg-[#2a2940] p-2 rounded-xl text-center">
+      <img src="game2.jpg" alt="Game 2" class="rounded-xl mb-2">
+      <div>Game 2</div>
+      <button class="bg-purple-700 text-white mt-2 px-4 py-1 rounded-full">ดาวน์โหลด</button>
     </div>
   </div>
-</div>
+</section>
 
-  </div>  <!-- ค้นหา / บัญชี -->  <div id="search" class="hidden p-4 text-white">หน้านี้คือหน้าค้นหา (จำลอง)</div>
-  <div id="account" class="hidden p-4 text-white">หน้านี้คือหน้าบัญชี (จำลอง)</div>  <!-- เมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-[#1a1a2e] text-white flex justify-around py-2 border-t border-gray-700">
-    <button onclick="showTab('home')" class="flex flex-col items-center">
-      <img src="home.png" class="w-6 h-6" />
-      <span class="text-xs">หน้าแรก</span>
+  </main>  <!-- Footer เมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-[#1c1b2d] text-white flex justify-around items-center py-2 shadow-inner">
+    <button class="flex flex-col items-center">
+      <img src="home.png" class="h-6" />
+      <span class="text-sm">หน้าแรก</span>
     </button>
-    <button onclick="showTab('search')" class="flex flex-col items-center">
-      <img src="search.png" class="w-6 h-6" />
-      <span class="text-xs">ค้นหา</span>
+    <button class="flex flex-col items-center">
+      <img src="search.png" class="h-6" />
+      <span class="text-sm">ค้นหา</span>
     </button>
-    <button onclick="showTab('account')" class="flex flex-col items-center">
-      <img src="account.png" class="w-6 h-6" />
-      <span class="text-xs">บัญชี</span>
+    <button class="flex flex-col items-center">
+      <img src="account.png" class="h-6" />
+      <span class="text-sm">บัญชี</span>
     </button>
   </nav>  <script>
-    function showTab(tabId) {
-      document.querySelectorAll('body > div').forEach(div => div.style.display = 'none');
-      document.getElementById(tabId).style.display = 'block';
-    }
-    showTab('home');
+    const banner = document.getElementById('banner');
+    const indicators = document.getElementById('indicators').children;
+    let current = 0;
+    let isUserInteracting = false;
+    const total = banner.children.length;
 
-    const container = document.getElementById("banner-container");
-    const dots = document.querySelectorAll(".banner-dots span");
-    let currentIndex = 0;
-    let autoSlide = true;
-    let bannerCount = container.children.length;
-
-    function updateBanner(index) {
-      container.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach((dot, i) => {
-        dot.classList.toggle("active", i === index);
+    function updateBanner() {
+      banner.style.transform = `translateX(-${current * 100}%)`;
+      Array.from(indicators).forEach((dot, i) => {
+        dot.style.opacity = i === current ? '1' : '0.5';
       });
     }
 
-    function nextBanner() {
-      currentIndex = (currentIndex + 1) % bannerCount;
-      updateBanner(currentIndex);
+    function nextSlide() {
+      if (!isUserInteracting) {
+        current = (current + 1) % total;
+        updateBanner();
+      }
     }
 
-    let bannerInterval = setInterval(() => {
-      if (autoSlide) nextBanner();
-    }, 3000);
+    let autoSlide = setInterval(nextSlide, 3000);
 
-    container.addEventListener('touchstart', () => autoSlide = false);
-    container.addEventListener('touchend', () => autoSlide = true);
+    banner.addEventListener('touchstart', () => { isUserInteracting = true; clearInterval(autoSlide); });
+    banner.addEventListener('touchend', () => {
+      isUserInteracting = false;
+      autoSlide = setInterval(nextSlide, 3000);
+    });
 
-    updateBanner(currentIndex);
-  </script></body></html>
+    updateBanner();
+  </script></body>
+</html>
