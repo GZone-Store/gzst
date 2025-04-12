@@ -1,275 +1,107 @@
-<!DOCTYPE html><html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GZone - ดาวน์โหลดเกม</title>
-  <link rel="stylesheet" href="style.css">
+<!DOCTYPE html><html lang="th"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GZone - หน้าแรก</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root {
-      --primary-color: #3f0071;
-      --light-color: #f0f0ff;
-    }body {
-  margin: 0;
-  font-family: sans-serif;
-  background-color: var(--primary-color);
-  color: var(--light-color);
-}
-
-.header {
-  background-color: var(--primary-color);
-  padding: 10px;
-  text-align: center;
-}
-
-.logo {
-  height: 40px;
-}
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-.banner-carousel {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 180px;
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.carousel-slide {
-  flex: 0 0 100%;
-  height: 180px;
-}
-
-.carousel-slide a,
-.carousel-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.carousel-dots {
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-.dot.active {
-  background-color: var(--light-color);
-}
-
-.announcement {
-  background-color: #5a189a;
-  padding: 8px;
-  font-weight: bold;
-}
-
-.game-section {
-  padding: 10px;
-}
-
-.section-title {
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.game-menu {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
-}
-
-.game-card {
-  background-color: #4a148c;
-  border-radius: 12px;
-  padding: 10px;
-  text-align: center;
-}
-
-.game-card img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.download-btn {
-  margin-top: 10px;
-  padding: 8px 12px;
-  background-color: #7b2cbf;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  background-color: #3c096c;
-  padding: 8px 0;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--light-color);
-  font-size: 12px;
-  text-decoration: none;
-}
-
-.nav-item img {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 4px;
-}
-
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: #0e0e14;
+      color: #ffffff;
+    }
+    .active {
+      color: #a855f7;
+    }
+    .banner-dots span {
+      transition: all 0.3s;
+    }
+    .banner-dots span.active {
+      background-color: #a855f7;
+      width: 12px;
+    }
   </style>
-</head>
-<body>
-  <header class="header">
-    <img src="assets/logo.png" alt="GZone Logo" class="logo" />
-  </header>  <main>
-    <!-- หน้าแรก -->
-    <section id="homePage" class="page active">
-      <!-- Banner Carousel -->
-      <section class="banner-carousel" id="banner">
-        <div class="carousel-track" id="carouselTrack">
-          <div class="carousel-slide">
-            <a href="https://example.com/link1"><img src="assets/banner1.jpg" alt="Banner 1"></a>
-          </div>
-          <div class="carousel-slide">
-            <img src="assets/banner2.jpg" alt="Banner 2">
-          </div>
-          <div class="carousel-slide">
-            <a href="https://example.com/link3"><img src="assets/banner3.jpg" alt="Banner 3"></a>
-          </div>
-        </div>
-        <div class="carousel-dots" id="carouselDots">
-          <div class="dot active"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-      </section><!-- ประกาศ -->
-  <section class="announcement">
-    <marquee behavior="scroll" direction="left">ยินดีต้อนรับสู่ GZone! โหลดเกมฟรีทุกวัน!</marquee>
-  </section>
+</head><body class="flex flex-col min-h-screen">
+  <!-- หน้าแรก -->
+  <div id="home" class="flex-grow">
+    <!-- แบนเนอร์ -->
+    <div class="relative w-full overflow-hidden">
+      <div id="banner-container" class="flex transition-transform duration-500 ease-in-out">
+        <a href="#"><img src="banner1.jpg" alt="Banner 1" class="w-full object-cover"></a>
+        <a href="#"><img src="banner2.jpg" alt="Banner 2" class="w-full object-cover"></a>
+        <a href="#"><img src="banner3.jpg" alt="Banner 3" class="w-full object-cover"></a>
+      </div>
+      <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1 banner-dots">
+        <span class="h-2 w-2 bg-white rounded-full opacity-70"></span>
+        <span class="h-2 w-2 bg-white rounded-full opacity-70"></span>
+        <span class="h-2 w-2 bg-white rounded-full opacity-70"></span>
+      </div>
+    </div><!-- ประกาศ -->
+<div class="bg-purple-900 text-white text-sm py-2 px-4 mt-2 overflow-hidden whitespace-nowrap animate-marquee">
+  ประกาศ: ยินดีต้อนรับสู่เว็บไซต์ GZone ดาวน์โหลดเกมฟรี ไม่มีโฆษณาเกินจริง!
+</div>
 
-  <!-- เมนูเกม -->
-  <section class="game-section">
-    <div class="section-title">เกมยอดนิยม</div>
-    <div class="game-menu">
-      <div class="game-card">
-        <img src="assets/game1.jpg" alt="Game 1">
-        <h3>เกมที่ 1</h3>
-        <button class="download-btn">ดาวน์โหลด</button>
-      </div>
-      <div class="game-card">
-        <img src="assets/game2.jpg" alt="Game 2">
-        <h3>เกมที่ 2</h3>
-        <button class="download-btn">ดาวน์โหลด</button>
-      </div>
+<!-- เกมยอดนิยม -->
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-2 text-purple-300">เกมยอดนิยม</h2>
+  <div class="grid grid-cols-2 gap-4">
+    <div class="bg-[#1e1e2e] p-2 rounded-2xl">
+      <img src="game1.jpg" class="rounded-xl mb-2" />
+      <h3 class="text-white text-sm font-semibold">เกมที่หนึ่ง</h3>
+      <button class="bg-purple-600 text-white mt-1 px-2 py-1 rounded-full text-xs">ดาวน์โหลด</button>
     </div>
-  </section>
-</section>
-
-<!-- หน้าอื่น ๆ -->
-<section id="searchPage" class="page">
-  <div class="game-section">
-    <div class="section-title">หน้าค้นหา (กำลังพัฒนา)</div>
-    <p>ค้นหาเกมที่คุณต้องการ...</p>
+    <div class="bg-[#1e1e2e] p-2 rounded-2xl">
+      <img src="game2.jpg" class="rounded-xl mb-2" />
+      <h3 class="text-white text-sm font-semibold">เกมที่สอง</h3>
+      <button class="bg-purple-600 text-white mt-1 px-2 py-1 rounded-full text-xs">ดาวน์โหลด</button>
+    </div>
   </div>
-</section>
+</div>
 
-<section id="accountPage" class="page">
-  <div class="game-section">
-    <div class="section-title">หน้าบัญชีผู้ใช้ (กำลังพัฒนา)</div>
-    <p>เข้าสู่ระบบ หรือ จัดการบัญชีของคุณ</p>
-  </div>
-</section>
-
-  </main>  <!-- แถบเมนูด้านล่าง -->  <nav class="bottom-nav">
-    <a href="#" class="nav-item" onclick="showPage('homePage')">
-      <img src="assets/home-icon.png" alt="หน้าแรก">
-      <span>หน้าแรก</span>
-    </a>
-    <a href="#" class="nav-item" onclick="showPage('searchPage')">
-      <img src="assets/search-icon.png" alt="ค้นหา">
-      <span>ค้นหา</span>
-    </a>
-    <a href="#" class="nav-item" onclick="showPage('accountPage')">
-      <img src="assets/account-icon.png" alt="บัญชี">
-      <span>บัญชี</span>
-    </a>
+  </div>  <!-- ค้นหา / บัญชี -->  <div id="search" class="hidden p-4 text-white">หน้านี้คือหน้าค้นหา (จำลอง)</div>
+  <div id="account" class="hidden p-4 text-white">หน้านี้คือหน้าบัญชี (จำลอง)</div>  <!-- เมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-[#1a1a2e] text-white flex justify-around py-2 border-t border-gray-700">
+    <button onclick="showTab('home')" class="flex flex-col items-center">
+      <img src="home.png" class="w-6 h-6" />
+      <span class="text-xs">หน้าแรก</span>
+    </button>
+    <button onclick="showTab('search')" class="flex flex-col items-center">
+      <img src="search.png" class="w-6 h-6" />
+      <span class="text-xs">ค้นหา</span>
+    </button>
+    <button onclick="showTab('account')" class="flex flex-col items-center">
+      <img src="account.png" class="w-6 h-6" />
+      <span class="text-xs">บัญชี</span>
+    </button>
   </nav>  <script>
-    const pages = document.querySelectorAll('.page');
-    function showPage(id) {
-      pages.forEach(page => page.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    function showTab(tabId) {
+      document.querySelectorAll('body > div').forEach(div => div.style.display = 'none');
+      document.getElementById(tabId).style.display = 'block';
+    }
+    showTab('home');
+
+    const container = document.getElementById("banner-container");
+    const dots = document.querySelectorAll(".banner-dots span");
+    let currentIndex = 0;
+    let autoSlide = true;
+    let bannerCount = container.children.length;
+
+    function updateBanner(index) {
+      container.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
     }
 
-    const track = document.getElementById('carouselTrack');
-    const dots = document.querySelectorAll('.dot');
-    let index = 0;
-    const total = dots.length;
-    let isDragging = false;
-    let autoSlide;
-
-    function updateCarousel() {
-      track.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach(dot => dot.classList.remove('active'));
-      if (dots[index]) dots[index].classList.add('active');
+    function nextBanner() {
+      currentIndex = (currentIndex + 1) % bannerCount;
+      updateBanner(currentIndex);
     }
 
-    function nextSlide() {
-      if (index < total - 1) {
-        index++;
-        updateCarousel();
-      } else {
-        index = 0;
-        updateCarousel();
-      }
-    }
+    let bannerInterval = setInterval(() => {
+      if (autoSlide) nextBanner();
+    }, 3000);
 
-    function startAutoSlide() {
-      autoSlide = setInterval(nextSlide, 3000);
-    }
+    container.addEventListener('touchstart', () => autoSlide = false);
+    container.addEventListener('touchend', () => autoSlide = true);
 
-    function stopAutoSlide() {
-      clearInterval(autoSlide);
-    }
-
-    startAutoSlide();
-
-    track.addEventListener('touchstart', () => {
-      stopAutoSlide();
-      isDragging = true;
-    });
-    track.addEventListener('touchend', () => {
-      isDragging = false;
-      startAutoSlide();
-    });
-  </script></body>
-</html>
+    updateBanner(currentIndex);
+  </script></body></html>
