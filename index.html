@@ -1,52 +1,21 @@
-<!DOCTYPE html>
-<html lang="th">
+<!DOCTYPE html><html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>GZone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <title>หน้าหลัก - ดาวน์โหลดเกม</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-
-  <div class="main-content">
-    <h1>ยินดีต้อนรับสู่ GZone</h1>
-    <p>คลิกด้านล่างเพื่อสมัครสมาชิกหรือเข้าสู่ระบบ</p>
-    <button onclick="openModal()">สมัครสมาชิก / เข้าสู่ระบบ</button>
-    <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="authModal">
-    <div class="modal-content">
-      <div class="btn-close" onclick="closeModal()">×</div>
-      <h2>สมัครสมาชิก / เข้าสู่ระบบ</h2>
-
-      <div class="form-group">
-        <img src="https://img.icons8.com/ios-glyphs/30/email--v1.png"/>
-        <input type="email" placeholder="อีเมล" id="email">
-      </div>
-
-      <div class="form-group">
-        <img src="https://img.icons8.com/ios-glyphs/30/lock--v1.png"/>
-        <input type="password" placeholder="รหัสผ่าน" id="password">
-      </div>
-
-      <div class="form-group">
-        <img src="https://img.icons8.com/ios-glyphs/30/lock--v1.png"/>
-        <input type="password" placeholder="ยืนยันรหัสผ่าน" id="confirm-password">
-      </div>
-
-      <button class="btn-submit" onclick="register()">สมัครสมาชิก</button>
-      <button class="btn-login" onclick="login()">เข้าสู่ระบบ</button>
-
-      <div class="or-divider">หรือ</div>
-
-      <button class="social-btn google" onclick="loginWithGoogle()">ดำเนินการต่อด้วย Google</button>
-      <button class="social-btn facebook" onclick="loginWithFacebook()">ดำเนินการต่อด้วย Facebook</button>
-      <button class="social-btn line" onclick="loginWithLine()">ดำเนินการต่อด้วย Line</button>
+<body>  <!-- Banner -->  <section class="banner-container">
+    <div class="banner" id="banner">
+      <img src="assets/images/banner1.png" alt="แบนเนอร์ 1">
+      <img src="assets/images/banner2.png" alt="แบนเนอร์ 2">
+      <img src="assets/images/banner3.png" alt="แบนเนอร์ 3">
     </div>
-  </div>
-
-  <script type="module" src="app.js"></script>
-</body>
+  </section>  <!-- ประกาศ -->  <div class="announcement">
+    <marquee behavior="scroll" direction="left">ยินดีต้อนรับสู่เว็บไซต์โหลดเกมของเรา! โปรดอ่านประกาศให้ครบถ้วน</marquee>
+  </div>  <!-- Bottom Navigation -->  <nav class="bottom-nav">
+    <a href="games.html"><img src="assets/icons/game.png" alt="เกม"><span>เกม</span></a>
+    <a href="index.html" class="active"><img src="assets/icons/home.png" alt="หน้าหลัก"><span>หน้าหลัก</span></a>
+    <a href="account.html"><img src="assets/icons/account.png" alt="บัญชี"><span>บัญชี</span></a>
+  </nav>  <script src="js/script.js"></script></body>
 </html>
