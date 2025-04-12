@@ -1,80 +1,143 @@
-<!-- หน้าแรก --><div id="home" class="p-4 pb-20">
-  <div class="flex items-center justify-between mb-2">
-    <img src="images/logo.png" alt="GZone Logo" class="h-10 w-auto">
-  </div>  <!-- แบนเนอร์เลื่อนอัตโนมัติ -->  <div class="relative overflow-hidden rounded-2xl mb-4">
-    <div id="bannerContainer" class="flex transition-transform duration-500 ease-in-out">
-      <a href="#"><img src="images/banner1.jpg" alt="Banner 1" class="w-full flex-shrink-0 rounded-2xl"></a>
-      <a href="#"><img src="images/banner2.jpg" alt="Banner 2" class="w-full flex-shrink-0 rounded-2xl"></a>
-      <a href="#"><img src="images/banner3.jpg" alt="Banner 3" class="w-full flex-shrink-0 rounded-2xl"></a>
+<!DOCTYPE html><html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GZone - ดาวน์โหลดเกม</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1f1b2e;
+      color: #f5f5f5;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background-color: #2d253f;
+      padding: 0.5rem 0;
+      z-index: 50;
+    }
+    .bottom-nav button {
+      color: #ccc;
+    }
+    .bottom-nav button.active {
+      color: white;
+    }
+    .dot {
+      height: 8px;
+      width: 8px;
+      margin: 0 4px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+    .dot.active {
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="pb-16">
+    <!-- หน้าแรก -->
+    <div id="home" class="block">
+      <!-- โลโก้ -->
+      <div class="text-center py-4">
+        <img src="logo.png" alt="GZone Logo" class="mx-auto h-12">
+      </div><!-- แบนเนอร์ -->
+  <div class="relative w-full overflow-hidden">
+    <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out" style="transform: translateX(0%)">
+      <a href="#" class="flex-shrink-0 w-full"><img src="banner1.jpg" class="w-full"></a>
+      <a href="#" class="flex-shrink-0 w-full"><img src="banner2.jpg" class="w-full"></a>
+      <a href="#" class="flex-shrink-0 w-full"><img src="banner3.jpg" class="w-full"></a>
     </div>
-    <div id="bannerDots" class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-      <div class="w-2 h-2 bg-white/50 rounded-full"></div>
-      <div class="w-2 h-2 bg-white/50 rounded-full"></div>
-      <div class="w-2 h-2 bg-white/50 rounded-full"></div>
+    <div class="absolute bottom-2 left-0 right-0 text-center">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
     </div>
-  </div>  <!-- กล่องประกาศ -->  <div class="bg-purple-900 text-white text-sm px-4 py-2 mb-4 rounded-xl overflow-hidden whitespace-nowrap">
-    <marquee behavior="scroll" direction="left">ประกาศ: ยินดีต้อนรับเข้าสู่เว็บไซต์ GZone ดาวน์โหลดเกมมากมายฟรี!</marquee>
-  </div>  <!-- เมนูเกมยอดนิยม -->  <h2 class="text-white text-lg font-semibold mb-2">เกมยอดนิยม</h2>
-  <div class="grid grid-cols-2 gap-4">
-    <div class="bg-white/10 rounded-2xl p-2 text-white">
-      <img src="images/game1.jpg" alt="Game 1" class="rounded-xl mb-2">
-      <p class="mb-1">ชื่อเกม 1</p>
-      <button class="bg-purple-600 text-white px-2 py-1 rounded-xl text-sm">ดาวน์โหลด</button>
-    </div>
-    <div class="bg-white/10 rounded-2xl p-2 text-white">
-      <img src="images/game2.jpg" alt="Game 2" class="rounded-xl mb-2">
-      <p class="mb-1">ชื่อเกม 2</p>
-      <button class="bg-purple-600 text-white px-2 py-1 rounded-xl text-sm">ดาวน์โหลด</button>
-    </div>
-    <!-- เพิ่มเกมอื่นๆ ได้ที่นี่ -->
   </div>
-</div><!-- ค้นหา --><div id="search" class="hidden p-4 pb-20">
-  <h2 class="text-white text-lg font-semibold mb-2">ค้นหา</h2>
-  <p class="text-white/70">[เมนูย่อยค้นหา จำลองไว้ก่อน]</p>
-</div><!-- บัญชี --><div id="account" class="hidden p-4 pb-20">
-  <h2 class="text-white text-lg font-semibold mb-2">บัญชี</h2>
-  <p class="text-white/70">[เมนูย่อยบัญชี จำลองไว้ก่อน]</p>
-</div><!-- แถบนำทางล่างสุด --><div class="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center py-2 border-t border-white/10">
-  <button onclick="showPage('home')" class="flex flex-col items-center text-xs">
-    <img src="images/home.png" alt="Home" class="w-6 h-6 mb-1">
-    หน้าแรก
-  </button>
-  <button onclick="showPage('search')" class="flex flex-col items-center text-xs">
-    <img src="images/search.png" alt="Search" class="w-6 h-6 mb-1">
-    ค้นหา
-  </button>
-  <button onclick="showPage('account')" class="flex flex-col items-center text-xs">
-    <img src="images/user.png" alt="Account" class="w-6 h-6 mb-1">
-    บัญชี
-  </button>
-</div><script>
-let currentBanner = 0;
-let isInteracting = false;
-const bannerImages = document.querySelectorAll('#bannerContainer img');
-const bannerContainer = document.getElementById('bannerContainer');
-const bannerDots = document.getElementById('bannerDots').children;
 
-function showBanner(index) {
-  currentBanner = index % bannerImages.length;
-  bannerContainer.style.transform = `translateX(-${100 * currentBanner}%)`;
-  [...bannerDots].forEach((dot, i) => {
-    dot.className = 'w-2 h-2 rounded-full ' + (i === currentBanner ? 'bg-white' : 'bg-white/50');
-  });
-}
+  <!-- กล่องประกาศ -->
+  <div class="bg-purple-800 text-white text-sm py-2 px-4 mt-4 mx-4 rounded shadow">
+    ประกาศ: เกมใหม่มาแรงประจำเดือนนี้! อย่าลืมกดดาวน์โหลด!
+  </div>
 
-let bannerInterval = setInterval(() => {
-  if (!isInteracting) showBanner(currentBanner + 1);
-}, 3000);
+  <!-- เมนูเกมยอดนิยม -->
+  <div class="p-4">
+    <h2 class="text-lg mb-2 font-semibold">เกมยอดนิยม</h2>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-white text-black rounded-xl overflow-hidden shadow">
+        <img src="game1.jpg" class="w-full h-28 object-cover">
+        <div class="p-2">
+          <h3 class="text-sm font-semibold">เกม 1</h3>
+          <button class="mt-1 text-sm text-white bg-purple-700 px-2 py-1 rounded">ดาวน์โหลด</button>
+        </div>
+      </div>
+      <div class="bg-white text-black rounded-xl overflow-hidden shadow">
+        <img src="game2.jpg" class="w-full h-28 object-cover">
+        <div class="p-2">
+          <h3 class="text-sm font-semibold">เกม 2</h3>
+          <button class="mt-1 text-sm text-white bg-purple-700 px-2 py-1 rounded">ดาวน์โหลด</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-bannerContainer.addEventListener('touchstart', () => isInteracting = true);
-bannerContainer.addEventListener('touchend', () => isInteracting = false);
+<!-- ค้นหา -->
+<div id="search" class="hidden p-4">
+  <h2 class="text-lg mb-4">หน้าค้นหา</h2>
+  <div class="bg-white text-black p-4 rounded">เมนูย่อยจำลองของการค้นหา</div>
+</div>
 
-bannerDots[0].addEventListener('click', () => showBanner(0));
-bannerDots[1].addEventListener('click', () => showBanner(1));
-bannerDots[2].addEventListener('click', () => showBanner(2));
+<!-- บัญชี -->
+<div id="account" class="hidden p-4">
+  <h2 class="text-lg mb-4">หน้าบัญชี</h2>
+  <div class="bg-white text-black p-4 rounded">เมนูย่อยจำลองของบัญชีผู้ใช้</div>
+</div>
 
-function showPage(page) {
-  document.querySelectorAll('#home, #search, #account').forEach(p => p.classList.add('hidden'));
-  document.getElementById(page).classList.remove('hidden');
-}
-</script>
+<!-- แถบเมนูล่าง -->
+<div class="bottom-nav">
+  <button onclick="showPage('home', this)" class="active">หน้าแรก</button>
+  <button onclick="showPage('search', this)">ค้นหา</button>
+  <button onclick="showPage('account', this)">บัญชี</button>
+</div>
+
+  </div>  <script>
+    let currentBanner = 0;
+    const totalBanners = 3;
+    let bannerInterval = setInterval(nextBanner, 3000);
+    const carousel = document.getElementById('banner-carousel');
+    const dots = document.querySelectorAll('.dot');
+
+    function nextBanner() {
+      currentBanner = (currentBanner + 1) % totalBanners;
+      updateBanner();
+    }
+
+    function updateBanner() {
+      carousel.style.transform = `translateX(-${currentBanner * 100}%)`;
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === currentBanner));
+    }
+
+    let isUserInteracting = false;
+    carousel.addEventListener('touchstart', () => {
+      clearInterval(bannerInterval);
+      isUserInteracting = true;
+    });
+    carousel.addEventListener('touchend', () => {
+      isUserInteracting = false;
+      bannerInterval = setInterval(nextBanner, 3000);
+    });
+
+    function showPage(pageId, button) {
+      document.querySelectorAll('#app > div').forEach(div => div.classList.add('hidden'));
+      document.getElementById(pageId).classList.remove('hidden');
+      document.querySelectorAll('.bottom-nav button').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+    }
+  </script></body>
+</html>
