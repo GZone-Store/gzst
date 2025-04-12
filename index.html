@@ -20,51 +20,65 @@
   <header class="bg-[#1c1b2d] p-4 flex justify-center items-center shadow-md">
     <img src="logo.png" alt="GZone Logo" class="h-10 mr-2">
     <span class="text-white text-xl font-bold">GZone</span>
-  </header>  <!-- หน้าแรก -->  <main class="flex-1">
-    <!-- แบนเนอร์เลื่อนอัตโนมัติ -->
-    <section class="relative overflow-hidden">
-      <div id="banner" class="flex transition-transform duration-700 ease-in-out">
-        <a href="#"><img src="banner1.jpg" class="w-full object-cover" /></a>
-        <a href="#"><img src="banner2.jpg" class="w-full object-cover" /></a>
-        <a href="#"><img src="banner3.jpg" class="w-full object-cover" /></a>
-      </div>
-      <div id="indicators" class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
-        <div class="banner-indicator bg-white rounded-full opacity-50"></div>
-        <div class="banner-indicator bg-white rounded-full opacity-50"></div>
-        <div class="banner-indicator bg-white rounded-full opacity-50"></div>
-      </div>
-    </section><!-- ประกาศ -->
-<section class="bg-[#1c1b2d] p-2 mt-4">
-  <marquee behavior="scroll" direction="left">ประกาศข่าวสารต่าง ๆ ของ GZone จะอยู่ตรงนี้</marquee>
-</section>
+  </header>  <!-- Content Wrapper -->  <main id="main-content" class="flex-1">
+    <!-- หน้าแรก -->
+    <div id="home-page">
+      <!-- แบนเนอร์เลื่อนอัตโนมัติ -->
+      <section class="relative overflow-hidden mt-2">
+        <div id="banner" class="flex transition-transform duration-700 ease-in-out">
+          <a href="#"><img src="banner1.jpg" class="w-full object-cover h-40" /></a>
+          <a href="#"><img src="banner2.jpg" class="w-full object-cover h-40" /></a>
+          <a href="#"><img src="banner3.jpg" class="w-full object-cover h-40" /></a>
+        </div>
+        <div id="indicators" class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
+          <div class="banner-indicator bg-white rounded-full opacity-50"></div>
+          <div class="banner-indicator bg-white rounded-full opacity-50"></div>
+          <div class="banner-indicator bg-white rounded-full opacity-50"></div>
+        </div>
+      </section><!-- ประกาศ -->
+  <section class="bg-[#1c1b2d] p-2 mt-4">
+    <marquee behavior="scroll" direction="left">ประกาศข่าวสารต่าง ๆ ของ GZone จะอยู่ตรงนี้</marquee>
+  </section>
 
-<!-- เมนูเกมยอดนิยม -->
-<section class="p-4">
-  <h2 class="text-lg font-semibold mb-2">เกมยอดนิยม</h2>
-  <div class="grid grid-cols-2 gap-4">
-    <div class="bg-[#2a2940] p-2 rounded-xl text-center">
-      <img src="game1.jpg" alt="Game 1" class="rounded-xl mb-2">
-      <div>Game 1</div>
-      <button class="bg-purple-700 text-white mt-2 px-4 py-1 rounded-full">ดาวน์โหลด</button>
+  <!-- เมนูเกมยอดนิยม -->
+  <section class="p-4">
+    <h2 class="text-lg font-semibold mb-2">เกมยอดนิยม</h2>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-[#2a2940] p-2 rounded-xl text-center">
+        <img src="game1.jpg" alt="Game 1" class="rounded-xl mb-2">
+        <div>Game 1</div>
+        <button class="bg-purple-700 text-white mt-2 px-4 py-1 rounded-full">ดาวน์โหลด</button>
+      </div>
+      <div class="bg-[#2a2940] p-2 rounded-xl text-center">
+        <img src="game2.jpg" alt="Game 2" class="rounded-xl mb-2">
+        <div>Game 2</div>
+        <button class="bg-purple-700 text-white mt-2 px-4 py-1 rounded-full">ดาวน์โหลด</button>
+      </div>
     </div>
-    <div class="bg-[#2a2940] p-2 rounded-xl text-center">
-      <img src="game2.jpg" alt="Game 2" class="rounded-xl mb-2">
-      <div>Game 2</div>
-      <button class="bg-purple-700 text-white mt-2 px-4 py-1 rounded-full">ดาวน์โหลด</button>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
+
+<!-- หน้าอื่น (จำลอง) -->
+<div id="search-page" class="hidden p-4">
+  <h2 class="text-white text-xl font-bold mb-4">ค้นหา</h2>
+  <div class="bg-[#2a2940] p-4 rounded-xl">เมนูค้นหาจำลอง</div>
+</div>
+
+<div id="account-page" class="hidden p-4">
+  <h2 class="text-white text-xl font-bold mb-4">บัญชีของฉัน</h2>
+  <div class="bg-[#2a2940] p-4 rounded-xl">เมนูบัญชีจำลอง</div>
+</div>
 
   </main>  <!-- Footer เมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-[#1c1b2d] text-white flex justify-around items-center py-2 shadow-inner">
-    <button class="flex flex-col items-center">
+    <button onclick="showPage('home')" class="flex flex-col items-center">
       <img src="home.png" class="h-6" />
       <span class="text-sm">หน้าแรก</span>
     </button>
-    <button class="flex flex-col items-center">
+    <button onclick="showPage('search')" class="flex flex-col items-center">
       <img src="search.png" class="h-6" />
       <span class="text-sm">ค้นหา</span>
     </button>
-    <button class="flex flex-col items-center">
+    <button onclick="showPage('account')" class="flex flex-col items-center">
       <img src="account.png" class="h-6" />
       <span class="text-sm">บัญชี</span>
     </button>
@@ -98,5 +112,15 @@
     });
 
     updateBanner();
+
+    function showPage(page) {
+      document.getElementById('home-page').classList.add('hidden');
+      document.getElementById('search-page').classList.add('hidden');
+      document.getElementById('account-page').classList.add('hidden');
+
+      if (page === 'home') document.getElementById('home-page').classList.remove('hidden');
+      else if (page === 'search') document.getElementById('search-page').classList.remove('hidden');
+      else if (page === 'account') document.getElementById('account-page').classList.remove('hidden');
+    }
   </script></body>
 </html>
