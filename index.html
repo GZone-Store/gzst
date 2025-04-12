@@ -25,6 +25,14 @@
   height: 40px;
 }
 
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
 .banner-carousel {
   position: relative;
   overflow: hidden;
@@ -40,11 +48,14 @@
 .carousel-slide {
   flex: 0 0 100%;
   height: 180px;
-  background: #555;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
+}
+
+.carousel-slide a,
+.carousel-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .carousel-dots {
@@ -53,12 +64,12 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 5px;
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.4);
 }
@@ -73,11 +84,19 @@
   font-weight: bold;
 }
 
+.game-section {
+  padding: 10px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
 .game-menu {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 15px;
-  padding: 15px;
 }
 
 .game-card {
@@ -133,71 +152,124 @@
   <header class="header">
     <img src="assets/logo.png" alt="GZone Logo" class="logo" />
   </header>  <main>
-    <!-- Banner Carousel -->
-    <section class="banner-carousel">
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide">แบนเนอร์ 1</div>
-        <div class="carousel-slide">แบนเนอร์ 2</div>
-        <div class="carousel-slide">แบนเนอร์ 3</div>
+    <!-- หน้าแรก -->
+    <section id="homePage" class="page active">
+      <!-- Banner Carousel -->
+      <section class="banner-carousel" id="banner">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide">
+            <a href="https://example.com/link1"><img src="assets/banner1.jpg" alt="Banner 1"></a>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/banner2.jpg" alt="Banner 2">
+          </div>
+          <div class="carousel-slide">
+            <a href="https://example.com/link3"><img src="assets/banner3.jpg" alt="Banner 3"></a>
+          </div>
+        </div>
+        <div class="carousel-dots" id="carouselDots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </section><!-- ประกาศ -->
+  <section class="announcement">
+    <marquee behavior="scroll" direction="left">ยินดีต้อนรับสู่ GZone! โหลดเกมฟรีทุกวัน!</marquee>
+  </section>
+
+  <!-- เมนูเกม -->
+  <section class="game-section">
+    <div class="section-title">เกมยอดนิยม</div>
+    <div class="game-menu">
+      <div class="game-card">
+        <img src="assets/game1.jpg" alt="Game 1">
+        <h3>เกมที่ 1</h3>
+        <button class="download-btn">ดาวน์โหลด</button>
       </div>
-      <div class="carousel-dots" id="carouselDots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+      <div class="game-card">
+        <img src="assets/game2.jpg" alt="Game 2">
+        <h3>เกมที่ 2</h3>
+        <button class="download-btn">ดาวน์โหลด</button>
       </div>
-    </section><!-- ประกาศเลื่อน -->
-<section class="announcement">
-  <marquee behavior="scroll" direction="left">ยินดีต้อนรับสู่ GZone! โหลดเกมฟรีทุกวัน!</marquee>
+    </div>
+  </section>
 </section>
 
-<!-- เมนูเกม -->
-<section class="game-menu">
-  <div class="game-card">
-    <img src="assets/game1.jpg" alt="Game 1">
-    <h3>เกมที่ 1</h3>
-    <button class="download-btn">ดาวน์โหลด</button>
+<!-- หน้าอื่น ๆ -->
+<section id="searchPage" class="page">
+  <div class="game-section">
+    <div class="section-title">หน้าค้นหา (กำลังพัฒนา)</div>
+    <p>ค้นหาเกมที่คุณต้องการ...</p>
   </div>
-  <div class="game-card">
-    <img src="assets/game2.jpg" alt="Game 2">
-    <h3>เกมที่ 2</h3>
-    <button class="download-btn">ดาวน์โหลด</button>
+</section>
+
+<section id="accountPage" class="page">
+  <div class="game-section">
+    <div class="section-title">หน้าบัญชีผู้ใช้ (กำลังพัฒนา)</div>
+    <p>เข้าสู่ระบบ หรือ จัดการบัญชีของคุณ</p>
   </div>
-  <!-- เพิ่มเกมได้เรื่อยๆ -->
 </section>
 
   </main>  <!-- แถบเมนูด้านล่าง -->  <nav class="bottom-nav">
-    <a href="#" class="nav-item">
+    <a href="#" class="nav-item" onclick="showPage('homePage')">
       <img src="assets/home-icon.png" alt="หน้าแรก">
       <span>หน้าแรก</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="#" class="nav-item" onclick="showPage('searchPage')">
       <img src="assets/search-icon.png" alt="ค้นหา">
       <span>ค้นหา</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="#" class="nav-item" onclick="showPage('accountPage')">
       <img src="assets/account-icon.png" alt="บัญชี">
       <span>บัญชี</span>
     </a>
   </nav>  <script>
+    const pages = document.querySelectorAll('.page');
+    function showPage(id) {
+      pages.forEach(page => page.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
     const track = document.getElementById('carouselTrack');
     const dots = document.querySelectorAll('.dot');
     let index = 0;
     const total = dots.length;
+    let isDragging = false;
+    let autoSlide;
 
     function updateCarousel() {
       track.style.transform = `translateX(-${index * 100}%)`;
       dots.forEach(dot => dot.classList.remove('active'));
-      dots[index].classList.add('active');
+      if (dots[index]) dots[index].classList.add('active');
     }
 
     function nextSlide() {
-      index = (index + 1) % total;
-      updateCarousel();
+      if (index < total - 1) {
+        index++;
+        updateCarousel();
+      } else {
+        index = 0;
+        updateCarousel();
+      }
     }
 
-    let autoSlide = setInterval(nextSlide, 4000);
+    function startAutoSlide() {
+      autoSlide = setInterval(nextSlide, 3000);
+    }
 
-    track.addEventListener('touchstart', () => clearInterval(autoSlide));
-    track.addEventListener('touchend', () => autoSlide = setInterval(nextSlide, 4000));
+    function stopAutoSlide() {
+      clearInterval(autoSlide);
+    }
+
+    startAutoSlide();
+
+    track.addEventListener('touchstart', () => {
+      stopAutoSlide();
+      isDragging = true;
+    });
+    track.addEventListener('touchend', () => {
+      isDragging = false;
+      startAutoSlide();
+    });
   </script></body>
 </html>
