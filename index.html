@@ -24,36 +24,34 @@
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
-    <!-- หน้าแรก -->
     <div id="home" class="flex-1 pb-16 block">
-      <!-- โลโก้ -->
       <div class="p-4">
         <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />
       </div>
-      <!-- แบนเนอร์เลื่อนอัตโนมัติแบบวน -->
+      <!-- แบนเนอร์เลื่อนวนลูป -->
       <div class="relative w-full overflow-hidden h-40">
         <div id="banner-carousel" class="flex transition-transform duration-700 ease-in-out overflow-x-scroll scroll-smooth snap-x">
           <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0 snap-center" />
           <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0 snap-center" />
           <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0 snap-center" />
+          <!-- โคลนเพื่อวนลูป -->
+          <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0 snap-center" />
+          <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0 snap-center" />
+          <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0 snap-center" />
         </div>
-        <!-- จุดสถานะ -->
         <div class="absolute bottom-2 w-full flex justify-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-purple-500" id="dot0"></span>
           <span class="w-1.5 h-1.5 rounded-full bg-white opacity-50" id="dot1"></span>
           <span class="w-1.5 h-1.5 rounded-full bg-white opacity-50" id="dot2"></span>
         </div>
       </div>
-      <!-- กล่องประกาศ -->
       <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">
         <div class="whitespace-nowrap animate-marquee">
           <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
           <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>
         </div>
       </div>
-      <!-- หัวข้อ -->
       <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>
-      <!-- เมนูเกม -->
       <div class="grid grid-cols-2 gap-4 p-4">
         <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
           <img src="game1.png.jpg" alt="Game 1" class="rounded-xl mb-2" />
@@ -67,15 +65,12 @@
         </div>
       </div>
     </div>
-    <!-- หน้าจำลอง: ค้นหา -->
     <div id="search" class="hidden flex-1 pb-16">
       <div class="p-6 text-center text-lg">[ เมนูค้นหา - ยังไม่เปิดใช้งาน ]</div>
     </div>
-    <!-- หน้าจำลอง: บัญชี -->
     <div id="account" class="hidden flex-1 pb-16">
       <div class="p-6 text-center text-lg">[ เมนูบัญชี - ยังไม่เปิดใช้งาน ]</div>
     </div>
-    <!-- แถบเมนูด้านล่าง -->
     <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
       <button onclick="goTo('home')" class="flex flex-col items-center">
         <img src="icon-home.png.png" class="w-6 h-6" />
@@ -91,25 +86,20 @@
       </button>
     </nav>
     <script>
-      // แบนเนอร์เลื่อนอัตโนมัติ + จุดสถานะ
       const carousel = document.getElementById('banner-carousel');
-      const slides = carousel.children;
       const dots = [
         document.getElementById('dot0'),
         document.getElementById('dot1'),
         document.getElementById('dot2')
       ];
+      const bannerCount = 3; // มีแค่ 3 จริง ๆ
       let currentSlide = 0;
 
       function updateDots(index) {
         dots.forEach((dot, i) => {
-          if (i === index) {
-            dot.classList.remove('bg-white', 'opacity-50');
-            dot.classList.add('bg-purple-500');
-          } else {
-            dot.classList.add('bg-white', 'opacity-50');
-            dot.classList.remove('bg-purple-500');
-          }
+          dot.classList.toggle('bg-purple-500', i === index);
+          dot.classList.toggle('bg-white', i !== index);
+          dot.classList.toggle('opacity-50', i !== index);
         });
       }
 
@@ -118,24 +108,32 @@
           left: carousel.clientWidth * index,
           behavior: 'smooth'
         });
-        updateDots(index);
+        updateDots(index % bannerCount);
         currentSlide = index;
       }
 
-      // อัตโนมัติทุก 3 วินาที
-      setInterval(() => {
-        currentSlide = (currentSlide + 1) % slides.length;
+      function autoScroll() {
+        currentSlide++;
         goToSlide(currentSlide);
-      }, 3000);
+        // รีเซ็ตตำแหน่งเมื่อถึง slide 6 (คล้ายวนกลับ)
+        if (currentSlide === bannerCount * 2) {
+          setTimeout(() => {
+            carousel.scrollLeft = 0;
+            currentSlide = 0;
+            updateDots(0);
+          }, 800); // รอให้ scroll เสร็จก่อนรีเซ็ต
+        }
+      }
 
-      // เลื่อนเองแล้วจุดอัปเดต
+      setInterval(autoScroll, 3000);
+
+      // ถ้าเลื่อนเองจะอัปเดต dot และตำแหน่ง current
       carousel.addEventListener('scroll', () => {
         const index = Math.round(carousel.scrollLeft / carousel.clientWidth);
-        updateDots(index);
+        updateDots(index % bannerCount);
         currentSlide = index;
       });
 
-      // ระบบเปลี่ยนหน้า
       function goTo(page) {
         document.getElementById('home').classList.add('hidden');
         document.getElementById('search').classList.add('hidden');
