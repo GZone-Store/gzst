@@ -1,85 +1,102 @@
-<!DOCTYPE html><html lang="en" class="bg-[#1e0a2a] text-white"><head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Download</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* แก้ Scrollbar ประกาศให้เลื่อนได้เนียนขึ้น */
-    .scrolling-announcement::-webkit-scrollbar {
-      display: none;
-    }
-  </style>
-</head><body class="flex flex-col min-h-screen">
-  <!-- หน้าแรก -->
-  <div id="home" class="flex-1 pb-16"><!-- แบนเนอร์เลื่อนอัตโนมัติ -->
-<div class="relative w-full overflow-hidden">
-  <div id="banner-carousel" class="flex transition-transform duration-700 ease-in-out">
-    <img src="banner1.png" class="w-full flex-shrink-0" />
-    <img src="banner2.png" class="w-full flex-shrink-0" />
-    <img src="banner3.png" class="w-full flex-shrink-0" />
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en" class="bg-[#1e0a2a] text-white">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Download</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .scrolling-announcement::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
 
-<!-- กล่องประกาศ -->
-<div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-x-auto whitespace-nowrap scrolling-announcement text-sm">
-  <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
-  <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>
-</div>
+  <!-- โลโก้ด้านบน -->
+  <div class="p-4 flex items-center">
+    <img src="logo.png" alt="Logo" class="h-10 w-auto" />
+  </div>
 
-<!-- เมนูเกม -->
-<div class="grid grid-cols-2 gap-4 p-4">
-  <div class="bg-[#2b1140] rounded-2xl p-2">
-    <img src="game1.png" alt="Game 1" class="rounded-xl mb-2">
-    <div class="text-white font-semibold">Game Name 1</div>
-    <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-  </div>
-  <div class="bg-[#2b1140] rounded-2xl p-2">
-    <img src="game2.png" alt="Game 2" class="rounded-xl mb-2">
-    <div class="text-white font-semibold">Game Name 2</div>
-    <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-  </div>
-  <!-- เพิ่มเกมได้ตามต้องการ -->
-</div>
+  <!-- หน้าแรก -->
+  <div id="home" class="flex-1 pb-16">
 
-  </div>  <!-- แถบเมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
-    <button onclick="goTo('home')" class="flex flex-col items-center">
-      <img src="icon-home.png" class="w-6 h-6" />
-      <span class="text-xs">หน้าแรก</span>
-    </button>
-    <button onclick="goTo('search')" class="flex flex-col items-center">
-      <img src="icon-search.png" class="w-6 h-6" />
-      <span class="text-xs">ค้นหา</span>
-    </button>
-    <button onclick="goTo('account')" class="flex flex-col items-center">
-      <img src="icon-user.png" class="w-6 h-6" />
-      <span class="text-xs">บัญชี</span>
-    </button>
-  </nav>  <script>
-    // แบนเนอร์เลื่อนอัตโนมัติ
-    const carousel = document.getElementById('banner-carousel');
-    const banners = carousel.children;
-    let index = 0;
-    let autoScroll = true;
+    <!-- แบนเนอร์เลื่อน -->
+    <div class="relative w-full overflow-hidden">
+      <div id="banner-carousel" class="flex transition-transform duration-700 ease-in-out">
+        <img src="banner1.png" class="w-full h-40 sm:h-60 object-cover flex-shrink-0" />
+        <img src="banner2.png" class="w-full h-40 sm:h-60 object-cover flex-shrink-0" />
+        <img src="banner3.png" class="w-full h-40 sm:h-60 object-cover flex-shrink-0" />
+      </div>
+    </div>
 
-    function moveBanner(i) {
-      carousel.style.transform = `translateX(-${i * 100}%)`;
-    }
+    <!-- กล่องประกาศ -->
+    <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-x-auto whitespace-nowrap scrolling-announcement text-sm">
+      <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
+      <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>
+    </div>
 
-    function nextBanner() {
-      if (!autoScroll) return;
-      index = (index + 1) % banners.length;
-      moveBanner(index);
-    }
+    <!-- หัวข้อเกม -->
+    <div class="px-4 mt-4 text-lg font-bold text-purple-300">เกมยอดนิยม</div>
 
-    carousel.addEventListener('touchstart', () => autoScroll = false);
-    carousel.addEventListener('touchend', () => {
-      autoScroll = true;
-    });
+    <!-- เมนูเกม -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+      <div class="bg-[#2b1140] rounded-2xl p-2">
+        <img src="game1.png" alt="Game 1" class="rounded-xl mb-2">
+        <div class="text-white font-semibold">Game Name 1</div>
+        <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
+      </div>
+      <div class="bg-[#2b1140] rounded-2xl p-2">
+        <img src="game2.png" alt="Game 2" class="rounded-xl mb-2">
+        <div class="text-white font-semibold">Game Name 2</div>
+        <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
+      </div>
+    </div>
 
-    setInterval(nextBanner, 3000);
+  </div>
 
-    // เปลี่ยนหน้าแบบพื้นฐาน (เฉพาะหน้าแรกไว้ก่อน)
-    function goTo(page) {
-      alert("จะเปลี่ยนไปหน้า: " + page);
-    }
-  </script></body></html>
+  <!-- แถบเมนูด้านล่าง -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
+    <button onclick="goTo('home')" class="flex flex-col items-center">
+      <img src="icon-home.png" class="w-6 h-6" />
+      <span class="text-xs">หน้าแรก</span>
+    </button>
+    <button onclick="goTo('search')" class="flex flex-col items-center">
+      <img src="icon-search.png" class="w-6 h-6" />
+      <span class="text-xs">ค้นหา</span>
+    </button>
+    <button onclick="goTo('account')" class="flex flex-col items-center">
+      <img src="icon-user.png" class="w-6 h-6" />
+      <span class="text-xs">บัญชี</span>
+    </button>
+  </nav>
+
+  <script>
+    // แบนเนอร์เลื่อนอัตโนมัติ + ปัดได้
+    const carousel = document.getElementById('banner-carousel');
+    const banners = carousel.children;
+    let index = 0;
+    let autoScroll = true;
+
+    function moveBanner(i) {
+      carousel.style.transform = `translateX(-${i * 100}%)`;
+    }
+
+    function nextBanner() {
+      if (!autoScroll) return;
+      index = (index + 1) % banners.length;
+      moveBanner(index);
+    }
+
+    carousel.addEventListener('touchstart', () => autoScroll = false);
+    carousel.addEventListener('touchend', () => autoScroll = true);
+    setInterval(nextBanner, 3000);
+
+    // การเปลี่ยนหน้าแบบพื้นฐาน
+    function goTo(page) {
+      alert("จะเปลี่ยนไปหน้า: " + page);
+    }
+  </script>
+
+</body>
+</html>
