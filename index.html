@@ -1,85 +1,87 @@
-<!DOCTYPE html><html lang="en" class="bg-[#1e0a2a] text-white"><head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Download</title>
+  <title>Game Download - หน้าแรก</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* แก้ Scrollbar ประกาศให้เลื่อนได้เนียนขึ้น */
-    .scrolling-announcement::-webkit-scrollbar {
+    .bottom-nav {
+      @apply fixed bottom-0 left-0 w-full flex justify-around bg-white dark:bg-gray-900 text-gray-700 dark:text-white py-2 shadow-md;
+    }
+    .carousel::-webkit-scrollbar {
       display: none;
     }
+    .carousel {
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .carousel > div {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
   </style>
-</head><body class="flex flex-col min-h-screen">
-  <!-- หน้าแรก -->
-  <div id="home" class="flex-1 pb-16"><!-- แบนเนอร์เลื่อนอัตโนมัติ -->
-<div class="relative w-full overflow-hidden">
-  <div id="banner-carousel" class="flex transition-transform duration-700 ease-in-out">
-    <img src="banner1.png" class="w-full flex-shrink-0" />
-    <img src="banner2.png" class="w-full flex-shrink-0" />
-    <img src="banner3.png" class="w-full flex-shrink-0" />
+</head><body class="bg-gray-950 text-white">
+  <!-- โลโก้ด้านบนแทน Messenger -->
+  <div class="flex items-center justify-between p-4 bg-gray-900">
+    <img src="logo.png" alt="Logo" class="h-8">
+    <h1 class="text-xl font-bold">Game Download</h1>
+    <div class="w-8"></div>
+  </div>  <!-- แบนเนอร์เลื่อนอัตโนมัติ -->  <div id="banner-carousel" class="relative overflow-hidden">
+    <div class="carousel flex transition-transform duration-500 ease-in-out" id="carouselInner">
+      <div class="min-w-full"><img src="banner1.png" class="w-full"></div>
+      <div class="min-w-full"><img src="banner2.png" class="w-full"></div>
+      <div class="min-w-full"><img src="banner3.png" class="w-full"></div>
+    </div>
+  </div>  <!-- กล่องประกาศแบบเลื่อนอัตโนมัติ -->  <div class="overflow-hidden whitespace-nowrap bg-purple-800 text-white text-sm py-1 px-3 mt-2">
+    <div class="animate-marquee inline-block">ประกาศ: เกมใหม่มาแล้ว! | อัปเดตระบบเร็วๆ นี้ | โปรโมชั่นสุดพิเศษต้อนรับสมาชิกใหม่</div>
   </div>
-</div>
-
-<!-- กล่องประกาศ -->
-<div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-x-auto whitespace-nowrap scrolling-announcement text-sm">
-  <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
-  <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>
-</div>
-
-<!-- เมนูเกม -->
-<div class="grid grid-cols-2 gap-4 p-4">
-  <div class="bg-[#2b1140] rounded-2xl p-2">
-    <img src="game1.png" alt="Game 1" class="rounded-xl mb-2">
-    <div class="text-white font-semibold">Game Name 1</div>
-    <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-  </div>
-  <div class="bg-[#2b1140] rounded-2xl p-2">
-    <img src="game2.png" alt="Game 2" class="rounded-xl mb-2">
-    <div class="text-white font-semibold">Game Name 2</div>
-    <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-  </div>
-  <!-- เพิ่มเกมได้ตามต้องการ -->
-</div>
-
-  </div>  <!-- แถบเมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
-    <button onclick="goTo('home')" class="flex flex-col items-center">
-      <img src="icon-home.png" class="w-6 h-6" />
+  <style>
+    .animate-marquee {
+      animation: marquee 15s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>  <!-- เมนูเกม -->  <div class="grid grid-cols-2 gap-4 p-4">
+    <div class="bg-gray-800 rounded-2xl p-2">
+      <img src="game1.png" class="w-full rounded-xl">
+      <h2 class="mt-2 text-sm font-semibold">เกมที่หนึ่ง</h2>
+      <button class="mt-1 w-full bg-purple-600 text-white py-1 rounded-xl text-sm">ดาวน์โหลด</button>
+    </div>
+    <div class="bg-gray-800 rounded-2xl p-2">
+      <img src="game2.png" class="w-full rounded-xl">
+      <h2 class="mt-2 text-sm font-semibold">เกมที่สอง</h2>
+      <button class="mt-1 w-full bg-purple-600 text-white py-1 rounded-xl text-sm">ดาวน์โหลด</button>
+    </div>
+    <!-- เพิ่มเกมอื่นๆ ได้ตามต้องการ -->
+  </div>  <!-- เมนูด้านล่างคงที่ -->  <nav class="bottom-nav">
+    <a href="#" class="flex flex-col items-center">
+      <img src="icon-home.png" class="h-6 mb-1">
       <span class="text-xs">หน้าแรก</span>
-    </button>
-    <button onclick="goTo('search')" class="flex flex-col items-center">
-      <img src="icon-search.png" class="w-6 h-6" />
+    </a>
+    <a href="search.html" class="flex flex-col items-center">
+      <img src="icon-search.png" class="h-6 mb-1">
       <span class="text-xs">ค้นหา</span>
-    </button>
-    <button onclick="goTo('account')" class="flex flex-col items-center">
-      <img src="icon-user.png" class="w-6 h-6" />
+    </a>
+    <a href="account.html" class="flex flex-col items-center">
+      <img src="icon-user.png" class="h-6 mb-1">
       <span class="text-xs">บัญชี</span>
-    </button>
+    </a>
   </nav>  <script>
-    // แบนเนอร์เลื่อนอัตโนมัติ
-    const carousel = document.getElementById('banner-carousel');
-    const banners = carousel.children;
+    // แบนเนอร์เลื่อนอัตโนมัติ แต่หยุดเมื่อผู้ใช้เลื่อนเอง แล้วกลับมาเลื่อนใหม่
+    const carousel = document.getElementById('carouselInner');
     let index = 0;
-    let autoScroll = true;
-
-    function moveBanner(i) {
-      carousel.style.transform = `translateX(-${i * 100}%)`;
+    let userInteracted = false;
+    const banners = document.querySelectorAll('#carouselInner > div');
+    function autoSlide() {
+      if (!userInteracted) {
+        index = (index + 1) % banners.length;
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+      }
     }
-
-    function nextBanner() {
-      if (!autoScroll) return;
-      index = (index + 1) % banners.length;
-      moveBanner(index);
-    }
-
-    carousel.addEventListener('touchstart', () => autoScroll = false);
+    let interval = setInterval(autoSlide, 3000);
+    carousel.addEventListener('touchstart', () => userInteracted = true);
     carousel.addEventListener('touchend', () => {
-      autoScroll = true;
+      setTimeout(() => { userInteracted = false; }, 5000);
     });
-
-    setInterval(nextBanner, 3000);
-
-    // เปลี่ยนหน้าแบบพื้นฐาน (เฉพาะหน้าแรกไว้ก่อน)
-    function goTo(page) {
-      alert("จะเปลี่ยนไปหน้า: " + page);
-    }
   </script></body></html>
