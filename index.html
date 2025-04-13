@@ -1,190 +1,150 @@
-<!DOCTYPE html><html lang="th"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Store</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #14001e;
-      font-family: 'Kanit', sans-serif;
-      color: white;
-    }.page {
-  display: none;
-  padding: 20px;
+<!DOCTYPE html><html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GZone - ดาวน์โหลดเกม</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --primary-color: #3f0071; /* ม่วงมืด */
+      --light-color: #f0f0ff;  /* ขาวสว่างเลือน */
+    }body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: var(--primary-color);
+  color: var(--light-color);
 }
 
-.active {
-  display: block;
+.header {
+  background-color: var(--primary-color);
+  padding: 10px;
+  text-align: center;
 }
 
-.bottom-menu {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #1a0030;
-  padding: 5px 0;
-  border-top: 2px solid #6a00ff;
-  z-index: 1000;
-}
-
-.bottom-menu-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 14px;
-  color: white;
-}
-
-.bottom-menu-item img {
-  width: 30px;
-  height: 30px;
-  margin-bottom: 2px;
-}
-
-.announcement {
-  width: 100%;
-  background: linear-gradient(to right, #5a00a1, #aa00ff);
-  color: white;
-  padding: 8px 15px;
-  font-size: 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-.announcement span {
-  display: inline-block;
-  padding-left: 100%;
-  animation: scroll-left 12s linear infinite;
-}
-
-@keyframes scroll-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
+.logo {
+  height: 40px;
 }
 
 .banner-carousel {
-  position: relative;
-  overflow: hidden;
-  height: 180px;
-  margin: 10px;
-  border-radius: 10px;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
 }
 
-.banner-carousel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-  cursor: pointer;
+.carousel-slide {
+  min-width: 100%;
+  height: 180px;
+  background: #555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  scroll-snap-align: start;
 }
 
-.dots {
-  text-align: center;
-  margin-top: 5px;
+.announcement {
+  background-color: #5a189a;
+  padding: 8px;
+  font-weight: bold;
 }
 
-.dot {
-  height: 12px;
-  width: 12px;
-  margin: 0 4px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.3s ease;
+.game-menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  padding: 15px;
 }
 
-.dot.active {
-  background-color: #6a00ff;
+.game-card {
+  background-color: #4a148c;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
 }
 
-  </style>
-</head><body>
-  <div id="home" class="page active">
-    <div class="announcement">
-      <span>ยินดีต้อนรับสู่ร้านเกมของเรา! เลือกเล่นเกมใหม่ ๆ ได้แล้ววันนี้!</span>
-    </div><div class="banner-carousel" id="carousel">
-  <a id="bannerLink" href="#">
-    <img id="bannerImage" src="banner1.png" alt="Banner">
-  </a>
-</div>
-<div class="dots" id="dots"></div>
+.game-card img {
+  width: 100%;
+  border-radius: 8px;
+}
 
-<h2>เกมแนะนำ</h2>
-<!-- เกมอื่น ๆ -->
+.download-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #7b2cbf;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-  </div>  <div id="search" class="page">
-    <h2>ค้นหาเกม</h2>
-    <input type="text" placeholder="ค้นหาเกม...">
-  </div>  <div id="account" class="page">
-    <h2>บัญชีผู้ใช้</h2>
-    <p>เข้าสู่ระบบ / สมัครสมาชิก</p>
-  </div>  <div class="bottom-menu">
-    <div class="bottom-menu-item" onclick="showPage('home')">
-      <img src="icon-home.png" alt="home">
-      หน้าแรก
-    </div>
-    <div class="bottom-menu-item" onclick="showPage('search')">
-      <img src="icon-search.png" alt="search">
-      ค้นหา
-    </div>
-    <div class="bottom-menu-item" onclick="showPage('account')">
-      <img src="icon-user.png" alt="account">
-      บัญชี
-    </div>
-  </div>  <script>
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: #3c096c;
+  padding: 8px 0;
+}
 
-    const banners = [
-      { image: 'banner1.png', link: 'https://link1.com' },
-      { image: 'banner2.png', link: 'https://link2.com' },
-      { image: 'banner3.png', link: '' } // ลิงก์ว่างคือไม่สามารถคลิกได้
-    ];
-    let currentBanner = 0;
-    const bannerImage = document.getElementById('bannerImage');
-    const bannerLink = document.getElementById('bannerLink');
-    const dots = document.getElementById('dots');
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--light-color);
+  font-size: 12px;
+  text-decoration: none;
+}
 
-    banners.forEach((_, i) => {
-      const dot = document.createElement('span');
-      dot.className = 'dot' + (i === 0 ? ' active' : '');
-      dot.onclick = () => {
-        currentBanner = i;
-        updateBanner();
-        resetAutoSlide();
-      }
-      dots.appendChild(dot);
-    });
+.nav-item img {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
 
-    function updateBanner() {
-      bannerImage.src = banners[currentBanner].image;
-      const link = banners[currentBanner].link;
-      if (link) {
-        bannerLink.href = link;
-        bannerLink.style.pointerEvents = 'auto';
-      } else {
-        bannerLink.removeAttribute('href');
-        bannerLink.style.pointerEvents = 'none';
-      }
-      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentBanner));
-    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <img src="assets/logo.png" alt="GZone Logo" class="logo" />
+  </header>  <main>
+    <!-- Banner Carousel -->
+    <section class="banner-carousel" id="carousel">
+      <div class="carousel-slide">แบนเนอร์ 1</div>
+      <div class="carousel-slide">แบนเนอร์ 2</div>
+      <div class="carousel-slide">แบนเนอร์ 3</div>
+    </section><!-- ประกาศเลื่อน -->
+<section class="announcement">
+  <marquee behavior="scroll" direction="left">ยินดีต้อนรับสู่ GZone! โหลดเกมฟรีทุกวัน!</marquee>
+</section>
 
-    function nextBanner() {
-      currentBanner = (currentBanner + 1) % banners.length;
-      updateBanner();
-    }
+<!-- เมนูเกม -->
+<section class="game-menu">
+  <div class="game-card">
+    <img src="assets/game1.jpg" alt="Game 1">
+    <h3>เกมที่ 1</h3>
+    <button class="download-btn">ดาวน์โหลด</button>
+  </div>
+  <div class="game-card">
+    <img src="assets/game2.jpg" alt="Game 2">
+    <h3>เกมที่ 2</h3>
+    <button class="download-btn">ดาวน์โหลด</button>
+  </div>
+  <!-- เพิ่มเกมได้เรื่อยๆ -->
+</section>
 
-    let autoSlide = setInterval(nextBanner, 4000);
-
-    function resetAutoSlide() {
-      clearInterval(autoSlide);
-      autoSlide = setInterval(nextBanner, 4000);
-    }
-  </script></body></html>
+  </main>  <!-- แถบเมนูด้านล่าง -->  <nav class="bottom-nav">
+    <a href="#" class="nav-item">
+      <img src="assets/home-icon.png" alt="หน้าแรก">
+      <span>หน้าแรก</span>
+    </a>
+    <a href="#" class="nav-item">
+      <img src="assets/search-icon.png" alt="ค้นหา">
+      <span>ค้นหา</span>
+    </a>
+    <a href="#" class="nav-item">
+      <img src="assets/account-icon.png" alt="บัญชี">
+      <span>บัญชี</span>
+    </a>
+  </nav>  <script src="script.js"></script></body>
+</html>
