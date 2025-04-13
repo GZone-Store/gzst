@@ -24,20 +24,18 @@
       <div class="p-4">
         <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />
       </div>
-      <!-- แบนเนอร์เลื่อนอัตโนมัติแบบวน -->
-      <div class="relative w-full overflow-hidden h-40">
+      <!-- แบนเนอร์เลื่อนอัตโนมัติ -->
+      <div class="relative w-full overflow-hidden">
         <div id="banner-carousel" class="flex transition-transform duration-700 ease-in-out">
           <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
           <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
           <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-          <!-- ซ้ำ banner1 เพื่อทำ loop เนียน ๆ -->
-          <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
         </div>
       </div>
       <!-- กล่องประกาศ -->
       <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">
         <div class="whitespace-nowrap animate-marquee">
-          <span class="mr-6">welcome to GZONE เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
+          <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
           <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>
         </div>
       </div>
@@ -81,25 +79,40 @@
       </button>
     </nav>
     <script>
-      // แบนเนอร์เลื่อนอัตโนมัติแบบวนลูป
+      // แบนเนอร์เลื่อนอัตโนมัติ + สัมผัสได้
       const carousel = document.getElementById('banner-carousel');
-      const totalSlides = 4; // รวมแบนเนอร์ซ้ำ
+      const banners = carousel.children;
       let index = 0;
-
-      setInterval(() => {
-        index++;
-        carousel.style.transition = 'transform 0.7s ease-in-out';
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-
-        if (index === totalSlides - 1) {
-          setTimeout(() => {
-            carousel.style.transition = 'none';
-            carousel.style.transform = 'translateX(0%)';
-            index = 0;
-          }, 700);
+      let autoScroll = true;
+      let startX = 0;
+      function moveBanner(i) {
+        carousel.style.transform = `translateX(-${i * 100}%)`;
+      }
+      function nextBanner() {
+        if (!autoScroll) return;
+        index = (index + 1) % banners.length;
+        moveBanner(index);
+      }
+      carousel.addEventListener('touchstart', (e) => {
+        autoScroll = false;
+        startX = e.touches[0].clientX;
+      });
+      carousel.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = endX - startX;
+        if (diff > 50) {
+          index = (index - 1 + banners.length) % banners.length;
+        } else if (diff < -50) {
+          index = (index + 1) % banners.length;
         }
+        moveBanner(index);
+        setTimeout(() => {
+          autoScroll = true;
+        }, 3000);
+      });
+      setInterval(() => {
+        if (autoScroll) nextBanner();
       }, 3000);
-
       // ระบบเปลี่ยนหน้า
       function goTo(page) {
         document.getElementById('home').classList.add('hidden');
