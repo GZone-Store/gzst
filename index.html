@@ -1,114 +1,156 @@
-<!DOCTYPE html><html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-      body {
-        background-color: #1a0826;
-        color: #ffffff;
-        font-family: sans-serif;
-      }
-      .banner {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 1rem;
-      }
-      .announcement {
-        animation: scroll-left 10s linear infinite;
-      }
-      @keyframes scroll-left {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
-      }
-      .nav-fixed {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: #1a0826;
-        display: flex;
-        justify-content: space-around;
-        padding: 0.5rem 0;
-        border-top: 1px solid #4b0082;
-      }
-      .nav-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: white;
-        font-size: 0.75rem;
-      }
-      .nav-item img {
-        width: 24px;
-        height: 24px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="p-4">
-      <div class="flex justify-center mb-2">
-        <img src="logo.png" alt="Logo" class="h-10">
-      </div><!-- แบนเนอร์ -->
-  <div class="mb-4">
-    <div class="relative overflow-hidden rounded-2xl">
-      <div class="flex transition-transform duration-1000 ease-in-out" id="bannerTrack">
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Store</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1a0826;
+      color: #ffffff;
+      font-family: sans-serif;
+      padding-bottom: 80px;
+    }
+    .banner-wrapper {
+      width: 100%;
+      height: 150px;
+      overflow: hidden;
+      position: relative;
+      border-radius: 1rem;
+    }
+    .banner-track {
+      display: flex;
+      transition: transform 1s ease-in-out;
+    }
+    .banner {
+      min-width: 100%;
+      object-fit: cover;
+    }
+    .announcement {
+      animation: scroll-left 10s linear infinite;
+    }
+    @keyframes scroll-left {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .nav-fixed {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #1a0826;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem 0;
+      border-top: 1px solid #4b0082;
+      z-index: 50;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+      font-size: 0.75rem;
+      position: relative;
+    }
+    .nav-item img {
+      width: 24px;
+      height: 24px;
+    }
+    .submenu {
+      position: absolute;
+      bottom: 40px;
+      background-color: #32064b;
+      border: 1px solid #6b21a8;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      display: none;
+      flex-direction: column;
+      min-width: 100px;
+      z-index: 100;
+    }
+    .submenu a {
+      color: white;
+      padding: 0.25rem 0;
+      font-size: 0.75rem;
+      text-align: center;
+    }
+    .nav-item:hover .submenu {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <div class="p-4">
+    <div class="flex justify-center mb-2">
+      <img src="logo.png" alt="Logo" class="h-10">
+    </div>
+
+    <!-- แบนเนอร์ -->
+    <div class="banner-wrapper mb-4">
+      <div class="banner-track" id="bannerTrack">
         <img src="banner1.jpg" alt="Banner 1" class="banner" />
         <img src="banner2.jpg" alt="Banner 2" class="banner" />
         <img src="banner3.jpg" alt="Banner 3" class="banner" />
       </div>
     </div>
-  </div>
 
-  <!-- กล่องประกาศ -->
-  <div class="bg-purple-900 text-white py-1 px-2 rounded mb-4 overflow-hidden">
-    <div class="announcement whitespace-nowrap">
-      ดูนะครับ โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!
+    <!-- กล่องประกาศ -->
+    <div class="bg-purple-900 text-white py-1 px-2 rounded mb-4 overflow-hidden">
+      <div class="announcement whitespace-nowrap">
+        ดูนะครับ โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!
+      </div>
+    </div>
+
+    <!-- เมนูเกม -->
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-purple-800 p-4 rounded-2xl">
+        <img src="game1.jpg" alt="Game 1" class="rounded mb-2">
+        <h3 class="text-lg font-semibold">Game Name 1</h3>
+        <button class="mt-2 bg-purple-500 text-white px-4 py-1 rounded-full">ดาวน์โหลด</button>
+      </div>
+      <div class="bg-purple-800 p-4 rounded-2xl">
+        <img src="game2.jpg" alt="Game 2" class="rounded mb-2">
+        <h3 class="text-lg font-semibold">Game Name 2</h3>
+        <button class="mt-2 bg-purple-500 text-white px-4 py-1 rounded-full">ดาวน์โหลด</button>
+      </div>
     </div>
   </div>
 
-  <!-- เมนูเกม -->
-  <div class="grid grid-cols-2 gap-4">
-    <div class="bg-purple-800 p-4 rounded-2xl">
-      <img src="game1.jpg" alt="Game 1" class="rounded mb-2">
-      <h3 class="text-lg font-semibold">Game Name 1</h3>
-      <button class="mt-2 bg-purple-500 text-white px-4 py-1 rounded-full">ดาวน์โหลด</button>
+  <!-- เมนูด้านล่าง -->
+  <div class="nav-fixed">
+    <div class="nav-item">
+      <img src="icon-home.png" alt="home">
+      <span>หน้าแรก</span>
     </div>
-    <div class="bg-purple-800 p-4 rounded-2xl">
-      <img src="game2.jpg" alt="Game 2" class="rounded mb-2">
-      <h3 class="text-lg font-semibold">Game Name 2</h3>
-      <button class="mt-2 bg-purple-500 text-white px-4 py-1 rounded-full">ดาวน์โหลด</button>
+    <div class="nav-item">
+      <img src="icon-search.png" alt="search">
+      <span>ค้นหา</span>
+      <div class="submenu">
+        <a href="#">หมวดเกม</a>
+        <a href="#">อันดับยอดนิยม</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <img src="icon-account.png" alt="account">
+      <span>บัญชี</span>
+      <div class="submenu">
+        <a href="#">เข้าสู่ระบบ</a>
+        <a href="#">สมัครสมาชิก</a>
+        <a href="#">ข้อมูลของฉัน</a>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- เมนูด้านล่าง -->
-<div class="nav-fixed">
-  <div class="nav-item">
-    <img src="icon-home.png" alt="home">
-    <span>หน้าแรก</span>
-  </div>
-  <div class="nav-item">
-    <img src="icon-search.png" alt="search">
-    <span>ค้นหา</span>
-  </div>
-  <div class="nav-item">
-    <img src="icon-account.png" alt="account">
-    <span>บัญชี</span>
-  </div>
-</div>
-
-<script>
-  let track = document.getElementById('bannerTrack');
-  let index = 0;
-  const slide = () => {
-    index = (index + 1) % 3;
-    track.style.transform = `translateX(-${index * 100}%)`;
-  };
-  setInterval(slide, 3000);
-</script>
-
-  </body>
+  <script>
+    const track = document.getElementById('bannerTrack');
+    let index = 0;
+    const slide = () => {
+      index = (index + 1) % 3;
+      track.style.transform = `translateX(-${index * 100}%)`;
+    };
+    setInterval(slide, 3000);
+  </script>
+</body>
 </html>
