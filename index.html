@@ -15,16 +15,6 @@
         white-space: nowrap;
         animation: marquee 15s linear infinite;
       }
-      @keyframes slideBanner {
-        0% { transform: translateX(0%); }
-        25% { transform: translateX(-100%); }
-        50% { transform: translateX(-200%); }
-        75% { transform: translateX(-300%); }
-        100% { transform: translateX(-300%); }
-      }
-      .animate-slideBanner {
-        animation: slideBanner 12s linear infinite;
-      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -34,17 +24,16 @@
       <div class="p-4">
         <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />
       </div>
-
-      <!-- แบนเนอร์เลื่อนอัตโนมัติ -->
+      <!-- แบนเนอร์เลื่อนอัตโนมัติแบบวน -->
       <div class="relative w-full overflow-hidden h-40">
-        <div class="flex w-[400%] animate-slideBanner">
+        <div id="banner-carousel" class="flex transition-transform duration-700 ease-in-out">
           <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
           <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
           <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+          <!-- ซ้ำ banner1 เพื่อทำ loop เนียน ๆ -->
           <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
         </div>
       </div>
-
       <!-- กล่องประกาศ -->
       <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">
         <div class="whitespace-nowrap animate-marquee">
@@ -52,10 +41,8 @@
           <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>
         </div>
       </div>
-
       <!-- หัวข้อ -->
       <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>
-
       <!-- เมนูเกม -->
       <div class="grid grid-cols-2 gap-4 p-4">
         <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
@@ -70,17 +57,14 @@
         </div>
       </div>
     </div>
-
     <!-- หน้าจำลอง: ค้นหา -->
     <div id="search" class="hidden flex-1 pb-16">
       <div class="p-6 text-center text-lg">[ เมนูค้นหา - ยังไม่เปิดใช้งาน ]</div>
     </div>
-
     <!-- หน้าจำลอง: บัญชี -->
     <div id="account" class="hidden flex-1 pb-16">
       <div class="p-6 text-center text-lg">[ เมนูบัญชี - ยังไม่เปิดใช้งาน ]</div>
     </div>
-
     <!-- แถบเมนูด้านล่าง -->
     <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
       <button onclick="goTo('home')" class="flex flex-col items-center">
@@ -96,8 +80,26 @@
         <span class="text-xs">บัญชี</span>
       </button>
     </nav>
-
     <script>
+      // แบนเนอร์เลื่อนอัตโนมัติแบบวนลูป
+      const carousel = document.getElementById('banner-carousel');
+      const totalSlides = 4; // รวมแบนเนอร์ซ้ำ
+      let index = 0;
+
+      setInterval(() => {
+        index++;
+        carousel.style.transition = 'transform 0.7s ease-in-out';
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+
+        if (index === totalSlides - 1) {
+          setTimeout(() => {
+            carousel.style.transition = 'none';
+            carousel.style.transform = 'translateX(0%)';
+            index = 0;
+          }, 700);
+        }
+      }, 3000);
+
       // ระบบเปลี่ยนหน้า
       function goTo(page) {
         document.getElementById('home').classList.add('hidden');
