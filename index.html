@@ -1,87 +1,154 @@
 <!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Download - หน้าแรก</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Download</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    .bottom-nav {
-      @apply fixed bottom-0 left-0 w-full flex justify-around bg-white dark:bg-gray-900 text-gray-700 dark:text-white py-2 shadow-md;
-    }
-    .carousel::-webkit-scrollbar {
-      display: none;
-    }
-    .carousel {
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .carousel > div {
-      scroll-snap-align: start;
-      flex-shrink: 0;
-    }
+    body {
+      background-color: #1c1c2e;
+      color: #e5e5f0;
+    }.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #2c2c3c;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+}
+
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #e5e5f0;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.banner-container {
+  position: relative;
+  overflow: hidden;
+  height: 180px;
+}
+
+.banner-slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.banner-slide {
+  min-width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.announcement {
+  background-color: #4c4c6c;
+  color: white;
+  padding: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.announcement span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
   </style>
-</head><body class="bg-gray-950 text-white">
-  <!-- โลโก้ด้านบนแทน Messenger -->
-  <div class="flex items-center justify-between p-4 bg-gray-900">
-    <img src="logo.png" alt="Logo" class="h-8">
-    <h1 class="text-xl font-bold">Game Download</h1>
-    <div class="w-8"></div>
-  </div>  <!-- แบนเนอร์เลื่อนอัตโนมัติ -->  <div id="banner-carousel" class="relative overflow-hidden">
-    <div class="carousel flex transition-transform duration-500 ease-in-out" id="carouselInner">
-      <div class="min-w-full"><img src="banner1.png" class="w-full"></div>
-      <div class="min-w-full"><img src="banner2.png" class="w-full"></div>
-      <div class="min-w-full"><img src="banner3.png" class="w-full"></div>
-    </div>
-  </div>  <!-- กล่องประกาศแบบเลื่อนอัตโนมัติ -->  <div class="overflow-hidden whitespace-nowrap bg-purple-800 text-white text-sm py-1 px-3 mt-2">
-    <div class="animate-marquee inline-block">ประกาศ: เกมใหม่มาแล้ว! | อัปเดตระบบเร็วๆ นี้ | โปรโมชั่นสุดพิเศษต้อนรับสมาชิกใหม่</div>
+</head><body>
+  <div id="home" class="p-4">
+    <div class="flex justify-between items-center mb-4">
+      <img src="logo.png" alt="Logo" class="h-10">
+    </div><!-- Banner Slider -->
+<div class="banner-container" id="banner-container">
+  <div class="banner-slider" id="banner-slider">
+    <img src="banner1.jpg" class="banner-slide" alt="Banner 1">
+    <img src="banner2.jpg" class="banner-slide" alt="Banner 2">
+    <img src="banner3.jpg" class="banner-slide" alt="Banner 3">
   </div>
-  <style>
-    .animate-marquee {
-      animation: marquee 15s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-  </style>  <!-- เมนูเกม -->  <div class="grid grid-cols-2 gap-4 p-4">
-    <div class="bg-gray-800 rounded-2xl p-2">
-      <img src="game1.png" class="w-full rounded-xl">
-      <h2 class="mt-2 text-sm font-semibold">เกมที่หนึ่ง</h2>
-      <button class="mt-1 w-full bg-purple-600 text-white py-1 rounded-xl text-sm">ดาวน์โหลด</button>
-    </div>
-    <div class="bg-gray-800 rounded-2xl p-2">
-      <img src="game2.png" class="w-full rounded-xl">
-      <h2 class="mt-2 text-sm font-semibold">เกมที่สอง</h2>
-      <button class="mt-1 w-full bg-purple-600 text-white py-1 rounded-xl text-sm">ดาวน์โหลด</button>
-    </div>
-    <!-- เพิ่มเกมอื่นๆ ได้ตามต้องการ -->
-  </div>  <!-- เมนูด้านล่างคงที่ -->  <nav class="bottom-nav">
-    <a href="#" class="flex flex-col items-center">
-      <img src="icon-home.png" class="h-6 mb-1">
-      <span class="text-xs">หน้าแรก</span>
+</div>
+
+<!-- Announcement -->
+<div class="announcement">
+  <span>ประกาศใหม่! เกมมาแรงประจำสัปดาห์ โหลดฟรี เล่นฟรี โหลดเลยตอนนี้!</span>
+</div>
+
+<!-- Game Grid -->
+<div class="grid grid-cols-2 gap-4 mt-4">
+  <div class="bg-gray-800 p-2 rounded-xl">
+    <img src="game1.jpg" alt="Game 1" class="rounded-xl mb-2">
+    <h3 class="text-sm">Game Title 1</h3>
+    <button class="bg-purple-700 text-white py-1 px-3 rounded mt-2 w-full">ดาวน์โหลด</button>
+  </div>
+  <div class="bg-gray-800 p-2 rounded-xl">
+    <img src="game2.jpg" alt="Game 2" class="rounded-xl mb-2">
+    <h3 class="text-sm">Game Title 2</h3>
+    <button class="bg-purple-700 text-white py-1 px-3 rounded mt-2 w-full">ดาวน์โหลด</button>
+  </div>
+  <!-- เพิ่มเกมอื่นๆ -->
+</div>
+
+  </div>  <!-- Bottom Navigation -->  <nav class="bottom-nav">
+    <a href="#home">
+      <img src="home.png" class="h-6 mb-1">
+      หน้าแรก
     </a>
-    <a href="search.html" class="flex flex-col items-center">
-      <img src="icon-search.png" class="h-6 mb-1">
-      <span class="text-xs">ค้นหา</span>
+    <a href="#search">
+      <img src="search.png" class="h-6 mb-1">
+      ค้นหา
     </a>
-    <a href="account.html" class="flex flex-col items-center">
-      <img src="icon-user.png" class="h-6 mb-1">
-      <span class="text-xs">บัญชี</span>
+    <a href="#account">
+      <img src="account.png" class="h-6 mb-1">
+      บัญชี
     </a>
   </nav>  <script>
-    // แบนเนอร์เลื่อนอัตโนมัติ แต่หยุดเมื่อผู้ใช้เลื่อนเอง แล้วกลับมาเลื่อนใหม่
-    const carousel = document.getElementById('carouselInner');
-    let index = 0;
-    let userInteracted = false;
-    const banners = document.querySelectorAll('#carouselInner > div');
-    function autoSlide() {
-      if (!userInteracted) {
-        index = (index + 1) % banners.length;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-      }
+    // Banner auto scroll with manual override
+    const bannerSlider = document.getElementById('banner-slider');
+    const bannerContainer = document.getElementById('banner-container');
+    let bannerIndex = 0;
+    let bannerTimer;
+
+    function showBanner(index) {
+      bannerSlider.style.transform = `translateX(-${index * 100}%)`;
     }
-    let interval = setInterval(autoSlide, 3000);
-    carousel.addEventListener('touchstart', () => userInteracted = true);
-    carousel.addEventListener('touchend', () => {
-      setTimeout(() => { userInteracted = false; }, 5000);
+
+    function nextBanner() {
+      bannerIndex = (bannerIndex + 1) % bannerSlider.children.length;
+      showBanner(bannerIndex);
+    }
+
+    function startAutoSlide() {
+      bannerTimer = setInterval(nextBanner, 3000);
+    }
+
+    function stopAutoSlide() {
+      clearInterval(bannerTimer);
+    }
+
+    bannerContainer.addEventListener('touchstart', stopAutoSlide);
+    bannerContainer.addEventListener('mousedown', stopAutoSlide);
+    bannerContainer.addEventListener('touchend', () => {
+      startAutoSlide();
     });
+    bannerContainer.addEventListener('mouseup', () => {
+      startAutoSlide();
+    });
+
+    startAutoSlide();
   </script></body></html>
