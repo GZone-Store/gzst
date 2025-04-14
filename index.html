@@ -80,20 +80,25 @@
   </div>
 </div>
 
-<!-- หน้าจริง: ค้นหา -->
-<div id="search" class="absolute inset-0 pb-16 hidden bg-[#1e0a2a] text-white overflow-y-auto">
-  <div class="p-4">
-    <input
-      type="text"
-      id="searchInput"
-      oninput="filterGames()"
-      placeholder="ค้นหาเกม..."
-      class="w-full px-4 py-2 rounded-xl bg-[#35154a] text-white placeholder-gray-300 focus:outline-none"
-    />
-  </div>
-  <div id="searchResults" class="space-y-2 px-4 pb-4">
-    <!-- ผลลัพธ์จะถูกเติมที่นี่ด้วย JS -->
-  </div>
+<!-- ช่องค้นหา + แว่นขยาย -->
+<div class="flex items-center px-4 pt-4">
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="ค้นหาเกมที่นี่..."
+    class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"
+  />
+  <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">
+    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />
+    </svg>
+  </button>
+</div>
+
+<!-- หน้าจำลอง: ค้นหา -->
+<div id="search" class="hidden flex-1 pb-16">
+  <div class="p-6 text-center text-lg">[ เมนูค้นหา ]</div>
+  <div id="searchResults" class="space-y-2 px-4 pb-4"></div>
 </div>
 
 <script>
@@ -108,8 +113,8 @@
     { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" }
   ];
 
-  function displayGames(list) {
-    const container = document.getElementById("searchResults");
+  function displayGames(list, containerId) {
+    const container = document.getElementById(containerId);
     container.innerHTML = "";
     list.forEach(game => {
       const gameBox = document.createElement("div");
@@ -118,27 +123,34 @@
       gameBox.innerHTML = `
         <div class="flex items-center space-x-3">
           <img src="${game.image}" alt="${game.name}" class="w-14 h-14 rounded-lg object-cover" />
-          <div class="text-sm font-medium">${game.name}</div>
+          <div class="text-sm font-medium text-white">${game.name}</div>
         </div>
-        <a href="${game.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm font-semibold">ดาวน์โหลด</a>
+        <a href="${game.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm font-semibold text-white">ดาวน์โหลด</a>
       `;
 
       container.appendChild(gameBox);
     });
   }
 
+  // โหลดหน้าแรก
+  displayGames(games, "game-list");
+
+  // ฟังก์ชันค้นหาเกม
   function filterGames() {
-    const keyword = document.getElementById("searchInput").value.toLowerCase();
+    const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
     const matched = games.filter(g => g.name.toLowerCase().includes(keyword));
-    const extra = games.filter(g => !g.name.toLowerCase().includes(keyword));
-    displayGames([...matched, ...extra]);
+    displayGames(matched, "searchResults");
   }
 
-  document.getElementById("search").addEventListener("transitionstart", () => {
-    displayGames(games);
+  // ค้นหาจากการกดปุ่มแว่นขยาย
+  document.getElementById("searchButton").addEventListener("click", () => {
+    filterGames();
+    // สลับหน้ามา "ค้นหา" อัตโนมัติ
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("search").classList.remove("hidden");
+    document.getElementById("account").classList.add("hidden");
   });
 </script>
-
 <!-- หน้าจำลอง: บัญชี -->
 <div id="account" class="hidden flex-1 pb-16">
   <div class="p-6 text-center text-lg">[ เมนูบัญชี - ยังไม่เปิดใช้งาน ]</div>
