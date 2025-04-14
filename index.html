@@ -80,25 +80,26 @@
   </div>
 </div>
 
-<!-- ช่องค้นหา + แว่นขยาย -->
-<div class="flex items-center px-4 pt-4">
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="ค้นหาเกมที่นี่..."
-    class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"
-  />
-  <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">
-    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />
-    </svg>
-  </button>
-</div>
-
 <!-- หน้าจำลอง: ค้นหา -->
 <div id="search" class="hidden flex-1 pb-16">
-  <div class="p-6 text-center text-lg">[ เมนูค้นหา ]</div>
-  <div id="searchResults" class="space-y-2 px-4 pb-4"></div>
+  <!-- ช่องค้นหาเฉพาะหน้านี้ -->
+  <div class="flex items-center px-4 pt-4">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="ค้นหาเกมที่นี่..."
+      class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"
+    />
+    <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">
+      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="searchResults" class="space-y-2 px-4 pt-4 pb-4 text-white text-sm">
+    <!-- ผลลัพธ์เกมจะแสดงตรงนี้ -->
+  </div>
 </div>
 
 <script>
@@ -116,6 +117,12 @@
   function displayGames(list, containerId) {
     const container = document.getElementById(containerId);
     container.innerHTML = "";
+
+    if (list.length === 0) {
+      container.innerHTML = `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
+      return;
+    }
+
     list.forEach(game => {
       const gameBox = document.createElement("div");
       gameBox.className = "flex items-center justify-between bg-[#2e1b44] rounded-xl p-2";
@@ -132,25 +139,12 @@
     });
   }
 
-  // โหลดหน้าแรก
-  displayGames(games, "game-list");
-
-  // ฟังก์ชันค้นหาเกม
-  function filterGames() {
+  document.getElementById("searchButton").addEventListener("click", () => {
     const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
     const matched = games.filter(g => g.name.toLowerCase().includes(keyword));
     displayGames(matched, "searchResults");
-  }
-
-  // ค้นหาจากการกดปุ่มแว่นขยาย
-  document.getElementById("searchButton").addEventListener("click", () => {
-    filterGames();
-    // สลับหน้ามา "ค้นหา" อัตโนมัติ
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("search").classList.remove("hidden");
-    document.getElementById("account").classList.add("hidden");
   });
-</script>
+     </script>
 <!-- หน้าจำลอง: บัญชี -->
 <div id="account" class="hidden flex-1 pb-16">
   <div class="p-6 text-center text-lg">[ เมนูบัญชี - ยังไม่เปิดใช้งาน ]</div>
