@@ -1,357 +1,219 @@
-<!DOCTYPE html><html lang="en" class="bg-[#1e0a2a] text-white">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GZONE STORE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      @keyframes marquee {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
-      }
-      .animate-marquee {
-        display: inline-block;
-        white-space: nowrap;
-        animation: marquee 15s linear infinite;
-      }
-      .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 9999px;
-        margin: 0 4px;
-        background-color: white;
-        opacity: 0.5;
-      }
-      .dot.active {
-        background-color: #a855f7;
-        opacity: 1;
-      }
-    </style>
-  </head>
-  <body class="flex flex-col min-h-screen"><!-- หน้าแรก -->
-<div id="home" class="flex-1 pb-16 block">
-  <!-- โลโก้ -->
-  <div class="p-4">
-    <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />
-  </div>
-
-  <!-- แบนเนอร์เลื่อนอัตโนมัติแบบวน -->
-  <div class="relative w-full overflow-hidden h-40">
-    <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
-      <!-- clone สุดท้าย -->
-      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-      <!-- clone แรก -->
-      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-    </div>
-    <!-- จุดสถานะ -->
-    <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">
-      <div class="dot" id="dot0"></div>
-      <div class="dot" id="dot1"></div>
-      <div class="dot" id="dot2"></div>
-    </div>
-  </div>
-
-  <!-- กล่องประกาศ -->
-  <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">
-    <div class="whitespace-nowrap animate-marquee">
-      <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
-      <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>
-    </div>
-  </div>
-
-  <!-- หัวข้อ -->
-  <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>
-
-  <!-- เมนูเกม -->
-  <div class="grid grid-cols-2 gap-4 p-4">
-    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-      <img src="game1.png.jpg" alt="Game 1" class="rounded-xl mb-2" />
-      <div class="text-white font-semibold">Mobile legend</div>
-      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-    </div>
-    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-      <img src="game2.png.jpg" alt="Game 2" class="rounded-xl mb-2" />
-      <div class="text-white font-semibold">Rov</div>
-      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-    </div>
-  </div>
-</div>
-
-<div class="p-4">
-  <!-- ช่องค้นหา -->
-  <div class="relative mb-4">
-    <input type="text" id="searchInput" placeholder="ค้นหาเกม..."
-      class="w-full p-2 pl-10 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-300">
-    <!-- ไอคอนแว่นขยายใหม่ -->
-    <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-500 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2"
-      viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M16 10a6 6 0 11-12 0 6 6 0 0112 0z" />
-    </svg>
-  </div>
-
-  <!-- เกมแนะนำแบบเลื่อน -->
-  <div id="recommended" class="overflow-x-auto whitespace-nowrap mb-4 transition-opacity duration-300">
-    <div class="inline-block w-24 mr-2 animate-slide-slow">
-      <img src="game1.png" class="rounded-lg w-full h-auto" alt="Game 1">
-      <p class="text-xs text-center mt-1">เกม 1</p>
-    </div>
-    <div class="inline-block w-24 mr-2 animate-slide-slow">
-      <img src="game2.png" class="rounded-lg w-full h-auto" alt="Game 2">
-      <p class="text-xs text-center mt-1">เกม 2</p>
-    </div>
-    <div class="inline-block w-24 mr-2 animate-slide-slow">
-      <img src="game3.png" class="rounded-lg w-full h-auto" alt="Game 3">
-      <p class="text-xs text-center mt-1">เกม 3</p>
-    </div>
-    <div class="inline-block w-24 animate-slide-slow">
-      <img src="game4.png" class="rounded-lg w-full h-auto" alt="Game 4">
-      <p class="text-xs text-center mt-1">เกม 4</p>
-    </div>
-  </div>
-
-  <!-- รายการเกมทั้งหมด -->
-  <div id="allGames" class="transition-opacity duration-300">
-    <div class="grid grid-cols-2 gap-4">
-      <div class="bg-white rounded-lg shadow p-2">
-        <img src="game5.png" class="rounded w-full mb-1" alt="Game 5">
-        <p class="text-sm">เกม 5</p>
-      </div>
-      <div class="bg-white rounded-lg shadow p-2">
-        <img src="game6.png" class="rounded w-full mb-1" alt="Game 6">
-        <p class="text-sm">เกม 6</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ผลการค้นหา -->
-  <div id="searchResults" class="hidden mt-4">
-    <p class="text-sm text-gray-500">ผลการค้นหา:</p>
-    <div class="grid grid-cols-2 gap-4 mt-2" id="resultsGrid"></div>
-  </div>
-</div>
-
-<script>
-  const searchInput = document.getElementById('searchInput');
-  const recommended = document.getElementById('recommended');
-  const allGames = document.getElementById('allGames');
-  const searchResults = document.getElementById('searchResults');
-  const resultsGrid = document.getElementById('resultsGrid');
-
-  const games = [
-    { name: 'เกม 5', image: 'game5.png' },
-    { name: 'เกม 6', image: 'game6.png' },
-    { name: 'เกมน่าเล่น', image: 'game7.png' },
-    { name: 'เกมใหม่ล่าสุด', image: 'game8.png' },
-  ];
-
-  searchInput.addEventListener('focus', () => {
-    recommended.style.opacity = '0';
-    allGames.style.opacity = '0';
-    setTimeout(() => {
-      recommended.style.display = 'none';
-      allGames.style.display = 'none';
-      searchResults.classList.remove('hidden');
-    }, 300);
-  });
-
-  searchInput.addEventListener('input', () => {
-    const query = searchInput.value.toLowerCase();
-    resultsGrid.innerHTML = '';
-
-  <!-- หน้าจำลอง: ค้นหา -->
-<div id="search" class="hidden flex-1 pb-16">
-  <!-- ช่องค้นหาเฉพาะหน้านี้ -->
-  <div class="flex items-center px-4 pt-4">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="ค้นหาเกมที่นี่..."
-      class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"
-      onfocus="showCategories()"
-      onblur="hideCategories()"
-    />
-    <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">
-      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />
-      </svg>
-    </button>
-  </div>
-
-  <!-- หมวดหมู่และเกมแนะนำ -->
-  <div id="categories" class="px-4 pt-4 space-y-4 text-white text-sm">
-    <h3 class="font-bold">เกมแนะนำ</h3>
-    <div class="grid grid-cols-2 gap-4">
-      <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-        <img src="game1.png.jpg" alt="Game 1" class="rounded-xl mb-2" />
-        <div class="text-white font-semibold">Game Name 1</div>
-      </div>
-      <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-        <img src="game2.png.jpg" alt="Game 2" class="rounded-xl mb-2" />
-        <div class="text-white font-semibold">Game Name 2</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="searchResults" class="space-y-2 px-4 pt-4 pb-4 text-white text-sm">
-    <!-- ผลลัพธ์เกมจะแสดงตรงนี้ -->
-  </div>
-</div>
-
-<script>
-  const games = [
-    { name: "Mobile legend", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
-    { name: "Rov", image: "game2.png.jpg", link: "https://example.com/love-battle" },
-    { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
-    { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
-    { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
-    { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
-    { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
-    { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" }
-  ];
-
-  function displayGames(list, containerId) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = "";
-
-    if (list.length === 0) {
-      container.innerHTML = `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
-      return;
-    }
-
-    list.forEach(game => {
-      const gameBox = document.createElement("div");
-      gameBox.className = "flex items-center justify-between bg-[#2e1b44] rounded-xl p-2";
-
-      gameBox.innerHTML = `
-        <div class="flex items-center space-x-3">
-          <img src="${game.image}" alt="${game.name}" class="w-14 h-14 rounded-lg object-cover" />
-          <div class="text-sm font-medium text-white">${game.name}</div>
-        </div>
-        <a href="${game.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm font-semibold text-white">ดาวน์โหลด</a>
-      `;
-
-      container.appendChild(gameBox);
-    });
-  }
-
-  document.getElementById("searchButton").addEventListener("click", () => {
-    const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
-    const matched = games.filter(g => g.name.toLowerCase().includes(keyword));
-    displayGames(matched, "searchResults");
-  });
-
-  // ฟังก์ชันเพื่อแสดงหมวดหมู่เมื่อมีการคลิกที่ช่องค้นหา
-  function showCategories() {
-    document.getElementById("categories").style.display = "block";
-  }
-
-  // ฟังก์ชันเพื่อซ่อนหมวดหมู่เมื่อออกจากช่องค้นหา
-  function hideCategories() {
-    document.getElementById("categories").style.display = "none";
-  }
-</script>
-    
-<!-- หน้าจำลอง: บัญชี -->
-<div id="account" class="hidden flex-1 pb-16">
-  <div class="p-6 text-center text-lg">[ เมนูบัญชี - ยังไม่เปิดใช้งาน ]</div>
-</div>
-
-<!-- แถบเมนูด้านล่าง -->
-<nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
-  <button onclick="goTo('home')" class="flex flex-col items-center">
-    <img src="icon-home.png.png" class="w-6 h-6" />
-    <span class="text-xs">หน้าแรก</span>
-  </button>
-  <button onclick="goTo('search')" class="flex flex-col items-center">
-    <img src="icon-search.png.png" class="w-6 h-6" />
-    <span class="text-xs">ค้นหา</span>
-  </button>
-  <button onclick="goTo('account')" class="flex flex-col items-center">
-    <img src="icon-user.png.png" class="w-6 h-6" />
-    <span class="text-xs">บัญชี</span>
-  </button>
-</nav>
-
-<script>
-  const carousel = document.getElementById('banner-carousel');
-  const dots = [document.getElementById('dot0'), document.getElementById('dot1'), document.getElementById('dot2')];
-  const total = 3;
-  let index = 1;
-  let allowClick = true;
-
-  const updateDots = () => {
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === (index - 1 + total) % total);
-    });
-  };
-
-  const goToSlide = (i) => {
-    carousel.style.transition = 'transform 0.5s ease-in-out';
-    carousel.style.transform = `translateX(-${i * 100}%)`;
-    updateDots();
-  };
-
-  const nextSlide = () => {
-    if (!allowClick) return;
-    allowClick = false;
-    index++;
-    goToSlide(index);
-    setTimeout(() => {
-      if (index === total + 1) {
-        carousel.style.transition = 'none';
-        index = 1;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-      }
-      allowClick = true;
-    }, 600);
-  };
-
-  let interval = setInterval(nextSlide, 3000);
-
-  // รองรับการเลื่อนเองด้วย touch
-  let startX = 0;
-  carousel.addEventListener('touchstart', (e) => {
-    clearInterval(interval);
-    startX = e.touches[0].clientX;
-  });
-
-  carousel.addEventListener('touchend', (e) => {
-    const endX = e.changedTouches[0].clientX;
-    if (endX - startX > 50) {
-      if (index > 0) index--;
-    } else if (startX - endX > 50) {
-      if (index < total + 1) index++;
-    }
-    goToSlide(index);
-    setTimeout(() => {
-      if (index === 0) {
-        carousel.style.transition = 'none';
-        index = total;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-      }
-      if (index === total + 1) {
-        carousel.style.transition = 'none';
-        index = 1;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-      }
-    }, 600);
-    interval = setInterval(nextSlide, 3000);
-  });
-
-  // เริ่มที่ slide 1
-  carousel.style.transform = `translateX(-${index * 100}%)`;
-  updateDots();
-
-  function goTo(page) {
-    document.getElementById('home').classList.add('hidden');
-    document.getElementById('search').classList.add('hidden');
-    document.getElementById('account').classList.add('hidden');
-    document.getElementById(page).classList.remove('hidden');
-  }
-</script>
-
-  </body>
+<!DOCTYPE html><html lang="en" class="bg-[#1e0a2a] text-white">    <head>  
+    <meta charset="UTF-8" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    <title>Game Download</title>  
+    <script src="https://cdn.tailwindcss.com"></script>  
+    <style>  
+      @keyframes marquee {  
+        0% { transform: translateX(100%); }  
+        100% { transform: translateX(-100%); }  
+      }  
+      .animate-marquee {  
+        display: inline-block;  
+        white-space: nowrap;  
+        animation: marquee 15s linear infinite;  
+      }  
+      .dot {  
+        width: 6px;  
+        height: 6px;  
+        border-radius: 9999px;  
+        margin: 0 4px;  
+        background-color: white;  
+        opacity: 0.5;  
+      }  
+      .dot.active {  
+        background-color: #a855f7;  
+        opacity: 1;  
+      }  
+    </style>  
+  </head>  
+  <body class="flex flex-col min-h-screen"><!-- หน้าแรก -->  
+<div id="home" class="flex-1 pb-16 block">  
+  <!-- โลโก้ -->  
+  <div class="p-4">  
+    <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />  
+  </div>    <!-- แบนเนอร์เลื่อนอัตโนมัติแบบวน -->    <div class="relative w-full overflow-hidden h-40">  
+    <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">  
+      <!-- clone สุดท้าย -->  
+      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
+      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
+      <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
+      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
+      <!-- clone แรก -->  
+      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
+    </div>  
+    <!-- จุดสถานะ -->  
+    <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">  
+      <div class="dot" id="dot0"></div>  
+      <div class="dot" id="dot1"></div>  
+      <div class="dot" id="dot2"></div>  
+    </div>  
+  </div>    <!-- กล่องประกาศ -->    <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">  
+    <div class="whitespace-nowrap animate-marquee">  
+      <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>  
+      <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>  
+    </div>  
+  </div>    <!-- หัวข้อ -->    <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>    <!-- เมนูเกม -->    <div class="grid grid-cols-2 gap-4 p-4">  
+    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">  
+      <img src="game1.png.jpg" alt="Game 1" class="rounded-xl mb-2" />  
+      <div class="text-white font-semibold">Game Name 1</div>  
+      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>  
+    </div>  
+    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">  
+      <img src="game2.png.jpg" alt="Game 2" class="rounded-xl mb-2" />  
+      <div class="text-white font-semibold">Game Name 2</div>  
+      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>  
+    </div>  
+  </div>  
+</div>  <!-- หน้าจำลอง: ค้นหา -->  <div id="search" class="hidden flex-1 pb-16">  
+  <!-- ช่องค้นหาเฉพาะหน้านี้ -->  
+  <div class="flex items-center px-4 pt-4">  
+    <input  
+      type="text"  
+      id="searchInput"  
+      placeholder="ค้นหาเกมที่นี่..."  
+      class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"  
+    />  
+    <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">  
+      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />  
+      </svg>  
+    </button>  
+  </div>    <div id="searchResults" class="space-y-2 px-4 pt-4 pb-4 text-white text-sm">  
+    <!-- ผลลัพธ์เกมจะแสดงตรงนี้ -->  
+  </div>  
+</div>  <script>  
+  const games = [  
+    { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },  
+    { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },  
+    { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },  
+    { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },  
+    { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },  
+    { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },  
+    { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },  
+    { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" }  
+  ];  
+  
+  function displayGames(list, containerId) {  
+    const container = document.getElementById(containerId);  
+    container.innerHTML = "";  
+  
+    if (list.length === 0) {  
+      container.innerHTML = `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;  
+      return;  
+    }  
+  
+    list.forEach(game => {  
+      const gameBox = document.createElement("div");  
+      gameBox.className = "flex items-center justify-between bg-[#2e1b44] rounded-xl p-2";  
+  
+      gameBox.innerHTML = `  
+        <div class="flex items-center space-x-3">  
+          <img src="${game.image}" alt="${game.name}" class="w-14 h-14 rounded-lg object-cover" />  
+          <div class="text-sm font-medium text-white">${game.name}</div>  
+        </div>  
+        <a href="${game.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm font-semibold text-white">ดาวน์โหลด</a>  
+      `;  
+  
+      container.appendChild(gameBox);  
+    });  
+  }  
+  
+  document.getElementById("searchButton").addEventListener("click", () => {  
+    const keyword = document.getElementById("searchInput").value.trim().toLowerCase();  
+    const matched = games.filter(g => g.name.toLowerCase().includes(keyword));  
+    displayGames(matched, "searchResults");  
+  });  
+     </script>  <!-- หน้าจำลอง: บัญชี -->  <div id="account" class="hidden flex-1 pb-16">  
+  <div class="p-6 text-center text-lg">[ เมนูบัญชี - ยังไม่เปิดใช้งาน ]</div>  
+</div>  <!-- แถบเมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">  
+  <button onclick="goTo('home')" class="flex flex-col items-center">  
+    <img src="icon-home.png.png" class="w-6 h-6" />  
+    <span class="text-xs">หน้าแรก</span>  
+  </button>  
+  <button onclick="goTo('search')" class="flex flex-col items-center">  
+    <img src="icon-search.png.png" class="w-6 h-6" />  
+    <span class="text-xs">ค้นหา</span>  
+  </button>  
+  <button onclick="goTo('account')" class="flex flex-col items-center">  
+    <img src="icon-user.png.png" class="w-6 h-6" />  
+    <span class="text-xs">บัญชี</span>  
+  </button>  
+</nav>  <script>  
+  const carousel = document.getElementById('banner-carousel');  
+  const dots = [document.getElementById('dot0'), document.getElementById('dot1'), document.getElementById('dot2')];  
+  const total = 3;  
+  let index = 1;  
+  let allowClick = true;  
+  
+  const updateDots = () => {  
+    dots.forEach((dot, i) => {  
+      dot.classList.toggle('active', i === (index - 1 + total) % total);  
+    });  
+  };  
+  
+  const goToSlide = (i) => {  
+    carousel.style.transition = 'transform 0.5s ease-in-out';  
+    carousel.style.transform = `translateX(-${i * 100}%)`;  
+    updateDots();  
+  };  
+  
+  const nextSlide = () => {  
+    if (!allowClick) return;  
+    allowClick = false;  
+    index++;  
+    goToSlide(index);  
+    setTimeout(() => {  
+      if (index === total + 1) {  
+        carousel.style.transition = 'none';  
+        index = 1;  
+        carousel.style.transform = `translateX(-${index * 100}%)`;  
+      }  
+      allowClick = true;  
+    }, 600);  
+  };  
+  
+  let interval = setInterval(nextSlide, 3000);  
+  
+  // รองรับการเลื่อนเองด้วย touch  
+  let startX = 0;  
+  carousel.addEventListener('touchstart', (e) => {  
+    clearInterval(interval);  
+    startX = e.touches[0].clientX;  
+  });  
+  
+  carousel.addEventListener('touchend', (e) => {  
+    const endX = e.changedTouches[0].clientX;  
+    if (endX - startX > 50) {  
+      if (index > 0) index--;  
+    } else if (startX - endX > 50) {  
+      if (index < total + 1) index++;  
+    }  
+    goToSlide(index);  
+    setTimeout(() => {  
+      if (index === 0) {  
+        carousel.style.transition = 'none';  
+        index = total;  
+        carousel.style.transform = `translateX(-${index * 100}%)`;  
+      }  
+      if (index === total + 1) {  
+        carousel.style.transition = 'none';  
+        index = 1;  
+        carousel.style.transform = `translateX(-${index * 100}%)`;  
+      }  
+    }, 600);  
+    interval = setInterval(nextSlide, 3000);  
+  });  
+  
+  // เริ่มที่ slide 1  
+  carousel.style.transform = `translateX(-${index * 100}%)`;  
+  updateDots();  
+  
+  function goTo(page) {  
+    document.getElementById('home').classList.add('hidden');  
+    document.getElementById('search').classList.add('hidden');  
+    document.getElementById('account').classList.add('hidden');  
+    document.getElementById(page).classList.remove('hidden');  
+  }  
+</script>    </body>  
 </html>
