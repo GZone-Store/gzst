@@ -65,66 +65,122 @@
       <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>  
     </div>  
   </div>  
-</div>  <!-- หน้าจำลอง: ค้นหา -->  <div id="search" class="hidden flex-1 pb-16">  
-  <!-- ช่องค้นหาเฉพาะหน้านี้ -->  
-  <div class="flex items-center px-4 pt-4">  
-    <input  
-      type="text"  
-      id="searchInput"  
-      placeholder="ค้นหาเกมที่นี่..."  
-      class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"  
-    />  
-    <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">  
-      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
-        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />  
-      </svg>  
-    </button>  
-  </div>    <div id="searchResults" class="space-y-2 px-4 pt-4 pb-4 text-white text-sm">  
-    <!-- ผลลัพธ์เกมจะแสดงตรงนี้ -->  
-  </div>  
-</div>  <script>  
-  const games = [  
-    { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },  
-    { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },  
-    { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },  
-    { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },  
-    { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },  
-    { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },  
-    { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },  
-    { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" }  
-  ];  
-  
-  function displayGames(list, containerId) {  
-    const container = document.getElementById(containerId);  
-    container.innerHTML = "";  
-  
-    if (list.length === 0) {  
-      container.innerHTML = `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;  
-      return;  
-    }  
-  
-    list.forEach(game => {  
-      const gameBox = document.createElement("div");  
-      gameBox.className = "flex items-center justify-between bg-[#2e1b44] rounded-xl p-2";  
-  
-      gameBox.innerHTML = `  
-        <div class="flex items-center space-x-3">  
-          <img src="${game.image}" alt="${game.name}" class="w-14 h-14 rounded-lg object-cover" />  
-          <div class="text-sm font-medium text-white">${game.name}</div>  
-        </div>  
-        <a href="${game.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm font-semibold text-white">ดาวน์โหลด</a>  
-      `;  
-  
-      container.appendChild(gameBox);  
-    });  
-  }  
-  
-  document.getElementById("searchButton").addEventListener("click", () => {  
-    const keyword = document.getElementById("searchInput").value.trim().toLowerCase();  
-    const matched = games.filter(g => g.name.toLowerCase().includes(keyword));  
-    displayGames(matched, "searchResults");  
-  });  
-     </script>  <!-- หน้าจำลอง: บัญชี -->  <div id="account" class="hidden flex-1 pb-16">  
+</div>  
+<!-- หน้าจำลอง: ค้นหา -->
+<div id="search" class="flex-1 pb-16">
+  <!-- เกมแนะนำเลื่อนอัตโนมัติ -->
+  <div class="relative w-full overflow-hidden h-40">
+    <div id="recommended-carousel" class="flex transition-transform duration-500 ease-in-out">
+      <!-- เกมแนะนำ 5 เกม -->
+      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
+        <img src="game1.png.jpg" class="rounded-xl w-full h-full object-cover" />
+      </div>
+      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
+        <img src="game2.png.jpg" class="rounded-xl w-full h-full object-cover" />
+      </div>
+      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
+        <img src="game3.png.jpg" class="rounded-xl w-full h-full object-cover" />
+      </div>
+      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
+        <img src="game4.png.jpg" class="rounded-xl w-full h-full object-cover" />
+      </div>
+      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
+        <img src="game5.png.jpg" class="rounded-xl w-full h-full object-cover" />
+      </div>
+      <!-- clone แรก -->
+      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
+        <img src="game1.png.jpg" class="rounded-xl w-full h-full object-cover" />
+      </div>
+    </div>
+  </div>
+
+  <!-- เกมแนะนำ (รายการเกม) -->
+  <h2 class="text-lg font-bold px-4 pt-4">เกมแนะนำ</h2>
+  <div class="grid grid-cols-2 gap-4 p-4">
+    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
+      <img src="game1.png.jpg" alt="Game 1" class="rounded-xl mb-2" />
+      <div class="text-white font-semibold">Game Name 1</div>
+      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
+    </div>
+    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
+      <img src="game2.png.jpg" alt="Game 2" class="rounded-xl mb-2" />
+      <div class="text-white font-semibold">Game Name 2</div>
+      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
+    </div>
+    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
+      <img src="game3.png.jpg" alt="Game 3" class="rounded-xl mb-2" />
+      <div class="text-white font-semibold">Game Name 3</div>
+      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
+    </div>
+    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
+      <img src="game4.png.jpg" alt="Game 4" class="rounded-xl mb-2" />
+      <div class="text-white font-semibold">Game Name 4</div>
+      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
+    </div>
+    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
+      <img src="game5.png.jpg" alt="Game 5" class="rounded-xl mb-2" />
+      <div class="text-white font-semibold">Game Name 5</div>
+      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const carousel = document.getElementById('recommended-carousel');
+  const total = 5; // จำนวนเกมที่มี
+  let index = 1;
+  let allowClick = true;
+
+  const nextSlide = () => {
+    if (!allowClick) return;
+    allowClick = false;
+    index++;
+    carousel.style.transition = 'transform 0.5s ease-in-out';
+    carousel.style.transform = `translateX(-${index * 100}%)`;
+
+    setTimeout(() => {
+      if (index === total) {
+        carousel.style.transition = 'none';
+        index = 0;
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+      }
+      allowClick = true;
+    }, 600);
+  };
+
+  let interval = setInterval(nextSlide, 3000);
+
+  // รองรับการเลื่อนเองด้วย touch
+  let startX = 0;
+  carousel.addEventListener('touchstart', (e) => {
+    clearInterval(interval);
+    startX = e.touches[0].clientX;
+  });
+
+  carousel.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches[0].clientX;
+    if (endX - startX > 50) {
+      if (index > 0) index--;
+    } else if (startX - endX > 50) {
+      if (index < total) index++;
+    }
+    carousel.style.transform = `translateX(-${index * 100}%)`;
+
+    setTimeout(() => {
+      if (index === 0) {
+        carousel.style.transition = 'none';
+        index = total;
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+      }
+    }, 600);
+    interval = setInterval(nextSlide, 3000);
+  });
+
+  // เริ่มที่ slide 1
+  carousel.style.transform = `translateX(-${index * 100}%)`;
+</script>
+
+</script>  <!-- หน้าจำลอง: บัญชี -->  <div id="account" class="hidden flex-1 pb-16">  
   <div class="p-6 text-center text-lg">[ เมนูบัญชี - ยังไม่เปิดใช้งาน ]</div>  
 </div>  <!-- แถบเมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">  
   <button onclick="goTo('home')" class="flex flex-col items-center">  
