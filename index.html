@@ -1,275 +1,123 @@
-<!DOCTYPE html><html lang="en" class="bg-[#1e0a2a] text-white">    <head>  
-    <meta charset="UTF-8" />  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
-    <title>Game Download</title>  
-    <script src="https://cdn.tailwindcss.com"></script>  
-    <style>  
-      @keyframes marquee {  
-        0% { transform: translateX(100%); }  
-        100% { transform: translateX(-100%); }  
-      }  
-      .animate-marquee {  
-        display: inline-block;  
-        white-space: nowrap;  
-        animation: marquee 15s linear infinite;  
-      }  
-      .dot {  
-        width: 6px;  
-        height: 6px;  
-        border-radius: 9999px;  
-        margin: 0 4px;  
-        background-color: white;  
-        opacity: 0.5;  
-      }  
-      .dot.active {  
-        background-color: #a855f7;  
-        opacity: 1;  
-      }  
-    </style>  
-  </head>  
-  <body class="flex flex-col min-h-screen"><!-- หน้าแรก -->  
-<div id="home" class="flex-1 pb-16 block">  
-  <!-- โลโก้ -->  
-  <div class="p-4">  
-    <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />  
-  </div>    <!-- แบนเนอร์เลื่อนอัตโนมัติแบบวน -->    <div class="relative w-full overflow-hidden h-40">  
-    <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">  
-      <!-- clone สุดท้าย -->  
-      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
-      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
-      <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
-      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
-      <!-- clone แรก -->  
-      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />  
-    </div>  
-    <!-- จุดสถานะ -->  
-    <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">  
-      <div class="dot" id="dot0"></div>  
-      <div class="dot" id="dot1"></div>  
-      <div class="dot" id="dot2"></div>  
-    </div>  
-  </div>    <!-- กล่องประกาศ -->    <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">  
-    <div class="whitespace-nowrap animate-marquee">  
-      <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>  
-      <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>  
-    </div>  
-  </div>    <!-- หัวข้อ -->    <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>    <!-- เมนูเกม -->    <div class="grid grid-cols-2 gap-4 p-4">  
-    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">  
-      <img src="game1.png.jpg" alt="Game 1" class="rounded-xl mb-2" />  
-      <div class="text-white font-semibold">Game Name 1</div>  
-      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>  
-    </div>  
-    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">  
-      <img src="game2.png.jpg" alt="Game 2" class="rounded-xl mb-2" />  
-      <div class="text-white font-semibold">Game Name 2</div>  
-      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>  
-    </div>  
-  </div>  
-</div>  
-<!-- หน้าจำลอง: ค้นหา -->
-<div id="search" class="flex-1 pb-16">
-  <!-- เกมแนะนำเลื่อนอัตโนมัติ -->
-  <div class="relative w-full overflow-hidden h-40">
-    <div id="recommended-carousel" class="flex transition-transform duration-500 ease-in-out">
-      <!-- เกมแนะนำ 5 เกม -->
-      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
-        <img src="game1.png.jpg" class="rounded-xl w-full h-full object-cover" />
-      </div>
-      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
-        <img src="game2.png.jpg" class="rounded-xl w-full h-full object-cover" />
-      </div>
-      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
-        <img src="game3.png.jpg" class="rounded-xl w-full h-full object-cover" />
-      </div>
-      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
-        <img src="game4.png.jpg" class="rounded-xl w-full h-full object-cover" />
-      </div>
-      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
-        <img src="game5.png.jpg" class="rounded-xl w-full h-full object-cover" />
-      </div>
-      <!-- clone แรก -->
-      <div class="w-full h-40 object-cover flex-shrink-0 bg-[#2b1140] flex justify-center items-center">
-        <img src="game1.png.jpg" class="rounded-xl w-full h-full object-cover" />
-      </div>
-    </div>
-  </div>
-
-  <!-- เกมแนะนำ (รายการเกม) -->
-  <h2 class="text-lg font-bold px-4 pt-4">เกมแนะนำ</h2>
-  <div class="grid grid-cols-2 gap-4 p-4">
-    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-      <img src="game1.png.jpg" alt="Game 1" class="rounded-xl mb-2" />
-      <div class="text-white font-semibold">Game Name 1</div>
-      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-    </div>
-    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-      <img src="game2.png.jpg" alt="Game 2" class="rounded-xl mb-2" />
-      <div class="text-white font-semibold">Game Name 2</div>
-      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-    </div>
-    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-      <img src="game3.png.jpg" alt="Game 3" class="rounded-xl mb-2" />
-      <div class="text-white font-semibold">Game Name 3</div>
-      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-    </div>
-    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-      <img src="game4.png.jpg" alt="Game 4" class="rounded-xl mb-2" />
-      <div class="text-white font-semibold">Game Name 4</div>
-      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-    </div>
-    <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-      <img src="game5.png.jpg" alt="Game 5" class="rounded-xl mb-2" />
-      <div class="text-white font-semibold">Game Name 5</div>
-      <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  const carousel = document.getElementById('recommended-carousel');
-  const total = 5; // จำนวนเกมที่มี
-  let index = 1;
-  let allowClick = true;
-
-  const nextSlide = () => {
-    if (!allowClick) return;
-    allowClick = false;
-    index++;
-    carousel.style.transition = 'transform 0.5s ease-in-out';
-    carousel.style.transform = `translateX(-${index * 100}%)`;
-
-    setTimeout(() => {
-      if (index === total) {
-        carousel.style.transition = 'none';
-        index = 0;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-      }
-      allowClick = true;
-    }, 600);
-  };
-
-  let interval = setInterval(nextSlide, 3000);
-
-  // รองรับการเลื่อนเองด้วย touch
-  let startX = 0;
-  carousel.addEventListener('touchstart', (e) => {
-    clearInterval(interval);
-    startX = e.touches[0].clientX;
-  });
-
-  carousel.addEventListener('touchend', (e) => {
-    const endX = e.changedTouches[0].clientX;
-    if (endX - startX > 50) {
-      if (index > 0) index--;
-    } else if (startX - endX > 50) {
-      if (index < total) index++;
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .active-tab {
+      display: block;
     }
-    carousel.style.transform = `translateX(-${index * 100}%)`;
+    .hidden-tab {
+      display: none;
+    }
+    .banner-slide {
+      animation: slide 12s infinite linear;
+    }
+    @keyframes slide {
+      0%, 20% { transform: translateX(0%); }
+      25%, 45% { transform: translateX(-100%); }
+      50%, 70% { transform: translateX(-200%); }
+      75%, 95% { transform: translateX(-300%); }
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
 
-    setTimeout(() => {
-      if (index === 0) {
-        carousel.style.transition = 'none';
-        index = total;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-      }
-    }, 600);
-    interval = setInterval(nextSlide, 3000);
-  });
+  <!-- LOGO -->
+  <header class="p-4 flex items-center justify-between bg-purple-700 text-white">
+    <img src="logo.png.png" alt="Logo" class="h-10">
+    <span class="text-xl font-bold">Game Store</span>
+    <div></div>
+  </header>
 
-  // เริ่มที่ slide 1
-  carousel.style.transform = `translateX(-${index * 100}%)`;
-</script>
+  <!-- MAIN CONTENT -->
+  <main class="p-2">
+    <!-- หน้าแรก -->
+    <section id="homePage" class="active-tab">
+      <!-- Banner เลื่อนอัตโนมัติ -->
+      <div class="overflow-hidden relative h-32 rounded-xl mb-4">
+        <div class="flex w-[400%] banner-slide">
+          <img src="banner1.png.jpg" class="w-full object-cover"/>
+          <img src="banner2.png.jpg" class="w-full object-cover"/>
+          <img src="banner3.png.jpg" class="w-full object-cover"/>
+          <img src="banner4.png.jpg" class="w-full object-cover"/>
+        </div>
+      </div>
 
-</script>  <!-- หน้าจำลอง: บัญชี -->  <div id="account" class="hidden flex-1 pb-16">  
-  <div class="p-6 text-center text-lg">[ เมนูบัญชี - ยังไม่เปิดใช้งาน ]</div>  
-</div>  <!-- แถบเมนูด้านล่าง -->  <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">  
-  <button onclick="goTo('home')" class="flex flex-col items-center">  
-    <img src="icon-home.png.png" class="w-6 h-6" />  
-    <span class="text-xs">หน้าแรก</span>  
-  </button>  
-  <button onclick="goTo('search')" class="flex flex-col items-center">  
-    <img src="icon-search.png.png" class="w-6 h-6" />  
-    <span class="text-xs">ค้นหา</span>  
-  </button>  
-  <button onclick="goTo('account')" class="flex flex-col items-center">  
-    <img src="icon-user.png.png" class="w-6 h-6" />  
-    <span class="text-xs">บัญชี</span>  
-  </button>  
-</nav>  <script>  
-  const carousel = document.getElementById('banner-carousel');  
-  const dots = [document.getElementById('dot0'), document.getElementById('dot1'), document.getElementById('dot2')];  
-  const total = 3;  
-  let index = 1;  
-  let allowClick = true;  
-  
-  const updateDots = () => {  
-    dots.forEach((dot, i) => {  
-      dot.classList.toggle('active', i === (index - 1 + total) % total);  
-    });  
-  };  
-  
-  const goToSlide = (i) => {  
-    carousel.style.transition = 'transform 0.5s ease-in-out';  
-    carousel.style.transform = `translateX(-${i * 100}%)`;  
-    updateDots();  
-  };  
-  
-  const nextSlide = () => {  
-    if (!allowClick) return;  
-    allowClick = false;  
-    index++;  
-    goToSlide(index);  
-    setTimeout(() => {  
-      if (index === total + 1) {  
-        carousel.style.transition = 'none';  
-        index = 1;  
-        carousel.style.transform = `translateX(-${index * 100}%)`;  
-      }  
-      allowClick = true;  
-    }, 600);  
-  };  
-  
-  let interval = setInterval(nextSlide, 3000);  
-  
-  // รองรับการเลื่อนเองด้วย touch  
-  let startX = 0;  
-  carousel.addEventListener('touchstart', (e) => {  
-    clearInterval(interval);  
-    startX = e.touches[0].clientX;  
-  });  
-  
-  carousel.addEventListener('touchend', (e) => {  
-    const endX = e.changedTouches[0].clientX;  
-    if (endX - startX > 50) {  
-      if (index > 0) index--;  
-    } else if (startX - endX > 50) {  
-      if (index < total + 1) index++;  
-    }  
-    goToSlide(index);  
-    setTimeout(() => {  
-      if (index === 0) {  
-        carousel.style.transition = 'none';  
-        index = total;  
-        carousel.style.transform = `translateX(-${index * 100}%)`;  
-      }  
-      if (index === total + 1) {  
-        carousel.style.transition = 'none';  
-        index = 1;  
-        carousel.style.transform = `translateX(-${index * 100}%)`;  
-      }  
-    }, 600);  
-    interval = setInterval(nextSlide, 3000);  
-  });  
-  
-  // เริ่มที่ slide 1  
-  carousel.style.transform = `translateX(-${index * 100}%)`;  
-  updateDots();  
-  
-  function goTo(page) {  
-    document.getElementById('home').classList.add('hidden');  
-    document.getElementById('search').classList.add('hidden');  
-    document.getElementById('account').classList.add('hidden');  
-    document.getElementById(page).classList.remove('hidden');  
-  }  
-</script>    </body>  
+      <h2 class="text-xl font-semibold mb-2">เกมแนะนำ</h2>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-gray-100 p-2 rounded-xl shadow">
+          <img src="game1.png.jpg" class="w-full h-24 object-cover rounded-lg mb-1" />
+          <div class="text-sm font-medium">เกม 1</div>
+          <a href="#" class="text-blue-500 text-xs">ดาวน์โหลด</a>
+        </div>
+        <div class="bg-gray-100 p-2 rounded-xl shadow">
+          <img src="game2.png.jpg" class="w-full h-24 object-cover rounded-lg mb-1" />
+          <div class="text-sm font-medium">เกม 2</div>
+          <a href="#" class="text-blue-500 text-xs">ดาวน์โหลด</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- หน้าค้นหา -->
+    <section id="searchPage" class="hidden-tab">
+      <div class="overflow-hidden relative h-32 rounded-xl mb-4">
+        <div class="flex w-[400%] banner-slide">
+          <img src="banner1.png.jpg" class="w-full object-cover"/>
+          <img src="banner2.png.jpg" class="w-full object-cover"/>
+          <img src="banner3.png.jpg" class="w-full object-cover"/>
+          <img src="banner4.png.jpg" class="w-full object-cover"/>
+        </div>
+      </div>
+
+      <input type="text" placeholder="ค้นหาเกม..." class="w-full p-2 border border-gray-300 rounded-lg mb-4"/>
+
+      <h2 class="text-lg font-bold mb-2">หมวดหมู่ยอดนิยม</h2>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-gray-200 p-4 rounded-lg text-center">Action</div>
+        <div class="bg-gray-200 p-4 rounded-lg text-center">Puzzle</div>
+      </div>
+    </section>
+
+    <!-- หน้าบัญชี -->
+    <section id="accountPage" class="hidden-tab">
+      <h2 class="text-xl font-bold mb-4">บัญชีของคุณ</h2>
+      <ul class="space-y-2">
+        <li><a href="#" class="block p-2 bg-gray-100 rounded-lg">เข้าสู่ระบบ / สมัครสมาชิก</a></li>
+        <li><a href="#" class="block p-2 bg-gray-100 rounded-lg">รายการของฉัน</a></li>
+        <li><a href="#" class="block p-2 bg-gray-100 rounded-lg">ดาวน์โหลดแอป</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- MENU ด้านล่าง -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around p-2">
+    <button onclick="switchTab('homePage')" class="flex flex-col items-center">
+      <img src="home.png" class="w-6 h-6 mb-1"/>
+      <span class="text-xs">หน้าหลัก</span>
+    </button>
+    <button onclick="switchTab('searchPage')" class="flex flex-col items-center">
+      <img src="search.png" class="w-6 h-6 mb-1"/>
+      <span class="text-xs">ค้นหา</span>
+    </button>
+    <button onclick="switchTab('accountPage')" class="flex flex-col items-center">
+      <img src="user.png" class="w-6 h-6 mb-1"/>
+      <span class="text-xs">บัญชี</span>
+    </button>
+  </nav>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll("main > section").forEach(section => {
+        section.classList.add("hidden-tab");
+        section.classList.remove("active-tab");
+      });
+      document.getElementById(tabId).classList.remove("hidden-tab");
+      document.getElementById(tabId).classList.add("active-tab");
+    }
+  </script>
+
+</body>
 </html>
