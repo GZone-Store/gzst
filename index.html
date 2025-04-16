@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th" class="bg-[#1e0a2a] text-white">
+<html lang="en" class="bg-[#1e0a2a] text-white">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,13 +14,11 @@
           transform: translateX(-100%);
         }
       }
-
       .animate-marquee {
         display: inline-block;
         white-space: nowrap;
         animation: marquee 15s linear infinite;
       }
-
       .dot {
         width: 6px;
         height: 6px;
@@ -29,7 +27,6 @@
         background-color: white;
         opacity: 0.5;
       }
-
       .dot.active {
         background-color: #a855f7;
         opacity: 1;
@@ -39,19 +36,16 @@
   <body class="flex flex-col min-h-screen">
     <!-- หน้าแรก -->
     <div id="home" class="flex-1 pb-16 block">
-      <!-- โลโก้ -->
       <div class="p-4">
-        <img src="logo.png" alt="Logo" class="h-10 mx-auto" />
+        <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />
       </div>
-
-      <!-- แบนเนอร์เลื่อนอัตโนมัติ -->
       <div class="relative w-full overflow-hidden h-40">
         <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
-          <img src="banner3.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-          <img src="banner1.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-          <img src="banner2.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-          <img src="banner3.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-          <img src="banner1.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+          <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+          <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+          <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+          <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+          <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
         </div>
         <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">
           <div class="dot" id="dot0"></div>
@@ -60,7 +54,6 @@
         </div>
       </div>
 
-      <!-- กล่องประกาศ -->
       <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">
         <div class="whitespace-nowrap animate-marquee">
           <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
@@ -68,67 +61,43 @@
         </div>
       </div>
 
-      <!-- หัวข้อ -->
       <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>
 
-      <!-- เมนูเกม -->
       <div class="grid grid-cols-2 gap-4 p-4">
-        <!-- เกมที่ 1 -->
-        <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-          <img src="game1.jpg" alt="Love Warriors" class="rounded-xl mb-2" />
-          <div class="text-white font-semibold">Love Warriors</div>
-          <a href="https://example.com/love-warriors" target="_blank" class="block w-full mt-2">
-            <button class="bg-purple-500 w-full py-1 rounded-xl">ดาวน์โหลด</button>
-          </a>
-        </div>
-        <!-- เกมที่ 2 -->
-        <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-          <img src="game2.jpg" alt="Love & Battle" class="rounded-xl mb-2" />
-          <div class="text-white font-semibold">Love & Battle</div>
-          <a href="https://example.com/love-battle" target="_blank" class="block w-full mt-2">
-            <button class="bg-purple-500 w-full py-1 rounded-xl">ดาวน์โหลด</button>
-          </a>
-        </div>
-        <!-- เกมที่ 3 -->
-        <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-          <img src="game3.jpg" alt="Zombie Fight" class="rounded-xl mb-2" />
-          <div class="text-white font-semibold">Zombie Fight</div>
-          <a href="https://example.com/zombie-fight" target="_blank" class="block w-full mt-2">
-            <button class="bg-purple-500 w-full py-1 rounded-xl">ดาวน์โหลด</button>
-          </a>
-        </div>
-        <!-- เกมที่ 4 -->
-        <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-          <img src="game4.jpg" alt="Car Drift" class="rounded-xl mb-2" />
-          <div class="text-white font-semibold">Car Drift</div>
-          <a href="https://example.com/car-drift" target="_blank" class="block w-full mt-2">
-            <button class="bg-purple-500 w-full py-1 rounded-xl">ดาวน์โหลด</button>
-          </a>
-        </div>
-        <!-- เกมที่ 5 -->
-        <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-          <img src="game5.jpg" alt="Shooting Pro" class="rounded-xl mb-2" />
-          <div class="text-white font-semibold">Shooting Pro</div>
-          <a href="https://example.com/shooting-pro" target="_blank" class="block w-full mt-2">
-            <button class="bg-purple-500 w-full py-1 rounded-xl">ดาวน์โหลด</button>
-          </a>
-        </div>
-        <!-- เกมที่ 6 -->
-        <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-          <img src="game6.jpg" alt="Dragon Love" class="rounded-xl mb-2" />
-          <div class="text-white font-semibold">Dragon Love</div>
-          <a href="11
-      
+        <!-- Loop games -->
+        <script>
+          const gamesList = [
+            { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
+            { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
+            { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
+            { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
+            { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
+            { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
+            { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
+            { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
+          ];
+        </script>
+        <div id="gameCards" class="contents"></div>
+        <script>
+          const gameCards = document.getElementById("gameCards");
+          gamesList.forEach(g => {
+            gameCards.innerHTML += `
+              <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
+                <img src="${g.image}" alt="${g.name}" class="rounded-xl mb-2" />
+                <div class="text-white font-semibold">${g.name}</div>
+                <a href="${g.link}" target="_blank">
+                  <button class="bg-purple-500 w-full mt-2 py-1 rounded-xl">ดาวน์โหลด</button>
+                </a>
+              </div>`;
+          });
+        </script>
+      </div>
+    </div>
 
     <!-- หน้าค้นหา -->
     <div id="search" class="hidden flex-1 pb-16">
       <div class="flex items-center px-4 pt-4">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="ค้นหาเกมที่นี่..."
-          class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"
-        />
+        <input type="text" id="searchInput" placeholder="ค้นหาเกมที่นี่..." class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black" />
         <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />
@@ -160,16 +129,12 @@
     </nav>
 
     <script>
-      const games = [
-        { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
-        { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
-        { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
-        { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
-        { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
-        { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
-        { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
-        { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" }
-      ];
+      const games = [...gamesList];
+      document.getElementById("searchButton").addEventListener("click", () => {
+        const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+        const matched = games.filter(g => g.name.toLowerCase().includes(keyword));
+        displayGames(matched, "searchResults");
+      });
 
       function displayGames(list, containerId) {
         const container = document.getElementById(containerId);
@@ -178,7 +143,6 @@
           container.innerHTML = `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
           return;
         }
-
         list.forEach(game => {
           const gameBox = document.createElement("div");
           gameBox.className = "flex items-center justify-between bg-[#2e1b44] rounded-xl p-2";
@@ -193,38 +157,28 @@
         });
       }
 
-      document.getElementById("searchButton").addEventListener("click", () => {
-        const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
-        const matched = games.filter(g => g.name.toLowerCase().includes(keyword));
-        displayGames(matched, "searchResults");
-      });
-
       function goTo(page) {
-        document.getElementById("home").classList.add("hidden");
-        document.getElementById("search").classList.add("hidden");
-        document.getElementById("account").classList.add("hidden");
+        ["home", "search", "account"].forEach(p => {
+          document.getElementById(p).classList.add("hidden");
+        });
         document.getElementById(page).classList.remove("hidden");
       }
 
-      // แบนเนอร์วนอัตโนมัติ
       const carousel = document.getElementById("banner-carousel");
       const dots = [document.getElementById("dot0"), document.getElementById("dot1"), document.getElementById("dot2")];
       const total = 3;
       let index = 1;
       let allowClick = true;
-
       const updateDots = () => {
         dots.forEach((dot, i) => {
           dot.classList.toggle("active", i === (index - 1 + total) % total);
         });
       };
-
       const goToSlide = i => {
         carousel.style.transition = "transform 0.5s ease-in-out";
         carousel.style.transform = `translateX(-${i * 100}%)`;
         updateDots();
       };
-
       const nextSlide = () => {
         if (!allowClick) return;
         allowClick = false;
@@ -239,16 +193,11 @@
           allowClick = true;
         }, 600);
       };
-
       let interval = setInterval(nextSlide, 3000);
-
-      // Touch support
-      let startX = 0;
       carousel.addEventListener("touchstart", e => {
         clearInterval(interval);
         startX = e.touches[0].clientX;
       });
-
       carousel.addEventListener("touchend", e => {
         const endX = e.changedTouches[0].clientX;
         if (endX - startX > 50 && index > 0) index--;
@@ -268,8 +217,6 @@
         }, 600);
         interval = setInterval(nextSlide, 3000);
       });
-
-      // Initial slide
       carousel.style.transform = `translateX(-${index * 100}%)`;
       updateDots();
     </script>
