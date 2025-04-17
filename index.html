@@ -6,6 +6,11 @@
     <title>Game Download</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+
     <style>
       @keyframes marquee {
         0% { transform: translateX(100%); }
@@ -117,8 +122,18 @@
     </div>
 
     <!-- หน้าบัญชี -->
-    <div id="account" class="hidden flex-1 pb-16">
-      <div class="p-6 text-center text-lg">[ เมนูบัญชี - ยังไม่เปิดใช้งาน ]</div>
+    <div id="account" class="hidden flex-1 pb-16 p-6 text-sm text-white space-y-4">
+      <div id="userInfo" class="hidden">
+        <p>คุณล็อกอินเป็น: <span id="userEmail"></span></p>
+        <button onclick="logout()" class="bg-red-500 px-4 py-2 rounded-xl">ออกจากระบบ</button>
+      </div>
+
+      <div id="loginForm">
+        <input type="email" id="email" placeholder="อีเมล" class="w-full p-2 rounded text-black" />
+        <input type="password" id="password" placeholder="รหัสผ่าน" class="w-full p-2 rounded text-black mt-2" />
+        <button onclick="login()" class="bg-purple-600 w-full py-2 rounded-xl mt-3">เข้าสู่ระบบ</button>
+        <button onclick="register()" class="text-sm underline mt-2">สมัครสมาชิกใหม่</button>
+      </div>
     </div>
 
     <!-- เมนูด้านล่าง -->
@@ -138,88 +153,72 @@
     </nav>
 
     <script>
-      const carousel = document.getElementById("banner-carousel");
-      const dots = [document.getElementById("dot0"), document.getElementById("dot1"), document.getElementById("dot2")];
-      let index = 1, total = 3, allowClick = true;
-
-      const updateDots = () => {
-        dots.forEach((dot, i) => {
-          dot.classList.toggle("active", i === (index - 1 + total) % total);
-        });
+      const firebaseConfig = {
+        apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
+        authDomain: "gzone-store.firebaseapp.com",
+        projectId: "gzone-store",
+        storageBucket: "gzone-store.firebasestorage.app",
+        messagingSenderId: "20383169229",
+        appId: "1:20383169229:web:e225735efbea6589120784",
+        measurementId: "G-WZLDR9JQKS"
       };
 
-      const goToSlide = i => {
-        carousel.style.transition = "transform 0.5s ease-in-out";
-        carousel.style.transform = `translateX(-${i * 100}%)`;
-        updateDots();
-      };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const userInfo = document.getElementById('userInfo');
+      const loginForm = document.getElementById('loginForm');
+      const userEmail = document.getElementById('userEmail');
+      const logoutButton = document.getElementById('logoutButton');
 
-      const nextSlide = () => {
-        if (!allowClick) return;
-        allowClick = false;
-        index++;
-        goToSlide(index);
-        setTimeout(() => {
-          if (index === total + 1) {
-            carousel.style.transition = "none";
-            index = 1;
-            carousel.style.transform = `translateX(-${index * 100}%)`;
-          }
-          allowClick = true;
-        }, 600);
-      };
-
-      let interval = setInterval(nextSlide, 3000);
-      carousel.style.transform = `translateX(-${index * 100}%)`;
-      updateDots();
-
-      // Swipe gesture
-      let startX = 0;
-      carousel.addEventListener("touchstart", (e) => {
-        startX = e.touches[0].clientX;
-      });
-
-      carousel.addEventListener("touchend", (e) => {
-        const endX = e.changedTouches[0].clientX;
-        const diff = startX - endX;
-        if (Math.abs(diff) > 50) {
-          if (diff > 0) {
-            nextSlide();
-          } else {
-            index = (index - 2 + total) % total + 1;
-            goToSlide(index);
-          }
-        }
-      });
-
-      // Navigation
-      function goTo(page) {
-        ["home", "search", "account"].forEach(id => {
-          document.getElementById(id).classList.add("hidden");
-        });
-        document.getElementById(page).classList.remove("hidden");
-
-        const logoBar = document.getElementById("logoBar");
-        if (page === "home") logoBar.classList.remove("hidden");
-        else logoBar.classList.add("hidden");
+      // ฟังก์ชันการเข้าสู่ระบบ
+      function login() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        auth.signInWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            userEmail.textContent = user.email;
+            loginForm.classList.add('hidden');
+            userInfo.classList.remove('hidden');
+          })
+          .catch((error) => {
+            alert('เข้าสู่ระบบไม่สำเร็จ: ' + error.message);
+          });
       }
 
-      // Search
-      document.getElementById("searchButton").addEventListener("click", () => {
-        const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
-        const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
-        const container = document.getElementById("searchResults");
-        container.innerHTML = matched.length
-          ? matched.map(g => `
-              <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl">
-                <div class="flex items-center space-x-3">
-                  <img src="${g.image}" class="w-14 h-14 rounded-lg object-cover" />
-                  <div>${g.name}</div>
-                </div>
-                <a href="${g.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm">ดาวน์โหลด</a>
-              </div>`).join("")
-          : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
-      });
+      // ฟังก์ชันการสมัครสมาชิก
+      function register() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        auth.createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            alert('สมัครสมาชิกสำเร็จ');
+            login();
+          })
+          .catch((error) => {
+            alert('สมัครสมาชิกไม่สำเร็จ: ' + error.message);
+          });
+      }
+
+      // ฟังก์ชันการออกจากระบบ
+      function logout() {
+        auth.signOut()
+          .then(() => {
+            loginForm.classList.remove('hidden');
+            userInfo.classList.add('hidden');
+            alert('ออกจากระบบแล้ว');
+          })
+          .catch((error) => {
+            alert('ไม่สามารถออกจากระบบได้: ' + error.message);
+          });
+      }
+
+      // เปลี่ยนหน้า
+      function goTo(page) {
+        document.querySelectorAll('.flex-1').forEach(div => div.classList.add('hidden'));
+        document.getElementById(page).classList.remove('hidden');
+      }
     </script>
   </body>
 </html>
