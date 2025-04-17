@@ -32,8 +32,8 @@
   </head>
 
   <body class="flex flex-col min-h-screen">
-    <!-- โลโก้ (แสดงเฉพาะหน้าแรก) -->
-    <div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-20 hidden">
+    <!-- โลโก้ -->
+    <div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-20">
       <div class="p-4">
         <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />
       </div>
@@ -70,7 +70,6 @@
 
       <!-- รายการเกม -->
       <div class="grid grid-cols-2 gap-4 p-4">
-        <!-- เกมต่างๆ -->
         <script>
           const gameList = [
             { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
@@ -96,6 +95,8 @@
               `;
               grid.appendChild(div);
             });
+
+            goTo("home"); // เปิดหน้าแรกและโชว์โลโก้เมื่อโหลด
           };
         </script>
       </div>
@@ -103,14 +104,8 @@
 
     <!-- หน้าค้นหา -->
     <div id="search" class="hidden flex-1 pb-16">
-      <!-- ช่องค้นหา -->
       <div class="fixed top-0 w-full bg-[#1e0a2a] z-10 p-4 flex items-center">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="ค้นหาเกมที่นี่..."
-          class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"
-        />
+        <input type="text" id="searchInput" placeholder="ค้นหาเกมที่นี่..." class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black" />
         <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -143,7 +138,6 @@
     </nav>
 
     <script>
-      // Banner Carousel
       const carousel = document.getElementById("banner-carousel");
       const dots = [document.getElementById("dot0"), document.getElementById("dot1"), document.getElementById("dot2")];
       let index = 1, total = 3, allowClick = true;
@@ -179,6 +173,25 @@
       carousel.style.transform = `translateX(-${index * 100}%)`;
       updateDots();
 
+      // Swipe gesture
+      let startX = 0;
+      carousel.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+      });
+
+      carousel.addEventListener("touchend", (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) {
+            nextSlide();
+          } else {
+            index = (index - 2 + total) % total + 1;
+            goToSlide(index);
+          }
+        }
+      });
+
       // Navigation
       function goTo(page) {
         ["home", "search", "account"].forEach(id => {
@@ -186,7 +199,6 @@
         });
         document.getElementById(page).classList.remove("hidden");
 
-        // โชว์/ซ่อนโลโก้
         const logoBar = document.getElementById("logoBar");
         if (page === "home") logoBar.classList.remove("hidden");
         else logoBar.classList.add("hidden");
