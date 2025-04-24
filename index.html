@@ -219,13 +219,9 @@
   </div>
 </div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-
-<!-- Login Form Container -->
-<div class="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-teal-500">
-  <div class="bg-white p-8 rounded-xl shadow-2xl backdrop-blur-lg w-full sm:w-96">
+<!-- หน้า Login หรือ Register -->
+<div id="login-register-container" class="w-full h-full fixed top-0 left-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 hidden">
+  <div class="bg-white p-8 rounded-xl shadow-2xl w-full sm:w-96">
     <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">เข้าสู่ระบบ</h2>
 
     <!-- Email/Password Login Form -->
@@ -271,7 +267,6 @@
   firebase.initializeApp(firebaseConfig);
 
   // ===== Login Functions =====
-  // Email login
   async function emailLogin(event) {
     event.preventDefault();
     const email = document.getElementById("email").value;
@@ -279,42 +274,37 @@
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       alert("ล็อกอินสำเร็จ");
-      // Redirect or show user info
+      document.getElementById('login-register-container').classList.add('hidden');
     } catch (e) {
       alert(e.message);
     }
   }
 
-  // Google Login
   async function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
       alert("ล็อกอิน Google สำเร็จ");
-      // Redirect or show user info
+      document.getElementById('login-register-container').classList.add('hidden');
     } catch (e) {
       alert(e.message);
     }
   }
 
+  // Check Auth State
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      // User is logged in, hide login/register form
+      document.getElementById('login-register-container').classList.add('hidden');
+    } else {
+      // User is not logged in, show login/register form
+      document.getElementById('login-register-container').classList.remove('hidden');
+    }
+  });
+
   // Attach to Buttons
   document.getElementById("login-form").addEventListener("submit", emailLogin);
   document.getElementById("google-login").addEventListener("click", googleLogin);
-
-  // Check Auth State
-  firebase.auth().onAuthStateChanged(user => {
-    const userDetails = document.getElementById('user-details');
-    const userName = document.getElementById('user-name');
-    const userEmail = document.getElementById('user-email');
-
-    if (user) {
-      userDetails.classList.remove('hidden');
-      userName.textContent = user.displayName || 'ไม่มีชื่อ';
-      userEmail.textContent = user.email;
-    } else {
-      userDetails.classList.add('hidden');
-    }
-  });
 </script>
   
 
