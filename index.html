@@ -219,34 +219,38 @@
   </div>
 </div>
 
-<!-- ปุ่มเปิด Modal -->
-<div id="auth-buttons" class="text-center mt-8">
-  <button onclick="openAuthModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow">สมัครสมาชิก / เข้าสู่ระบบ</button>
-</div>
-
-<!-- แสดงข้อมูลผู้ใช้หลังล็อกอิน -->
-<div id="user-info" class="hidden text-center mt-8">
-  <p class="text-xl font-bold mb-2">ยินดีต้อนรับ <span id="user-name">...</span></p>
-  <p id="user-email" class="text-sm text-gray-500 mb-4"></p>
-  <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg">ออกจากระบบ</button>
-</div>
-
-<!-- Modal ล็อกอิน/สมัครสมาชิก -->
-<div id="auth-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden items-center justify-center">
-  <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl text-center">
-    <h2 class="text-xl font-bold mb-4">เข้าสู่ระบบ / สมัครสมาชิก</h2>
-    <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-2 px-3 py-2 border rounded">
-    <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-4 px-3 py-2 border rounded">
-    <button onclick="emailLogin()" class="w-full bg-blue-600 text-white py-2 rounded mb-2">เข้าสู่ระบบด้วยอีเมล</button>
-    <button onclick="emailSignup()" class="w-full bg-gray-700 text-white py-2 rounded mb-2">สมัครสมาชิกใหม่</button>
-    <button onclick="googleLogin()" class="w-full bg-red-500 text-white py-2 rounded">เข้าสู่ระบบด้วย Google</button>
-    <button onclick="closeAuthModal()" class="mt-4 text-gray-500 underline">ปิด</button>
-  </div>
-</div>  
-    
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+<!-- ปุ่มเข้าสู่ระบบ / ข้อมูลผู้ใช้ -->
+<div id="auth-section" class="flex flex-col items-center mt-10">
+  <!-- ปุ่มเปิด Modal -->
+  <button id="open-auth-btn" onclick="openAuthModal()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 shadow">
+    สมัครสมาชิก / เข้าสู่ระบบ
+  </button>
+
+  <!-- ข้อมูลผู้ใช้หลังล็อกอิน -->
+  <div id="user-info" class="hidden mt-6 text-center">
+    <p class="text-lg font-semibold">ยินดีต้อนรับ <span id="user-name"></span></p>
+    <p id="user-email" class="text-sm text-gray-500"></p>
+    <button onclick="logout()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">ออกจากระบบ</button>
+  </div>
+</div>
+
+<!-- Modal สมัคร / เข้าสู่ระบบ -->
+<div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+  <div class="bg-white rounded-xl p-6 w-full max-w-sm shadow-lg relative">
+    <h2 class="text-xl font-bold mb-4 text-center">เข้าสู่ระบบ / สมัครสมาชิก</h2>
+    <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring">
+    <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-4 px-4 py-2 border rounded-lg focus:outline-none focus:ring">
+    <button onclick="emailLogin()" class="w-full bg-blue-600 text-white py-2 rounded mb-2 hover:bg-blue-700">เข้าสู่ระบบด้วยอีเมล</button>
+    <button onclick="emailSignup()" class="w-full bg-gray-700 text-white py-2 rounded mb-2 hover:bg-gray-800">สมัครสมาชิกใหม่</button>
+    <button onclick="googleLogin()" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">เข้าสู่ระบบด้วย Google</button>
+    <button onclick="closeAuthModal()" class="mt-4 text-sm text-gray-500 underline w-full">ยกเลิก</button>
+  </div>
+</div>
+
 <script>
   // Firebase config
   const firebaseConfig = {
@@ -260,19 +264,18 @@
 
   firebase.initializeApp(firebaseConfig);
 
-  // Modal controls
+  // Modal toggle
   function openAuthModal() {
-    document.getElementById('auth-modal').classList.remove('hidden');
+    document.getElementById("auth-modal").classList.remove("hidden");
   }
-
   function closeAuthModal() {
-    document.getElementById('auth-modal').classList.add('hidden');
+    document.getElementById("auth-modal").classList.add("hidden");
   }
 
-  // Email login
+  // Email Login
   async function emailLogin() {
-    const email = document.getElementById('auth-email').value;
-    const password = document.getElementById('auth-password').value;
+    const email = document.getElementById("auth-email").value;
+    const password = document.getElementById("auth-password").value;
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       closeAuthModal();
@@ -281,10 +284,10 @@
     }
   }
 
-  // Email signup
+  // Email Signup
   async function emailSignup() {
-    const email = document.getElementById('auth-email').value;
-    const password = document.getElementById('auth-password').value;
+    const email = document.getElementById("auth-email").value;
+    const password = document.getElementById("auth-password").value;
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       closeAuthModal();
@@ -293,7 +296,7 @@
     }
   }
 
-  // Google login
+  // Google Login
   async function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
@@ -311,19 +314,19 @@
 
   // Auth state listener
   firebase.auth().onAuthStateChanged(user => {
-    const authBtn = document.getElementById('auth-buttons');
-    const userInfo = document.getElementById('user-info');
-    const userName = document.getElementById('user-name');
-    const userEmail = document.getElementById('user-email');
+    const btn = document.getElementById("open-auth-btn");
+    const info = document.getElementById("user-info");
+    const name = document.getElementById("user-name");
+    const email = document.getElementById("user-email");
 
     if (user) {
-      authBtn.classList.add('hidden');
-      userInfo.classList.remove('hidden');
-      userName.textContent = user.displayName || 'ไม่มีชื่อ';
-      userEmail.textContent = user.email;
+      btn.classList.add("hidden");
+      info.classList.remove("hidden");
+      name.textContent = user.displayName || "ไม่มีชื่อ";
+      email.textContent = user.email;
     } else {
-      authBtn.classList.remove('hidden');
-      userInfo.classList.add('hidden');
+      btn.classList.remove("hidden");
+      info.classList.add("hidden");
     }
   });
 </script>
