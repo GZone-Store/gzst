@@ -291,25 +291,34 @@
 
   // Auth State Listener
   firebase.auth().onAuthStateChanged(user => {
-    const loginPrompt = document.getElementById('login-prompt');
-    const userDetails = document.getElementById('user-details');
-    const userName = document.getElementById('user-name');
-    const userEmail = document.getElementById('user-email');
-    const logoutBtn = document.getElementById('sign-out-button');
+  const loginPrompt = document.getElementById('login-prompt');
+  const userDetails = document.getElementById('user-details');
+  const userName = document.getElementById('user-name');
+  const userEmail = document.getElementById('user-email');
+  const logoutBtn = document.getElementById('sign-out-button');
 
-    if (user) {
-      loginPrompt?.classList.add('hidden');
-      userDetails?.classList.remove('hidden');
-      logoutBtn?.classList.remove('hidden');
+  if (user) {
+    loginPrompt.classList.add('hidden');
+    userDetails.classList.remove('hidden');
+    logoutBtn.classList.remove('hidden');
 
-      userName.textContent = user.displayName || 'ไม่มีชื่อ';
-      userEmail.textContent = user.email;
+    // ตั้งชื่ออัตโนมัติถ้าไม่มี displayName
+    if (!user.displayName) {
+      const randomName = "gzon_user_" + Math.floor(Math.random() * 1000000);
+      user.updateProfile({ displayName: randomName }).then(() => {
+        userName.textContent = randomName;
+      });
     } else {
-      loginPrompt?.classList.remove('hidden');
-      userDetails?.classList.add('hidden');
-      logoutBtn?.classList.add('hidden');
+      userName.textContent = user.displayName;
     }
-  });
+
+    userEmail.textContent = user.email;
+  } else {
+    loginPrompt.classList.remove('hidden');
+    userDetails.classList.add('hidden');
+    logoutBtn.classList.add('hidden');
+  }
+});
 
   // Attach Event Listeners
   document.addEventListener('DOMContentLoaded', function () {
