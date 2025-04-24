@@ -219,22 +219,81 @@
   </div>
 </div>
 
-<!-- Firebase SDK --><script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script><script>// Firebase Config const firebaseConfig = { apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc", authDomain: "gzone-store.firebaseapp.com", projectId: "gzone-store", storageBucket: "gzone-store.appspot.com", messagingSenderId: "20383169229", appId: "1:20383169229:web:e225735efbea6589120784", measurementId: "G-WZLDR9JQKS" };firebase.initializeApp(firebaseConfig);
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script>
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
+    authDomain: "gzone-store.firebaseapp.com",
+    projectId: "gzone-store",
+    storageBucket: "gzone-store.appspot.com",
+    messagingSenderId: "20383169229",
+    appId: "1:20383169229:web:e225735efbea6589120784",
+    measurementId: "G-WZLDR9JQKS"
+  };
 
-// ===== Login Functions ===== // Email login async function emailLogin() { const email = prompt("กรอกอีเมล"); const password = prompt("กรอกรหัสผ่าน"); try { await firebase.auth().signInWithEmailAndPassword(email, password); alert("ล็อกอินสำเร็จ"); } catch (e) { alert(e.message); } }
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
-// Google Login async function googleLogin() { const provider = new firebase.auth.GoogleAuthProvider(); try { await firebase.auth().signInWithPopup(provider); alert("ล็อกอิน Google สำเร็จ"); } catch (e) { alert(e.message); } }
+  // Email Login
+  async function emailLogin() {
+    const email = prompt("กรอกอีเมล");
+    const password = prompt("กรอกรหัสผ่าน");
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      alert("ล็อกอินสำเร็จ");
+    } catch (e) {
+      alert(e.message);
+    }
+  }
 
-// Logout function logout() { firebase.auth().signOut(); }
+  // Google Login
+  async function googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      await firebase.auth().signInWithPopup(provider);
+      alert("ล็อกอิน Google สำเร็จ");
+    } catch (e) {
+      alert(e.message);
+    }
+  }
 
-// Check Auth State firebase.auth().onAuthStateChanged(user => { const loginPrompt = document.getElementById('login-prompt'); const userDetails = document.getElementById('user-details'); const userName = document.getElementById('user-name'); const userEmail = document.getElementById('user-email');
+  // Logout
+  function logout() {
+    firebase.auth().signOut();
+  }
 
-if (user) { loginPrompt.classList.add('hidden'); userDetails.classList.remove('hidden'); userName.textContent = user.displayName || 'ไม่มีชื่อ'; userEmail.textContent = user.email; } else { loginPrompt.classList.remove('hidden'); userDetails.classList.add('hidden'); }
+  // Auth State Listener
+  firebase.auth().onAuthStateChanged(user => {
+    const loginPrompt = document.getElementById('login-prompt');
+    const userDetails = document.getElementById('user-details');
+    const userName = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
 
-});
+    if (user) {
+      loginPrompt.classList.add('hidden');
+      userDetails.classList.remove('hidden');
+      userName.textContent = user.displayName || 'ไม่มีชื่อ';
+      userEmail.textContent = user.email;
+    } else {
+      loginPrompt.classList.remove('hidden');
+      userDetails.classList.add('hidden');
+    }
+  });
 
-// Attach to Buttons document.getElementById("login-button").onclick = googleLogin; document.getElementById("signup-button").onclick = emailLogin; document.getElementById("sign-out-button").onclick = logout; </script>
+  // Attach Event Listeners
+  document.addEventListener('DOMContentLoaded', function () {
+    const loginBtn = document.getElementById("login-button");
+    const signupBtn = document.getElementById("signup-button");
+    const logoutBtn = document.getElementById("sign-out-button");
 
+    if (loginBtn) loginBtn.onclick = googleLogin;
+    if (signupBtn) signupBtn.onclick = emailLogin;
+    if (logoutBtn) logoutBtn.onclick = logout;
+  });
+</script>
     
     
 <!-- เมนูด้านล่าง -->  
