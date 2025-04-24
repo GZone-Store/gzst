@@ -219,35 +219,36 @@
   </div>
 </div>
 
-<!-- ปุ่ม -->
-<div class="text-center mt-10" id="login-prompt">
-  <button class="px-4 py-2 bg-blue-600 text-white rounded-full" onclick="toggleModal('login')">เข้าสู่ระบบ</button>
-  <button class="px-4 py-2 bg-green-600 text-white rounded-full" onclick="toggleModal('signup')">สมัครสมาชิก</button>
+<!-- ปุ่มเปิด Modal -->
+<div id="auth-buttons" class="text-center mt-8">
+  <button onclick="openAuthModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow">สมัครสมาชิก / เข้าสู่ระบบ</button>
 </div>
 
-<!-- ข้อมูลผู้ใช้ -->
-<div id="user-details" class="hidden text-center mt-10">
-  <p id="user-name" class="text-xl font-bold"></p>
-  <p id="user-email" class="text-gray-600"></p>
-  <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded-full" id="sign-out-button">ออกจากระบบ</button>
+<!-- แสดงข้อมูลผู้ใช้หลังล็อกอิน -->
+<div id="user-info" class="hidden text-center mt-8">
+  <p class="text-xl font-bold mb-2">ยินดีต้อนรับ <span id="user-name">...</span></p>
+  <p id="user-email" class="text-sm text-gray-500 mb-4"></p>
+  <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg">ออกจากระบบ</button>
 </div>
 
-<!-- Modal (ใช้ร่วมกัน) -->
-<div id="auth-modal" class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center hidden">
-  <div class="bg-white p-6 rounded-xl w-full max-w-sm shadow-lg relative">
-    <button onclick="closeModal()" class="absolute top-2 right-3 text-gray-400 hover:text-black">×</button>
-    <h2 id="modal-title" class="text-2xl font-semibold mb-4">เข้าสู่ระบบ</h2>
-    <input id="modal-email" type="email" placeholder="อีเมล" class="w-full mb-3 p-2 border rounded">
-    <input id="modal-password" type="password" placeholder="รหัสผ่าน" class="w-full mb-4 p-2 border rounded">
-    <button id="modal-submit" class="w-full bg-blue-600 text-white py-2 rounded mb-2">ดำเนินการ</button>
+<!-- Modal ล็อกอิน/สมัครสมาชิก -->
+<div id="auth-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden items-center justify-center">
+  <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl text-center">
+    <h2 class="text-xl font-bold mb-4">เข้าสู่ระบบ / สมัครสมาชิก</h2>
+    <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-2 px-3 py-2 border rounded">
+    <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-4 px-3 py-2 border rounded">
+    <button onclick="emailLogin()" class="w-full bg-blue-600 text-white py-2 rounded mb-2">เข้าสู่ระบบด้วยอีเมล</button>
+    <button onclick="emailSignup()" class="w-full bg-gray-700 text-white py-2 rounded mb-2">สมัครสมาชิกใหม่</button>
     <button onclick="googleLogin()" class="w-full bg-red-500 text-white py-2 rounded">เข้าสู่ระบบด้วย Google</button>
+    <button onclick="closeAuthModal()" class="mt-4 text-gray-500 underline">ปิด</button>
   </div>
-</div>
-
+</div>  
+    
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script>
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
     authDomain: "gzone-store.firebaseapp.com",
@@ -256,67 +257,77 @@
     messagingSenderId: "20383169229",
     appId: "1:20383169229:web:e225735efbea6589120784"
   };
+
   firebase.initializeApp(firebaseConfig);
 
-  let currentMode = "login";
-
-  function toggleModal(mode) {
-    currentMode = mode;
-    document.getElementById('modal-title').textContent = mode === 'login' ? "เข้าสู่ระบบ" : "สมัครสมาชิก";
+  // Modal controls
+  function openAuthModal() {
     document.getElementById('auth-modal').classList.remove('hidden');
   }
 
-  function closeModal() {
+  function closeAuthModal() {
     document.getElementById('auth-modal').classList.add('hidden');
-    document.getElementById('modal-email').value = "";
-    document.getElementById('modal-password').value = "";
   }
 
-  document.getElementById("modal-submit").onclick = async function () {
-    const email = document.getElementById('modal-email').value;
-    const password = document.getElementById('modal-password').value;
+  // Email login
+  async function emailLogin() {
+    const email = document.getElementById('auth-email').value;
+    const password = document.getElementById('auth-password').value;
     try {
-      if (currentMode === 'login') {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-      } else {
-        await firebase.auth().createUserWithEmailAndPassword(email, password);
-      }
-      closeModal();
-    } catch (e) {
-      alert(e.message);
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      closeAuthModal();
+    } catch (error) {
+      alert(error.message);
     }
   }
 
+  // Email signup
+  async function emailSignup() {
+    const email = document.getElementById('auth-email').value;
+    const password = document.getElementById('auth-password').value;
+    try {
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      closeAuthModal();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  // Google login
   async function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
-      closeModal();
-    } catch (e) {
-      alert(e.message);
+      closeAuthModal();
+    } catch (error) {
+      alert(error.message);
     }
   }
 
+  // Logout
+  function logout() {
+    firebase.auth().signOut();
+  }
+
+  // Auth state listener
   firebase.auth().onAuthStateChanged(user => {
-    const loginPrompt = document.getElementById('login-prompt');
-    const userDetails = document.getElementById('user-details');
+    const authBtn = document.getElementById('auth-buttons');
+    const userInfo = document.getElementById('user-info');
     const userName = document.getElementById('user-name');
     const userEmail = document.getElementById('user-email');
 
     if (user) {
-      loginPrompt.classList.add('hidden');
-      userDetails.classList.remove('hidden');
-      userName.textContent = user.displayName || "ไม่มีชื่อ";
+      authBtn.classList.add('hidden');
+      userInfo.classList.remove('hidden');
+      userName.textContent = user.displayName || 'ไม่มีชื่อ';
       userEmail.textContent = user.email;
     } else {
-      loginPrompt.classList.remove('hidden');
-      userDetails.classList.add('hidden');
+      authBtn.classList.remove('hidden');
+      userInfo.classList.add('hidden');
     }
   });
-
-  document.getElementById("sign-out-button").onclick = () => firebase.auth().signOut();
-                                                        </script>
-
+</script>
+    
 <!-- เมนูด้านล่าง -->  
 <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">  
   <button onclick="goTo('home')" class="flex flex-col items-center">  
