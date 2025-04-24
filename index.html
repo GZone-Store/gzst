@@ -2,7 +2,7 @@
   <head>  
     <meta charset="UTF-8" />  
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
-    <title>Game Download</title>  
+    <title>GZONE-STORE</title>  
     <script src="https://cdn.tailwindcss.com"></script>  
     <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>  
     <style>  
@@ -218,34 +218,40 @@
     </button>
   </div>
 </div>
-    
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-<!-- HTML -->
-<div class="p-4 flex justify-end gap-4">
-  <button id="open-login" class="bg-blue-600 text-white px-4 py-2 rounded hidden">เข้าสู่ระบบ</button>
-  <button id="sign-out-button" class="bg-red-500 text-white px-4 py-2 rounded hidden">ออกจากระบบ</button>
+<!-- ส่วนปุ่มเริ่มต้น -->
+<div id="auth-buttons" class="p-4 flex justify-end gap-2">
+  <button id="show-login" class="bg-blue-500 text-white px-4 py-2 rounded">เข้าสู่ระบบ</button>
+  <button id="show-signup" class="bg-green-500 text-white px-4 py-2 rounded">สมัครสมาชิก</button>
 </div>
 
-<!-- Modal -->
-<div id="login-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm relative">
-    <button id="close-modal" class="absolute top-2 right-2 text-xl">&times;</button>
-    <h2 class="text-lg font-bold mb-4">เข้าสู่ระบบ / สมัครสมาชิก</h2>
-    <input id="email-input" type="email" placeholder="อีเมล" class="w-full border p-2 mb-2 rounded">
-    <input id="password-input" type="password" placeholder="รหัสผ่าน" class="w-full border p-2 mb-4 rounded">
-    <div class="flex gap-2">
-      <button id="signup-button" class="bg-green-600 text-white flex-1 py-2 rounded">สมัครสมาชิก</button>
-      <button id="email-login-button" class="bg-blue-600 text-white flex-1 py-2 rounded">เข้าสู่ระบบ</button>
-    </div>
-    <div class="my-4 text-center">หรือ</div>
+<!-- ปุ่มออกจากระบบ (ซ่อนเริ่มต้น) -->
+<div class="p-4 flex justify-end">
+  <button id="logout-btn" class="bg-red-500 text-white px-4 py-2 rounded hidden">ออกจากระบบ</button>
+</div>
+
+<!-- Modal ฟอร์ม -->
+<div id="auth-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+  <div class="bg-white p-6 rounded shadow-lg w-full max-w-sm relative">
+    <button id="close-modal" class="absolute top-2 right-2 text-lg">&times;</button>
+    <h2 id="modal-title" class="text-lg font-bold mb-4">เข้าสู่ระบบ</h2>
+    <input id="email-input" type="email" placeholder="อีเมล" class="w-full p-2 border rounded mb-2">
+    <input id="password-input" type="password" placeholder="รหัสผ่าน" class="w-full p-2 border rounded mb-4">
+    <button id="submit-auth" class="w-full bg-blue-600 text-white py-2 rounded">ดำเนินการ</button>
+    <div class="text-center my-3 text-sm">หรือ</div>
     <button id="google-login" class="w-full bg-red-500 text-white py-2 rounded">ล็อกอินด้วย Google</button>
   </div>
 </div>
 
 <script>
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
     authDomain: "gzone-store.firebaseapp.com",
@@ -255,37 +261,57 @@
     appId: "1:20383169229:web:e225735efbea6589120784",
     measurementId: "G-WZLDR9JQKS"
   };
-
   firebase.initializeApp(firebaseConfig);
 
-  const openLogin = document.getElementById("open-login");
-  const signOutBtn = document.getElementById("sign-out-button");
-  const loginModal = document.getElementById("login-modal");
+  // DOM Elements
+  const showLogin = document.getElementById("show-login");
+  const showSignup = document.getElementById("show-signup");
+  const authModal = document.getElementById("auth-modal");
   const closeModal = document.getElementById("close-modal");
-
+  const modalTitle = document.getElementById("modal-title");
+  const submitAuth = document.getElementById("submit-auth");
   const emailInput = document.getElementById("email-input");
   const passwordInput = document.getElementById("password-input");
+  const logoutBtn = document.getElementById("logout-btn");
+  const authButtons = document.getElementById("auth-buttons");
 
-  // Show/hide modal
-  openLogin.onclick = () => loginModal.classList.remove("hidden");
-  closeModal.onclick = () => loginModal.classList.add("hidden");
+  let isLoginMode = true;
 
-  // Email Login
-  document.getElementById("email-login-button").onclick = async () => {
-    try {
-      await firebase.auth().signInWithEmailAndPassword(emailInput.value, passwordInput.value);
-      loginModal.classList.add("hidden");
-    } catch (err) {
-      alert(err.message);
-    }
+  // Modal Control
+  showLogin.onclick = () => {
+    isLoginMode = true;
+    modalTitle.textContent = "เข้าสู่ระบบ";
+    submitAuth.textContent = "เข้าสู่ระบบ";
+    authModal.classList.remove("hidden", "invisible");
+    authModal.classList.add("flex");
   };
 
-  // Signup
-  document.getElementById("signup-button").onclick = async () => {
+  showSignup.onclick = () => {
+    isLoginMode = false;
+    modalTitle.textContent = "สมัครสมาชิก";
+    submitAuth.textContent = "สมัครสมาชิก";
+    authModal.classList.remove("hidden", "invisible");
+    authModal.classList.add("flex");
+  };
+
+  closeModal.onclick = () => {
+    authModal.classList.add("hidden");
+    authModal.classList.remove("flex");
+  };
+
+  // Email auth
+  submitAuth.onclick = async () => {
+    const email = emailInput.value;
+    const password = passwordInput.value;
     try {
-      await firebase.auth().createUserWithEmailAndPassword(emailInput.value, passwordInput.value);
-      alert("สมัครสมาชิกสำเร็จ");
-      loginModal.classList.add("hidden");
+      if (isLoginMode) {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+      } else {
+        await firebase.auth().createUserWithEmailAndPassword(email, password);
+        alert("สมัครสมาชิกสำเร็จ");
+      }
+      authModal.classList.add("hidden");
+      authModal.classList.remove("flex");
     } catch (err) {
       alert(err.message);
     }
@@ -296,28 +322,28 @@
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
-      loginModal.classList.add("hidden");
+      authModal.classList.add("hidden");
+      authModal.classList.remove("flex");
     } catch (err) {
       alert(err.message);
     }
   };
 
   // Logout
-  signOutBtn.onclick = () => firebase.auth().signOut();
+  logoutBtn.onclick = () => firebase.auth().signOut();
 
-  // Check user state
+  // Update UI
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      openLogin.classList.add("hidden");
-      signOutBtn.classList.remove("hidden");
+      authButtons.classList.add("hidden");
+      logoutBtn.classList.remove("hidden");
     } else {
-      openLogin.classList.remove("hidden");
-      signOutBtn.classList.add("hidden");
+      authButtons.classList.remove("hidden");
+      logoutBtn.classList.add("hidden");
     }
   });
-</script>
+</script>    
 
-  
 
 <!-- เมนูด้านล่าง -->  
 <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">  
