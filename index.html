@@ -223,6 +223,40 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
+<!-- Login Form Container -->
+<div class="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-teal-500">
+  <div class="bg-white p-8 rounded-xl shadow-2xl backdrop-blur-lg w-full sm:w-96">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">เข้าสู่ระบบ</h2>
+
+    <!-- Email/Password Login Form -->
+    <form id="login-form" class="space-y-4">
+      <div>
+        <label for="email" class="block text-gray-700">อีเมล</label>
+        <input type="email" id="email" class="w-full p-3 mt-2 border rounded-lg bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-500" placeholder="กรอกอีเมลของคุณ" required />
+      </div>
+      <div>
+        <label for="password" class="block text-gray-700">รหัสผ่าน</label>
+        <input type="password" id="password" class="w-full p-3 mt-2 border rounded-lg bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-500" placeholder="กรอกรหัสผ่านของคุณ" required />
+      </div>
+      <div>
+        <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 focus:outline-none">เข้าสู่ระบบ</button>
+      </div>
+    </form>
+
+    <!-- Social Login (Google) -->
+    <div class="flex justify-center space-x-4 mt-4">
+      <button id="google-login" class="w-full bg-white text-gray-800 p-3 rounded-lg shadow-md flex justify-center items-center hover:bg-gray-100">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Google_2015_logo.svg" alt="Google" class="w-5 h-5 mr-2" />
+        เข้าสู่ระบบด้วย Google
+      </button>
+    </div>
+
+    <div class="mt-6 text-center">
+      <p class="text-gray-700">ยังไม่ได้สมัครสมาชิก? <a href="#" id="signup-link" class="text-blue-500 font-bold">สมัครสมาชิก</a></p>
+    </div>
+  </div>
+</div>
+
 <script>
   // Firebase Config
   const firebaseConfig = {
@@ -234,17 +268,18 @@
     appId: "1:20383169229:web:e225735efbea6589120784",
     measurementId: "G-WZLDR9JQKS"
   };
-
   firebase.initializeApp(firebaseConfig);
 
   // ===== Login Functions =====
   // Email login
-  async function emailLogin() {
-    const email = prompt("กรอกอีเมล");
-    const password = prompt("กรอกรหัสผ่าน");
+  async function emailLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       alert("ล็อกอินสำเร็จ");
+      // Redirect or show user info
     } catch (e) {
       alert(e.message);
     }
@@ -256,38 +291,30 @@
     try {
       await firebase.auth().signInWithPopup(provider);
       alert("ล็อกอิน Google สำเร็จ");
+      // Redirect or show user info
     } catch (e) {
       alert(e.message);
     }
   }
 
-  // Logout
-  function logout() {
-    firebase.auth().signOut();
-  }
+  // Attach to Buttons
+  document.getElementById("login-form").addEventListener("submit", emailLogin);
+  document.getElementById("google-login").addEventListener("click", googleLogin);
 
   // Check Auth State
   firebase.auth().onAuthStateChanged(user => {
-    const loginPrompt = document.getElementById('login-prompt');
     const userDetails = document.getElementById('user-details');
     const userName = document.getElementById('user-name');
     const userEmail = document.getElementById('user-email');
 
     if (user) {
-      loginPrompt.classList.add('hidden');
       userDetails.classList.remove('hidden');
       userName.textContent = user.displayName || 'ไม่มีชื่อ';
       userEmail.textContent = user.email;
     } else {
-      loginPrompt.classList.remove('hidden');
       userDetails.classList.add('hidden');
     }
   });
-
-  // Attach to Buttons
-  document.getElementById("login-button").onclick = googleLogin;
-  document.getElementById("signup-button").onclick = emailLogin;
-  document.getElementById("sign-out-button").onclick = logout;
 </script>
   
 
