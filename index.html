@@ -219,131 +219,103 @@
   </div>
 </div>
 
-<!-- Tailwind CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
+<!-- ปุ่ม -->
+<div class="text-center mt-10" id="login-prompt">
+  <button class="px-4 py-2 bg-blue-600 text-white rounded-full" onclick="toggleModal('login')">เข้าสู่ระบบ</button>
+  <button class="px-4 py-2 bg-green-600 text-white rounded-full" onclick="toggleModal('signup')">สมัครสมาชิก</button>
+</div>
+
+<!-- ข้อมูลผู้ใช้ -->
+<div id="user-details" class="hidden text-center mt-10">
+  <p id="user-name" class="text-xl font-bold"></p>
+  <p id="user-email" class="text-gray-600"></p>
+  <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded-full" id="sign-out-button">ออกจากระบบ</button>
+</div>
+
+<!-- Modal (ใช้ร่วมกัน) -->
+<div id="auth-modal" class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center hidden">
+  <div class="bg-white p-6 rounded-xl w-full max-w-sm shadow-lg relative">
+    <button onclick="closeModal()" class="absolute top-2 right-3 text-gray-400 hover:text-black">×</button>
+    <h2 id="modal-title" class="text-2xl font-semibold mb-4">เข้าสู่ระบบ</h2>
+    <input id="modal-email" type="email" placeholder="อีเมล" class="w-full mb-3 p-2 border rounded">
+    <input id="modal-password" type="password" placeholder="รหัสผ่าน" class="w-full mb-4 p-2 border rounded">
+    <button id="modal-submit" class="w-full bg-blue-600 text-white py-2 rounded mb-2">ดำเนินการ</button>
+    <button onclick="googleLogin()" class="w-full bg-red-500 text-white py-2 rounded">เข้าสู่ระบบด้วย Google</button>
+  </div>
+</div>
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-
-<!-- ส่วนปุ่มเริ่มต้น -->
-<div id="auth-buttons" class="p-4 flex justify-end gap-2">
-  <button id="show-login" class="bg-blue-500 text-white px-4 py-2 rounded">เข้าสู่ระบบ</button>
-  <button id="show-signup" class="bg-green-500 text-white px-4 py-2 rounded">สมัครสมาชิก</button>
-</div>
-
-<!-- ปุ่มออกจากระบบ (ซ่อนเริ่มต้น) -->
-<div class="p-4 flex justify-end">
-  <button id="logout-btn" class="bg-red-500 text-white px-4 py-2 rounded hidden">ออกจากระบบ</button>
-</div>
-
-<!-- Modal ฟอร์ม -->
-<div id="auth-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-  <div class="bg-white p-6 rounded shadow-lg w-full max-w-sm relative">
-    <button id="close-modal" class="absolute top-2 right-2 text-lg">&times;</button>
-    <h2 id="modal-title" class="text-lg font-bold mb-4">เข้าสู่ระบบ</h2>
-    <input id="email-input" type="email" placeholder="อีเมล" class="w-full p-2 border rounded mb-2">
-    <input id="password-input" type="password" placeholder="รหัสผ่าน" class="w-full p-2 border rounded mb-4">
-    <button id="submit-auth" class="w-full bg-blue-600 text-white py-2 rounded">ดำเนินการ</button>
-    <div class="text-center my-3 text-sm">หรือ</div>
-    <button id="google-login" class="w-full bg-red-500 text-white py-2 rounded">ล็อกอินด้วย Google</button>
-  </div>
-</div>
-
 <script>
-  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
     authDomain: "gzone-store.firebaseapp.com",
     projectId: "gzone-store",
     storageBucket: "gzone-store.appspot.com",
     messagingSenderId: "20383169229",
-    appId: "1:20383169229:web:e225735efbea6589120784",
-    measurementId: "G-WZLDR9JQKS"
+    appId: "1:20383169229:web:e225735efbea6589120784"
   };
   firebase.initializeApp(firebaseConfig);
 
-  // DOM Elements
-  const showLogin = document.getElementById("show-login");
-  const showSignup = document.getElementById("show-signup");
-  const authModal = document.getElementById("auth-modal");
-  const closeModal = document.getElementById("close-modal");
-  const modalTitle = document.getElementById("modal-title");
-  const submitAuth = document.getElementById("submit-auth");
-  const emailInput = document.getElementById("email-input");
-  const passwordInput = document.getElementById("password-input");
-  const logoutBtn = document.getElementById("logout-btn");
-  const authButtons = document.getElementById("auth-buttons");
+  let currentMode = "login";
 
-  let isLoginMode = true;
+  function toggleModal(mode) {
+    currentMode = mode;
+    document.getElementById('modal-title').textContent = mode === 'login' ? "เข้าสู่ระบบ" : "สมัครสมาชิก";
+    document.getElementById('auth-modal').classList.remove('hidden');
+  }
 
-  // Modal Control
-  showLogin.onclick = () => {
-    isLoginMode = true;
-    modalTitle.textContent = "เข้าสู่ระบบ";
-    submitAuth.textContent = "เข้าสู่ระบบ";
-    authModal.classList.remove("hidden", "invisible");
-    authModal.classList.add("flex");
-  };
+  function closeModal() {
+    document.getElementById('auth-modal').classList.add('hidden');
+    document.getElementById('modal-email').value = "";
+    document.getElementById('modal-password').value = "";
+  }
 
-  showSignup.onclick = () => {
-    isLoginMode = false;
-    modalTitle.textContent = "สมัครสมาชิก";
-    submitAuth.textContent = "สมัครสมาชิก";
-    authModal.classList.remove("hidden", "invisible");
-    authModal.classList.add("flex");
-  };
-
-  closeModal.onclick = () => {
-    authModal.classList.add("hidden");
-    authModal.classList.remove("flex");
-  };
-
-  // Email auth
-  submitAuth.onclick = async () => {
-    const email = emailInput.value;
-    const password = passwordInput.value;
+  document.getElementById("modal-submit").onclick = async function () {
+    const email = document.getElementById('modal-email').value;
+    const password = document.getElementById('modal-password').value;
     try {
-      if (isLoginMode) {
+      if (currentMode === 'login') {
         await firebase.auth().signInWithEmailAndPassword(email, password);
       } else {
         await firebase.auth().createUserWithEmailAndPassword(email, password);
-        alert("สมัครสมาชิกสำเร็จ");
       }
-      authModal.classList.add("hidden");
-      authModal.classList.remove("flex");
-    } catch (err) {
-      alert(err.message);
+      closeModal();
+    } catch (e) {
+      alert(e.message);
     }
-  };
+  }
 
-  // Google Login
-  document.getElementById("google-login").onclick = async () => {
+  async function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
-      authModal.classList.add("hidden");
-      authModal.classList.remove("flex");
-    } catch (err) {
-      alert(err.message);
+      closeModal();
+    } catch (e) {
+      alert(e.message);
     }
-  };
+  }
 
-  // Logout
-  logoutBtn.onclick = () => firebase.auth().signOut();
-
-  // Update UI
   firebase.auth().onAuthStateChanged(user => {
+    const loginPrompt = document.getElementById('login-prompt');
+    const userDetails = document.getElementById('user-details');
+    const userName = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
+
     if (user) {
-      authButtons.classList.add("hidden");
-      logoutBtn.classList.remove("hidden");
+      loginPrompt.classList.add('hidden');
+      userDetails.classList.remove('hidden');
+      userName.textContent = user.displayName || "ไม่มีชื่อ";
+      userEmail.textContent = user.email;
     } else {
-      authButtons.classList.remove("hidden");
-      logoutBtn.classList.add("hidden");
+      loginPrompt.classList.remove('hidden');
+      userDetails.classList.add('hidden');
     }
   });
-</script>    
 
+  document.getElementById("sign-out-button").onclick = () => firebase.auth().signOut();
+                                                        </script>
 
 <!-- เมนูด้านล่าง -->  
 <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">  
