@@ -219,82 +219,94 @@
   </div>
 </div>
 
+<!-- Firebase Login Modal System -->
+<div id="login-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 hidden">
+  <div class="bg-white p-6 rounded-xl w-full max-w-md space-y-4 text-center">
+    <h2 class="text-2xl font-bold">เข้าสู่ระบบ</h2>
+    <input id="login-email" type="email" placeholder="อีเมล" class="w-full border p-2 rounded" />
+    <input id="login-password" type="password" placeholder="รหัสผ่าน" class="w-full border p-2 rounded" />
+    <button id="email-login-btn" class="bg-blue-600 text-white px-4 py-2 rounded w-full">เข้าสู่ระบบ</button>
+    <div class="text-sm text-gray-500">หรือ</div>
+    <button id="google-login-btn" class="bg-red-500 text-white px-4 py-2 rounded w-full">เข้าสู่ระบบด้วย Google</button>
+    <button onclick="toggleModal(false)" class="text-gray-600 mt-2 underline">ปิด</button>
+  </div>
+</div>
+
+<!-- Login trigger button -->
+<div id="login-prompt" class="text-center p-4">
+  <button onclick="toggleModal(true)" class="bg-green-600 text-white px-4 py-2 rounded">เข้าสู่ระบบ / สมัครสมาชิก</button>
+</div>
+
+<!-- User Info -->
+<div id="user-details" class="hidden text-center p-4">
+  <p>สมัครสมาชิก <strong id="user-name">...</strong></p>
+  <p><span id="user-email"></span></p>
+  <button id="sign-out-button" class="bg-red-600 text-white px-4 py-2 mt-2 rounded">ออกจากระบบ</button>
+</div>
+
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script>
-  // Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
-    authDomain: "gzone-store.firebaseapp.com",
-    projectId: "gzone-store",
-    storageBucket: "gzone-store.appspot.com",
-    messagingSenderId: "20383169229",
-    appId: "1:20383169229:web:e225735efbea6589120784",
-    measurementId: "G-WZLDR9JQKS"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
+  authDomain: "gzone-store.firebaseapp.com",
+  projectId: "gzone-store",
+  storageBucket: "gzone-store.appspot.com",
+  messagingSenderId: "20383169229",
+  appId: "1:20383169229:web:e225735efbea6589120784"
+};
+firebase.initializeApp(firebaseConfig);
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+// Modal control
+function toggleModal(show) {
+  document.getElementById('login-modal').classList.toggle('hidden', !show);
+}
 
-  // Email Login
-  async function emailLogin() {
-    const email = prompt("กรอกอีเมล");
-    const password = prompt("กรอกรหัสผ่าน");
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      alert("ล็อกอินสำเร็จ");
-    } catch (e) {
-      alert(e.message);
-    }
+// Email Login
+document.getElementById("email-login-btn").onclick = async () => {
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    toggleModal(false);
+  } catch (e) {
+    alert("Error: " + e.message);
   }
+};
 
-  // Google Login
-  async function googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    try {
-      await firebase.auth().signInWithPopup(provider);
-      alert("ล็อกอิน Google สำเร็จ");
-    } catch (e) {
-      alert(e.message);
-    }
+// Google Login
+document.getElementById("google-login-btn").onclick = async () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  try {
+    await firebase.auth().signInWithPopup(provider);
+    toggleModal(false);
+  } catch (e) {
+    alert("Error: " + e.message);
   }
+};
 
-  // Logout
-  function logout() {
-    firebase.auth().signOut();
+// Logout
+document.getElementById("sign-out-button").onclick = () => firebase.auth().signOut();
+
+// Auth State Listener
+firebase.auth().onAuthStateChanged(user => {
+  const loginPrompt = document.getElementById('login-prompt');
+  const userDetails = document.getElementById('user-details');
+  const userName = document.getElementById('user-name');
+  const userEmail = document.getElementById('user-email');
+  
+  if (user) {
+    loginPrompt.classList.add('hidden');
+    userDetails.classList.remove('hidden');
+    userName.textContent = user.displayName || 'ผู้ใช้ใหม่';
+    userEmail.textContent = user.email;
+  } else {
+    loginPrompt.classList.remove('hidden');
+    userDetails.classList.add('hidden');
   }
-
-  // Auth State Listener
-  firebase.auth().onAuthStateChanged(user => {
-    const loginPrompt = document.getElementById('login-prompt');
-    const userDetails = document.getElementById('user-details');
-    const userName = document.getElementById('user-name');
-    const userEmail = document.getElementById('user-email');
-
-    if (user) {
-      loginPrompt.classList.add('hidden');
-      userDetails.classList.remove('hidden');
-      userName.textContent = user.displayName || 'ไม่มีชื่อ';
-      userEmail.textContent = user.email;
-    } else {
-      loginPrompt.classList.remove('hidden');
-      userDetails.classList.add('hidden');
-    }
-  });
-
-  // Attach Event Listeners
-  document.addEventListener('DOMContentLoaded', function () {
-    const loginBtn = document.getElementById("login-button");
-    const signupBtn = document.getElementById("signup-button");
-    const logoutBtn = document.getElementById("sign-out-button");
-
-    if (loginBtn) loginBtn.onclick = googleLogin;
-    if (signupBtn) signupBtn.onclick = emailLogin;
-    if (logoutBtn) logoutBtn.onclick = logout;
-  });
-</script>
-    
+});
+</script>    
     
 <!-- เมนูด้านล่าง -->  
 <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">  
