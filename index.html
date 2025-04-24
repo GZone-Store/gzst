@@ -222,6 +222,32 @@
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+<!-- ปุ่มเปิด Modal -->
+<button id="open-auth-modal" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">เข้าสู่ระบบ / สมัคร</button>
+<button id="sign-out-button" class="hidden bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">ออกจากระบบ</button>
+
+<!-- แสดงข้อมูลผู้ใช้ -->
+<div id="user-details" class="hidden mt-6 p-4 border rounded-xl bg-gray-50">
+  <p class="text-lg font-semibold">สวัสดี, <span id="user-name" class="text-blue-600">ไม่มีชื่อ</span></p>
+  <p class="text-sm text-gray-700">อีเมล: <span id="user-email"></span></p>
+</div>
+
+<!-- Modal ล็อกอิน -->
+<div id="auth-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md relative">
+    <button id="close-modal" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+    <h2 class="text-2xl font-bold text-center mb-4">เข้าสู่ระบบ / สมัครสมาชิก</h2>
+
+    <input id="email-input" type="email" placeholder="อีเมล" class="w-full px-4 py-2 border rounded-lg mb-3" />
+    <input id="password-input" type="password" placeholder="รหัสผ่าน" class="w-full px-4 py-2 border rounded-lg mb-4" />
+
+    <button id="email-login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mb-3">เข้าสู่ระบบด้วยอีเมล</button>
+    <button id="google-login-btn" class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg">เข้าสู่ระบบด้วย Google</button>
+  </div>
+</div>
+
+<!-- Firebase Config + Script -->
 <script>
   // Firebase Config
   const firebaseConfig = {
@@ -234,66 +260,65 @@
     measurementId: "G-WZLDR9JQKS"
   };
 
-  // Initialize Firebase
+  // Init Firebase
   firebase.initializeApp(firebaseConfig);
 
+  // Modal control
+  const authModal = document.getElementById("auth-modal");
+  const openAuthModal = document.getElementById("open-auth-modal");
+  const closeModal = document.getElementById("close-modal");
+  const logoutBtn = document.getElementById("sign-out-button");
+
+  openAuthModal?.addEventListener("click", () => authModal.classList.remove("hidden"));
+  closeModal?.addEventListener("click", () => authModal.classList.add("hidden"));
+
   // Email Login
-  async function emailLogin() {
-    const email = prompt("กรอกอีเมล");
-    const password = prompt("กรอกรหัสผ่าน");
+  document.getElementById("email-login-btn").addEventListener("click", async () => {
+    const email = document.getElementById("email-input").value;
+    const password = document.getElementById("password-input").value;
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       alert("ล็อกอินสำเร็จ");
+      authModal.classList.add("hidden");
     } catch (e) {
       alert(e.message);
     }
-  }
+  });
 
   // Google Login
-  async function googleLogin() {
+  document.getElementById("google-login-btn").addEventListener("click", async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
       alert("ล็อกอิน Google สำเร็จ");
+      authModal.classList.add("hidden");
     } catch (e) {
       alert(e.message);
     }
-  }
+  });
 
   // Logout
-  function logout() {
-    firebase.auth().signOut();
-  }
+  logoutBtn.addEventListener("click", () => firebase.auth().signOut());
 
-  // Auth State Listener
+  // Auth State Change
   firebase.auth().onAuthStateChanged(user => {
-    const loginPrompt = document.getElementById('login-prompt');
-    const userDetails = document.getElementById('user-details');
-    const userName = document.getElementById('user-name');
-    const userEmail = document.getElementById('user-email');
+    const userDetails = document.getElementById("user-details");
+    const userName = document.getElementById("user-name");
+    const userEmail = document.getElementById("user-email");
 
     if (user) {
-      loginPrompt.classList.add('hidden');
-      userDetails.classList.remove('hidden');
-      userName.textContent = user.displayName || 'ไม่มีชื่อ';
+      document.getElementById("open-auth-modal").classList.add("hidden");
+      logoutBtn.classList.remove("hidden");
+      userDetails.classList.remove("hidden");
+      userName.textContent = user.displayName || "ไม่มีชื่อ";
       userEmail.textContent = user.email;
     } else {
-      loginPrompt.classList.remove('hidden');
-      userDetails.classList.add('hidden');
+      document.getElementById("open-auth-modal").classList.remove("hidden");
+      logoutBtn.classList.add("hidden");
+      userDetails.classList.add("hidden");
     }
   });
-
-  // Attach Event Listeners
-  document.addEventListener('DOMContentLoaded', function () {
-    const loginBtn = document.getElementById("login-button");
-    const signupBtn = document.getElementById("signup-button");
-    const logoutBtn = document.getElementById("sign-out-button");
-
-    if (loginBtn) loginBtn.onclick = googleLogin;
-    if (signupBtn) signupBtn.onclick = emailLogin;
-    if (logoutBtn) logoutBtn.onclick = logout;
-  });
-</script>    
+    </script>    
     
 <!-- เมนูด้านล่าง -->  
 <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">  
