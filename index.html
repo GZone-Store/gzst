@@ -3,7 +3,7 @@
 <head>    
     <meta charset="UTF-8" />    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
-    <title>GZone.com</title>    
+    <title>GZone</title>    
     <script src="https://cdn.tailwindcss.com"></script>    
     <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>    
     <style>    
@@ -208,7 +208,8 @@
 
 <!-- ปุ่มออกจากระบบ -->  <button onclick="firebase.auth().signOut()" class="hidden w-full mt-6 bg-red-700 hover:bg-red-800 text-white font-medium px-4 py-3 rounded-xl" id="sign-out-button">  
   ออกจากระบบ  
-</button>  </div>  
+</button>  
+
 </div><!-- รวม modal สมัครสมาชิก/เข้าสู่ระบบ และสคริปต์ Firebase ด้านล่าง --><div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
   <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
     <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthModal()">&times;</button>
@@ -299,6 +300,42 @@ firebase.auth().signInWithRedirect(provider)
       loginPrompt.classList.remove('hidden');
       userDetails.classList.add('hidden');
       signOutButton.classList.add('hidden');
+    }
+  });
+</script>
+<script>
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  document.getElementById("google-login").addEventListener("click", function () {
+    firebase.auth().signInWithRedirect(provider);
+  });
+
+  firebase.auth().getRedirectResult()
+    .then((result) => {
+      if (result.user) {
+        const user = result.user;
+        console.log("Google Redirect Success:", user);
+
+        // แสดงชื่อและอีเมล
+        document.getElementById("user-name").textContent = user.displayName;
+        document.getElementById("user-email").textContent = user.email;
+        document.getElementById("user-details").classList.remove("hidden");
+        document.getElementById("login-prompt").classList.add("hidden");
+        document.getElementById("sign-out-button").classList.remove("hidden");
+      }
+    })
+    .catch((error) => {
+      console.error("Google Redirect Error:", error);
+    });
+
+  // กรณีผู้ใช้ล็อกอินอยู่แล้ว
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      document.getElementById("user-name").textContent = user.displayName;
+      document.getElementById("user-email").textContent = user.email;
+      document.getElementById("user-details").classList.remove("hidden");
+      document.getElementById("login-prompt").classList.add("hidden");
+      document.getElementById("sign-out-button").classList.remove("hidden");
     }
   });
 </script>
