@@ -122,6 +122,43 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics(); // หากต้องการใช้ Analytics
 </script>
+
+<script>
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  document.getElementById("google-login").addEventListener("click", function () {
+    firebase.auth().signInWithRedirect(provider);
+  });
+
+  firebase.auth().getRedirectResult()
+    .then((result) => {
+      if (result.user) {
+        const user = result.user;
+        console.log("Google Redirect Success:", user);
+
+        // แสดงชื่อและอีเมล
+        document.getElementById("user-name").textContent = user.displayName;
+        document.getElementById("user-email").textContent = user.email;
+        document.getElementById("user-details").classList.remove("hidden");
+        document.getElementById("login-prompt").classList.add("hidden");
+        document.getElementById("sign-out-button").classList.remove("hidden");
+      }
+    })
+    .catch((error) => {
+      console.error("Google Redirect Error:", error);
+    });
+
+  // กรณีผู้ใช้ล็อกอินอยู่แล้ว
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      document.getElementById("user-name").textContent = user.displayName;
+      document.getElementById("user-email").textContent = user.email;
+      document.getElementById("user-details").classList.remove("hidden");
+      document.getElementById("login-prompt").classList.add("hidden");
+      document.getElementById("sign-out-button").classList.remove("hidden");
+    }
+  });
+</script>    
       
   </div>  <!-- หน้าบัญชี -->      
 <div id="account" class="hidden flex-1 pb-16">  
@@ -300,42 +337,6 @@ firebase.auth().signInWithRedirect(provider)
       loginPrompt.classList.remove('hidden');
       userDetails.classList.add('hidden');
       signOutButton.classList.add('hidden');
-    }
-  });
-</script>
-<script>
-  const provider = new firebase.auth.GoogleAuthProvider();
-
-  document.getElementById("google-login").addEventListener("click", function () {
-    firebase.auth().signInWithRedirect(provider);
-  });
-
-  firebase.auth().getRedirectResult()
-    .then((result) => {
-      if (result.user) {
-        const user = result.user;
-        console.log("Google Redirect Success:", user);
-
-        // แสดงชื่อและอีเมล
-        document.getElementById("user-name").textContent = user.displayName;
-        document.getElementById("user-email").textContent = user.email;
-        document.getElementById("user-details").classList.remove("hidden");
-        document.getElementById("login-prompt").classList.add("hidden");
-        document.getElementById("sign-out-button").classList.remove("hidden");
-      }
-    })
-    .catch((error) => {
-      console.error("Google Redirect Error:", error);
-    });
-
-  // กรณีผู้ใช้ล็อกอินอยู่แล้ว
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      document.getElementById("user-name").textContent = user.displayName;
-      document.getElementById("user-email").textContent = user.email;
-      document.getElementById("user-details").classList.remove("hidden");
-      document.getElementById("login-prompt").classList.add("hidden");
-      document.getElementById("sign-out-button").classList.remove("hidden");
     }
   });
 </script>
