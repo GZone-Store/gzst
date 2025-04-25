@@ -3,7 +3,7 @@
 <head>    
     <meta charset="UTF-8" />    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
-    <title>GZONE</title>    
+    <title>GZONE.COM</title>    
     <script src="https://cdn.tailwindcss.com"></script>    
     <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>    
     <style>    
@@ -274,10 +274,19 @@ authActionBtn.addEventListener('click', () => {
 });
 
 function googleLogin() {
-const provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth().signInWithPopup(provider)
-.then(closeAuthModal)
-.catch(error => alert(error.message));
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithRedirect(provider);
+}
+
+firebase.auth().getRedirectResult()
+  .then(result => {
+    if (result.user) {
+      closeAuthModal();
+    }
+  })
+  .catch(error => {
+    alert(error.message);
+  });
 }
 </script><script>
   // ฟังก์ชันสำหรับเช็คสถานะการล็อกอิน
