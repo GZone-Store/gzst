@@ -302,37 +302,6 @@ firebase.auth().signInWithRedirect(provider)
     }
   });
 </script>
-</script>
-   firebase.auth().getRedirectResult()
-  .then((result) => {
-    if (result.user) {
-      console.log("Redirect user:", result.user);
-      updateUserInfo(result.user);
-    }
-  })
-  .catch((error) => {
-    console.error("Redirect error:", error);
-  });
-
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    console.log("Already logged in:", user);
-    updateUserInfo(user);
-  }
-});
-
-function updateUserInfo(user) {
-  // ใส่ชื่อและอีเมล
-  document.getElementById("user-name").textContent = user.displayName || "ไม่มีชื่อ";
-  document.getElementById("user-email").textContent = user.email || "ไม่มีอีเมล";
-
-  // แสดงส่วนที่เกี่ยวกับผู้ใช้
-  document.getElementById("user-details").classList.remove("hidden");
-  document.getElementById("sign-out-button").classList.remove("hidden");
-
-  // ซ่อนปุ่มเข้าสู่ระบบ/สมัครสมาชิก
-  document.getElementById("login-prompt").classList.add("hidden");
-}
       
   <!-- เมนูด้านล่าง -->    <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">    
   <button onclick="goTo('home')" class="flex flex-col items-center">    
