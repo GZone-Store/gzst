@@ -3,7 +3,7 @@
 <head>    
     <meta charset="UTF-8" />    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
-    <title>Gzone-ad1</title>    
+    <title>GZONE</title>    
     <script src="https://cdn.tailwindcss.com"></script>    
     <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>    
     <style>    
@@ -274,22 +274,10 @@ authActionBtn.addEventListener('click', () => {
 });
 
 function googleLogin() {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithRedirect(provider);
-}
-
-// หลังจากกลับจาก Google login ให้เรียกใช้งาน getRedirectResult
-firebase.auth().getRedirectResult()
-  .then((result) => {
-    if (result.user) {
-      const user = result.user;
-      console.log("Login Success:", user);
-      closeAuthModal(); // ถ้ามี modal อยู่ก็ปิดได้เลย
-    }
-  })
-  .catch((error) => {
-    alert("Error: " + error.message);
-  });
+const provider = new firebase.auth.GoogleAuthProvider();
+firebase.auth().signInWithPopup(provider)
+.then(closeAuthModal)
+.catch(error => alert(error.message));
 }
 </script><script>
   // ฟังก์ชันสำหรับเช็คสถานะการล็อกอิน
