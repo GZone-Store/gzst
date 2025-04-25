@@ -224,7 +224,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
 <script>
-  // Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
     authDomain: "gzone-store.firebaseapp.com",
@@ -238,31 +237,30 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  // Email Login or Register
+  // Email Login (ใช้เป็นสมัครสมาชิกหรือเข้าสู่ระบบก็ได้)
   async function emailLogin() {
     const email = prompt("กรอกอีเมล");
     const password = prompt("กรอกรหัสผ่าน");
-    if (!email || !password) return;
 
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      alert("ล็อกอินสำเร็จ");
-    } catch (error) {
-      if (error.code === 'auth/user-not-found') {
-        try {
-          await firebase.auth().createUserWithEmailAndPassword(email, password);
-          const user = firebase.auth().currentUser;
-          const shortId = user.uid.slice(0, 6);
-          await user.updateProfile({
-            displayName: "gzon_user" + shortId
-          });
-          alert("สมัครสมาชิกสำเร็จ");
-        } catch (signupError) {
-          alert(signupError.message);
-        }
-      } else {
-        alert(error.message);
-      }
+  await firebase.auth().signInWithEmailAndPassword(email, password);
+  alert("ล็อกอินสำเร็จ");
+} catch (error) {
+  if (error.code === 'auth/user-not-found') {
+    try {
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const user = firebase.auth().currentUser;
+      const shortId = user.uid.slice(0, 6); // ใช้ UID 6 ตัวแรก
+      await user.updateProfile({
+        displayName: "gzon_user" + shortId
+      });
+      alert("สมัครสมาชิกสำเร็จ");
+    } catch (signupError) {
+      alert(signupError.message);
+    }
+  } else {
+    alert(error.message);
+  }
     }
   }
 
@@ -270,15 +268,7 @@
   async function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
-      const result = await firebase.auth().signInWithPopup(provider);
-      const user = result.user;
-      if (!user.displayName) {
-        const shortId = user.uid.slice(0, 6);
-        await user.updateProfile({
-          displayName: "gzon_user" + shortId
-        });
-      }
-      alert("ล็อกอิน Google สำเร็จ");
+      await firebase.auth().signInWithPopup(provider);
     } catch (e) {
       alert(e.message);
     }
@@ -289,7 +279,7 @@
     firebase.auth().signOut();
   }
 
-  // Auth State Listener
+  // Auth State Change
   firebase.auth().onAuthStateChanged(user => {
   const loginPrompt = document.getElementById('login-prompt');
   const userDetails = document.getElementById('user-details');
@@ -321,14 +311,10 @@
 });
 
   // Attach Event Listeners
-  document.addEventListener('DOMContentLoaded', function () {
-    const loginBtn = document.getElementById("login-button");
-    const signupBtn = document.getElementById("signup-button");
-    const logoutBtn = document.getElementById("sign-out-button");
-
-    if (loginBtn) loginBtn.onclick = googleLogin;
-    if (signupBtn) signupBtn.onclick = emailLogin;
-    if (logoutBtn) logoutBtn.onclick = logout;
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("login-button")?.addEventListener('click', googleLogin);
+    document.getElementById("signup-button")?.addEventListener('click', emailLogin);
+    document.getElementById("sign-out-button")?.addEventListener('click', logout);
   });
 </script>    
     
