@@ -3,7 +3,7 @@
 <head>    
     <meta charset="UTF-8" />    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
-    <title>GZone</title>    
+    <title>GZone.com</title>    
     <script src="https://cdn.tailwindcss.com"></script>    
     <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>    
     <style>    
@@ -122,26 +122,37 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics(); // หากต้องการใช้ Analytics
 </script>
-<script>
-  firebase.auth().getRedirectResult()
-    .then((result) => {
-      if (result.user) {
-        // ตัวอย่าง: ใส่ชื่อผู้ใช้ในหน้าเว็บ
-        console.log("Redirect user:", result.user);
-        document.getElementById("user-name").textContent = result.user.displayName;
-      }
-    })
-    .catch((error) => {
-      console.error("Redirect error:", error);
-    });
-
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      console.log("Already logged in:", user);
-      document.getElementById("user-name").textContent = user.displayName;
-    }
-  });
 </script>
+   firebase.auth().getRedirectResult()
+  .then((result) => {
+    if (result.user) {
+      console.log("Redirect user:", result.user);
+      updateUserInfo(result.user);
+    }
+  })
+  .catch((error) => {
+    console.error("Redirect error:", error);
+  });
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log("Already logged in:", user);
+    updateUserInfo(user);
+  }
+});
+
+function updateUserInfo(user) {
+  // ใส่ชื่อและอีเมล
+  document.getElementById("user-name").textContent = user.displayName || "ไม่มีชื่อ";
+  document.getElementById("user-email").textContent = user.email || "ไม่มีอีเมล";
+
+  // แสดงส่วนที่เกี่ยวกับผู้ใช้
+  document.getElementById("user-details").classList.remove("hidden");
+  document.getElementById("sign-out-button").classList.remove("hidden");
+
+  // ซ่อนปุ่มเข้าสู่ระบบ/สมัครสมาชิก
+  document.getElementById("login-prompt").classList.add("hidden");
+}
       
   </div>  <!-- หน้าบัญชี -->      
 <div id="account" class="hidden flex-1 pb-16">  
