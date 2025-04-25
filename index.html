@@ -189,33 +189,117 @@
 <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">Download App</a>  
 <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">ภาษา</a>  
 
-<!-- ปุ่มออกจากระบบ -->  
-<button onclick="firebase.auth().signOut()" class="w-full mt-6 bg-red-700 hover:bg-red-800 text-white font-medium px-4 py-3 rounded-xl" id="sign-out-button">  
-  ออกจากระบบ  
+<!-- ปุ่มออกจากระบบ -->
+<button onclick="firebase.auth().signOut()" 
+  class="hidden w-full mt-6 bg-red-700 hover:bg-red-800 text-white font-medium px-4 py-3 rounded-xl" 
+  id="sign-out-button">
+  ออกจากระบบ
 </button>
+      
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-  </div>  
-</div>  <!-- ฟังก์ชันการเช็คสถานะการล็อกอิน -->  <script>  
-  // ฟังก์ชันสำหรับเช็คสถานะการล็อกอิน  
-  firebase.auth().onAuthStateChanged(user => {  
-    const loginPrompt = document.getElementById('login-prompt');  
-    const userDetails = document.getElementById('user-details');  
-    const userName = document.getElementById('user-name');  
-    const userEmail = document.getElementById('user-email');  
-    const signOutButton = document.getElementById('sign-out-button');  
+<script>
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
+    authDomain: "gzone-store.firebaseapp.com",
+    projectId: "gzone-store",
+    storageBucket: "gzone-store.appspot.com",
+    messagingSenderId: "20383169229",
+    appId: "1:20383169229:web:e225735efbea6589120784",
+    measurementId: "G-WZLDR9JQKS"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Email Login or Register
+  async function emailLogin() {
+    const email = prompt("กรอกอีเมล");
+    const password = prompt("กรอกรหัสผ่าน");
+    if (!email || !password) return;
+
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      alert("ล็อกอินสำเร็จ");
+    } catch (error) {
+      if (error.code === 'auth/user-not-found') {
+        try {
+          await firebase.auth().createUserWithEmailAndPassword(email, password);
+          const user = firebase.auth().currentUser;
+          const shortId = user.uid.slice(0, 6);
+          await user.updateProfile({
+            displayName: "gzon_user" + shortId
+          });
+          alert("สมัครสมาชิกสำเร็จ");
+        } catch (signupError) {
+          alert(signupError.message);
+        }
+      } else {
+        alert(error.message);
+      }
+    }
+  }
+
+  // Google Login
+  async function googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      const user = result.user;
+      if (!user.displayName) {
+        const shortId = user.uid.slice(0, 6);
+        await user.updateProfile({
+          displayName: "gzon_user" + shortId
+        });
+      }
+      alert("ล็อกอิน Google สำเร็จ");
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+
+  // Logout
+  function logout() {
+    firebase.auth().signOut();
+  }
+
+  // Auth State Listener
+  firebase.auth().onAuthStateChanged(user => {
+    const loginPrompt = document.getElementById('login-prompt');
+    const userDetails = document.getElementById('user-details');
+    const userName = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
+    const logoutBtn = document.getElementById('sign-out-button');
+
+    if (user) {
+      loginPrompt?.classList.add('hidden');
+      userDetails?.classList.remove('hidden');
+      logoutBtn?.classList.remove('hidden');
+
+      userName.textContent = user.displayName || 'ไม่มีชื่อ';
+      userEmail.textContent = user.email;
+    } else {
+      loginPrompt?.classList.remove('hidden');
+      userDetails?.classList.add('hidden');
+      logoutBtn?.classList.add('hidden');
+    }
+  });
+
+  // Attach Event Listeners
+  document.addEventListener('DOMContentLoaded', function () {
+    const loginBtn = document.getElementById("login-button");
+    const signupBtn = document.getElementById("signup-button");
+    const logoutBtn = document.getElementById("sign-out-button");
+
+    if (loginBtn) loginBtn.onclick = googleLogin;
+    if (signupBtn) signupBtn.onclick = emailLogin;
+    if (logoutBtn) logoutBtn.onclick = logout;
+  });
+</script>
   
-    if (user) {  
-      // ถ้าผู้ใช้ล็อกอินแล้ว  
-      loginPrompt.classList.add('hidden');  
-      userDetails.classList.remove('hidden');  
-      userName.textContent = user.displayName || 'ชื่อของคุณ';  
-      userEmail.textContent = user.email;  
-    } else {  
-      // ถ้าผู้ใช้ยังไม่ได้ล็อกอิน  
-      loginPrompt.classList.remove('hidden');  
-      userDetails.classList.add('hidden');  
-    }  
-  });  
       </script>  <!-- เมนูด้านล่าง -->    <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">    
   <button onclick="goTo('home')" class="flex flex-col items-center">    
     <img src="icon-home.png.png" class="w-6 h-6" />    
