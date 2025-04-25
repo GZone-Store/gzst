@@ -302,7 +302,23 @@ firebase.auth().signInWithRedirect(provider)
     }
   });
 </script>
-          
+<script>
+  // ดึงผลลัพธ์จากการล็อกอินด้วย Google หลัง redirect
+  firebase.auth().getRedirectResult().then((result) => {
+    if (result.user) {
+      const user = result.user;
+      // แสดงข้อมูลผู้ใช้หลังล็อกอิน Google สำเร็จ
+      document.getElementById('login-prompt').classList.add('hidden');
+      document.getElementById('user-details').classList.remove('hidden');
+      document.getElementById('sign-out-button').classList.remove('hidden');
+      document.getElementById('user-name').textContent = user.displayName || 'ชื่อของคุณ';
+      document.getElementById('user-email').textContent = user.email;
+    }
+  }).catch((error) => {
+    console.error('Google login error:', error);
+  });
+</script>
+      
   <!-- เมนูด้านล่าง -->    <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">    
   <button onclick="goTo('home')" class="flex flex-col items-center">    
     <img src="icon-home.png.png" class="w-6 h-6" />    
