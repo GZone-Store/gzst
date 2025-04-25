@@ -86,7 +86,8 @@
 </script>
 
   </div>    
-</div>    <!-- หน้าค้นหา -->    <div id="search" class="hidden flex-1 pb-16">    
+</div>    <!-- หน้าค้นหา -->    
+<div id="search" class="hidden flex-1 pb-16">    
   <div class="fixed top-0 w-full bg-[#1e0a2a] z-10 p-4 flex items-center">    
     <input type="text" id="searchInput" placeholder="ค้นหาเกมที่นี่..." class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black" />    
     <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">    
@@ -98,192 +99,209 @@
   </div>    
   <div class="pt-20 px-4 pb-4 space-y-3 text-white text-sm" id="searchResults"></div>    
 </div>
-       
+
+<!-- Firebase App (compat) -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "gzone-store.firebaseapp.com",
-      projectId: "gzone-store",
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-[#12071b] text-white">
-  <div id="account" class="flex-1 pb-16">
-    <div class="relative">
-      <img src="cover.jpg" class="w-full h-32 object-cover" />
-      <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-        <img src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" />
-      </div>
-    </div>
-    <div class="mt-14 text-center" id="user-info">
-      <div class="" id="login-prompt">
-        <button class="text-sm text-purple-400 hover:underline" id="login-button">เข้าสู่ระบบ</button>
-        <span class="mx-2">หรือ</span>
-        <button class="text-sm text-purple-400 hover:underline" id="signup-button">สมัครสมาชิก</button>
-      </div>
-      <div class="hidden" id="user-details">
-        <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
-        <div class="text-sm text-gray-300" id="user-email">email@example.com</div>
-        <button class="mt-2 text-sm text-purple-400 hover:underline">
-          <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l10.414-10.414a2 2 0 000-2.828l-2.828-2.828a2 2 0 00-2.828 0L4 15.586V20z" />
-          </svg>
-          แก้ไขโปรไฟล์
-        </button>
-      </div>
-    </div>
-    <div class="mt-6 space-y-3 px-6">
-      <details class="group bg-[#2e1b44] rounded-xl px-4 py-3">
-        <summary class="cursor-pointer text-white font-medium flex items-center justify-between">
-          Support / Donate
-          <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24">
-            <path d="M7 10l5 5 5-5H7z" />
-          </svg>
-        </summary>
-        <div class="mt-3 space-y-2 pl-4 text-sm text-purple-300">
-          <a href="https://line.me/..." target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
-              <img src="line-icon.png" alt="LINE" class="w-6 h-6" />
-            </div>
-            <span>LINE</span>
-          </a>
-          <a href="https://t.me/..." target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
-              <img src="telegram-icon.png" alt="Telegram" class="w-6 h-6" />
-            </div>
-            <span>Telegram</span>
-          </a>
-        </div>
-      </details>
-      <details class="group bg-[#2e1b44] rounded-xl px-4 py-3">
-        <summary class="cursor-pointer text-white font-medium flex items-center justify-between">
-          ติดต่อเรา
-          <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24">
-            <path d="M7 10l5 5 5-5H7z" />
-          </svg>
-        </summary>
-        <div class="mt-3 space-y-2 pl-4 text-sm text-purple-300">
-          <a href="mailto:contact@example.com" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
-              <img src="email-icon.png" alt="Email" class="w-6 h-6" />
-            </div>
-            <span>อีเมล</span>
-          </a>
-          <a href="https://facebook.com/example" target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
-              <img src="facebook-icon.png" alt="Facebook" class="w-6 h-6" />
-            </div>
-            <span>Facebook</span>
-          </a>
-          <a href="tel:0800000000" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
-              <img src="phone-icon.png" alt="Phone" class="w-6 h-6" />
-            </div>
-            <span>โทรศัพท์</span>
-          </a>
-        </div>
-      </details>
-      <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">Download App</a>
-      <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">ภาษา</a>
-      <button onclick="firebase.auth().signOut()" class="hidden w-full mt-6 bg-red-700 hover:bg-red-800 text-white font-medium px-4 py-3 rounded-xl" id="sign-out-button">
-        ออกจากระบบ
-      </button>
-    </div>
+<!-- Firebase Auth (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<!-- Firebase Analytics (optional) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
+    authDomain: "gzone-store.firebaseapp.com",
+    projectId: "gzone-store",
+    storageBucket: "gzone-store.firebasestorage.app",
+    messagingSenderId: "20383169229",
+    appId: "1:20383169229:web:e225735efbea6589120784",
+    measurementId: "G-WZLDR9JQKS"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics(); // หากต้องการใช้ Analytics
+</script>
+      
+  </div>  <!-- หน้าบัญชี -->      
+<div id="account" class="hidden flex-1 pb-16">  
+  <div class="relative">  
+    <!-- ภาพปกหลัง -->  
+    <img src="cover.jpg" class="w-full h-32 object-cover" />  <!-- รูปโปรไฟล์ -->  
+<div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">  
+  <img src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" />  
+</div>  </div> <div class="mt-14 text-center" id="user-info">  
+    <!-- เมื่อผู้ใช้ยังไม่ได้เข้าสู่ระบบ -->  
+    <div class="hidden" id="login-prompt">  
+      <button class="text-sm text-purple-400 hover:underline" id="login-button">  
+        เข้าสู่ระบบ  
+      </button>  
+      <span class="mx-2">หรือ</span>  
+      <button class="text-sm text-purple-400 hover:underline" id="signup-button">  
+        สมัครสมาชิก  
+      </button>  
+    </div>  <!-- เมื่อผู้ใช้เข้าสู่ระบบ -->  
+<div class="hidden" id="user-details">  
+  <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>  
+  <div class="text-sm text-gray-300" id="user-email">email@example.com</div>    <!-- ปุ่มแก้ไขโปรไฟล์ -->    <button class="mt-2 text-sm text-purple-400 hover:underline">  
+    <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">  
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  
+        d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l10.414-10.414a2 2 0 000-2.828l-2.828-2.828a2 2 0 00-2.828 0L4 15.586V20z" />  
+    </svg>  
+    แก้ไขโปรไฟล์  
+  </button>  
+</div>  </div>    <!-- เมนูเพิ่มเติม -->    <div class="mt-6 space-y-3 px-6">  
+    <!-- Support / Donate -->  
+    <details class="group bg-[#2e1b44] rounded-xl px-4 py-3">  
+      <summary class="cursor-pointer text-white font-medium flex items-center justify-between">  
+        Support / Donate  
+        <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180"  
+          xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24">  
+          <path d="M7 10l5 5 5-5H7z" />  
+        </svg>  
+      </summary>  
+      <div class="mt-3 space-y-2 pl-4 text-sm text-purple-300">  
+        <a href="https://line.me/..." target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">  
+          <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">  
+            <img src="line-icon.png" alt="LINE" class="w-6 h-6" />  
+          </div>  
+          <span>LINE</span>  
+        </a>  
+        <a href="https://t.me/..." target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">  
+          <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">  
+            <img src="telegram-icon.png" alt="Telegram" class="w-6 h-6" />  
+          </div>  
+          <span>Telegram</span>  
+        </a>  
+      </div>  
+    </details>  <!-- ติดต่อเรา -->  
+<details class="group bg-[#2e1b44] rounded-xl px-4 py-3">  
+  <summary class="cursor-pointer text-white font-medium flex items-center justify-between">  
+    ติดต่อเรา  
+    <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180"  
+      xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24">  
+      <path d="M7 10l5 5 5-5H7z" />  
+    </svg>  
+  </summary>  
+  <div class="mt-3 space-y-2 pl-4 text-sm text-purple-300">  
+    <a href="mailto:contact@example.com" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">  
+      <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">  
+        <img src="email-icon.png" alt="Email" class="w-6 h-6" />  
+      </div>  
+      <span>อีเมล</span>  
+    </a>  
+    <a href="https://facebook.com/example" target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">  
+      <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">  
+        <img src="facebook-icon.png" alt="Facebook" class="w-6 h-6" />  
+      </div>  
+      <span>Facebook</span>  
+    </a>  
+    <a href="tel:0800000000" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">  
+      <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">  
+        <img src="phone-icon.png" alt="Phone" class="w-6 h-6" />  
+      </div>  
+      <span>โทรศัพท์</span>  
+    </a>  
+  </div>  
+</details>  <!-- เมนูอื่น -->  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">Download App</a>
+<a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">ภาษา</a>
+
+<!-- ปุ่มออกจากระบบ -->  <button onclick="firebase.auth().signOut()" class="hidden w-full mt-6 bg-red-700 hover:bg-red-800 text-white font-medium px-4 py-3 rounded-xl" id="sign-out-button">  
+  ออกจากระบบ  
+</button>  </div>  
+</div><!-- รวม modal สมัครสมาชิก/เข้าสู่ระบบ และสคริปต์ Firebase ด้านล่าง --><div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
+  <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
+    <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthModal()">&times;</button>
+    <h2 id="auth-title" class="text-lg font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
+    <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-2 px-3 py-2 border rounded" />
+    <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-4 px-3 py-2 border rounded" />
+    <button id="auth-action-button" class="bg-purple-600 text-white w-full py-2 rounded mb-2">เข้าสู่ระบบ</button>
+    <button onclick="googleLogin()" class="bg-red-500 text-white w-full py-2 rounded mb-2">เข้าสู่ระบบด้วย Google</button>
+    <p class="text-center text-sm text-gray-600">
+      <span id="auth-switch">ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button></span>
+    </p>
   </div>
+</div><script>
+const authModal = document.getElementById('auth-modal');
+const authTitle = document.getElementById('auth-title');
+const authActionBtn = document.getElementById('auth-action-button');
+const authSwitch = document.getElementById('auth-switch');
+let isSignup = false;
 
-  <div id="auth-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden z-50">
-    <div class="bg-[#1e0a2a] rounded-2xl p-6 w-80 space-y-4 relative text-white">
-      <button id="close-auth" class="absolute top-2 right-2 text-gray-400 hover:text-white">&times;</button>
-      <h2 class="text-xl font-bold text-center">เข้าสู่ระบบ</h2>
-      <input type="email" id="auth-email" placeholder="อีเมล" class="w-full p-2 rounded bg-[#2e1b44] text-white" />
-      <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full p-2 rounded bg-[#2e1b44] text-white" />
-      <button id="email-login" class="w-full bg-purple-600 hover:bg-purple-700 p-2 rounded font-bold">เข้าสู่ระบบ</button>
-      <p class="text-center text-sm text-gray-400">หรือเข้าสู่ระบบด้วย</p>
-      <button id="google-login" class="w-full bg-white text-black font-semibold py-2 rounded hover:bg-gray-200">
-        เข้าสู่ระบบด้วย Google
-      </button>
-      <p class="text-sm text-center">
-        ยังไม่มีบัญชี? <button id="signup-toggle" class="text-purple-400 hover:underline">สมัครสมาชิก</button>
-      </p>
-    </div>
-  </div>
+function openAuthModal(signup = false) {
+  isSignup = signup;
+  authModal.classList.remove('hidden');
+  updateAuthModal();
+}
 
-  <script>
-    const modal = document.getElementById('auth-modal');
-    const loginButton = document.getElementById('login-button');
-    const signupButton = document.getElementById('signup-button');
-    const closeButton = document.getElementById('close-auth');
-    const signupToggle = document.getElementById('signup-toggle');
+function closeAuthModal() {
+  authModal.classList.add('hidden');
+}
 
-    const emailInput = document.getElementById('auth-email');
-    const passInput = document.getElementById('auth-password');
-    const emailLoginBtn = document.getElementById('email-login');
-    const googleLoginBtn = document.getElementById('google-login');
+function updateAuthModal() {
+  authTitle.textContent = isSignup ? 'สมัครสมาชิก' : 'เข้าสู่ระบบ';
+  authActionBtn.textContent = isSignup ? 'สมัครสมาชิก' : 'เข้าสู่ระบบ';
+  authSwitch.innerHTML = isSignup
+    ? 'มีบัญชีแล้ว? <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>'
+    : 'ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>';
+}
 
-    let isSignup = false;
+function switchToSignup() {
+  isSignup = true;
+  updateAuthModal();
+}
 
-    loginButton.onclick = () => {
-      isSignup = false;
-      emailLoginBtn.textContent = "เข้าสู่ระบบ";
-      modal.classList.remove('hidden');
-    };
-    signupButton.onclick = () => {
-      isSignup = true;
-      emailLoginBtn.textContent = "สมัครสมาชิก";
-      modal.classList.remove('hidden');
-    };
-    closeButton.onclick = () => modal.classList.add('hidden');
-    signupToggle.onclick = () => {
-      isSignup = true;
-      emailLoginBtn.textContent = "สมัครสมาชิก";
-    };
+function switchToLogin() {
+  isSignup = false;
+  updateAuthModal();
+}
 
-    emailLoginBtn.onclick = () => {
-      const email = emailInput.value;
-      const password = passInput.value;
-      if (isSignup) {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(() => modal.classList.add('hidden'))
-          .catch(e => alert(e.message));
-      } else {
-        firebase.auth().signInWithEmailAndPassword(email, password)
-          .then(() => modal.classList.add('hidden'))
-          .catch(e => alert(e.message));
-      }
-    };
+document.getElementById('login-button').addEventListener('click', () => openAuthModal(false));
+document.getElementById('signup-button').addEventListener('click', () => openAuthModal(true));
 
-    googleLoginBtn.onclick = () => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider)
-        .then(() => modal.classList.add('hidden'))
-        .catch(e => alert(e.message));
-    };
+authActionBtn.addEventListener('click', () => {
+  const email = document.getElementById('auth-email').value;
+  const password = document.getElementById('auth-password').value;
+  if (isSignup) {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(closeAuthModal)
+      .catch(error => alert(error.message));
+  } else {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(closeAuthModal)
+      .catch(error => alert(error.message));
+  }
+});
 
-    firebase.auth().onAuthStateChanged(user => {
-      const loginPrompt = document.getElementById('login-prompt');
-      const userDetails = document.getElementById('user-details');
-      const userName = document.getElementById('user-name');
-      const userEmail = document.getElementById('user-email');
-      const signOutButton = document.getElementById('sign-out-button');
+function googleLogin() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider)
+    .then(closeAuthModal)
+    .catch(error => alert(error.message));
+}
+</script><script>
+  // ฟังก์ชันสำหรับเช็คสถานะการล็อกอิน
+  firebase.auth().onAuthStateChanged(user => {
+    const loginPrompt = document.getElementById('login-prompt');
+    const userDetails = document.getElementById('user-details');
+    const userName = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
+    const signOutButton = document.getElementById('sign-out-button');
 
-      if (user) {
-        loginPrompt.classList.add('hidden');
-        userDetails.classList.remove('hidden');
-        signOutButton.classList.remove('hidden');
-        userName.textContent = user.displayName || 'ชื่อของคุณ';
-        userEmail.textContent = user.email;
-      } else {
-        loginPrompt.classList.remove('hidden');
-        userDetails.classList.add('hidden');
-        signOutButton.classList.add('hidden');
-      }
-    });
-  </script>          
-
+    if (user) {
+      loginPrompt.classList.add('hidden');
+      userDetails.classList.remove('hidden');
+      signOutButton.classList.remove('hidden');
+      userName.textContent = user.displayName || 'ชื่อของคุณ';
+      userEmail.textContent = user.email;
+    } else {
+      loginPrompt.classList.remove('hidden');
+      userDetails.classList.add('hidden');
+      signOutButton.classList.add('hidden');
+    }
+  });
+</script>
+          
   <!-- เมนูด้านล่าง -->    <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">    
   <button onclick="goTo('home')" class="flex flex-col items-center">    
     <img src="icon-home.png.png" class="w-6 h-6" />    
