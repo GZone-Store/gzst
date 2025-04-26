@@ -1,11 +1,12 @@
-self.addEventListener('install', event => {
+self.addEventListener('install', function(event) {
+  console.log('Service Worker installing.');
   self.skipWaiting();
 });
 
-self.addEventListener('activate', event => {
-  clients.claim();
+self.addEventListener('activate', function(event) {
+  console.log('Service Worker activating.');
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(fetch(event.request));
+self.addEventListener('fetch', function(event) {
+  // ให้ผ่านไปตามปกติ (ไม่ได้แคชอะไร)
 });
