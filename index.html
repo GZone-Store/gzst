@@ -265,102 +265,79 @@
 </div>
 
 <!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
- div
-  id="auth-modal"
-  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden"
->
+<div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
   <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
-    <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthilodal()">&times;</button>
-    <h2 id="auth-title" class="text-ig font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
-    <input
-      type="email"
-      id="auth-email"
-      placeholder="อิเมล"
-      class="w-full mb-2 px-3 py-2 border rounded"
-    />
-    <input
-      type="password"
-      id="auth-password"
-      placeholder="รหัสผ่าน"
-      class="w-full mb-4 px-3 py-2 border rounded"
-    />
-    <button
-      id="auth-action-button"
-      class="bg-purple-600 text-white w-full py-2 rounded mb-2"
-    >
-    เข้าสู่ระบบ
+    <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthModal()">&times;</button>
+    <h2 id="auth-title" class="text-lg font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
+    <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-2 px-3 py-2 border rounded" />
+    <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-4 px-3 py-2 border rounded" />
+    <button id="auth-action-button" onclick="handleAuthAction()" class="bg-purple-600 text-white w-full py-2 rounded mb-2">
+      เข้าสู่ระบบ
     </button>
-    <button
-       onclick="googleLogin()"
-       class="bg-red-500 text-white w-full py-2 rounded mb-2"
-     >
-       เข้าสู่ระบบด้วย Google
-     </button>
-     <p class="text-center text-sm text-gray-600">
-       <span id="auth-switch">
-         ยังไม่มีบัญชี?
-         <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
-       </span>
-     </p>
+    <button onclick="googleLogin()" class="bg-red-500 text-white w-full py-2 rounded mb-2">
+      เข้าสู่ระบบด้วย Google
+    </button>
+    <p class="text-center text-sm text-gray-600">
+      <span id="auth-switch">
+        ยังไม่มีบัญชี? 
+        <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
+      </span>
+    </p>
   </div>
 </div>
-     
+
+<!-- Popup ยืนยันออกจากระบบ -->
+<div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+  <div class="bg-white rounded-lg p-6 w-full max-w-xs text-center">
+    <p class="text-lg font-semibold mb-4">คุณแน่ใจว่าต้องการออกจากระบบหรือไม่?</p>
+    <div class="flex justify-around">
+      <button onclick="cancelLogout()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">ยกเลิก</button>
+      <button onclick="confirmLogout()" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">ออกจากระบบ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ปุ่มออกจากระบบ -->
+<button id="sign-out-button" onclick="showLogoutConfirm()" class="bg-red-500 text-white px-4 py-2 rounded hidden">
+  ออกจากระบบ
+</button>
+
+<!-- JS ควบคุมทั้งหมด -->
 <script>
-  const authForm = document.getElementById('auth-form');
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const confirmPasswordGroup = document.getElementById('confirm-password-group');
-  const confirmPasswordInput = document.getElementById('confirm-password');
-  const emailError = document.getElementById('email-error');
-  const passwordError = document.getElementById('password-error');
-  const confirmPasswordError = document.getElementById('confirm-password-error');
-  const submitText = document.getElementById('submit-text');
-  const loadingSpinner = document.getElementById('loading-spinner');
-  
-  let isSignUp = false; // ตัวแปรเช็กว่าโหมด "สมัคร" หรือ "ล็อกอิน"
+  let isSignUp = false;
 
-  // เปลี่ยนโหมด (สมัคร/ล็อกอิน)
-  function switchMode(signUp) {
-    isSignUp = signUp;
-    confirmPasswordGroup.classList.toggle('hidden', !signUp);
+  function openAuthModal() {
+    document.getElementById('auth-modal').classList.remove('hidden');
   }
 
-  function showLoading(isLoading) {
-    if (isLoading) {
-      submitText.classList.add('hidden');
-      loadingSpinner.classList.remove('hidden');
-    } else {
-      submitText.classList.remove('hidden');
-      loadingSpinner.classList.add('hidden');
-    }
+  function closeAuthModal() {
+    document.getElementById('auth-modal').classList.add('hidden');
   }
 
-  authForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  function switchToSignup() {
+    isSignUp = true;
+    document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
+    document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
+    document.getElementById('auth-switch').innerHTML = `มีบัญชีอยู่แล้ว? 
+      <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
+  }
 
-    // clear ข้อความ error
-    emailError.textContent = '';
-    passwordError.textContent = '';
-    confirmPasswordError.textContent = '';
+  function switchToLogin() {
+    isSignUp = false;
+    document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
+    document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
+    document.getElementById('auth-switch').innerHTML = `ยังไม่มีบัญชี? 
+      <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
+  }
 
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
-    const confirmPassword = confirmPasswordInput.value.trim();
+  async function handleAuthAction() {
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value.trim();
 
-    if (!email) {
-      emailError.textContent = 'กรุณากรอกอีเมล';
+    if (!email || !password) {
+      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
       return;
     }
-    if (!password) {
-      passwordError.textContent = 'กรุณากรอกรหัสผ่าน';
-      return;
-    }
-    if (isSignUp && password !== confirmPassword) {
-      confirmPasswordError.textContent = 'รหัสผ่านไม่ตรงกัน';
-      return;
-    }
-
-    showLoading(true);
 
     try {
       if (isSignUp) {
@@ -370,137 +347,45 @@
         await firebase.auth().signInWithEmailAndPassword(email, password);
         alert('เข้าสู่ระบบสำเร็จ!');
       }
-      authModal.classList.add('hidden');
-      location.reload();
-    } catch (error) {
-      if (error.code.includes('email')) {
-        emailError.textContent = error.message;
-      } else if (error.code.includes('password')) {
-        passwordError.textContent = error.message;
-      } else {
-        alert(error.message);
-      }
-    } finally {
-      showLoading(false);
-    }
-  });
-
-  // ดู/ซ่อน รหัสผ่าน
-  document.getElementById('toggle-password').addEventListener('click', () => {
-    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-    document.getElementById('toggle-password').textContent = passwordInput.type === 'password' ? 'แสดง' : 'ซ่อน';
-  });
-
-  document.getElementById('toggle-confirm-password').addEventListener('click', () => {
-    confirmPasswordInput.type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
-    document.getElementById('toggle-confirm-password').textContent = confirmPasswordInput.type === 'password' ? 'แสดง' : 'ซ่อน';
-  });
-</script>
-  
-<script>
-function togglePassword(id, btn) {
-  const input = document.getElementById(id);
-  if (input.type === "password") {
-    input.type = "text";
-    btn.querySelector('svg').setAttribute('stroke', 'purple');
-  } else {
-    input.type = "password";
-    btn.querySelector('svg').setAttribute('stroke', 'currentColor');
-  }
-}
-
-function toggleRegister() {
-  const confirmPassword = document.getElementById("confirmPasswordWrapper");
-  if (confirmPassword.classList.contains("hidden")) {
-    confirmPassword.classList.remove("hidden");
-    document.getElementById("loginButton").textContent = "สมัครสมาชิก";
-  } else {
-    confirmPassword.classList.add("hidden");
-    document.getElementById("loginButton").textContent = "เข้าสู่ระบบ";
-  }
-}
-
-function closeModal() {
-  document.getElementById('authModal').classList.add('hidden');
-}
-</script>
-<script>
-function closeAuthModal() {
-  document.getElementById('auth-modal').classList.add('hidden');
-}
-
-// เปิด modal (ถ้ามีปุ่มเปิดอยู่แล้วไม่ต้องทำ)
-function openAuthModal() {
-  document.getElementById('auth-modal').classList.remove('hidden');
-}
-
-// สลับไปหน้า สมัครสมาชิก
-function switchToSignup() {
-  document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
-  document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
-  document.getElementById('auth-switch').innerHTML = `มีบัญชีอยู่แล้ว? 
-    <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
-}
-
-// สลับกลับไปหน้า เข้าสู่ระบบ
-function switchToLogin() {
-  document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
-  document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
-  document.getElementById('auth-switch').innerHTML = `ยังไม่มีบัญชี? 
-    <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
-}
-</script>
-
-<script>
-  function openAuthModal() {
-    document.getElementById('authModal').classList.remove('hidden');
-  }
-
-  function closeAuthModal() {
-    document.getElementById('authModal').classList.add('hidden');
-  }
-
-  // Firebase Email/Password Signup/Login (ใส่ logic ตรงนี้)
-  const authForm = document.getElementById('authForm');
-  authForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (confirmPassword && password !== confirmPassword) {
-      alert('รหัสผ่านไม่ตรงกัน');
-      return;
-    }
-
-    try {
-      if (confirmPassword) {
-        // สมัครสมาชิก
-        await firebase.auth().createUserWithEmailAndPassword(email, password);
-      } else {
-        // ล็อกอิน
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-      }
       closeAuthModal();
+      location.reload();
     } catch (error) {
       alert(error.message);
     }
-  });
+  }
 
-  // Google Sign-in
-  async function signInWithGoogle() {
+  async function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
       closeAuthModal();
+      location.reload();
     } catch (error) {
       alert(error.message);
     }
   }
-</script>
 
-<!-- ตรวจสอบสถานะการล็อกอิน -->
-<script>
+  // ระบบยืนยันออกจากระบบ
+  const logoutPopup = document.getElementById('logout-confirm-popup');
+
+  function showLogoutConfirm() {
+    logoutPopup.classList.remove('hidden');
+  }
+
+  function cancelLogout() {
+    logoutPopup.classList.add('hidden');
+  }
+
+  function confirmLogout() {
+    firebase.auth().signOut().then(() => {
+      logoutPopup.classList.add('hidden');
+      location.reload();
+    }).catch((error) => {
+      alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
+    });
+  }
+
+  // ตรวจสอบสถานะล็อกอิน
   firebase.auth().onAuthStateChanged(user => {
     const loginPrompt = document.getElementById('login-prompt');
     const userDetails = document.getElementById('user-details');
@@ -509,19 +394,18 @@ function switchToLogin() {
     const signOutButton = document.getElementById('sign-out-button');
 
     if (user) {
-      loginPrompt.classList.add('hidden');
-      userDetails.classList.remove('hidden');
+      if (loginPrompt) loginPrompt.classList.add('hidden');
+      if (userDetails) userDetails.classList.remove('hidden');
       signOutButton.classList.remove('hidden');
 
-      userName.textContent = user.displayName || 'ชื่อของคุณ';
-      userEmail.textContent = user.email;
+      if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';
+      if (userEmail) userEmail.textContent = user.email;
     } else {
-      loginPrompt.classList.remove('hidden');
-      userDetails.classList.add('hidden');
+      if (loginPrompt) loginPrompt.classList.remove('hidden');
+      if (userDetails) userDetails.classList.add('hidden');
       signOutButton.classList.add('hidden');
     }
   });
-</script>
 </script>
 
 <!-- เมนูด้านล่าง -->
