@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="th" class="bg-[#1e0a2a] text-white">
 <head>
- </head> <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE-STORE</title>
+  <title>GZONE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
 <link rel="manifest" href="./manifest.json">
@@ -264,56 +264,47 @@
 </div>
 </div>
 
- <!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
-<div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-purple-700 via-black to-purple-900 bg-opacity-90 z-50 hidden">
-  <div class="bg-white rounded-2xl p-8 w-full max-w-sm relative shadow-2xl">
-
-    <!-- ปุ่มปิด Modal -->
-    <button class="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl" onclick="closeAuthModal()">&times;</button>
-
-    <!-- หัวข้อ Modal -->
-    <h2 id="auth-title" class="text-2xl font-bold mb-6 text-center text-purple-700">เข้าสู่ระบบ</h2>
-
-    <!-- ฟอร์ม -->
+<!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
+ div
+  id="auth-modal"
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden"
+>
+  <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
+    <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthilodal()">&times;</button>
+    <h2 id="auth-title" class="text-ig font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
     <input
       type="email"
       id="auth-email"
-      placeholder="อีเมล"
-      class="w-full mb-3 px-4 py-3 border rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+      placeholder="อิเมล"
+      class="w-full mb-2 px-3 py-2 border rounded"
     />
-
     <input
       type="password"
       id="auth-password"
       placeholder="รหัสผ่าน"
-      class="w-full mb-4 px-4 py-3 border rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+      class="w-full mb-4 px-3 py-2 border rounded"
     />
-
     <button
       id="auth-action-button"
-      class="bg-gradient-to-r from-purple-600 to-purple-800 text-white w-full py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-900 transition mb-3"
+      class="bg-purple-600 text-white w-full py-2 rounded mb-2"
     >
-      เข้าสู่ระบบ
+    เข้าสู่ระบบ
     </button>
-
     <button
-      onclick="googleLogin()"
-      class="bg-white border border-gray-300 text-black w-full py-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition mb-4"
-    >
-      <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Icon" class="w-5 h-5 mr-3">
-      เข้าสู่ระบบด้วย Google
-    </button>
-
-    <!-- สลับระหว่างล็อกอิน/สมัคร -->
-    <p class="text-center text-sm text-gray-600">
-      <span id="auth-switch">
-        ยังไม่มีบัญชี?
-        <button onclick="switchToSignup()" class="text-purple-600 hover:underline font-medium">สมัครสมาชิก</button>
-      </span>
-    </p>
+       onclick="googleLogin()"
+       class="bg-red-500 text-white w-full py-2 rounded mb-2"
+     >
+       เข้าสู่ระบบด้วย Google
+     </button>
+     <p class="text-center text-sm text-gray-600">
+       <span id="auth-switch">
+         ยังไม่มีบัญชี?
+         <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
+       </span>
+     </p>
   </div>
 </div>
-
+     
 <script>
   const authForm = document.getElementById('auth-form');
   const emailInput = document.getElementById('email');
