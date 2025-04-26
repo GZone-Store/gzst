@@ -276,7 +276,7 @@ authActionBtn.addEventListener('click', () => {
 
 function googleLogin() {
 const provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth().signInWithRedirect(provider)
+firebase.auth().signInWithpopup(provider)
 .then(closeAuthModal)
 .catch(error => alert(error.message));
     
