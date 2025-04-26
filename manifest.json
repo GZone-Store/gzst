@@ -1,0 +1,21 @@
+{
+  "name": "GZONE App version",
+  "short_name": "GZone",
+  "description": "ติดตั้งเพื่อความสะดวกต่อการใช้งาน",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "/images/gzone_icon.png",  // ไอคอนที่ใช้แสดงในหน้าจอ
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/gzone_icon.png",  // ไอคอนขนาดใหญ่
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
