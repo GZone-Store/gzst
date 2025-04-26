@@ -249,44 +249,45 @@
 
 <!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
 <div
-id="auth-modal"
-class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden"
+ id="auth-modal"
+ class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden"
 >
 <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
-<button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthilodal()">&times;</button>
-<h2 id="auth-title" class="text-ig font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
-<input
-type="email"
-id="auth-email"
-placeholder="อีเมล"
-class="w-full mb-2 px-3 py-2 border rounded"
+ <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthilodal()">&times;</button>
+ <h2 id="auth-title" class="text-ig font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
+ <input
+   type="email"
+   id="auth-email"
+   placeholder="อีเมล"
+   class="w-full mb-2 px-3 py-2 border rounded"
 />
 <input
-type="password"
-id="auth-password"
-placeholder="รหัสผ่าน"
-class="w-full mb-4 px-3 py-2 border rounded"
+  type="password"
+  id="auth-password"
+  placeholder="รหัสผ่าน"
+  class="w-full mb-4 px-3 py-2 border rounded"
 />
 <button
-id="auth-action-button"
-class="bg-purple-600 text-white w-full py-2 rounded mb-2"
+  id="auth-action-button"
+  class="bg-purple-600 text-white w-full py-2 rounded mb-2"
 >
  เข้าสู่ระบบ
 </button>
 <button
-onclick="googleLogin()"
-class="bg-red-500 text-white w-full py-2 rounded mb-2"
+ onclick="googleLogin()"
+ class="bg-red-500 text-white w-full py-2 rounded mb-2"
 >
  เข้าสู่ระบบด้วย Google
-  </button>
+</button>
 <p class="text-center text-sm text-gray-600">
-<span id="auth-switch">
+  <span id="auth-switch">
   ยังไม่มีบัญชี?
   <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
- </span>
-</p>
+  </span>
+ </p>
 </div>
-
+</div>
+  
 <script>
 function togglePassword(id, btn) {
   const input = document.getElementById(id);
