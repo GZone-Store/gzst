@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE-STORE</title>
+  <title>GZONE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
 <link rel="manifest" href="./manifest.json">
@@ -252,200 +252,186 @@
       });
   }
  </script> 
-   
-<!-- ปุ่มออกจากระบบ -->
-<button
-  onclick="firebase.auth().signOut()"
-  class="hidden w-full mt-6 bg-red-700 hover:bg-red-800 text-white font-medium px-4 py-3 rounded-xl"
-  id="sign-out-button"
->
-  ออกจากระบบ
-</button>
-</div>
-</div>
 
-<!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
-<div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-  <div class="bg-white rounded-lg p-8 w-full max-w-md relative">
-    <button class="absolute top-3 right-4 text-gray-400 text-2xl" onclick="closeAuthModal()">&times;</button>
-    <h2 id="auth-title" class="text-2xl font-bold text-center mb-6">เข้าสู่ระบบ</h2>
-
-    <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-3 px-4 py-2 border rounded" />
-    <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-4 px-4 py-2 border rounded" />
-
-    <div id="confirm-password-wrapper" class="hidden">
-      <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน" class="w-full mb-4 px-4 py-2 border rounded" />
-    </div>
-
-    <button id="auth-action-button" onclick="submitAuth()" class="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 rounded mb-3">
+<!-- Modal สมัครสมาชิก / เข้าสู่ระบบ --><div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
+  <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
+    <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthModal()">&times;</button>
+    <h2 id="auth-title" class="text-lg font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
+    <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-2 px-3 py-2 border rounded" />
+    <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-2 px-3 py-2 border rounded" />
+    <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน" class="w-full mb-4 px-3 py-2 border rounded hidden" />
+    <button id="auth-action-button" onclick="handleAuthAction()" class="bg-purple-600 text-white w-full py-2 rounded mb-2">
       เข้าสู่ระบบ
     </button>
-
-    <button onclick="signInWithGoogle()" class="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded mb-4">
+    <button onclick="googleLogin()" class="bg-red-500 text-white w-full py-2 rounded mb-2">
       เข้าสู่ระบบด้วย Google
     </button>
-
     <p class="text-center text-sm text-gray-600">
       <span id="auth-switch">
-        ยังไม่มีบัญชี?
-        <button onclick="switchToSignup()" class="text-purple-600 font-semibold">สมัครสมาชิก</button>
+        ยังไม่มีบัญชี? 
+        <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
       </span>
     </p>
   </div>
-</div>
-
-<!-- Modal ยืนยันออกจากระบบ -->
-<div id="logout-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-  <div class="bg-white rounded-lg p-8 w-full max-w-xs text-center">
-    <p class="text-lg font-bold mb-6">คุณแน่ใจว่าต้องการออกจากระบบ?</p>
+</div><!-- ปุ่มเปิด Modal --><button onclick="openAuthModal()" class="bg-blue-500 text-white px-4 py-2 rounded">
+  เข้าสู่ระบบ / สมัครสมาชิก
+</button><!-- Popup ยืนยันออกจากระบบ --><div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+  <div class="bg-white rounded-lg p-6 w-full max-w-xs text-center">
+    <p class="text-lg font-semibold mb-4">คุณแน่ใจว่าต้องการออกจากระบบหรือไม่?</p>
     <div class="flex justify-around">
-      <button onclick="cancelLogout()" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">
-        ยกเลิก
-      </button>
-      <button onclick="confirmLogout()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
-        ออกจากระบบ
-      </button>
+      <button onclick="cancelLogout()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">ยกเลิก</button>
+      <button onclick="confirmLogout()" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">ออกจากระบบ</button>
     </div>
   </div>
-</div>
-
-<!-- Modal ดาวน์โหลดแอป -->
-<div id="download-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-  <div class="bg-white rounded-lg p-8 w-full max-w-xs text-center">
-    <p class="text-lg font-bold mb-6">คุณต้องการดาวน์โหลดแอปหรือไม่?</p>
-    <div class="flex justify-around">
-      <button onclick="cancelDownload()" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">
-        ยกเลิก
-      </button>
-      <a href="ลิงก์ไฟล์แอป.apk" download class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
-        ดาวน์โหลด
-      </a>
-    </div>
-  </div>
-</div>
-
-<button onclick="openDownloadModal()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-  ดาวน์โหลดแอป
-</button>
-<script>
-function openDownloadModal() {
-  document.getElementById('download-modal').classList.remove('hidden');
-}
-function cancelDownload() {
-  document.getElementById('download-modal').classList.add('hidden');
-}
-</script>
-  
-<!-- ปุ่มออกจากระบบ -->
-<button id="sign-out-button" onclick="showLogoutConfirm()" class="bg-red-500 text-white px-4 py-2 rounded hidden">
+</div><!-- ปุ่มออกจากระบบ --><button id="sign-out-button" onclick="showLogoutConfirm()" class="bg-red-500 text-white px-4 py-2 rounded hidden">
   ออกจากระบบ
-</button>
+</button><!-- JavaScript ควบคุม --><script>
+let isSignUp = false;
 
-<!-- JS ควบคุมทั้งหมด -->
-<script>
-  let isSignUp = false;
+function openAuthModal() {
+  document.getElementById('auth-modal').classList.remove('hidden');
+}
 
-  function openAuthModal() {
-    document.getElementById('auth-modal').classList.remove('hidden');
-  }
+function closeAuthModal() {
+  document.getElementById('auth-modal').classList.add('hidden');
+}
 
-  function closeAuthModal() {
-    document.getElementById('auth-modal').classList.add('hidden');
-  }
+function switchToSignup() {
+  isSignUp = true;
+  document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
+  document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
+  document.getElementById('auth-switch').innerHTML = `มีบัญชีอยู่แล้ว? <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
+  document.getElementById('auth-confirm-password').classList.remove('hidden');
+}
 
-  function switchToSignup() {
-    isSignUp = true;
-    document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
-    document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
-    document.getElementById('auth-switch').innerHTML = `มีบัญชีอยู่แล้ว? 
-      <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
-  }
+function switchToLogin() {
+  isSignUp = false;
+  document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
+  document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
+  document.getElementById('auth-switch').innerHTML = `ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
+  document.getElementById('auth-confirm-password').classList.add('hidden');
+}
 
-  function switchToLogin() {
-    isSignUp = false;
-    document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
-    document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
-    document.getElementById('auth-switch').innerHTML = `ยังไม่มีบัญชี? 
-      <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
-  }
+async function generateUniqueUsername() {
+  const db = firebase.firestore();
+  let uniqueUsername = '';
+  let isUnique = false;
 
-  async function handleAuthAction() {
-    const email = document.getElementById('auth-email').value.trim();
-    const password = document.getElementById('auth-password').value.trim();
-
-    if (!email || !password) {
-      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-      return;
-    }
-
-    try {
-      if (isSignUp) {
-        await firebase.auth().createUserWithEmailAndPassword(email, password);
-        alert('สมัครสมาชิกสำเร็จ!');
-      } else {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-        alert('เข้าสู่ระบบสำเร็จ!');
-      }
-      closeAuthModal();
-      location.reload();
-    } catch (error) {
-      alert(error.message);
+  while (!isUnique) {
+    const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
+    const doc = await db.collection('usernames').doc(randomUsername).get();
+    if (!doc.exists) {
+      uniqueUsername = randomUsername;
+      isUnique = true;
     }
   }
 
-  async function googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    try {
-      await firebase.auth().signInWithPopup(provider);
-      closeAuthModal();
-      location.reload();
-    } catch (error) {
-      alert(error.message);
-    }
+  return uniqueUsername;
+}
+
+async function handleAuthAction() {
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value.trim();
+  const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
+
+  if (!email || !password || (isSignUp && !confirmPassword)) {
+    alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+    return;
   }
 
-  // ระบบยืนยันออกจากระบบ
-  const logoutPopup = document.getElementById('logout-confirm-popup');
-
-  function showLogoutConfirm() {
-    logoutPopup.classList.remove('hidden');
+  if (isSignUp && password !== confirmPassword) {
+    alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
+    return;
   }
 
-  function cancelLogout() {
-    logoutPopup.classList.add('hidden');
-  }
+  try {
+    if (isSignUp) {
+      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+      const uniqueUsername = await generateUniqueUsername();
 
-  function confirmLogout() {
-    firebase.auth().signOut().then(() => {
-      logoutPopup.classList.add('hidden');
-      location.reload();
-    }).catch((error) => {
-      alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
-    });
-  }
+      await user.updateProfile({ displayName: uniqueUsername });
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
 
-  // ตรวจสอบสถานะล็อกอิน
-  firebase.auth().onAuthStateChanged(user => {
-    const loginPrompt = document.getElementById('login-prompt');
-    const userDetails = document.getElementById('user-details');
-    const userName = document.getElementById('user-name');
-    const userEmail = document.getElementById('user-email');
-    const signOutButton = document.getElementById('sign-out-button');
-
-    if (user) {
-      if (loginPrompt) loginPrompt.classList.add('hidden');
-      if (userDetails) userDetails.classList.remove('hidden');
-      signOutButton.classList.remove('hidden');
-
-      if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';
-      if (userEmail) userEmail.textContent = user.email;
+      alert('สมัครสมาชิกสำเร็จ!');
     } else {
-      if (loginPrompt) loginPrompt.classList.remove('hidden');
-      if (userDetails) userDetails.classList.add('hidden');
-      signOutButton.classList.add('hidden');
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      alert('เข้าสู่ระบบสำเร็จ!');
     }
+
+    closeAuthModal();
+    location.reload();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+async function googleLogin() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  try {
+    const result = await firebase.auth().signInWithPopup(provider);
+    const user = result.user;
+
+    if (result.additionalUserInfo.isNewUser) {
+      const uniqueUsername = await generateUniqueUsername();
+
+      await user.updateProfile({ displayName: uniqueUsername });
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+    closeAuthModal();
+    location.reload();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+const logoutPopup = document.getElementById('logout-confirm-popup');
+
+function showLogoutConfirm() {
+  logoutPopup.classList.remove('hidden');
+}
+
+function cancelLogout() {
+  logoutPopup.classList.add('hidden');
+}
+
+function confirmLogout() {
+  firebase.auth().signOut().then(() => {
+    logoutPopup.classList.add('hidden');
+    location.reload();
+  }).catch((error) => {
+    alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
   });
-</script>
+}
+
+firebase.auth().onAuthStateChanged(user => {
+  const loginPrompt = document.getElementById('login-prompt');
+  const userDetails = document.getElementById('user-details');
+  const userName = document.getElementById('user-name');
+  const userEmail = document.getElementById('user-email');
+  const signOutButton = document.getElementById('sign-out-button');
+
+  if (user) {
+    if (loginPrompt) loginPrompt.classList.add('hidden');
+    if (userDetails) userDetails.classList.remove('hidden');
+    signOutButton.classList.remove('hidden');
+
+    if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';
+    if (userEmail) userEmail.textContent = user.email;
+  } else {
+    if (loginPrompt) loginPrompt.classList.remove('hidden');
+    if (userDetails) userDetails.classList.add('hidden');
+    signOutButton.classList.add('hidden');
+  }
+});
+</script>    
 
 <!-- เมนูด้านล่าง -->
 <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
