@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GZone</title>
+  <title>GZone-Store</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <style>
@@ -247,46 +247,94 @@
 </div>
 </div>
 
-<!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
-<div
-  id="auth-modal"
-  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden"
->
-  <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
-    <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthModal()">&times;</button>
-    <h2 id="auth-title" class="text-lg font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
-    <input
-      type="email"
-      id="auth-email"
-      placeholder="อีเมล"
-      class="w-full mb-2 px-3 py-2 border rounded"
-    />
-    <input
-      type="password"
-      id="auth-password"
-      placeholder="รหัสผ่าน"
-      class="w-full mb-4 px-3 py-2 border rounded"
-    />
-    <button
-      id="auth-action-button"
-      class="bg-purple-600 text-white w-full py-2 rounded mb-2"
-    >
-      เข้าสู่ระบบ
+<!-- เริ่ม Modal -->
+<div id="authModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+  <div class="bg-white w-11/12 max-w-md rounded-2xl overflow-hidden p-6 relative">
+
+    <!-- Logo และข้อความต้อนรับ -->
+    <div class="flex flex-col items-center mb-6">
+      <img src="โลโก้ของคุณ.png" alt="Logo" class="w-20 h-20 object-contain mb-2" />
+      <h2 class="text-lg font-semibold text-gray-700 text-center">ยินดีต้อนรับ</h2>
+      <p class="text-sm text-gray-500 text-center">สมัครสมาชิกหรือเข้าสู่ระบบเพื่อดำเนินการต่อ</p>
+    </div>
+
+    <!-- Form Input -->
+    <div class="space-y-4">
+      <input id="emailInput" type="email" placeholder="อีเมล" class="w-full px-4 py-2 border rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+
+      <div class="relative">
+        <input id="passwordInput" type="password" placeholder="รหัสผ่าน" class="w-full px-4 py-2 border rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+        <button type="button" onclick="togglePassword('passwordInput', this)" class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- ช่องยืนยันรหัสผ่าน -->
+      <div id="confirmPasswordWrapper" class="relative hidden">
+        <input id="confirmPasswordInput" type="password" placeholder="ยืนยันรหัสผ่าน" class="w-full px-4 py-2 border rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+        <button type="button" onclick="togglePassword('confirmPasswordInput', this)" class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- ปุ่มเข้าสู่ระบบ -->
+      <button id="loginButton" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-xl">
+        เข้าสู่ระบบ
+      </button>
+
+      <!-- ปุ่ม Google login -->
+      <button id="googleLoginButton" class="w-full flex items-center justify-center space-x-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-xl">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" />
+        <span>เข้าสู่ระบบด้วย Google</span>
+      </button>
+
+      <!-- ลิงก์สมัครสมาชิก -->
+      <p class="text-center text-sm text-gray-600 mt-4">
+        ยังไม่มีบัญชี? <a href="#" class="text-purple-600 font-semibold" onclick="toggleRegister()">สมัครสมาชิก</a>
+      </p>
+    </div>
+
+    <!-- ปิด Modal -->
+    <button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" onclick="closeModal()">
+      &#10005;
     </button>
-    <button
-      onclick="googleLogin()"
-      class="bg-red-500 text-white w-full py-2 rounded mb-2"
-    >
-      เข้าสู่ระบบด้วย Google
-    </button>
-    <p class="text-center text-sm text-gray-600">
-      <span id="auth-switch">
-        ยังไม่มีบัญชี?
-        <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
-      </span>
-    </p>
   </div>
 </div>
+<!-- จบ Modal -->
+
+<script>
+function togglePassword(id, btn) {
+  const input = document.getElementById(id);
+  if (input.type === "password") {
+    input.type = "text";
+    btn.querySelector('svg').setAttribute('stroke', 'purple');
+  } else {
+    input.type = "password";
+    btn.querySelector('svg').setAttribute('stroke', 'currentColor');
+  }
+}
+
+function toggleRegister() {
+  const confirmPassword = document.getElementById("confirmPasswordWrapper");
+  if (confirmPassword.classList.contains("hidden")) {
+    confirmPassword.classList.remove("hidden");
+    document.getElementById("loginButton").textContent = "สมัครสมาชิก";
+  } else {
+    confirmPassword.classList.add("hidden");
+    document.getElementById("loginButton").textContent = "เข้าสู่ระบบ";
+  }
+}
+
+function closeModal() {
+  document.getElementById('authModal').classList.add('hidden');
+}
+</script>
 
 <!-- Script จัดการ Modal และ Firebase Auth -->
 <script>
