@@ -7,7 +7,7 @@
   <title>GZone</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#1e0a2a">
 <link rel="apple-touch-icon" href="images/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -241,14 +241,17 @@
 </details>
 <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">ภาษา</a>
 
-  <!-- Register service worker -->
-<script>
+ <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js')
-      .then(reg => console.log('Service Worker registered!', reg))
-      .catch(err => console.error('Service Worker registration failed:', err));
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(registration => {
+        console.log('Service Worker Registered');
+      })
+      .catch(error => {
+        console.log('Service Worker Registration Failed:', error);
+      });
   }
-</script> 
+ </script> 
    
 <!-- ปุ่มออกจากระบบ -->
 <button
