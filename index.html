@@ -335,6 +335,32 @@ function closeModal() {
   document.getElementById('authModal').classList.add('hidden');
 }
 </script>
+<script>
+function closeAuthModal() {
+  document.getElementById('auth-modal').classList.add('hidden');
+}
+
+// เปิด modal (ถ้ามีปุ่มเปิดอยู่แล้วไม่ต้องทำ)
+function openAuthModal() {
+  document.getElementById('auth-modal').classList.remove('hidden');
+}
+
+// สลับไปหน้า สมัครสมาชิก
+function switchToSignup() {
+  document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
+  document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
+  document.getElementById('auth-switch').innerHTML = `มีบัญชีอยู่แล้ว? 
+    <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
+}
+
+// สลับกลับไปหน้า เข้าสู่ระบบ
+function switchToLogin() {
+  document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
+  document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
+  document.getElementById('auth-switch').innerHTML = `ยังไม่มีบัญชี? 
+    <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
+}
+</script>
 
 <!-- Script จัดการ Modal และ Firebase Auth -->
 <script>
