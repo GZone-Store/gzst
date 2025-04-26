@@ -265,43 +265,77 @@
 </div>
 
 <!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
-<div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
-  <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
-    <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthModal()">&times;</button>
-    <h2 id="auth-title" class="text-lg font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
-    <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-2 px-3 py-2 border rounded" />
-    <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-4 px-3 py-2 border rounded" />
-    <button id="auth-action-button" onclick="handleAuthAction()" class="bg-purple-600 text-white w-full py-2 rounded mb-2">
+<div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+  <div class="bg-white rounded-lg p-8 w-full max-w-md relative">
+    <button class="absolute top-3 right-4 text-gray-400 text-2xl" onclick="closeAuthModal()">&times;</button>
+    <h2 id="auth-title" class="text-2xl font-bold text-center mb-6">เข้าสู่ระบบ</h2>
+
+    <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-3 px-4 py-2 border rounded" />
+    <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-4 px-4 py-2 border rounded" />
+
+    <div id="confirm-password-wrapper" class="hidden">
+      <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน" class="w-full mb-4 px-4 py-2 border rounded" />
+    </div>
+
+    <button id="auth-action-button" onclick="submitAuth()" class="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 rounded mb-3">
       เข้าสู่ระบบ
     </button>
-    <button onclick="googleLogin()" class="bg-red-500 text-white w-full py-2 rounded mb-2">
+
+    <button onclick="signInWithGoogle()" class="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded mb-4">
       เข้าสู่ระบบด้วย Google
     </button>
+
     <p class="text-center text-sm text-gray-600">
       <span id="auth-switch">
-        ยังไม่มีบัญชี? 
-        <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
+        ยังไม่มีบัญชี?
+        <button onclick="switchToSignup()" class="text-purple-600 font-semibold">สมัครสมาชิก</button>
       </span>
     </p>
   </div>
 </div>
 
-<!-- ตัวอย่างปุ่มเปิด Modal -->
-<button onclick="openAuthModal()" class="bg-blue-500 text-white px-4 py-2 rounded">
-  เข้าสู่ระบบ / สมัครสมาชิก
-</button>  
-  
-<!-- Popup ยืนยันออกจากระบบ -->
-<div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-  <div class="bg-white rounded-lg p-6 w-full max-w-xs text-center">
-    <p class="text-lg font-semibold mb-4">คุณแน่ใจว่าต้องการออกจากระบบหรือไม่?</p>
+<!-- Modal ยืนยันออกจากระบบ -->
+<div id="logout-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+  <div class="bg-white rounded-lg p-8 w-full max-w-xs text-center">
+    <p class="text-lg font-bold mb-6">คุณแน่ใจว่าต้องการออกจากระบบ?</p>
     <div class="flex justify-around">
-      <button onclick="cancelLogout()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">ยกเลิก</button>
-      <button onclick="confirmLogout()" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">ออกจากระบบ</button>
+      <button onclick="cancelLogout()" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">
+        ยกเลิก
+      </button>
+      <button onclick="confirmLogout()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+        ออกจากระบบ
+      </button>
     </div>
   </div>
 </div>
 
+<!-- Modal ดาวน์โหลดแอป -->
+<div id="download-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+  <div class="bg-white rounded-lg p-8 w-full max-w-xs text-center">
+    <p class="text-lg font-bold mb-6">คุณต้องการดาวน์โหลดแอปหรือไม่?</p>
+    <div class="flex justify-around">
+      <button onclick="cancelDownload()" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">
+        ยกเลิก
+      </button>
+      <a href="ลิงก์ไฟล์แอป.apk" download class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+        ดาวน์โหลด
+      </a>
+    </div>
+  </div>
+</div>
+
+<button onclick="openDownloadModal()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+  ดาวน์โหลดแอป
+</button>
+<script>
+function openDownloadModal() {
+  document.getElementById('download-modal').classList.remove('hidden');
+}
+function cancelDownload() {
+  document.getElementById('download-modal').classList.add('hidden');
+}
+</script>
+  
 <!-- ปุ่มออกจากระบบ -->
 <button id="sign-out-button" onclick="showLogoutConfirm()" class="bg-red-500 text-white px-4 py-2 rounded hidden">
   ออกจากระบบ
