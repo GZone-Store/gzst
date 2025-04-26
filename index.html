@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="th" class="bg-[#1e0a2a] text-white">
 <head>
-  <meta charset="UTF-8" />
+ </head> <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GZone-Store</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/images/gzone_icong1.png">
+  <link rel="icon" href="/images/gzone_icong2.png">
   <style>
     @keyframes marquee {
       0% { transform: translateX(100%); }
@@ -233,9 +236,40 @@
   
 <!-- ปุ่มเมนูอื่น -->
 </details>
-<a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">Download App</a>
 <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">ภาษา</a>
 
+<button id="downloadAppBtn">ดาวน์โหลดแอป</button>
+
+<div id="downloadPopup" class="hidden">
+  <div class="popup-content">
+    <p>คุณต้องการดาวน์โหลดแอปไหม?</p>
+    <button id="confirmDownloadBtn">ยืนยัน</button>
+    <button id="cancelDownloadBtn">ยกเลิก</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById('downloadAppBtn').addEventListener('click', () => {
+    document.getElementById('downloadPopup').classList.remove('hidden');
+  });
+
+  document.getElementById('cancelDownloadBtn').addEventListener('click', () => {
+    document.getElementById('downloadPopup').classList.add('hidden');
+  });
+
+  document.getElementById('confirmDownloadBtn').addEventListener('click', () => {
+    window.location.href = "https://gzone-store.github.io/gzst./"; // เปลี่ยนลิงก์นี้ตามไฟล์จริง
+  });
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log("Service Worker registered", reg))
+      .catch(err => console.error("SW registration failed", err));
+  }
+</script>
+
+    
 <!-- ปุ่มออกจากระบบ -->
 <button
   onclick="firebase.auth().signOut()"
