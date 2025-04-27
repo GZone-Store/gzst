@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE-STORE</title>
+  <title>GZONE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
 <link rel="manifest" href="./manifest.json">
@@ -457,6 +457,7 @@ triggerGlow();
     });
   }
 
+  <script>
   // ฟังก์ชันสำหรับเช็คสถานะการล็อกอิน
   firebase.auth().onAuthStateChanged(user => {
     const loginPrompt = document.getElementById('login-prompt');
@@ -466,53 +467,19 @@ triggerGlow();
     const signOutButton = document.getElementById('sign-out-button');
 
     if (user) {
+      // ถ้าผู้ใช้ล็อกอินแล้ว
       loginPrompt.classList.add('hidden');
       userDetails.classList.remove('hidden');
       userName.textContent = user.displayName || 'ชื่อของคุณ';
       userEmail.textContent = user.email;
-      signOutButton.classList.remove('hidden');
+      signOutButton.classList.remove('hidden');  // แสดงปุ่มออกจากระบบ
     } else {
+      // ถ้าผู้ใช้ยังไม่ได้ล็อกอิน
       loginPrompt.classList.remove('hidden');
       userDetails.classList.add('hidden');
-      signOutButton.classList.add('hidden');
+      signOutButton.classList.add('hidden');  // ซ่อนปุ่มออกจากระบบ
     }
   });
-
-  // อัปเดต UI หลังจากผู้ใช้ล็อกอิน
-  function updateUIAfterLogin() {
-    firebase.auth().onAuthStateChanged(user => {
-      const loginPrompt = document.getElementById('login-prompt');
-      const userDetails = document.getElementById('user-details');
-      const userName = document.getElementById('user-name');
-      const userEmail = document.getElementById('user-email');
-      const signOutButton = document.getElementById('sign-out-button');
-
-      if (user) {
-        loginPrompt.classList.add('hidden');
-        userDetails.classList.remove('hidden');
-        userName.textContent = user.displayName || 'ชื่อของคุณ';
-        userEmail.textContent = user.email;
-        signOutButton.classList.remove('hidden');
-      } else {
-        loginPrompt.classList.remove('hidden');
-        userDetails.classList.add('hidden');
-        signOutButton.classList.add('hidden');
-      }
-    });
-  }
-
-  // อัปเดต UI หลังจากออกจากระบบ
-  function updateUIAfterLogout() {
-    const loginPrompt = document.getElementById('login-prompt');
-    const userDetails = document.getElementById('user-details');
-    const userName = document.getElementById('user-name');
-    const userEmail = document.getElementById('user-email');
-    const signOutButton = document.getElementById('sign-out-button');
-
-    loginPrompt.classList.remove('hidden');
-    userDetails.classList.add('hidden');
-    signOutButton.classList.add('hidden');
-  }
 </script>
     
 <!-- เมนูด้านล่าง -->
