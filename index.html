@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE-STORE</title>
+  <title>GZONE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
 <link rel="manifest" href="./manifest.json">
@@ -183,13 +183,12 @@
   </div>
 
   <!-- ปุ่มเปิด Modal -->
-  <div class="fixed bottom-12 w-full bg-black flex justify-center py-4 space-x-4">
-    <button id="login-signup-button"
-  <button onclick="openAuthModal()" class="relative overflow-hidden rounded-full border-2 border-purple-500 text-white px-8 py-3 font-bold transition-all duration-300 hover:bg-purple-700">
-  เข้าสู่ระบบ / สมัครสมาชิก
-  <span class="absolute inset-0 animate-glow opacity-0 border-2 border-gradient-to-r from-purple-400 via-pink-500 to-purple-400 rounded-full"></span>
-    </button>
-  </div>
+<div class="fixed bottom-12 w-full bg-black flex justify-center py-4 space-x-4">
+  <button id="login-signup-button" onclick="openAuthModal()" class="relative overflow-hidden rounded-full border-2 border-purple-500 text-white px-8 py-3 font-bold transition-all duration-300 hover:bg-purple-700">
+    เข้าสู่ระบบ / สมัครสมาชิก
+    <span class="absolute inset-0 animate-glow opacity-0 border-2 border-gradient-to-r from-purple-400 via-pink-500 to-purple-400 rounded-full"></span>
+  </button>
+</div>
 
   <!-- แสดงข้อมูลผู้ใช้ -->
   <div id="user-details" class="hidden mt-16 text-center">
