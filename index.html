@@ -145,7 +145,18 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics(); // หากต้องการใช้ Analytics
   </script>
-    
+  
+     <!-- หน้าบัญชี -->
+<div id="account" class="hidden flex-1 pb-16">
+  <div class="relative">
+    <!-- ภาพปกหลัง -->
+    <img src="cover.jpg" class="w-full h-32 object-cover" />
+    <!-- รูปโปรไฟล์ -->
+    <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+      <img src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" />
+    </div>
+  </div>
+
       <!-- เมื่อผู้ใช้เข้าสู่ระบบ -->
       <div class="hidden" id="user-details">
         <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>    
