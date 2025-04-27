@@ -252,6 +252,8 @@
         </a>
       </div>
 
+   <!-- เมนูอื่นๆ -->
+    </details>
     <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">กรอกโค้ด</a>
       
 <!-- CSS ไล่แสง -->
@@ -291,17 +293,41 @@ triggerGlow();
   }
  </script> 
 
-  <!-- Popup ยืนยันออกจากระบบ --><div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-   <div class="bg-white rounded-lg p-6 w-full max-w-xs text-center">
-     <p class="text-lg font-semibold mb-4">คุณแน่ใจว่าต้องการออกจากระบบหรือไม่?</p>
-     <div class="flex justify-around">
-       <button onclick="cancelLogout()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">ยกเลิก</button>
-       <button onclick="confirmLogout()" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">ออกจากระบบ</button>
-     </div>
-   </div>
- </div><!-- ปุ่มออกจากระบบ --><button id="sign-out-button" onclick="showLogoutConfirm()" class="bg-red-500 text-white px-4 py-2 rounded hidden">
-   ออกจากระบบ
- </button><!-- JavaScript ควบคุม --><script>
+  <!-- Popup ยืนยันออกจากระบบ -->
+   <div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl p-8 w-[90%] max-w-sm text-center animate-fade-in-up">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">ยืนยันการออกจากระบบ</h2>
+    <p class="text-gray-500 mb-6">คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ?</p>
+    <div class="flex gap-4 justify-center">
+      <button onclick="cancelLogout()" class="flex-1 py-2 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 transition">ยกเลิก</button>
+      <button onclick="confirmLogout()" class="flex-1 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition">ออกจากระบบ</button>
+    </div>
+  </div>
+</div>
+
+<!-- CSS เสริม (อนิเมชั่นเบา ๆ) -->
+<style>
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s ease-out;
+}
+</style>
+
+
+  <!-- ปุ่มออกจากระบบ -->
+<button id="sign-out-button" onclick="showLogoutConfirm()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-2xl text-lg font-semibold shadow-md hover:from-red-600 hover:to-red-700 transition hidden">
+  ออกจากระบบ
+</button>
+ <!-- JavaScript ควบคุม --><script>
  let isSignUp = false;
  
  function openAuthModal() {
