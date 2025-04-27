@@ -184,6 +184,7 @@
 
   <!-- ปุ่มเปิด Modal -->
   <div class="fixed bottom-0 w-full bg-black flex justify-center py-4 space-x-4">
+    <button <id="login-signup-button"
     <button onclick="openAuthModal()" class="relative overflow-hidden rounded-full border-2 border-purple-500 text-white px-8 py-3 font-bold transition-all duration-300 hover:bg-purple-700">
       เข้าสู่ระบบ / สมัครสมาชิก
       <span class="absolute inset-0 animate-glow opacity-0 border-2 border-gradient-to-r from-purple-400 via-pink-500 to-purple-400 rounded-full"></span>
@@ -327,6 +328,19 @@ triggerGlow();
 <button id="sign-out-button" onclick="showLogoutConfirm()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-2xl text-lg font-semibold shadow-md hover:from-red-600 hover:to-red-700 transition hidden">
   ออกจากระบบ
 </button>
+  <!-- เช็คสถานะล็อคอิน -->
+   <script>
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    document.getElementById('login-signup-button').classList.add('hidden');
+    document.getElementById('sign-out-button').classList.remove('hidden');
+  } else {
+    document.getElementById('login-signup-button').classList.remove('hidden');
+    document.getElementById('sign-out-button').classList.add('hidden');
+  }
+});
+   </script>
+    
  <!-- JavaScript ควบคุม --><script>
  let isSignUp = false;
  
