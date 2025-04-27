@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE.com</title>
+  <title>GZONE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
 <link rel="manifest" href="./manifest.json">
@@ -157,7 +157,67 @@
     </div>
   </div>
 
-      <!-- เมื่อผู้ใช้เข้าสู่ระบบ -->
+  <!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
+    <div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
+   <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
+     <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthModal()">&times;</button>
+     <h2 id="auth-title" class="text-lg font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
+     <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-2 px-3 py-2 border rounded" />
+     <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-2 px-3 py-2 border rounded" />
+     <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน" class="w-full mb-4 px-3 py-2 border rounded hidden" />
+     <button id="auth-action-button" onclick="handleAuthAction()" class="bg-purple-600 text-white w-full py-2 rounded mb-2">
+       เข้าสู่ระบบ
+     </button>
+     <button onclick="googleLogin()" class="bg-red-500 text-white w-full py-2 rounded mb-2">
+       เข้าสู่ระบบด้วย Google
+     </button>
+     <p class="text-center text-sm text-gray-600">
+       <span id="auth-switch">
+         ยังไม่มีบัญชี? 
+         <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
+       </span>
+     </p>
+   </div>
+ </div><!-- ปุ่มเปิด Modal -->
+   <div class="fixed bottom-0 w-full bg-black flex justify-center py-4 space-x-4">
+  <!-- ปุ่มเข้าสู่ระบบ / สมัครสมาชิก -->
+  <button onclick="openAuthModal()" class="relative overflow-hidden rounded-full border-2 border-purple-500 text-white px-8 py-3 font-bold transition-all duration-300 hover:bg-purple-700">
+    เข้าสู่ระบบ / สมัครสมาชิก
+    <span class="absolute inset-0 border-2 border-gradient-to-r from-purple-400 via-pink-500 to-purple-400 animate-glow opacity-0"></span>
+  </button>
+</div>
+
+<style>
+@keyframes glow-border {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.animate-glow {
+  animation: glow-border 5s ease-in-out;
+}
+</style>
+
+<script>
+// ฟังก์ชันแสดงแสงที่ขอบ
+function triggerGlow() {
+  document.querySelectorAll('button span').forEach(el => {
+    el.classList.remove('opacity-0');
+    setTimeout(() => {
+      el.classList.add('opacity-0');
+    }, 5000); // แสดงแสง 5 วิ แล้วค่อยหายไป
+  });
+}
+
+// เริ่มทำให้ไล่แสงทุก 1 นาที (60,000 ms)
+setInterval(triggerGlow, 60000);
+
+// แสดงแสงทันทีตอนโหลดหน้า
+triggerGlow();
+</script>
+  
+     <!-- เมื่อผู้ใช้เข้าสู่ระบบ -->
       <div class="hidden" id="user-details">
         <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>    
   <div class="text-sm text-gray-300" id="user-email">email@example.com</div>    
@@ -241,65 +301,7 @@
   }
  </script> 
 
-    <!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
-    <div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
-   <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
-     <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthModal()">&times;</button>
-     <h2 id="auth-title" class="text-lg font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
-     <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-2 px-3 py-2 border rounded" />
-     <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-2 px-3 py-2 border rounded" />
-     <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน" class="w-full mb-4 px-3 py-2 border rounded hidden" />
-     <button id="auth-action-button" onclick="handleAuthAction()" class="bg-purple-600 text-white w-full py-2 rounded mb-2">
-       เข้าสู่ระบบ
-     </button>
-     <button onclick="googleLogin()" class="bg-red-500 text-white w-full py-2 rounded mb-2">
-       เข้าสู่ระบบด้วย Google
-     </button>
-     <p class="text-center text-sm text-gray-600">
-       <span id="auth-switch">
-         ยังไม่มีบัญชี? 
-         <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
-       </span>
-     </p>
-   </div>
- </div><!-- ปุ่มเปิด Modal -->
-   <div class="fixed bottom-0 w-full bg-black flex justify-center py-4 space-x-4">
-  <!-- ปุ่มเข้าสู่ระบบ / สมัครสมาชิก -->
-  <button onclick="openAuthModal()" class="relative overflow-hidden rounded-full border-2 border-purple-500 text-white px-8 py-3 font-bold transition-all duration-300 hover:bg-purple-700">
-    เข้าสู่ระบบ / สมัครสมาชิก
-    <span class="absolute inset-0 border-2 border-gradient-to-r from-purple-400 via-pink-500 to-purple-400 animate-glow opacity-0"></span>
-  </button>
-</div>
-
-<style>
-@keyframes glow-border {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
-}
-.animate-glow {
-  animation: glow-border 5s ease-in-out;
-}
-</style>
-
-<script>
-// ฟังก์ชันแสดงแสงที่ขอบ
-function triggerGlow() {
-  document.querySelectorAll('button span').forEach(el => {
-    el.classList.remove('opacity-0');
-    setTimeout(() => {
-      el.classList.add('opacity-0');
-    }, 5000); // แสดงแสง 5 วิ แล้วค่อยหายไป
-  });
-}
-
-// เริ่มทำให้ไล่แสงทุก 1 นาที (60,000 ms)
-setInterval(triggerGlow, 60000);
-
-// แสดงแสงทันทีตอนโหลดหน้า
-triggerGlow();
-</script>
+    
     
   <!-- Popup ยืนยันออกจากระบบ --><div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
    <div class="bg-white rounded-lg p-6 w-full max-w-xs text-center">
