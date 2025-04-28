@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE</title>
+  <title>GZONE-STORE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
 <link rel="manifest" href="./manifest.json">
@@ -155,7 +155,7 @@
       <img src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" alt="Profile" />
     </div>
   </div>
-
+  <!-- ผู้ใช้ยังไม่ล็อคอิน -->
   <!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
   <div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
     <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
@@ -191,16 +191,17 @@
 </div>
 
   <!-- แสดงข้อมูลผู้ใช้ -->
-  <div id="user-details" class="hidden mt-16 text-center">
-    <div id="user-name" class="text-xl font-bold text-white">ชื่อของคุณ</div>
-    <div id="user-email" class="text-sm text-gray-300 mt-1">email@example.com</div>
-
-    <button class="mt-4 text-sm text-purple-400 hover:underline flex items-center justify-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l10.414-10.414a2 2 0 000-2.828l-2.828-2.828a2 2 0 00-2.828 0L4 15.586V20z" />
-      </svg>
-      แก้ไขโปรไฟล์
-    </button>
+  <div class="hidden" id="user-details">
+  <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
+  <div class="text-sm text-gray-300" id="user-email">email@example.com</div>
+  <!-- ปุ่มแก้ไขโปรไฟล์ -->
+  <button class="mt-2 text-sm text-purple-400 hover:underline">
+    <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l10.414-10.414a2 2 0 000-2.828l-2.828-2.828a2 2 0 00-2.828 0L4 15.586V20z" />
+    </svg>
+    แก้ไขโปรไฟล์
+  </button>
   </div>
 
   <!-- เมนูเพิ่มเติม -->
@@ -470,7 +471,7 @@ triggerGlow();
       // ถ้าผู้ใช้ล็อกอินแล้ว
       loginPrompt.classList.add('hidden');
       userDetails.classList.remove('hidden');
-      userName.textContent = user.displayName || 'ชื่อของคุณ';
+      userName.textContent = user.name || 'ชื่อของคุณ';
       userEmail.textContent = user.email;
       signOutButton.classList.remove('hidden');  // แสดงปุ่มออกจากระบบ
     } else {
