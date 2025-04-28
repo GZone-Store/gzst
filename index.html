@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE</title>
+  <title>GZONE-STORE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
 <link rel="manifest" href="./manifest.json">
@@ -332,131 +332,151 @@ triggerGlow();
 
 <!-- JavaScript ควบคุม -->        
 <script>
-  let isSignUp = false;
+// ตัวแปรสำหรับการสลับสถานะระหว่างสมัครสมาชิกและเข้าสู่ระบบ
+let isSignUp = false;
 
-  function openAuthModal() {
-    document.getElementById('auth-modal').classList.remove('hidden');
-  }
+// ฟังก์ชันเปิดโมดัลการเข้าสู่ระบบ/สมัครสมาชิก
+function openAuthModal() {
+  document.getElementById('auth-modal').classList.remove('hidden');
+}
 
-  function closeAuthModal() {
-    document.getElementById('auth-modal').classList.add('hidden');
-  }
+// ฟังก์ชันปิดโมดัลการเข้าสู่ระบบ/สมัครสมาชิก
+function closeAuthModal() {
+  document.getElementById('auth-modal').classList.add('hidden');
+}
 
-  function switchToSignup() {
-    isSignUp = true;
-    document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
-    document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
-    document.getElementById('auth-switch').innerHTML = `มีบัญชีอยู่แล้ว? <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
-    document.getElementById('auth-confirm-password').classList.remove('hidden');
-  }
+// ฟังก์ชันสลับไปหน้าสมัครสมาชิก
+function switchToSignup() {
+  isSignUp = true;
+  document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
+  document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
+  document.getElementById('auth-switch').innerHTML = 'มีบัญชีอยู่แล้ว? <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>';
+  document.getElementById('auth-confirm-password').classList.remove('hidden');
+}
 
-  function switchToLogin() {
-    isSignUp = false;
-    document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
-    document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
-    document.getElementById('auth-switch').innerHTML = `ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
-    document.getElementById('auth-confirm-password').classList.add('hidden');
-  }
+// ฟังก์ชันสลับไปหน้าการเข้าสู่ระบบ
+function switchToLogin() {
+  isSignUp = false;
+  document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
+  document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
+  document.getElementById('auth-switch').innerHTML = 'ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>';
+  document.getElementById('auth-confirm-password').classList.add('hidden');
+}
 
-  async function generateUniqueUsername() {
-    const db = firebase.firestore();
-    let uniqueUsername = '';
-    let isUnique = false;
+// ฟังก์ชันสร้างชื่อผู้ใช้ที่ไม่ซ้ำกัน
+async function generateUniqueUsername() {
+  const db = firebase.firestore();
+  let uniqueUsername = '';
+  let isUnique = false;
 
-    while (!isUnique) {
-      const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
-      const doc = await db.collection('usernames').doc(randomUsername).get();
-      if (!doc.exists) {
-        uniqueUsername = randomUsername;
-        isUnique = true;
-      }
-    }
-
-    return uniqueUsername;
-  }
-
-  async function handleAuthAction() {
-    const email = document.getElementById('auth-email').value.trim();
-    const password = document.getElementById('auth-password').value.trim();
-    const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
-
-    if (!email || !password || (isSignUp && !confirmPassword)) {
-      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-      return;
-    }
-
-    if (isSignUp && password !== confirmPassword) {
-      alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
-      return;
-    }
-
-    try {
-      if (isSignUp) {
-        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-        const user = userCredential.user;
-        const uniqueUsername = await generateUniqueUsername();
-
-        await user.updateProfile({ displayName: uniqueUsername });
-        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-          uid: user.uid,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
-        alert('สมัครสมาชิกสำเร็จ!');
-      } else {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-        alert('เข้าสู่ระบบสำเร็จ!');
-      }
-
-      // ปิด modal และอัปเดต UI โดยไม่ต้องรีเฟรชหน้า
-      closeAuthModal();
-      updateUIAfterLogin();
-    } catch (error) {
-      alert(error.message);
+  while (!isUnique) {
+    const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
+    const doc = await db.collection('usernames').doc(randomUsername).get();
+    if (!doc.exists) {
+      uniqueUsername = randomUsername;
+      isUnique = true;
     }
   }
 
-  async function googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    try {
-      const result = await firebase.auth().signInWithPopup(provider);
-      const user = result.user;
+  return uniqueUsername;
+}
 
-      if (result.additionalUserInfo.isNewUser) {
-        const uniqueUsername = await generateUniqueUsername();
+// ฟังก์ชันจัดการการสมัครสมาชิกและเข้าสู่ระบบ
+async function handleAuthAction() {
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value.trim();
+  const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
 
-        await user.updateProfile({ displayName: uniqueUsername });
-        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-          uid: user.uid,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-      }
+  // ตรวจสอบข้อมูลที่กรอก
+  if (!email || !password || (isSignUp && !confirmPassword)) {
+    alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+    return;
+  }
 
-      closeAuthModal();
-      updateUIAfterLogin();
-    } catch (error) {
-      alert(error.message);
+  // ตรวจสอบรหัสผ่านและการยืนยันรหัสผ่าน
+  if (isSignUp && password !== confirmPassword) {
+    alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
+    return;
+  }
+
+  try {
+    // การสมัครสมาชิก
+    if (isSignUp) {
+      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+      const uniqueUsername = await generateUniqueUsername();
+
+      // อัปเดตชื่อผู้ใช้
+      await user.updateProfile({ displayName: uniqueUsername });
+
+      // บันทึกชื่อผู้ใช้ใน Firestore
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      alert('สมัครสมาชิกสำเร็จ!');
+    } else {
+      // การเข้าสู่ระบบ
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      alert('เข้าสู่ระบบสำเร็จ!');
     }
+
+    closeAuthModal();
+    location.reload();
+
+  } catch (error) {
+    alert(error.message);
   }
+}
 
-  const logoutPopup = document.getElementById('logout-confirm-popup');
+// ฟังก์ชันเข้าสู่ระบบผ่าน Google
+async function googleLogin() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  try {
+    const result = await firebase.auth().signInWithPopup(provider);
+    const user = result.user;
 
-  function showLogoutConfirm() {
-    logoutPopup.classList.remove('hidden');
+    // ตรวจสอบว่าผู้ใช้ใหม่หรือไม่
+    if (result.additionalUserInfo.isNewUser) {
+      const uniqueUsername = await generateUniqueUsername();
+
+      await user.updateProfile({ displayName: uniqueUsername });
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+    closeAuthModal();
+    location.reload();
+
+  } catch (error) {
+    alert(error.message);
   }
+}
 
-  function cancelLogout() {
+// ฟังก์ชันแสดงป็อปอัพการยืนยันการออกจากระบบ
+const logoutPopup = document.getElementById('logout-confirm-popup');
+function showLogoutConfirm() {
+  logoutPopup.classList.remove('hidden');
+}
+
+// ฟังก์ชันยกเลิกการออกจากระบบ
+function cancelLogout() {
+  logoutPopup.classList.add('hidden');
+}
+
+// ฟังก์ชันยืนยันการออกจากระบบ
+function confirmLogout() {
+  firebase.auth().signOut().then(() => {
     logoutPopup.classList.add('hidden');
-  }
-
-  function confirmLogout() {
-    firebase.auth().signOut().then(() => {
-      logoutPopup.classList.add('hidden');
-      updateUIAfterLogout();
-    }).catch((error) => {
-      alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
-    });
-  }
+    location.reload();
+  }).catch((error) => {
+    alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
+  });
+ } 
+<script>     
 
   firebase.auth().onAuthStateChanged(user => {
   const loginPrompt = document.getElementById('login-prompt');
@@ -481,9 +501,8 @@ triggerGlow();
     if (signOutButton) signOutButton.classList.add('hidden');  // ซ่อนปุ่มออกจากระบบ
   }
 });
-</script>
-    
-<!-- เมนูด้านล่าง -->
+
+  
 </div></div><nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
   <button onclick="goTo('home')" class="flex flex-col items-center">
     <img src="icon-home.png.png" class="w-6 h-6" />
