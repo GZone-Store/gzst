@@ -4,14 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE.com</title>
+  <title>GZONE</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#1e0a2a">
-<link rel="apple-touch-icon" href="images/icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1e0a2a">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
   <style>
     @keyframes marquee {
       0% { transform: translateX(100%); }
@@ -39,7 +42,18 @@
     }
   </style>
 </head>
-
+<!-- ทำงานดาวโหลด -->
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(registration => {
+        console.log('Service Worker Registered');
+      })
+      .catch(error => {
+        console.log('Service Worker Registration Failed:', error);
+      });
+  }
+</script>
 <body class="flex flex-col min-h-screen">
 
   <!-- โลโก้ -->
@@ -51,6 +65,7 @@
 
   <!-- หน้าแรก -->
   <div id="home" class="flex-1 pb-16 block pt-20">
+
     <!-- แบนเนอร์ -->
     <div class="relative w-full overflow-hidden h-40">
       <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
@@ -79,36 +94,36 @@
     <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>
 
     <!-- รายการเกม -->
-    <div class="grid grid-cols-2 gap-4 p-4">
-      <script>
-        const gameList = [
-          { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
-          { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
-          { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
-          { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
-          { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
-          { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
-          { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
-          { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
-          { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/puzzle-love" },
-        ];
+    <div class="grid grid-cols-2 gap-4 p-4" id="gameGrid"></div>
 
-        window.onload = () => {
-          const grid = document.querySelector("#home .grid");
-          gameList.forEach(game => {
-            const div = document.createElement("div");
-            div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
-            div.innerHTML = `
-              <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
-              <div class="text-white font-semibold">${game.name}</div>
-              <a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl">ดาวน์โหลด</a>
-            `;
-            grid.appendChild(div);
-          });
-          goTo("home"); // เปิดหน้าแรกและโชว์โลโก้เมื่อโหลด
-        };
-      </script>
-    </div>
+    <script>
+      const gameList = [
+        { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
+        { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
+        { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
+        { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
+        { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
+        { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
+        { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
+        { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
+        { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/puzzle-love" },
+      ];
+
+      window.onload = () => {
+        const grid = document.getElementById("gameGrid");
+        gameList.forEach(game => {
+          const div = document.createElement("div");
+          div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
+          div.innerHTML = `
+            <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
+            <div class="text-white font-semibold">${game.name}</div>
+            <a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl">ดาวน์โหลด</a>
+          `;
+          grid.appendChild(div);
+        });
+        goTo("home");
+      };
+    </script>
   </div>
 
   <!-- หน้าค้นหา -->
@@ -124,11 +139,9 @@
     <div class="pt-20 px-4 pb-4 space-y-3 text-white text-sm" id="searchResults"></div>
   </div>
 
-  <!-- Firebase App (compat) -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <!-- Firebase Auth (compat) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <!-- Firebase Analytics (optional) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics-compat.js"></script>
   <script>
     const firebaseConfig = {
@@ -141,74 +154,40 @@
       measurementId: "G-WZLDR9JQKS"
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics(); // หากต้องการใช้ Analytics
+    firebase.analytics();
   </script>
-  
-     <!-- หน้าบัญชี -->
-      <div id="account" class="hidden flex-1 pb-16">
-  <!-- ภาพปกหลังและรูปโปรไฟล์ -->
-  <div class="relative">
-    <img src="cover.jpg" class="w-full h-32 object-cover" alt="Cover" />
-    <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-      <img src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" alt="Profile" />
+
+  <!-- หน้าบัญชี -->
+  <div id="account" class="hidden flex-1 pb-16">
+    <div class="relative">
+      <img src="cover.jpg" class="w-full h-32 object-cover" />
+      <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+        <img src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" />
+      </div>
     </div>
-  </div>
-  <!-- ผู้ใช้ยังไม่ล็อคอิน -->
-  <!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
-  <div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
-    <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
-      <button class="absolute top-2 right-3 text-gray-500 text-2xl" onclick="closeAuthModal()">&times;</button>
-      <h2 id="auth-title" class="text-lg font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
 
-      <input type="email" id="auth-email" placeholder="อีเมล" class="w-full mb-2 px-3 py-2 border rounded" />
-      <input type="password" id="auth-password" placeholder="รหัสผ่าน" class="w-full mb-2 px-3 py-2 border rounded" />
-      <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน" class="w-full mb-4 px-3 py-2 border rounded hidden" />
+    <div class="mt-14 text-center" id="user-info">
+      <!-- ตอนยังไม่ได้ล็อกอิน -->
+      <div class="hidden" id="login-prompt">
+        <button class="text-sm text-purple-400 hover:underline" id="login-button">เข้าสู่ระบบ</button>
+        <span class="mx-2">หรือ</span>
+        <button class="text-sm text-purple-400 hover:underline" id="signup-button">สมัครสมาชิก</button>
+      </div>
 
-      <button id="auth-action-button" onclick="handleAuthAction()" class="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 rounded mb-2">
-        เข้าสู่ระบบ
-      </button>
-      <button onclick="googleLogin()" class="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded mb-2">
-        เข้าสู่ระบบด้วย Google
-      </button>
-
-      <p class="text-center text-sm text-gray-600 mt-2">
-        <span id="auth-switch">
-          ยังไม่มีบัญชี?
-          <button onclick="switchToSignup()" class="text-purple-600 hover:underline">สมัครสมาชิก</button>
-        </span>
-      </p>
-    </div>
-  </div>
-
-  <!-- ปุ่มเปิด Modal -->
-<div class="fixed bottom-12 w-full bg-black flex justify-center py-4 space-x-4">
-  <button id="login-signup-button" onclick="openAuthModal()" class="relative overflow-hidden rounded-full border-2 border-purple-500 text-white px-8 py-3 font-bold transition-all duration-300 hover:bg-purple-700">
-    เข้าสู่ระบบ / สมัครสมาชิก
-    <span class="absolute inset-0 animate-glow opacity-0 border-2 border-gradient-to-r from-purple-400 via-pink-500 to-purple-400 rounded-full"></span>
-  </button>
-</div>
-
-  <!-- เมื่อผู้ใช้เข้าสู่ระบบ -->
-<div class="hidden" id="user-details">
-  <div class="text-xl font-bold" id="user-name">
-    ชื่อของคุณ
-  </div>
-
-  <div class="text-sm text-gray-300" id="user-email">
-    email@example.com
-  </div>
-
-  <!-- ปุ่มแก้ไขโปรไฟล์ -->
-  <button class="mt-2 text-sm text-purple-400 hover:underline">
-    <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l10.414-10.414a2 2 0 000-2.828l-2.828-2.828a2 2 0 00-2.828 0L4 15.586V20z" />
-    </svg>
-    แก้ไขโปรไฟล์
-  </button>
-</div>
+      <!-- เมื่อล็อกอินแล้ว -->
+      <div class="hidden" id="user-details">
+        <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
+        <div class="text-sm text-gray-300" id="user-email">email@example.com</div>
+       <!-- ปุ่มเเก้ไขโปรไฟล์ -->
+        <button class="mt-2 text-sm text-purple-400 hover:underline">      
+    <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">      
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"      
+        d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l10.414-10.414a2 2 0 000-2.828l-2.828-2.828a2 2 0 00-2.828 0L4 15.586V20z" />      
+    </svg>      
+    แก้ไขโปรไฟล์      
+  </button>      
+      </div>
 
   <!-- เมนูเพิ่มเติม -->
 <div class="mt-12 space-y-3 px-6"> <!-- เปลี่ยนจาก mt-8 เป็น mt-12 เพื่อเพิ่มระยะห่าง -->
@@ -289,17 +268,10 @@ setInterval(triggerGlow, 60000);
 triggerGlow();
 </script>
 
- <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js')
-      .then(registration => {
-        console.log('Service Worker Registered');
-      })
-      .catch(error => {
-        console.log('Service Worker Registration Failed:', error);
-      });
-  }
- </script> 
+<!-- ปุ่มออกจากระบบ -->
+<button id="sign-out-button" onclick="showLogoutConfirm()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-2xl text-lg font-semibold shadow-md hover:from-red-600 hover:to-red-700 transition hidden">
+  ออกจากระบบ
+</button>     
 
   <!-- Popup ยืนยันออกจากระบบ -->
    <div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50 hidden">
@@ -330,161 +302,153 @@ triggerGlow();
 }
 </style>
 
-
-  <!-- ปุ่มออกจากระบบ -->
-<button id="sign-out-button" onclick="showLogoutConfirm()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-2xl text-lg font-semibold shadow-md hover:from-red-600 hover:to-red-700 transition hidden">
-  ออกจากระบบ
-</button>
-
-<!-- JavaScript ควบคุม -->
+<!-- Javascriptควบคุม -->
 <script>
-  let isSignUp = false;
+let isSignUp = false;
 
-  function openAuthModal() {
-    document.getElementById('auth-modal').classList.remove('hidden');
-  }
+function openAuthModal() {
+  document.getElementById('auth-modal').classList.remove('hidden');
+}
 
-  function closeAuthModal() {
-    document.getElementById('auth-modal').classList.add('hidden');
-  }
+function closeAuthModal() {
+  document.getElementById('auth-modal').classList.add('hidden');
+}
 
-  function switchToSignup() {
-    isSignUp = true;
-    document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
-    document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
-    document.getElementById('auth-switch').innerHTML = `
-      มีบัญชีอยู่แล้ว? <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
-    document.getElementById('auth-confirm-password').classList.remove('hidden');
-  }
+function switchToSignup() {
+  isSignUp = true;
+  document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
+  document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
+  document.getElementById('auth-switch').innerHTML = `มีบัญชีอยู่แล้ว? <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
+  document.getElementById('auth-confirm-password').classList.remove('hidden');
+}
 
-  function switchToLogin() {
-    isSignUp = false;
-    document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
-    document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
-    document.getElementById('auth-switch').innerHTML = `
-      ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
-    document.getElementById('auth-confirm-password').classList.add('hidden');
-  }
+function switchToLogin() {
+  isSignUp = false;
+  document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
+  document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
+  document.getElementById('auth-switch').innerHTML = `ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
+  document.getElementById('auth-confirm-password').classList.add('hidden');
+}
 
-  async function generateUniqueUsername() {
-    const db = firebase.firestore();
-    let uniqueUsername = '';
-    let isUnique = false;
+async function generateUniqueUsername() {
+  const db = firebase.firestore();
+  let uniqueUsername = '';
+  let isUnique = false;
 
-    while (!isUnique) {
-      const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
-      const doc = await db.collection('usernames').doc(randomUsername).get();
-      if (!doc.exists) {
-        uniqueUsername = randomUsername;
-        isUnique = true;
-      }
-    }
-
-    return uniqueUsername;
-  }
-
-  async function handleAuthAction() {
-    const email = document.getElementById('auth-email').value.trim();
-    const password = document.getElementById('auth-password').value.trim();
-    const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
-
-    if (!email || !password || (isSignUp && !confirmPassword)) {
-      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-      return;
-    }
-
-    if (isSignUp && password !== confirmPassword) {
-      alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
-      return;
-    }
-
-    try {
-      if (isSignUp) {
-        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-        const user = userCredential.user;
-        const uniqueUsername = await generateUniqueUsername();
-
-        await user.updateProfile({ displayName: uniqueUsername });
-        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-          uid: user.uid,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
-        alert('สมัครสมาชิกสำเร็จ!');
-      } else {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-        alert('เข้าสู่ระบบสำเร็จ!');
-      }
-
-      closeAuthModal();
-      location.reload();
-    } catch (error) {
-      alert(error.message);
+  while (!isUnique) {
+    const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
+    const doc = await db.collection('usernames').doc(randomUsername).get();
+    if (!doc.exists) {
+      uniqueUsername = randomUsername;
+      isUnique = true;
     }
   }
+  return uniqueUsername;
+}
 
-  async function googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    try {
-      const result = await firebase.auth().signInWithPopup(provider);
-      const user = result.user;
+async function handleAuthAction() {
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value.trim();
+  const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
 
-      if (result.additionalUserInfo.isNewUser) {
-        const uniqueUsername = await generateUniqueUsername();
-
-        await user.updateProfile({ displayName: uniqueUsername });
-        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-          uid: user.uid,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-      }
-
-      closeAuthModal();
-      location.reload();
-    } catch (error) {
-      alert(error.message);
-    }
+  if (!email || !password || (isSignUp && !confirmPassword)) {
+    alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+    return;
   }
 
-  const logoutPopup = document.getElementById('logout-confirm-popup');
-
-  function showLogoutConfirm() {
-    logoutPopup.classList.remove('hidden');
+  if (isSignUp && password !== confirmPassword) {
+    alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
+    return;
   }
 
-  function cancelLogout() {
-    logoutPopup.classList.add('hidden');
-  }
+  try {
+    if (isSignUp) {
+      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+      const uniqueUsername = await generateUniqueUsername();
 
-  function confirmLogout() {
-    firebase.auth().signOut().then(() => {
-      logoutPopup.classList.add('hidden');
-      location.reload();
-    }).catch((error) => {
-      alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
-    });
-  }
+      await user.updateProfile({ displayName: uniqueUsername });
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
 
-  // ฟังก์ชันสำหรับเช็คสถานะการล็อกอิน
-  firebase.auth().onAuthStateChanged(user => {
-    const loginPrompt = document.getElementById('login-prompt');
-    const userDetails = document.getElementById('user-details');
-    const userName = document.getElementById('user-name');
-    const userEmail = document.getElementById('user-email');
-    const signOutButton = document.getElementById('sign-out-button');
-
-    if (user) {
-      // ถ้าผู้ใช้ล็อกอินแล้ว
-      loginPrompt.classList.add('hidden');
-      userDetails.classList.remove('hidden');
-      userName.textContent = user.displayName || 'ชื่อของคุณ';
-      userEmail.textContent = user.email;
+      alert('สมัครสมาชิกสำเร็จ!');
     } else {
-      // ถ้าผู้ใช้ยังไม่ได้ล็อกอิน
-      loginPrompt.classList.remove('hidden');
-      userDetails.classList.add('hidden');
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      alert('เข้าสู่ระบบสำเร็จ!');
     }
+
+    closeAuthModal();
+    location.reload();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+async function googleLogin() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  try {
+    const result = await firebase.auth().signInWithPopup(provider);
+    const user = result.user;
+
+    if (result.additionalUserInfo.isNewUser) {
+      const uniqueUsername = await generateUniqueUsername();
+
+      await user.updateProfile({ displayName: uniqueUsername });
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+    closeAuthModal();
+    location.reload();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+const logoutPopup = document.getElementById('logout-confirm-popup');
+
+function showLogoutConfirm() {
+  logoutPopup.classList.remove('hidden');
+}
+
+function cancelLogout() {
+  logoutPopup.classList.add('hidden');
+}
+
+function confirmLogout() {
+  firebase.auth().signOut().then(() => {
+    logoutPopup.classList.add('hidden');
+    location.reload();
+  }).catch((error) => {
+    alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
   });
+}
+
+// ฟังก์ชันสำหรับเช็คสถานะการล็อกอิน
+firebase.auth().onAuthStateChanged(user => {
+  const loginPrompt = document.getElementById('login-prompt');
+  const userDetails = document.getElementById('user-details');
+  const userName = document.getElementById('user-name');
+  const userEmail = document.getElementById('user-email');
+  const signOutButton = document.getElementById('sign-out-button');
+
+  if (user) {
+    // ถ้าผู้ใช้ล็อกอินแล้ว
+    loginPrompt.classList.add('hidden');
+    userDetails.classList.remove('hidden');
+    userName.textContent = user.displayName || 'ชื่อของคุณ';
+    userEmail.textContent = user.email;
+  } else {
+    // ถ้าผู้ใช้ยังไม่ได้ล็อกอิน
+    loginPrompt.classList.remove('hidden');
+    userDetails.classList.add('hidden');
+  }
+});
+    </script>
 
 // เมนูด้านล่าง
 </div></div><nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
