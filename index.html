@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE</title>
+  <title>GZONE.com</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
 <link rel="manifest" href="./manifest.json">
@@ -485,32 +485,8 @@ triggerGlow();
       userDetails.classList.add('hidden');
     }
   });
-<script>
-  firebase.auth().onAuthStateChanged(user => {
-  const loginPrompt = document.getElementById('login-prompt');
-  const userDetails = document.getElementById('user-details');
-  const userName = document.getElementById('user-name');
-  const userEmail = document.getElementById('user-email');
-  const signOutButton = document.getElementById('sign-out-button');
 
-  if (user) {
-    // เมื่อผู้ใช้เข้าสู่ระบบ
-    if (loginPrompt) loginPrompt.classList.add('hidden');  // ซ่อนคำแนะนำการเข้าสู่ระบบ
-    if (userDetails) userDetails.classList.remove('hidden');  // แสดงรายละเอียดผู้ใช้
-    if (signOutButton) signOutButton.classList.remove('hidden');  // แสดงปุ่มออกจากระบบ
-
-    // แสดงชื่อและอีเมลของผู้ใช้
-    if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';  
-    if (userEmail) userEmail.textContent = user.email;
-  } else {
-    // เมื่อผู้ใช้ไม่ได้เข้าสู่ระบบ
-    if (loginPrompt) loginPrompt.classList.remove('hidden');  // แสดงคำแนะนำการเข้าสู่ระบบ
-    if (userDetails) userDetails.classList.add('hidden');  // ซ่อนรายละเอียดผู้ใช้
-    if (signOutButton) signOutButton.classList.add('hidden');  // ซ่อนปุ่มออกจากระบบ
-  }
-});
-
-  
+// เมนูด้านล่าง
 </div></div><nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
   <button onclick="goTo('home')" class="flex flex-col items-center">
     <img src="icon-home.png.png" class="w-6 h-6" />
