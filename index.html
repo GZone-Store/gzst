@@ -190,10 +190,16 @@
   </button>
 </div>
 
-  <!-- แสดงข้อมูลผู้ใช้ -->
-  <div class="hidden" id="user-details">
-  <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
-  <div class="text-sm text-gray-300" id="user-email">email@example.com</div>
+  <!-- เมื่อผู้ใช้เข้าสู่ระบบ -->
+<div class="hidden" id="user-details">
+  <div class="text-xl font-bold" id="user-name">
+    ชื่อของคุณ
+  </div>
+
+  <div class="text-sm text-gray-300" id="user-email">
+    email@example.com
+  </div>
+
   <!-- ปุ่มแก้ไขโปรไฟล์ -->
   <button class="mt-2 text-sm text-purple-400 hover:underline">
     <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -202,7 +208,7 @@
     </svg>
     แก้ไขโปรไฟล์
   </button>
-  </div>
+</div>
 
   <!-- เมนูเพิ่มเติม -->
 <div class="mt-12 space-y-3 px-6"> <!-- เปลี่ยนจาก mt-8 เป็น mt-12 เพื่อเพิ่มระยะห่าง -->
@@ -330,153 +336,156 @@ triggerGlow();
   ออกจากระบบ
 </button>
 
-<!-- JavaScript ควบคุม -->        
+<!-- JavaScript ควบคุม -->
 <script>
-// ตัวแปรสำหรับการสลับสถานะระหว่างสมัครสมาชิกและเข้าสู่ระบบ
-let isSignUp = false;
+  let isSignUp = false;
 
-// ฟังก์ชันเปิดโมดัลการเข้าสู่ระบบ/สมัครสมาชิก
-function openAuthModal() {
-  document.getElementById('auth-modal').classList.remove('hidden');
-}
+  function openAuthModal() {
+    document.getElementById('auth-modal').classList.remove('hidden');
+  }
 
-// ฟังก์ชันปิดโมดัลการเข้าสู่ระบบ/สมัครสมาชิก
-function closeAuthModal() {
-  document.getElementById('auth-modal').classList.add('hidden');
-}
+  function closeAuthModal() {
+    document.getElementById('auth-modal').classList.add('hidden');
+  }
 
-// ฟังก์ชันสลับไปหน้าสมัครสมาชิก
-function switchToSignup() {
-  isSignUp = true;
-  document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
-  document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
-  document.getElementById('auth-switch').innerHTML = 'มีบัญชีอยู่แล้ว? <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>';
-  document.getElementById('auth-confirm-password').classList.remove('hidden');
-}
+  function switchToSignup() {
+    isSignUp = true;
+    document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
+    document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
+    document.getElementById('auth-switch').innerHTML = `
+      มีบัญชีอยู่แล้ว? <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
+    document.getElementById('auth-confirm-password').classList.remove('hidden');
+  }
 
-// ฟังก์ชันสลับไปหน้าการเข้าสู่ระบบ
-function switchToLogin() {
-  isSignUp = false;
-  document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
-  document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
-  document.getElementById('auth-switch').innerHTML = 'ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>';
-  document.getElementById('auth-confirm-password').classList.add('hidden');
-}
+  function switchToLogin() {
+    isSignUp = false;
+    document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
+    document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
+    document.getElementById('auth-switch').innerHTML = `
+      ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
+    document.getElementById('auth-confirm-password').classList.add('hidden');
+  }
 
-// ฟังก์ชันสร้างชื่อผู้ใช้ที่ไม่ซ้ำกัน
-async function generateUniqueUsername() {
-  const db = firebase.firestore();
-  let uniqueUsername = '';
-  let isUnique = false;
+  async function generateUniqueUsername() {
+    const db = firebase.firestore();
+    let uniqueUsername = '';
+    let isUnique = false;
 
-  while (!isUnique) {
-    const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
-    const doc = await db.collection('usernames').doc(randomUsername).get();
-    if (!doc.exists) {
-      uniqueUsername = randomUsername;
-      isUnique = true;
+    while (!isUnique) {
+      const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
+      const doc = await db.collection('usernames').doc(randomUsername).get();
+      if (!doc.exists) {
+        uniqueUsername = randomUsername;
+        isUnique = true;
+      }
+    }
+
+    return uniqueUsername;
+  }
+
+  async function handleAuthAction() {
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value.trim();
+    const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
+
+    if (!email || !password || (isSignUp && !confirmPassword)) {
+      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+      return;
+    }
+
+    if (isSignUp && password !== confirmPassword) {
+      alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
+      return;
+    }
+
+    try {
+      if (isSignUp) {
+        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        const uniqueUsername = await generateUniqueUsername();
+
+        await user.updateProfile({ displayName: uniqueUsername });
+        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+          uid: user.uid,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        alert('สมัครสมาชิกสำเร็จ!');
+      } else {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+        alert('เข้าสู่ระบบสำเร็จ!');
+      }
+
+      closeAuthModal();
+      location.reload();
+    } catch (error) {
+      alert(error.message);
     }
   }
 
-  return uniqueUsername;
-}
+  async function googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      const user = result.user;
 
-// ฟังก์ชันจัดการการสมัครสมาชิกและเข้าสู่ระบบ
-async function handleAuthAction() {
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value.trim();
-  const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
+      if (result.additionalUserInfo.isNewUser) {
+        const uniqueUsername = await generateUniqueUsername();
 
-  // ตรวจสอบข้อมูลที่กรอก
-  if (!email || !password || (isSignUp && !confirmPassword)) {
-    alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-    return;
-  }
+        await user.updateProfile({ displayName: uniqueUsername });
+        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+          uid: user.uid,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
 
-  // ตรวจสอบรหัสผ่านและการยืนยันรหัสผ่าน
-  if (isSignUp && password !== confirmPassword) {
-    alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
-    return;
-  }
-
-  try {
-    // การสมัครสมาชิก
-    if (isSignUp) {
-      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-      const uniqueUsername = await generateUniqueUsername();
-
-      // อัปเดตชื่อผู้ใช้
-      await user.updateProfile({ displayName: uniqueUsername });
-
-      // บันทึกชื่อผู้ใช้ใน Firestore
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      alert('สมัครสมาชิกสำเร็จ!');
-    } else {
-      // การเข้าสู่ระบบ
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      alert('เข้าสู่ระบบสำเร็จ!');
+      closeAuthModal();
+      location.reload();
+    } catch (error) {
+      alert(error.message);
     }
-
-    closeAuthModal();
-    location.reload();
-
-  } catch (error) {
-    alert(error.message);
   }
-}
 
-// ฟังก์ชันเข้าสู่ระบบผ่าน Google
-async function googleLogin() {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  try {
-    const result = await firebase.auth().signInWithPopup(provider);
-    const user = result.user;
+  const logoutPopup = document.getElementById('logout-confirm-popup');
 
-    // ตรวจสอบว่าผู้ใช้ใหม่หรือไม่
-    if (result.additionalUserInfo.isNewUser) {
-      const uniqueUsername = await generateUniqueUsername();
-
-      await user.updateProfile({ displayName: uniqueUsername });
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    }
-
-    closeAuthModal();
-    location.reload();
-
-  } catch (error) {
-    alert(error.message);
+  function showLogoutConfirm() {
+    logoutPopup.classList.remove('hidden');
   }
-}
 
-// ฟังก์ชันแสดงป็อปอัพการยืนยันการออกจากระบบ
-const logoutPopup = document.getElementById('logout-confirm-popup');
-function showLogoutConfirm() {
-  logoutPopup.classList.remove('hidden');
-}
-
-// ฟังก์ชันยกเลิกการออกจากระบบ
-function cancelLogout() {
-  logoutPopup.classList.add('hidden');
-}
-
-// ฟังก์ชันยืนยันการออกจากระบบ
-function confirmLogout() {
-  firebase.auth().signOut().then(() => {
+  function cancelLogout() {
     logoutPopup.classList.add('hidden');
-    location.reload();
-  }).catch((error) => {
-    alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
+  }
+
+  function confirmLogout() {
+    firebase.auth().signOut().then(() => {
+      logoutPopup.classList.add('hidden');
+      location.reload();
+    }).catch((error) => {
+      alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
+    });
+  }
+
+  // ฟังก์ชันสำหรับเช็คสถานะการล็อกอิน
+  firebase.auth().onAuthStateChanged(user => {
+    const loginPrompt = document.getElementById('login-prompt');
+    const userDetails = document.getElementById('user-details');
+    const userName = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
+    const signOutButton = document.getElementById('sign-out-button');
+
+    if (user) {
+      // ถ้าผู้ใช้ล็อกอินแล้ว
+      loginPrompt.classList.add('hidden');
+      userDetails.classList.remove('hidden');
+      userName.textContent = user.displayName || 'ชื่อของคุณ';
+      userEmail.textContent = user.email;
+    } else {
+      // ถ้าผู้ใช้ยังไม่ได้ล็อกอิน
+      loginPrompt.classList.remove('hidden');
+      userDetails.classList.add('hidden');
+    }
   });
- } 
-<script>     
+</script>
 
   firebase.auth().onAuthStateChanged(user => {
   const loginPrompt = document.getElementById('login-prompt');
