@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE-STORE</title>
+  <title>GZONE</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
@@ -174,7 +174,7 @@
         <span class="mx-2">หรือ</span>
         <button class="text-sm text-purple-400 hover:underline" id="signup-button">สมัครสมาชิก</button>
       </div>
-
+    
       <!-- เมื่อล็อกอินแล้ว -->
       <div class="hidden" id="user-details">
         <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
@@ -244,32 +244,7 @@
 <!-- ปุ่มออกจากระบบ -->
 <button id="sign-out-button" onclick="showLogoutConfirm()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-2xl text-lg font-semibold shadow-md hover:from-red-600 hover:to-red-700 transition hidden">
   ออกจากระบบ
-</button>
-        
-<!-- CSS ไล่แสง -->
-<style>
-@keyframes glow-border {
-  0%, 100% { opacity: 0; }
-  10%, 90% { opacity: 1; }
-}
-.animate-glow {
-  animation: glow-border 5s ease-in-out;
-}
-</style>
-
-<!-- JS ไล่แสง -->
-<script>
-function triggerGlow() {
-  document.querySelectorAll('button span').forEach(el => {
-    el.classList.remove('opacity-0');
-    setTimeout(() => {
-      el.classList.add('opacity-0');
-    }, 5000);
-  });
-}
-setInterval(triggerGlow, 60000);
-triggerGlow();
-</script>     
+</button>     
 
   <!-- Popup ยืนยันออกจากระบบ -->
    <div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50 hidden">
