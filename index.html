@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE</title>
+  <title>GZONE-STORE</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
@@ -180,51 +180,13 @@
         <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
         <div class="text-sm text-gray-300" id="user-email">email@example.com</div>
        <!-- ปุ่มแก้ไขโปรไฟล์ -->
-<button onclick="openEditProfileModal()" class="mt-2 text-sm text-purple-400 hover:underline">
-  <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-      d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l10.414-10.414a2 2 0 000-2.828l-2.828-2.828a2 2 0 00-2.828 0L4 15.586V20z" />
-  </svg>
-  แก้ไขโปรไฟล์
+<button class="mt-2 text-sm text-purple-400 hover:underline">
+  <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l10.414-10.414a2 2 0 000-2.828l-2.828-2.828a2 2 0 00-2.828 0L4 15.586V20z" />
+  </svg>
+  แก้ไขโปรไฟล์
 </button>
-
-<!-- Modal แก้ไขโปรไฟล์ (ซ่อนอยู่) -->
-<div id="edit-profile-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-lg p-6 w-80">
-    <h2 class="text-xl font-bold mb-4">แก้ไขโปรไฟล์</h2>
-    <input id="edit-display-name" type="text" placeholder="ชื่อใหม่" class="w-full p-2 border rounded mb-4">
-    <button onclick="saveProfileChanges()" class="w-full bg-purple-600 text-white p-2 rounded">บันทึก</button>
-    <button onclick="closeEditProfileModal()" class="mt-2 w-full text-gray-500 hover:underline">ยกเลิก</button>
-  </div>
-</div>
-
-<script>
-function openEditProfileModal() {
-  document.getElementById('edit-profile-modal').classList.remove('hidden');
-}
-
-function closeEditProfileModal() {
-  document.getElementById('edit-profile-modal').classList.add('hidden');
-}
-
-async function saveProfileChanges() {
-  const newName = document.getElementById('edit-display-name').value.trim();
-  if (!newName) {
-    alert('กรุณากรอกชื่อใหม่');
-    return;
-  }
-
-  const user = firebase.auth().currentUser;
-  try {
-    await user.updateProfile({ displayName: newName });
-    alert('อัปเดตโปรไฟล์สำเร็จ');
-    closeEditProfileModal();
-    location.reload();
-  } catch (error) {
-    alert('เกิดข้อผิดพลาด: ' + error.message);
-  }
-}
-</script>
 
   <!-- เมนูเพิ่มเติม -->
 <div class="mt-12 space-y-3 px-6"> <!-- เปลี่ยนจาก mt-8 เป็น mt-12 เพื่อเพิ่มระยะห่าง -->
@@ -279,7 +241,11 @@ async function saveProfileChanges() {
   <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">กรอกโค้ด</a>
   <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">เงื่อนไขการใช้งาน</a>
 </div>
-
+<!-- ปุ่มออกจากระบบ -->
+<button id="sign-out-button" onclick="showLogoutConfirm()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-2xl text-lg font-semibold shadow-md hover:from-red-600 hover:to-red-700 transition hidden">
+  ออกจากระบบ
+</button>
+        
 <!-- CSS ไล่แสง -->
 <style>
 @keyframes glow-border {
@@ -303,12 +269,7 @@ function triggerGlow() {
 }
 setInterval(triggerGlow, 60000);
 triggerGlow();
-</script>
-
-<!-- ปุ่มออกจากระบบ -->
-<button id="sign-out-button" onclick="showLogoutConfirm()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-2xl text-lg font-semibold shadow-md hover:from-red-600 hover:to-red-700 transition hidden">
-  ออกจากระบบ
-</button>     
+</script>     
 
   <!-- Popup ยืนยันออกจากระบบ -->
    <div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50 hidden">
