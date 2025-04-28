@@ -3,18 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#1e0a2a" />
   <title>GZONE</title>
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
-
-  <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#1e0a2a">
-  <link rel="apple-touch-icon" href="images/icon-192.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="images/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
   <style>
     @keyframes marquee {
       0% { transform: translateX(100%); }
@@ -42,18 +39,7 @@
     }
   </style>
 </head>
-<!-- ทำงานดาวโหลด -->
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js')
-      .then(registration => {
-        console.log('Service Worker Registered');
-      })
-      .catch(error => {
-        console.log('Service Worker Registration Failed:', error);
-      });
-  }
-</script>
+
 <body class="flex flex-col min-h-screen">
 
   <!-- โลโก้ -->
@@ -65,7 +51,6 @@
 
   <!-- หน้าแรก -->
   <div id="home" class="flex-1 pb-16 block pt-20">
-
     <!-- แบนเนอร์ -->
     <div class="relative w-full overflow-hidden h-40">
       <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
@@ -106,11 +91,11 @@
         { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
         { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
         { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
-        { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/puzzle-love" },
+        { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/gzone-store" }
       ];
 
       window.onload = () => {
-        const grid = document.getElementById("gameGrid");
+        const grid = document.querySelector("#gameGrid");
         gameList.forEach(game => {
           const div = document.createElement("div");
           div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
@@ -121,7 +106,7 @@
           `;
           grid.appendChild(div);
         });
-        goTo("home");
+        goTo("home"); // เปิดหน้าแรกและโชว์โลโก้เมื่อโหลด
       };
     </script>
   </div>
@@ -138,17 +123,18 @@
     </div>
     <div class="pt-20 px-4 pb-4 space-y-3 text-white text-sm" id="searchResults"></div>
   </div>
-
-  <!-- Firebase -->
+  
+    <!-- Firebase App -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics-compat.js"></script>
+
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
       authDomain: "gzone-store.firebaseapp.com",
       projectId: "gzone-store",
-      storageBucket: "gzone-store.firebasestorage.app",
+      storageBucket: "gzone-store.appspot.com",
       messagingSenderId: "20383169229",
       appId: "1:20383169229:web:e225735efbea6589120784",
       measurementId: "G-WZLDR9JQKS"
@@ -157,7 +143,7 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
-
+  
   <!-- หน้าบัญชี -->
   <div id="account" class="hidden flex-1 pb-16">
     <div class="relative">
@@ -168,95 +154,196 @@
     </div>
 
     <div class="mt-14 text-center" id="user-info">
-    <!-- ปุ่มเปิดโมดอล -->
-<button onclick="openAuthModal()" class="p-2 bg-purple-500 text-white rounded">สมัครสมาชิก / เข้าสู่ระบบ</button>
+      <!-- ยังไม่ได้ล็อกอิน -->
+      <div class="hidden" id="login-prompt">
+        <button class="text-sm text-purple-400 hover:underline" id="login-button">เข้าสู่ระบบ</button>
+        <span class="mx-2">หรือ</span>
+        <button class="text-sm text-purple-400 hover:underline" id="signup-button">สมัครสมาชิก</button>
+      </div>
 
-<!-- โมดอล -->
-<div id="auth-modal" class="hidden fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50" onclick="closeAuthModal()">
-  <div class="bg-white p-8 rounded-lg w-96" onclick="event.stopPropagation()">
-    <h2 id="auth-title" class="text-xl mb-4">เข้าสู่ระบบ</h2>
-    <input type="email" id="auth-email" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="อีเมล">
-    <input type="password" id="auth-password" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="รหัสผ่าน">
-    <div id="auth-confirm-password" class="hidden">
-      <input type="password" id="auth-confirm-password-input" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="ยืนยันรหัสผ่าน">
-    </div>
-    <button id="auth-action-button" onclick="handleAuthAction()" class="w-full p-2 bg-purple-600 text-white rounded">เข้าสู่ระบบ</button>
-    <p id="auth-switch" class="mt-4 text-center">
-      ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
-    </p>
-  </div>
-</div>  
-    
       <!-- เมื่อล็อกอินแล้ว -->
       <div class="hidden" id="user-details">
         <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
         <div class="text-sm text-gray-300" id="user-email">email@example.com</div>
-       <!-- ปุ่มแก้ไขโปรไฟล์ -->
-<button class="mt-2 text-sm text-purple-400 hover:underline">
-  <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-      d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l10.414-10.414a2 2 0 000-2.828l-2.828-2.828a2 2 0 00-2.828 0L4 15.586V20z" />
-  </svg>
-  แก้ไขโปรไฟล์
-</button>
+        <button class="mt-2 text-sm text-purple-400 hover:underline">
+          <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z" />
+          </svg>
+          แก้ไขโปรไฟล์
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- เมนูเพิ่มเติม -->
-<div class="mt-12 space-y-3 px-6"> <!-- เปลี่ยนจาก mt-8 เป็น mt-12 เพื่อเพิ่มระยะห่าง -->
+<div class="mt-6 space-y-3 px-6">
+
+  <!-- Support / Donate -->
   <details class="group bg-[#2e1b44] rounded-xl px-4 py-3">
     <summary class="cursor-pointer text-white font-medium flex items-center justify-between">
       Support / Donate
-      <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
+      <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180"
+        xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24">
+        <path d="M7 10l5 5 5-5H7z" />
+      </svg>
     </summary>
     <div class="mt-3 space-y-2 pl-4 text-sm text-purple-300">
+      
       <a href="https://line.me/..." target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
         <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
           <img src="line-icon.png" alt="LINE" class="w-6 h-6" />
         </div>
         <span>LINE</span>
       </a>
+
       <a href="https://t.me/..." target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
         <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
           <img src="telegram-icon.png" alt="Telegram" class="w-6 h-6" />
         </div>
         <span>Telegram</span>
       </a>
+
     </div>
   </details>
 
-  <!-- เพิ่มระยะห่างให้กับปุ่มอื่นๆ -->
+  <!-- ติดต่อเรา -->
   <details class="group bg-[#2e1b44] rounded-xl px-4 py-3">
     <summary class="cursor-pointer text-white font-medium flex items-center justify-between">
       ติดต่อเรา
-      <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
+      <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180"
+        xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24">
+        <path d="M7 10l5 5 5-5H7z" />
+      </svg>
     </summary>
     <div class="mt-3 space-y-2 pl-4 text-sm text-purple-300">
+
       <a href="mailto:contact@example.com" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
         <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
           <img src="email-icon.png" alt="Email" class="w-6 h-6" />
         </div>
         <span>อีเมล</span>
       </a>
+
       <a href="https://facebook.com/example" target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
         <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
           <img src="facebook-icon.png" alt="Facebook" class="w-6 h-6" />
         </div>
         <span>Facebook</span>
       </a>
+
       <a href="tel:0800000000" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
         <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
           <img src="phone-icon.png" alt="Phone" class="w-6 h-6" />
         </div>
         <span>โทรศัพท์</span>
       </a>
+
     </div>
   </details>
-  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">กรอกโค้ด</a>
-  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">เงื่อนไขการใช้งาน</a>
+
+  <!-- ภาษา -->
+  <details class="group bg-[#2e1b44] rounded-xl px-4 py-3">
+    <summary class="cursor-pointer text-white font-medium flex items-center justify-between">
+      ภาษา
+      <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180"
+        xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24">
+        <path d="M7 10l5 5 5-5H7z" />
+      </svg>
+    </summary>
+    <div class="mt-3 space-y-2 pl-4 text-sm text-purple-300">
+
+      <a href="#" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
+        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center border-4 border-[#1e0a2a]">
+          <img src="language-icon.png" alt="Language" class="w-6 h-6" />
+        </div>
+        <span>เปลี่ยนภาษา</span>
+      </a>
+
+    </div>
+  </details>
+
 </div>
-<!-- ปุ่มออกจากระบบ -->
-<button id="sign-out-button" onclick="showLogoutConfirm()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-2xl text-lg font-semibold shadow-md hover:from-red-600 hover:to-red-700 transition hidden">
-  ออกจากระบบ
-</button>     
+  <!--ทำงานดาวโหลดเเอป-->
+  <script>
+  if ('serviceWorker' in navigator) {  // เช็กว่าบราวเซอร์รองรับ Service Worker หรือไม่
+    navigator.serviceWorker.register('./service-worker.js')  // ลงทะเบียนไฟล์ service-worker.js
+      .then(registration => {  
+        console.log('Service Worker Registered');  // ถ้าสำเร็จ แสดงข้อความนี้
+      })
+      .catch(error => {
+        console.log('Service Worker Registration Failed:', error);  // ถ้ามีปัญหา แสดงข้อความ error
+      });
+  }
+  </script>
+
+     <!-- Modal สมัครสมาชิก / เข้าสู่ระบบ -->
+<div id="auth-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
+  <div class="bg-white rounded-xl p-6 w-full max-w-sm relative">
+    
+    <!-- ปุ่มปิด -->
+    <button class="absolute top-2 right-3 text-gray-500" onclick="closeAuthModal()">&times;</button>
+    
+    <!-- หัวข้อ Modal -->
+    <h2 id="auth-title" class="text-lg font-bold mb-4 text-center">เข้าสู่ระบบ</h2>
+
+    <!-- ช่องกรอกอีเมล -->
+    <input 
+      type="email" 
+      id="auth-email" 
+      placeholder="อีเมล" 
+      class="w-full mb-2 px-3 py-2 border rounded" 
+    />
+
+    <!-- ช่องกรอกรหัสผ่าน -->
+    <input 
+      type="password" 
+      id="auth-password" 
+      placeholder="รหัสผ่าน" 
+      class="w-full mb-2 px-3 py-2 border rounded" 
+    />
+
+    <!-- ช่องยืนยันรหัสผ่าน (สำหรับสมัครสมาชิกเท่านั้น) -->
+    <input 
+      type="password" 
+      id="auth-confirm-password" 
+      placeholder="ยืนยันรหัสผ่าน" 
+      class="w-full mb-4 px-3 py-2 border rounded hidden" 
+    />
+
+    <!-- ปุ่มหลัก เข้าสู่ระบบ หรือ สมัครสมาชิก -->
+    <button 
+      id="auth-action-button" 
+      onclick="handleAuthAction()" 
+      class="bg-purple-600 text-white w-full py-2 rounded mb-2"
+    >
+      เข้าสู่ระบบ
+    </button>
+
+    <!-- ปุ่มเข้าสู่ระบบด้วย Google -->
+    <button 
+      onclick="googleLogin()" 
+      class="bg-red-500 text-white w-full py-2 rounded mb-2"
+    >
+      เข้าสู่ระบบด้วย Google
+    </button>
+
+    <!-- ลิงก์สลับระหว่างเข้าสู่ระบบ/สมัครสมาชิก -->
+    <p class="text-center text-sm text-gray-600">
+      <span id="auth-switch">
+        ยังไม่มีบัญชี? 
+        <button onclick="switchToSignup()" class="text-purple-600">
+          สมัครสมาชิก
+        </button>
+      </span>
+    </p>
+
+  </div>
+</div>
+
+  <!-- ปุ่มเปิด Modal -->
+<button onclick="openAuthModal()" class="bg-blue-500 text-white px-4 py-2 rounded">
+  เข้าสู่ระบบ / สมัครสมาชิก
+</button>
 
   <!-- Popup ยืนยันออกจากระบบ -->
    <div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50 hidden">
@@ -268,9 +355,8 @@
       <button onclick="confirmLogout()" class="flex-1 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition">ออกจากระบบ</button>
     </div>
   </div>
-</div>
-
-<!-- CSS เสริม (อนิเมชั่นเบา ๆ) -->
+   </div>
+  <!-- CSS เสริม (อนิเมชั่นเบา ๆ) -->
 <style>
 @keyframes fade-in-up {
   from {
@@ -286,167 +372,191 @@
   animation: fade-in-up 0.3s ease-out;
 }
 </style>
-        
-<!-- Javascript ควบคุม -->
+  
+<!-- ปุ่มออกจากระบบ -->
+<button id="sign-out-button" onclick="showLogoutConfirm()" class="bg-red-500 text-white px-4 py-2 rounded hidden">
+  ออกจากระบบ
+</button>
+
+<!-- JavaScript -->
 <script>
-let isSignUp = false;
+  let isSignUp = false;
 
-function openAuthModal() {
-  document.getElementById('auth-modal').classList.remove('hidden');
-}
+  function openAuthModal() {
+    document.getElementById('auth-modal').classList.remove('hidden');
+  }
 
-function closeAuthModal() {
-  document.getElementById('auth-modal').classList.add('hidden');
-}
+  function closeAuthModal() {
+    document.getElementById('auth-modal').classList.add('hidden');
+    clearAuthForm();
+  }
 
-function switchToSignup() {
-  isSignUp = true;
-  document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
-  document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
-  document.getElementById('auth-switch').innerHTML = `มีบัญชีอยู่แล้ว? <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>`;
-  document.getElementById('auth-confirm-password').classList.remove('hidden');
-}
-
-function switchToLogin() {
-  isSignUp = false;
-  document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
-  document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
-  document.getElementById('auth-switch').innerHTML = `ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>`;
-  document.getElementById('auth-confirm-password').classList.add('hidden');
-}
-
-async function generateUniqueUsername() {
-  const db = firebase.firestore();
-  let uniqueUsername = '';
-  let isUnique = false;
-
-  while (!isUnique) {
-    const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
-    const doc = await db.collection('usernames').doc(randomUsername).get();
-    if (!doc.exists) {
-      uniqueUsername = randomUsername;
-      isUnique = true;
+  function clearAuthForm() {
+    document.getElementById('auth-email').value = '';
+    document.getElementById('auth-password').value = '';
+    if (document.getElementById('auth-confirm-password')) {
+      document.getElementById('auth-confirm-password').value = '';
     }
   }
-  return uniqueUsername;
-}
 
-async function handleAuthAction() {
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value.trim();
-  const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
-
-  if (!email || !password || (isSignUp && !confirmPassword)) {
-    alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-    return;
+  function switchToSignup() {
+    isSignUp = true;
+    document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
+    document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
+    document.getElementById('auth-switch').innerHTML = `
+      มีบัญชีอยู่แล้ว?
+      <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>
+    `;
+    document.getElementById('auth-confirm-password').classList.remove('hidden');
   }
 
-  if (isSignUp && password !== confirmPassword) {
-    alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
-    return;
+  function switchToLogin() {
+    isSignUp = false;
+    document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
+    document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
+    document.getElementById('auth-switch').innerHTML = `
+      ยังไม่มีบัญชี?
+      <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
+    `;
+    document.getElementById('auth-confirm-password').classList.add('hidden');
   }
 
-  try {
-    if (isSignUp) {
-      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-      const uniqueUsername = await generateUniqueUsername();
+  async function generateUniqueUsername() {
+    const db = firebase.firestore();
+    let uniqueUsername = '';
+    let isUnique = false;
 
-      await user.updateProfile({ displayName: uniqueUsername });
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+    while (!isUnique) {
+      const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
+      const doc = await db.collection('usernames').doc(randomUsername).get();
+      if (!doc.exists) {
+        uniqueUsername = randomUsername;
+        isUnique = true;
+      }
+    }
+    return uniqueUsername;
+  }
 
-      alert('สมัครสมาชิกสำเร็จ!');
-    } else {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      alert('เข้าสู่ระบบสำเร็จ!');
+  async function handleAuthAction() {
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value.trim();
+    const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
+
+    if (!email || !password || (isSignUp && !confirmPassword)) {
+      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+      return;
     }
 
-    closeAuthModal();
-    location.reload();
-  } catch (error) {
-    alert(error.message);
-  }
-}
-
-async function googleLogin() {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  try {
-    const result = await firebase.auth().signInWithPopup(provider);
-    const user = result.user;
-
-    if (result.additionalUserInfo.isNewUser) {
-      const uniqueUsername = await generateUniqueUsername();
-
-      await user.updateProfile({ displayName: uniqueUsername });
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+    if (isSignUp && password !== confirmPassword) {
+      alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
+      return;
     }
 
-    closeAuthModal();
-    location.reload();
-  } catch (error) {
-    alert(error.message);
+    try {
+      if (isSignUp) {
+        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        const uniqueUsername = await generateUniqueUsername();
+
+        await user.updateProfile({ displayName: uniqueUsername });
+        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+          uid: user.uid,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        alert('สมัครสมาชิกสำเร็จ!');
+      } else {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+        alert('เข้าสู่ระบบสำเร็จ!');
+      }
+
+      closeAuthModal();
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
   }
-}
 
-const logoutPopup = document.getElementById('logout-confirm-popup');
+  async function googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      const user = result.user;
 
-function showLogoutConfirm() {
-  logoutPopup.classList.remove('hidden');
-}
+      if (result.additionalUserInfo.isNewUser) {
+        const uniqueUsername = await generateUniqueUsername();
+        await user.updateProfile({ displayName: uniqueUsername });
+        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+          uid: user.uid,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
 
-function cancelLogout() {
-  logoutPopup.classList.add('hidden');
-}
+      closeAuthModal();
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
 
-function confirmLogout() {
-  firebase.auth().signOut().then(() => {
+  // Logout Popup control
+  const logoutPopup = document.getElementById('logout-confirm-popup');
+
+  function showLogoutConfirm() {
+    logoutPopup.classList.remove('hidden');
+  }
+
+  function cancelLogout() {
     logoutPopup.classList.add('hidden');
-    location.reload();
-  }).catch((error) => {
-    alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
-  });
-}
-
-// ฟังก์ชันสำหรับเช็คสถานะการล็อกอิน
-firebase.auth().onAuthStateChanged(user => {
-  const loginPrompt = document.getElementById('login-prompt');
-  const userDetails = document.getElementById('user-details');
-  const userName = document.getElementById('user-name');
-  const userEmail = document.getElementById('user-email');
-  const signOutButton = document.getElementById('sign-out-button');
-
-  if (user) {
-    // ถ้าผู้ใช้ล็อกอินแล้ว
-    loginPrompt.classList.add('hidden');
-    userDetails.classList.remove('hidden');
-    userName.textContent = user.displayName || 'ชื่อของคุณ';
-    userEmail.textContent = user.email;
-  } else {
-    // ถ้าผู้ใช้ยังไม่ได้ล็อกอิน
-    loginPrompt.classList.remove('hidden');
-    userDetails.classList.add('hidden');
   }
-});
-</script>
-        
-<!-- เมนูด้านล่าง -->
-</div></div><nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
+
+  function confirmLogout() {
+    firebase.auth().signOut()
+      .then(() => {
+        logoutPopup.classList.add('hidden');
+      })
+      .catch(error => {
+        alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
+      });
+  }
+
+  // Auth State Monitor
+  firebase.auth().onAuthStateChanged(user => {
+    const loginPrompt = document.getElementById('login-prompt');
+    const userDetails = document.getElementById('user-details');
+    const userName = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
+    const signOutButton = document.getElementById('sign-out-button');
+
+    if (user) {
+      if (loginPrompt) loginPrompt.classList.add('hidden');
+      if (userDetails) userDetails.classList.remove('hidden');
+      if (signOutButton) signOutButton.classList.remove('hidden');
+
+      if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';
+      if (userEmail) userEmail.textContent = user.email;
+    } else {
+      if (loginPrompt) loginPrompt.classList.remove('hidden');
+      if (userDetails) userDetails.classList.add('hidden');
+      if (signOutButton) signOutButton.classList.add('hidden');
+    }
+  });
+          </script>
+          <!-- เมนูด้านล่าง -->
+</div>
+</div>
+
+<nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
   <button onclick="goTo('home')" class="flex flex-col items-center">
-    <img src="icon-home.png.png" class="w-6 h-6" />
+    <img src="icon-home.png" class="w-6 h-6" />
     <span class="text-xs">หน้าแรก</span>
   </button>
   <button onclick="goTo('search')" class="flex flex-col items-center">
-    <img src="icon-search.png.png" class="w-6 h-6" />
+    <img src="icon-search.png" class="w-6 h-6" />
     <span class="text-xs">ค้นหา</span>
   </button>
   <button onclick="goTo('account')" class="flex flex-col items-center">
-    <img src="icon-user.png.png" class="w-6 h-6" />
+    <img src="icon-user.png" class="w-6 h-6" />
     <span class="text-xs">บัญชี</span>
   </button>
 </nav>
@@ -466,7 +576,7 @@ firebase.auth().onAuthStateChanged(user => {
     });
   };
 
-  const goToSlide = i => {
+  const goToSlide = (i) => {
     carousel.style.transition = "transform 0.5s ease-in-out";
     carousel.style.transform = `translateX(-${i * 100}%)`;
     updateDots();
@@ -477,6 +587,7 @@ firebase.auth().onAuthStateChanged(user => {
     allowClick = false;
     index++;
     goToSlide(index);
+
     setTimeout(() => {
       if (index === total + 1) {
         carousel.style.transition = "none";
