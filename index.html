@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff">
-  <title>GZONE-STORE</title>
+  <title>GZONE</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
@@ -168,12 +168,24 @@
     </div>
 
     <div class="mt-14 text-center" id="user-info">
-      <!-- ตอนยังไม่ได้ล็อกอิน -->
-      <div class="hidden" id="login-prompt">
-        <button class="text-sm text-purple-400 hover:underline" id="login-button">เข้าสู่ระบบ</button>
-        <span class="mx-2">หรือ</span>
-        <button class="text-sm text-purple-400 hover:underline" id="signup-button">สมัครสมาชิก</button>
-      </div>
+    <!-- ปุ่มเปิดโมดอล -->
+<button onclick="openAuthModal()" class="p-2 bg-purple-500 text-white rounded">สมัครสมาชิก / เข้าสู่ระบบ</button>
+
+<!-- โมดอล -->
+<div id="auth-modal" class="hidden fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50" onclick="closeAuthModal()">
+  <div class="bg-white p-8 rounded-lg w-96" onclick="event.stopPropagation()">
+    <h2 id="auth-title" class="text-xl mb-4">เข้าสู่ระบบ</h2>
+    <input type="email" id="auth-email" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="อีเมล">
+    <input type="password" id="auth-password" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="รหัสผ่าน">
+    <div id="auth-confirm-password" class="hidden">
+      <input type="password" id="auth-confirm-password-input" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="ยืนยันรหัสผ่าน">
+    </div>
+    <button id="auth-action-button" onclick="handleAuthAction()" class="w-full p-2 bg-purple-600 text-white rounded">เข้าสู่ระบบ</button>
+    <p id="auth-switch" class="mt-4 text-center">
+      ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
+    </p>
+  </div>
+</div>  
     
       <!-- เมื่อล็อกอินแล้ว -->
       <div class="hidden" id="user-details">
@@ -274,23 +286,7 @@
   animation: fade-in-up 0.3s ease-out;
 }
 </style>
-
-<!-- HTML สำหรับการแสดงป๊อปอัพ -->
-<div id="auth-modal" class="hidden fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50">
-  <div class="bg-white p-8 rounded-lg w-96">
-    <h2 id="auth-title" class="text-xl mb-4">เข้าสู่ระบบ</h2>
-    <input type="email" id="auth-email" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="อีเมล">
-    <input type="password" id="auth-password" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="รหัสผ่าน">
-    <div id="auth-confirm-password" class="hidden">
-      <input type="password" id="auth-confirm-password-input" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="ยืนยันรหัสผ่าน">
-    </div>
-    <button id="auth-action-button" onclick="handleAuthAction()" class="w-full p-2 bg-purple-600 text-white rounded">เข้าสู่ระบบ</button>
-    <p id="auth-switch" class="mt-4 text-center">
-      ยังไม่มีบัญชี? <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
-    </p>
-  </div>
-</div>
-
+        
 <!-- Javascript ควบคุม -->
 <script>
 let isSignUp = false;
