@@ -37,7 +37,6 @@
     };
 
     firebase.initializeApp(firebaseConfig);
-
     const auth = firebase.auth();
     const storage = firebase.storage();
 
@@ -64,22 +63,50 @@
 
     document.getElementById("saveProfile").addEventListener("click", async () => {
       const user = auth.currentUser;
-      const displayName = document.getElementById("displayName").value;
-      const file = document.getElementById("profileImage").files[0];
-
-      if (!user) return;
-
-      let photoURL = user.photoURL;
-
-      if (file) {
-        const storageRef = storage.ref().child("profile_images/" + user.uid + ".png");
-        await storageRef.put(file);
-        photoURL = await storageRef.getDownloadURL();
+      if (!user) {
+        alert("ผู้ใช้ไม่เข้าสู่ระบบ");
+        return;
       }
 
-      await user.updateProfile({ displayName, photoURL });
-      alert("บันทึกโปรไฟล์เรียบร้อยแล้ว");
-      window.location.href = "index.html";
+      const displayName = document.getElementById("displayName").value.trim();
+      const file = document.getElementById("profileImage").files[0];
+      const saveButton = document.getElementById("saveProfile");
+
+      if (!displayName) {
+        alert("กรุณากรอกชื่อผู้ใช้");
+        return;
+      }
+
+      saveButton.disabled = true;
+      saveButton.textContent = "กำลังบันทึก...";
+
+      try {
+        let photoURL = user.photoURL;
+
+        if (file) {
+          if (!file.type.startsWith("image/png")) {
+            alert("กรุณาอัปโหลดไฟล์ PNG เท่านั้น");
+            saveButton.disabled = false;
+            saveButton.textContent = "บันทึกการเปลี่ยนแปลง";
+            return;
+          }
+
+          const storageRef = storage.ref().child("profile_images/" + user.uid + ".png");
+          await storageRef.put(file);
+          photoURL = await storageRef.getDownloadURL();
+        }
+
+        await user.updateProfile({ displayName, photoURL });
+
+        alert("บันทึกโปรไฟล์เรียบร้อยแล้ว");
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("เกิดข้อผิดพลาด:", error);
+        alert("ไม่สามารถบันทึกข้อมูลได้: " + error.message);
+      } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = "บันทึกการเปลี่ยนแปลง";
+      }
     });
   </script>
 </body>
