@@ -3,41 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>บัญชีผู้ใช้</title>
+  <title>แก้ไขโปรไฟล์</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 </head>
-<body class="p-4 space-y-8">
-  <!-- ส่วนโปรไฟล์ -->
-  <div class="relative">
-    <img src="cover.jpg" class="w-full h-32 object-cover" />
-    <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-      <img id="profileImagePreview" src="profile.png" class="w-24 h-24 rounded-full border-4 border-[#1e0a2a] object-cover" />
-    </div>
+<body class="p-4 space-y-6">
+  <h1 class="text-xl font-bold text-center">แก้ไขโปรไฟล์</h1>
+
+  <div class="text-center">
+    <img id="profileImagePreview" src="profile.png" class="w-24 h-24 mx-auto rounded-full object-cover border-4 border-purple-500" />
+    <input type="file" id="profileImage" class="mt-2 text-sm text-white" accept="image/*" />
   </div>
 
-  <div class="text-center mt-14">
-    <h2 id="displayNameText" class="text-lg font-semibold">ชื่อผู้ใช้</h2>
+  <div>
+    <label class="block text-sm mb-1">ชื่อผู้ใช้</label>
+    <input type="text" id="displayName" class="w-full rounded-lg px-3 py-2 text-black" />
   </div>
 
-  <!-- แก้ไขโปรไฟล์ -->
-  <div class="space-y-4">
-    <div class="text-center">
-      <label class="block text-sm">เปลี่ยนรูป (PNG เท่านั้น)</label>
-      <input type="file" id="profileImage" accept="image/png" class="mt-1 text-white text-sm" />
-    </div>
-
-    <div>
-      <label class="block text-sm mb-1">ชื่อผู้ใช้ใหม่</label>
-      <input type="text" id="displayName" class="w-full rounded-lg px-3 py-2 text-black" />
-    </div>
-
-    <button id="saveProfile" class="w-full bg-purple-600 py-2 rounded-lg text-white font-semibold">
-      บันทึกการเปลี่ยนแปลง
-    </button>
-  </div>
+  <button id="saveProfile" class="w-full bg-purple-600 py-2 rounded-lg text-white font-semibold">
+    บันทึกการเปลี่ยนแปลง
+  </button>
 
   <script>
     const firebaseConfig = {
@@ -56,7 +43,6 @@
     // โหลดข้อมูลผู้ใช้
     auth.onAuthStateChanged(user => {
       if (user) {
-        document.getElementById("displayNameText").textContent = user.displayName || "ไม่มีชื่อ";
         document.getElementById("displayName").value = user.displayName || "";
         document.getElementById("profileImagePreview").src = user.photoURL || "profile.png";
       } else {
@@ -65,7 +51,7 @@
       }
     });
 
-    // แสดงภาพที่อัปโหลด
+    // แสดงตัวอย่างภาพเมื่อเลือกไฟล์
     document.getElementById("profileImage").addEventListener("change", e => {
       const file = e.target.files[0];
       if (file) {
@@ -77,17 +63,15 @@
       }
     });
 
-    // อัปเดตโปรไฟล์
+    // บันทึกการเปลี่ยนแปลง
     document.getElementById("saveProfile").addEventListener("click", async () => {
       const user = auth.currentUser;
       const displayName = document.getElementById("displayName").value.trim();
       const file = document.getElementById("profileImage").files[0];
       const saveButton = document.getElementById("saveProfile");
 
-      if (!displayName) {
-        alert("กรุณากรอกชื่อผู้ใช้");
-        return;
-      }
+      if (!user) return alert("ผู้ใช้ไม่เข้าสู่ระบบ");
+      if (!displayName) return alert("กรุณากรอกชื่อผู้ใช้");
 
       saveButton.disabled = true;
       saveButton.textContent = "กำลังบันทึก...";
@@ -96,30 +80,55 @@
         let photoURL = user.photoURL;
 
         if (file) {
-          if (!file.type.startsWith("image/png")) {
-            alert("กรุณาอัปโหลดไฟล์ PNG เท่านั้น");
-            saveButton.disabled = false;
-            saveButton.textContent = "บันทึกการเปลี่ยนแปลง";
-            return;
-          }
-
-          const storageRef = storage.ref().child("profile_images/" + user.uid + ".png");
-          await storageRef.put(file);
-          photoURL = await storageRef.getDownloadURL();
+          const resized = await resizeImage(file, 256); // ย่อภาพ
+          const ref = storage.ref("profile_images/" + user.uid + ".png");
+          await ref.put(resized);
+          photoURL = await ref.getDownloadURL();
         }
 
         await user.updateProfile({ displayName, photoURL });
-
-        document.getElementById("displayNameText").textContent = displayName;
-        alert("บันทึกโปรไฟล์เรียบร้อยแล้ว");
-      } catch (err) {
-        console.error(err);
-        alert("ไม่สามารถบันทึกได้: " + err.message);
+        alert("บันทึกสำเร็จ");
+        window.location.href = "index.html";
+      } catch (e) {
+        alert("ผิดพลาด: " + e.message);
       } finally {
         saveButton.disabled = false;
         saveButton.textContent = "บันทึกการเปลี่ยนแปลง";
       }
     });
+
+    // ย่อภาพก่อนอัปโหลด
+    function resizeImage(file, maxSize) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height && width > maxSize) {
+              height *= maxSize / width;
+              width = maxSize;
+            } else if (height > maxSize) {
+              width *= maxSize / height;
+              height = maxSize;
+            }
+
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+            canvas.toBlob(blob => resolve(blob), "image/png");
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
   </script>
 </body>
 </html>
