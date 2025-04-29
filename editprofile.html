@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html lang="th">
-
+<html lang="th" class="bg-[#1e0a2a] text-white">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>editprofile-gzone</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>แก้ไขโปรไฟล์</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+</head>
+<body class="p-4 space-y-6">
+  <h1 class="text-xl font-bold text-center">แก้ไขโปรไฟล์</h1>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js"></script>
+  <div class="text-center">
+    <img id="profileImagePreview" src="profile.png" class="w-24 h-24 mx-auto rounded-full object-cover border-4 border-purple-500" />
+    <input type="file" id="profileImage" class="mt-2 text-sm text-white" accept="image/png" />
+  </div>
+
+  <div>
+    <label class="block text-sm mb-1">ชื่อผู้ใช้</label>
+    <input type="text" id="displayName" class="w-full rounded-lg px-3 py-2 text-black" />
+  </div>
+
+  <button id="saveProfile" class="w-full bg-purple-600 py-2 rounded-lg text-white font-semibold">
+    บันทึกการเปลี่ยนแปลง
+  </button>
 
   <script>
     const firebaseConfig = {
@@ -19,67 +33,54 @@
       projectId: "gzone-store",
       storageBucket: "gzone-store.appspot.com",
       messagingSenderId: "20383169229",
-      appId: "1:20383169229:web:e225735efbea6589120784"
+      appId: "1:20383169229:web:e225735efbea6589120784",
     };
 
-    const app = firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
+
     const auth = firebase.auth();
-    const db = firebase.firestore();
-  </script>
-</head>
+    const storage = firebase.storage();
 
-<body>
-  <h2>แก้ไขโปรไฟล์</h2>
-
-  <form id="edit-profile-form">
-    <input type="text" id="new-name" placeholder="ชื่อใหม่" class="w-full p-2 mb-4 border rounded-lg">
-    <input type="file" id="new-avatar" class="w-full mb-4">
-    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg w-full">บันทึกการเปลี่ยนแปลง</button>
-  </form>
-
-  <button onclick="window.location.href='account.html'">กลับสู่หน้าบัญชี</button>
-
-  <script>
-    document.getElementById('edit-profile-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const user = firebase.auth().currentUser;
-      const newName = document.getElementById('new-name').value;
-      const newAvatar = document.getElementById('new-avatar').files[0];
-
-      try {
-        // อัปเดตชื่อ
-        if (newName) {
-          await user.updateProfile({
-            displayName: newName
-          });
-        }
-
-        // อัปเดตรูปโปรไฟล์
-        if (newAvatar) {
-          const storageRef = firebase.storage().ref().child(`profile_pictures/${user.uid}`);
-          await storageRef.put(newAvatar);
-          const avatarURL = await storageRef.getDownloadURL();
-          await user.updateProfile({
-            photoURL: avatarURL
-          });
-        }
-
-        // อัปเดตข้อมูลใน Firestore
-        await db.collection('users').doc(user.uid).set({
-          name: newName || user.displayName,
-          avatar: newAvatar ? await storageRef.getDownloadURL() : user.photoURL
-        }, { merge: true });
-
-        // กลับไปยังหน้าบัญชี
-        window.location.href = 'account.html';
-
-        alert('โปรไฟล์อัปเดตสำเร็จ');
-      } catch (error) {
-        alert('เกิดข้อผิดพลาด: ' + error.message);
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById("displayName").value = user.displayName || "";
+        document.getElementById("profileImagePreview").src = user.photoURL || "profile.png";
+      } else {
+        alert("กรุณาเข้าสู่ระบบก่อน");
+        window.location.href = "index.html";
       }
+    });
+
+    document.getElementById("profileImage").addEventListener("change", e => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          document.getElementById("profileImagePreview").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById("saveProfile").addEventListener("click", async () => {
+      const user = auth.currentUser;
+      const displayName = document.getElementById("displayName").value;
+      const file = document.getElementById("profileImage").files[0];
+
+      if (!user) return;
+
+      let photoURL = user.photoURL;
+
+      if (file) {
+        const storageRef = storage.ref().child("profile_images/" + user.uid + ".png");
+        await storageRef.put(file);
+        photoURL = await storageRef.getDownloadURL();
+      }
+
+      await user.updateProfile({ displayName, photoURL });
+      alert("บันทึกโปรไฟล์เรียบร้อยแล้ว");
+      window.location.href = "index.html";
     });
   </script>
 </body>
-
 </html>
