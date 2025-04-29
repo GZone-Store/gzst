@@ -40,16 +40,22 @@
     const auth = firebase.auth();
     const storage = firebase.storage();
 
+    // เช็คสถานะการเข้าสู่ระบบ
     auth.onAuthStateChanged(user => {
       if (user) {
+        // ตั้งค่าแสดงชื่อและรูปโปรไฟล์เมื่อผู้ใช้เข้าสู่ระบบ
         document.getElementById("displayName").value = user.displayName || "";
         document.getElementById("profileImagePreview").src = user.photoURL || "profile.png";
+        
+        // อัปเดตรูปโปรไฟล์ในหน้า "บัญชี"
+        document.getElementById("accountProfileImage").src = user.photoURL || "profile.png";
       } else {
         alert("กรุณาเข้าสู่ระบบก่อน");
         window.location.href = "index.html";
       }
     });
 
+    // อัปโหลดรูปโปรไฟล์
     document.getElementById("profileImage").addEventListener("change", e => {
       const file = e.target.files[0];
       if (file) {
@@ -61,6 +67,7 @@
       }
     });
 
+    // บันทึกการเปลี่ยนแปลงชื่อและรูปโปรไฟล์
     document.getElementById("saveProfile").addEventListener("click", async () => {
       const user = auth.currentUser;
       if (!user) {
@@ -96,6 +103,7 @@
           photoURL = await storageRef.getDownloadURL();
         }
 
+        // อัปเดตชื่อและรูปโปรไฟล์ใน Firebase
         await user.updateProfile({ displayName, photoURL });
 
         alert("บันทึกโปรไฟล์เรียบร้อยแล้ว");
