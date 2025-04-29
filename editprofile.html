@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>editprofile-gzone</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
+      authDomain: "gzone-store.firebaseapp.com",
+      projectId: "gzone-store",
+      storageBucket: "gzone-store.appspot.com",
+      messagingSenderId: "20383169229",
+      appId: "1:20383169229:web:e225735efbea6589120784"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+</head>
+
+<body>
+  <h2>แก้ไขโปรไฟล์</h2>
+
+  <form id="edit-profile-form">
+    <input type="text" id="new-name" placeholder="ชื่อใหม่" class="w-full p-2 mb-4 border rounded-lg">
+    <input type="file" id="new-avatar" class="w-full mb-4">
+    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg w-full">บันทึกการเปลี่ยนแปลง</button>
+  </form>
+
+  <button onclick="window.location.href='account.html'">กลับสู่หน้าบัญชี</button>
+
+  <script>
+    document.getElementById('edit-profile-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const user = firebase.auth().currentUser;
+      const newName = document.getElementById('new-name').value;
+      const newAvatar = document.getElementById('new-avatar').files[0];
+
+      try {
+        // อัปเดตชื่อ
+        if (newName) {
+          await user.updateProfile({
+            displayName: newName
+          });
+        }
+
+        // อัปเดตรูปโปรไฟล์
+        if (newAvatar) {
+          const storageRef = firebase.storage().ref().child(`profile_pictures/${user.uid}`);
+          await storageRef.put(newAvatar);
+          const avatarURL = await storageRef.getDownloadURL();
+          await user.updateProfile({
+            photoURL: avatarURL
+          });
+        }
+
+        // อัปเดตข้อมูลใน Firestore
+        await db.collection('users').doc(user.uid).set({
+          name: newName || user.displayName,
+          avatar: newAvatar ? await storageRef.getDownloadURL() : user.photoURL
+        }, { merge: true });
+
+        // กลับไปยังหน้าบัญชี
+        window.location.href = 'account.html';
+
+        alert('โปรไฟล์อัปเดตสำเร็จ');
+      } catch (error) {
+        alert('เกิดข้อผิดพลาด: ' + error.message);
+      }
+    });
+  </script>
+</body>
+
+</html>
