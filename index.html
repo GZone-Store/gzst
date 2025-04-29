@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1e0a2a" />
-  <title>GZONE</title>
+  <title>GZONE-STORE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <link rel="manifest" href="./manifest.json" />
@@ -287,6 +287,19 @@
         console.log('Service Worker Registration Failed:', error);  // ถ้ามีปัญหา แสดงข้อความ error
       });
   }
+  </script>
+
+
+  <script>
+  document.getElementById('login-button').addEventListener('click', () => {
+    openAuthModal();
+    switchToLogin();
+  });
+
+  document.getElementById('signup-button').addEventListener('click', () => {
+    openAuthModal();
+    switchToSignup();
+  });
   </script>
   
   <!-- ปุ่มเปิด Modal -->
