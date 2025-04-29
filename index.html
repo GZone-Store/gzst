@@ -143,15 +143,16 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
-  
   <!-- หน้าบัญชี -->
 <div id="account" class="hidden flex-1 pb-16">
   <div class="relative">
     <img src="cover.jpg" class="w-full h-32 object-cover" />
     <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-      <img src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" />
+      <!-- เพิ่ม id ให้กับรูปโปรไฟล์เพื่อให้สามารถอัปเดตได้ -->
+      <img id="accountProfileImage" src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" />
     </div>
   </div>
+</div>
 
   <div class="mt-14 text-center" id="user-info">
     <!-- ยังไม่ได้ล็อกอิน -->
@@ -241,6 +242,7 @@
     <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">ภาษา</a>
     <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">เงื่อนไขการใช้งาน</a>
     <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">เปลี่ยนรหัสผ่าน</a>
+  </div>
   </div>
   <!-- ปุ่มออกจากระบบ -->
   <div class="flex justify-center mt-10 px-6">
