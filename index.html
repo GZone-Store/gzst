@@ -308,6 +308,15 @@
 }
 </style>
 </div>
+
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.location.hash === "#account") {
+      document.getElementById("home").classList.add("hidden"); // ซ่อนหน้าหลัก
+      document.getElementById("account").classList.remove("hidden"); // แสดงหน้าบัญชี
+    }
+  });
+  </script>
   
   <!--ทำงานดาวโหลดเเอป-->
   <script>
