@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1e0a2a" />
-  <title>GZONE</title>
+  <title>GZONE-STORE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <link rel="manifest" href="./manifest.json" />
@@ -654,65 +654,95 @@
     else logoBar.classList.add("hidden");
   }
 
-  // Search
-  const searchInput = document.getElementById("searchInput");
-  const searchButton = document.getElementById("searchButton");
-  const searchResults = document.getElementById("searchResults");
-  const historyList = document.getElementById("historyList");
+// Search
+  // ===== ระบบเปลี่ยนหน้า (หน้าแรก, ค้นหา, บัญชี) =====
+  const homePage = document.getElementById("home-page");
+  const searchPage = document.getElementById("search-page");
+  const accountPage = document.getElementById("account-page");
 
-  const gameList = [...]; // ใช้รายการเกมเดิม
+  document.getElementById("home-button").addEventListener("click", () => {
+    homePage.style.display = "block";
+    searchPage.style.display = "none";
+    accountPage.style.display = "none";
+  });
 
-  let searchHistory = [];
+  document.getElementById("search-button").addEventListener("click", () => {
+    homePage.style.display = "none";
+    searchPage.style.display = "block";
+    accountPage.style.display = "none";
+  });
 
-  const renderSearchResults = (query) => {
-    searchResults.innerHTML = "";
-    const results = gameList.filter(game =>
-      game.name.toLowerCase().includes(query.toLowerCase())
-    );
-    if (results.length === 0) {
-      searchResults.innerHTML = "<p class='text-gray-400'>ไม่พบเกมที่คุณค้นหา</p>";
-    } else {
-      results.forEach(game => {
-        const resultItem = document.createElement("div");
-        resultItem.className = "bg-[#2b1140] rounded-xl p-3";
-        resultItem.innerHTML = `
-          <img src="${game.image}" class="w-full h-32 object-cover rounded-lg mb-2" />
-          <div class="text-white font-semibold">${game.name}</div>
-          <a href="${game.link}" target="_blank" class="bg-purple-500 mt-2 block text-center py-1 rounded-lg">ดาวน์โหลด</a>
-        `;
-        searchResults.appendChild(resultItem);
+  document.getElementById("account-button").addEventListener("click", () => {
+    homePage.style.display = "none";
+    searchPage.style.display = "none";
+    accountPage.style.display = "block";
+  });
+
+  // ===== ระบบค้นหาและประวัติการค้นหา =====
+  const searchInput = document.getElementById("search-input");
+  const searchButton = document.getElementById("search-icon");
+  const searchResults = document.getElementById("search-results");
+  const searchHistory = document.getElementById("search-history");
+
+  // รายชื่อเกมทั้งหมด (สามารถเพิ่มได้)
+  const allGames = ["เกมต่อสู้", "เกมยิงปืน", "เกมแต่งตัว", "เกมทำอาหาร", "เกมฝึกสมอง", "เกมแอ็คชั่น", "เกมผจญภัย", "เกมวิ่ง"];
+
+  // โหลดประวัติจาก localStorage
+  function loadSearchHistory() {
+    const history = JSON.parse(localStorage.getItem("searchHistory")) || [];
+    searchHistory.innerHTML = "";
+    history.slice(-5).reverse().forEach(term => {
+      const div = document.createElement("div");
+      div.textContent = term;
+      div.classList.add("cursor-pointer", "hover:underline", "text-gray-500");
+      div.addEventListener("click", () => {
+        searchInput.value = term;
+        performSearch(term);
       });
-    }
-  };
-
-  const updateHistory = (query) => {
-    if (!searchHistory.includes(query)) {
-      searchHistory.unshift(query);
-      if (searchHistory.length > 5) searchHistory.pop();
-      renderHistory();
-    }
-  };
-
-  const renderHistory = () => {
-    historyList.innerHTML = "";
-    searchHistory.forEach((item, index) => {
-      const li = document.createElement("li");
-      li.className = "cursor-pointer hover:text-white";
-      li.textContent = item;
-      li.onclick = () => {
-        searchInput.value = item;
-        renderSearchResults(item);
-      };
-      historyList.appendChild(li);
+      searchHistory.appendChild(div);
     });
-  };
+  }
 
-  searchButton.addEventListener("click", () => {
-    const query = searchInput.value.trim();
-    if (query) {
-      updateHistory(query);
-      renderSearchResults(query);
+  // บันทึกประวัติ
+  function saveSearchHistory(term) {
+    let history = JSON.parse(localStorage.getItem("searchHistory")) || [];
+    history = history.filter(t => t !== term); // ลบซ้ำ
+    history.push(term);
+    localStorage.setItem("searchHistory", JSON.stringify(history));
+  }
+
+  // ค้นหา
+  function performSearch(term) {
+    searchResults.innerHTML = "";
+    const filtered = allGames.filter(game => game.includes(term));
+    if (filtered.length > 0) {
+      filtered.forEach(game => {
+        const div = document.createElement("div");
+        div.textContent = game;
+        div.classList.add("p-2", "bg-white", "rounded", "shadow", "mb-2");
+        searchResults.appendChild(div);
+      });
+    } else {
+      const div = document.createElement("div");
+      div.textContent = "ไม่พบผลลัพธ์";
+      div.classList.add("text-gray-500");
+      searchResults.appendChild(div);
     }
+  }
+
+  // เมื่อกดค้นหา
+  searchButton.addEventListener("click", () => {
+    const term = searchInput.value.trim();
+    if (term !== "") {
+      saveSearchHistory(term);
+      loadSearchHistory();
+      performSearch(term);
+    }
+  });
+
+  // โหลดประวัติเมื่อเข้า search page
+  document.getElementById("search-button").addEventListener("click", () => {
+    loadSearchHistory();
   });
 </script>
 
