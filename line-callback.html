@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LINE Callback</title>
+</head>
+<body>
+  <h2>กำลังเข้าสู่ระบบผ่าน LINE...</h2>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code'); // รับ code ที่ส่งมาจาก LINE
+
+    if (!code) {
+      document.body.innerHTML = '<p>เกิดข้อผิดพลาด: ไม่พบโค้ดจาก LINE</p>';
+    } else {
+      // ใช้ code นี้ไปแลก access token ใน backend (เซิร์ฟเวอร์)
+      document.body.innerHTML = '<p>เข้าสู่ระบบสำเร็จด้วย LINE (สมมติว่าทำสำเร็จ)</p>';
+    }
+  </script>
+</body>
+</html>
