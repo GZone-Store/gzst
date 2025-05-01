@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1e0a2a" />
-  <title>GZONE.com</title>
+  <title>GZONE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <link rel="manifest" href="./manifest.json" />
@@ -142,7 +142,28 @@
 
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
-  </script>
+  
+  auth.onAuthStateChanged(async function(user) {
+  if (user) {
+    await user.reload(); // <-- ดึงข้อมูลใหม่จาก Firebase
+    const updatedUser = auth.currentUser;
+
+    document.getElementById('login-prompt').classList.add('hidden');
+    document.getElementById('user-details').classList.remove('hidden');
+
+    document.getElementById('user-name').textContent = updatedUser.displayName || "ไม่มีชื่อ";
+    document.getElementById('user-email').textContent = updatedUser.email;
+
+    const profileImage = document.getElementById('accountProfileImage');
+    if (updatedUser.photoURL) {
+      // ป้องกันการแคชรูปเดิม
+      profileImage.src = updatedUser.photoURL + '?t=' + new Date().getTime();
+    }
+  } else {
+    document.getElementById('login-prompt').classList.remove('hidden');
+    document.getElementById('user-details').classList.add('hidden');
+  }
+});
   
    <!-- หน้าบัญชี -->
  <div id="account" class="hidden flex-1 pb-16">
