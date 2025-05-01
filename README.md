@@ -1,1 +1,1 @@
-# gzst.
+# GameZone
