@@ -6,15 +6,64 @@
 </head>
 <body>
   <h2>กำลังเข้าสู่ระบบผ่าน LINE...</h2>
+  <div id="user-info" style="display: none;">
+    <p>ยินดีต้อนรับ, <span id="user-name"></span></p>
+    <p>อีเมล: <span id="user-email"></span></p>
+  </div>
+  <div id="error-message" style="display: none;">
+    <p>เกิดข้อผิดพลาดในการเข้าสู่ระบบ</p>
+  </div>
+
   <script>
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code'); // รับ code ที่ส่งมาจาก LINE
 
     if (!code) {
-      document.body.innerHTML = '<p>เกิดข้อผิดพลาด: ไม่พบโค้ดจาก LINE</p>';
+      document.getElementById('error-message').style.display = 'block';
     } else {
-      // ใช้ code นี้ไปแลก access token ใน backend (เซิร์ฟเวอร์)
-      document.body.innerHTML = '<p>เข้าสู่ระบบสำเร็จด้วย LINE (สมมติว่าทำสำเร็จ)</p>';
+      // ส่ง code ไปแลก access_token กับ LINE
+      fetch('https://api.line.me/oauth2/v2.1/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          grant_type: 'authorization_code',
+          code: code,
+          redirect_uri: 'https://yourusername.github.io/your-repo/line-callback.html',
+          client_id: 'YOUR_LINE_CHANNEL_ID',
+          client_secret: 'YOUR_LINE_CHANNEL_SECRET'
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        const accessToken = data.access_token;
+
+        // ใช้ access_token เพื่อดึงข้อมูลโปรไฟล์ผู้ใช้
+        fetch('https://api.line.me/v2/profile', {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        })
+        .then(response => response.json())
+        .then(profileData => {
+          const userName = profileData.displayName; // ชื่อผู้ใช้จาก LINE
+          const userEmail = profileData.email || 'ไม่มีอีเมล'; // อีเมลผู้ใช้ (ถ้ามี)
+
+          // แสดงข้อมูลผู้ใช้
+          document.getElementById('user-name').textContent = userName;
+          document.getElementById('user-email').textContent = userEmail;
+          document.getElementById('user-info').style.display = 'block';
+        })
+        .catch(error => {
+          console.error('Error fetching profile:', error);
+          document.getElementById('error-message').style.display = 'block';
+        });
+      })
+      .catch(error => {
+        console.error('Error exchanging code for access token:', error);
+        document.getElementById('error-message').style.display = 'block';
+      });
     }
   </script>
 </body>
