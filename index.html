@@ -112,22 +112,39 @@
   </div>
     
  <!-- หน้าค้นหา -->
-<div id="search-page">
-  <input type="text" id="search-input" placeholder="ค้นหาเกม..." />
-  <button id="search-icon">ค้นหา</button>
-  <div id="search-history"></div>
-  <div id="search-results"></div>
+<div id="search" class="hidden flex-1 pb-16">
+  <!-- แถบค้นหาด้านบน -->
+  <div class="fixed top-0 w-full bg-[#1e0a2a] z-10 p-4 flex items-center">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="ค้นหาเกมที่นี่..."
+      class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"
+    />
+    <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <!-- พื้นที่แสดงผลลัพธ์การค้นหา -->
+  <div
+    class="pt-20 px-4 pb-4 space-y-3 text-white text-sm"
+    id="searchResults"
+  ></div>
 </div>
-
-  <!-- แสดงประวัติ -->
-  <div id="searchHistory" class="pt-20 px-4 text-sm text-purple-300 space-y-2">
-    <div class="font-semibold text-white">ประวัติการค้นหา</div>
-    <ul id="historyList" class="space-y-1"></ul>
-  </div>
-
-  <!-- แสดงผลลัพธ์ -->
-  <div class="pt-4 px-4 pb-4 space-y-3 text-white text-sm" id="searchResults"></div>
-  </div>
   
     <!-- Firebase App -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -646,64 +663,41 @@
   }
 
 // Search
-  const searchInput = document.getElementById("search-input");
-  const searchButton = document.getElementById("search-icon");
-  const searchResults = document.getElementById("search-results");
-  const searchHistory = document.getElementById("search-history");
+  const container = document.getElementById("searchResults");
+  const searchInput = document.getElementById("searchInput");
 
-  const allGames = ["เกมต่อสู้", "เกมยิงปืน", "เกมแต่งตัว", "เกมทำอาหาร", "เกมฝึกสมอง", "เกมแอ็คชั่น", "เกมผจญภัย", "เกมวิ่ง", "Love Warriors"];
-
-  function loadSearchHistory() {
-    const history = JSON.parse(localStorage.getItem("searchHistory")) || [];
-    searchHistory.innerHTML = "";
-    history.slice(-5).reverse().forEach(term => {
-      const div = document.createElement("div");
-      div.textContent = term;
-      div.className = "cursor-pointer text-gray-500";
-      div.onclick = () => {
-        searchInput.value = term;
-        performSearch(term);
-      };
-      searchHistory.appendChild(div);
-    });
+  // แสดงเกม
+  function renderGames(games) {
+    container.innerHTML = games.length
+      ? games.map(g => `
+          <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl mb-2">
+            <div class="flex items-center space-x-3">
+              <img src="${g.image}" class="w-14 h-14 rounded-lg object-cover" />
+              <div>${g.name}</div>
+            </div>
+            <a href="${g.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm">
+              ดาวน์โหลด
+            </a>
+          </div>
+        `).join("")
+      : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
   }
 
-  function saveSearchHistory(term) {
-    let history = JSON.parse(localStorage.getItem("searchHistory")) || [];
-    history = history.filter(t => t !== term);
-    history.push(term);
-    localStorage.setItem("searchHistory", JSON.stringify(history));
-  }
-
-  function performSearch(term) {
-    searchResults.innerHTML = "";
-    const filtered = allGames.filter(game => game.includes(term));
-    if (filtered.length > 0) {
-      filtered.forEach(game => {
-        const div = document.createElement("div");
-        div.textContent = game;
-        div.className = "p-2 bg-white rounded shadow mb-2";
-        searchResults.appendChild(div);
-      });
-    } else {
-      const div = document.createElement("div");
-      div.textContent = "ไม่พบผลลัพธ์";
-      div.className = "text-gray-500";
-      searchResults.appendChild(div);
+  // เมื่อเปิดหน้า "ค้นหา" แสดงเกมทั้งหมด
+  const searchSection = document.getElementById("search");
+  const observer = new MutationObserver(() => {
+    if (!searchSection.classList.contains("hidden")) {
+      renderGames(gameList); // แสดงเกมทั้งหมด
     }
-  }
+  });
+  observer.observe(searchSection, { attributes: true });
 
-  searchButton.onclick = () => {
-    const term = searchInput.value.trim();
-    if (term !== "") {
-      saveSearchHistory(term);
-      loadSearchHistory();
-      performSearch(term);
-    }
-  };
-
-  // โหลดประวัติทันทีเมื่อเปิดหน้า
-  loadSearchHistory();
+  // เมื่อคลิกค้นหา
+  document.getElementById("searchButton").addEventListener("click", () => {
+    const keyword = searchInput.value.trim().toLowerCase();
+    const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
+    renderGames(matched);
+  });
 </script>
 
 </body>
