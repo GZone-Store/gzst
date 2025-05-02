@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#1e0a2a" />
-  <title>GZONE</title>
+  <title>GZONE-STORE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <link rel="manifest" href="./manifest.json" />
@@ -48,6 +48,10 @@
       <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />
     </div>
   </div>
+  
+  <button id="installBtn" class="hidden fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+  ติดตั้งแอป
+  </button>
 
   <!-- หน้าแรก -->
   <div id="home" class="flex-1 pb-16 block pt-20">
@@ -697,6 +701,31 @@
     const keyword = searchInput.value.trim().toLowerCase();
     const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
     renderGames(matched);
+  });
+
+  let deferredPrompt;
+  const installBtn = document.getElementById('installBtn');
+
+  // ดักจับอีเวนต์ beforeinstallprompt
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.classList.remove('hidden'); // แสดงปุ่มติดตั้ง
+  });
+
+  // เมื่อกดปุ่มติดตั้ง
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const result = await deferredPrompt.userChoice;
+      if (result.outcome === 'accepted') {
+        console.log('ติดตั้งแล้ว');
+      } else {
+        console.log('ยกเลิกการติดตั้ง');
+      }
+      deferredPrompt = null;
+      installBtn.classList.add('hidden'); // ซ่อนปุ่มหลังจากตอบ
+    }
   });
 </script>
 
