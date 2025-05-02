@@ -393,14 +393,6 @@
       เข้าสู่ระบบด้วย Google
     </button>
 
-    <!-- ปุ่มเข้าสู่ระบบด้วย LINE -->
-    <button 
-      onclick="lineLogin()" 
-      class="bg-green-500 text-white w-full py-2 rounded mb-2"
-    >
-      เข้าสู่ระบบด้วย LINE
-    </button>
-
     <!-- ลิงก์สลับระหว่างเข้าสู่ระบบ/สมัครสมาชิก -->
     <p class="text-center text-sm text-gray-600">
       <span id="auth-switch">
@@ -554,24 +546,6 @@
       .catch(error => {
         alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
       });
-  }
-  
-  // ฟังก์ชันสำหรับเข้าสู่ระบบ LINE
-  function lineLogin() {
-    // ที่อยู่สำหรับการขออนุญาตการเข้าสู่ระบบจาก LINE
-    const lineLoginURL = 'https://access.line.me/oauth2/v2.1/authorize';
-
-    // URL ที่จะใช้ในการเรียกใช้ LINE Login
-    const params = new URLSearchParams({
-      response_type: 'code',            // เราต้องการโค้ดตอบกลับ
-      client_id: '2007355204', // ใช้ Channel ID ของ LINE
-      redirect_uri: 'https://gzone-store.github.io/gzst/line-callback.html', // URL กลับหลังจากที่ผู้ใช้ล็อกอินสำเร็จ
-      state: 'random_state_string_123',  // ใช้ป้องกัน CSRF
-      scope: 'profile openid email'     // ขอกลับข้อมูล เช่น email, profile
-    });
-
-    // ทำการส่งผู้ใช้ไปยังหน้า LINE Login
-    window.location.href = lineLoginURL + '?' + params.toString();
   }
 
   // Auth State Monitor
