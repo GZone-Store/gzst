@@ -39,40 +39,69 @@
     }
   </style>
 </head>
-<!-- ปุ่มดาวน์โหลดเเอปgzone -->
-<button id="installBtn"
-  class="hidden fixed bottom-4 right-4 bg-gradient-to-br from-purple-500 via-white/40 to-black/10 text-white font-semibold px-6 py-3 rounded-2xl shadow-[0_8px_30px_rgba(128,90,213,0.3)] z-50 backdrop-blur-md border border-white/20 animate-bounce-custom transition-all duration-300 ease-in-out hover:scale-105">
-  <span class="relative flex items-center">
-    <svg class="w-5 h-5 mr-2 text-white/90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4m-4 4v6" />
-    </svg>
-    ติดตั้งแอป
-    <span class="absolute bottom-0 left-0 w-full h-1 bg-white/30 rounded-full blur-sm opacity-30"></span>
-  </span>
-</button>
-
-<style>
-@keyframes bounce-custom {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-.animate-bounce-custom {
-  animation: bounce-custom 1.5s infinite;
-}
-</style>
   
 <body class="flex flex-col min-h-screen">
 
- <!-- โลโก้ -->
-<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-20">
-  <div class="p-4">
-    <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />
+ <!-- โลโก้และปุ่มดาวน์โหลด -->
+<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-20 flex items-center justify-between p-4">
+  <!-- โลโก้ -->
+  <div class="flex items-center pl-4">
+    <img src="logo.png.png" alt="Logo" class="h-10" />
+  </div>
+  
+  <!-- ปุ่มดาวน์โหลด -->
+  <div class="relative flex items-center pr-4">
+    <button id="installBtn"
+      class="hidden px-6 py-3 bg-white/10 text-white font-medium rounded-xl shadow-lg backdrop-blur-md border border-white/20 z-50 install-button">
+      <span class="flex items-center justify-center gap-2">
+        <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4m-4 4v6" />
+        </svg>
+        <span class="text-sm text-purple-100">ติดตั้งแอป</span>
+      </span>
+    </button>
+    
+    <!-- ปุ่มปิด X -->
+    <button id="closeInstallBtn" class="absolute top-0 right-0 text-white text-lg font-semibold hover:text-red-500">
+      X
+    </button>
   </div>
 </div>
+
+<style>
+  @keyframes softBounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .install-button {
+    animation: softBounce 2s ease-in-out infinite;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 30px rgba(128, 90, 213, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .install-button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, rgba(128,90,213,0.15), rgba(255,255,255,0.05));
+    box-shadow: 0 8px 40px rgba(128, 90, 213, 0.4);
+  }
+
+  /* ซ่อนปุ่มดาวน์โหลด */
+  #installBtn.hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  // การทำงานของปุ่ม X
+  document.getElementById('closeInstallBtn').addEventListener('click', function() {
+    document.getElementById('installBtn').classList.add('hidden');
+  });
+</script>
 
   <!-- หน้าแรก -->
   <div id="home" class="flex-1 pb-16 block pt-20">
