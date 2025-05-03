@@ -550,25 +550,32 @@
 
   // Auth State Monitor
   firebase.auth().onAuthStateChanged(user => {
-    const loginPrompt = document.getElementById('login-prompt');
-    const userDetails = document.getElementById('user-details');
-    const userName = document.getElementById('user-name');
-    const userEmail = document.getElementById('user-email');
-    const signOutButton = document.getElementById('sign-out-button');
+  const loginPrompt = document.getElementById('login-prompt');
+  const userDetails = document.getElementById('user-details');
+  const userName = document.getElementById('user-name');
+  const userEmail = document.getElementById('user-email');
+  const signOutButton = document.getElementById('sign-out-button');
+  const profileImage = document.getElementById('accountProfileImage');
 
-    if (user) {
-      if (loginPrompt) loginPrompt.classList.add('hidden');
-      if (userDetails) userDetails.classList.remove('hidden');
-      if (signOutButton) signOutButton.classList.remove('hidden');
+  if (user) {
+    if (loginPrompt) loginPrompt.classList.add('hidden');
+    if (userDetails) userDetails.classList.remove('hidden');
+    if (signOutButton) signOutButton.classList.remove('hidden');
 
-      if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';
-      if (userEmail) userEmail.textContent = user.email;
-    } else {
-      if (loginPrompt) loginPrompt.classList.remove('hidden');
-      if (userDetails) userDetails.classList.add('hidden');
-      if (signOutButton) signOutButton.classList.add('hidden');
+    if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';
+    if (userEmail) userEmail.textContent = user.email;
+
+    // ดึงรูปโปรไฟล์จาก Google
+    if (profileImage && user.photoURL) {
+      profileImage.src = user.photoURL;
     }
-  });
+
+  } else {
+    if (loginPrompt) loginPrompt.classList.remove('hidden');
+    if (userDetails) userDetails.classList.add('hidden');
+    if (signOutButton) signOutButton.classList.add('hidden');
+  }
+});
           </script>
   
           <!-- เมนูด้านล่าง -->
