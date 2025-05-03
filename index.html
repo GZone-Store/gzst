@@ -39,43 +39,39 @@
     }
   </style>
 </head>
+<!-- ปุ่มดาวน์โหลดเเอปgzone -->
+<button id="installBtn"
+  class="hidden fixed bottom-4 right-4 bg-gradient-to-br from-purple-500 via-white/40 to-black/10 text-white font-semibold px-6 py-3 rounded-2xl shadow-[0_8px_30px_rgba(128,90,213,0.3)] z-50 backdrop-blur-md border border-white/20 animate-bounce-custom transition-all duration-300 ease-in-out hover:scale-105">
+  <span class="relative flex items-center">
+    <svg class="w-5 h-5 mr-2 text-white/90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4m-4 4v6" />
+    </svg>
+    ติดตั้งแอป
+    <span class="absolute bottom-0 left-0 w-full h-1 bg-white/30 rounded-full blur-sm opacity-30"></span>
+  </span>
+</button>
 
+<style>
+@keyframes bounce-custom {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.animate-bounce-custom {
+  animation: bounce-custom 1.5s infinite;
+}
+</style>
+  
 <body class="flex flex-col min-h-screen">
 
- <!-- เมนู 3 ขีด + โลโก้ -->
-<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-20 flex items-center justify-between h-[60px] px-4">
-  <button onclick="toggleMenu()" class="text-white text-2xl focus:outline-none">
-    &#9776;
-  </button>
-  <img src="logo.png.png" alt="Logo" class="h-6" />
-</div>
-
-<!-- เมนูด้านข้าง -->
-<div id="sideMenu" class="fixed top-0 left-0 h-full w-2/3 max-w-xs bg-white shadow-lg z-30 transform -translate-x-full transition-transform duration-300">
-  <div class="p-4 border-b font-bold text-lg">เมนู</div>
-  <nav class="flex flex-col p-4 space-y-4">
-    <a href="#home" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
-      <img src="icon-home.png" class="w-6 h-6" alt="Home" />
-      <span>หน้าแรก</span>
-    </a>
-    <a href="#game" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
-      <img src="icon-game.png" class="w-6 h-6" alt="Game" />
-      <span>เกม</span>
-    </a>
-    <a href="#android" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
-      <img src="icon-android.png" class="w-6 h-6" alt="Android" />
-      <span>เกม Android</span>
-    </a>
-    <a href="#iphone" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
-      <img src="icon-iphone.png" class="w-6 h-6" alt="iPhone" />
-      <span>เกม iPhone</span>
-    </a>
-    <a href="#money" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
-      <img src="icon-money.png" class="w-6 h-6" alt="Money" />
-      <span>หาเงินเข้าทรูมันนี่</span>
-    </a>
-  </nav>
-  <button onclick="toggleMenu()" class="absolute top-4 right-4 text-gray-500 text-3xl">X</button>
+ <!-- โลโก้ -->
+<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-20">
+  <div class="p-4">
+    <img src="logo.png.png" alt="Logo" class="h-10 mx-auto" />
+  </div>
 </div>
 
   <!-- หน้าแรก -->
@@ -295,9 +291,6 @@
   <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">เงื่อนไขการใช้งาน</a>
   <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">เปลี่ยนรหัสผ่าน</a>
 </div>
-<button id="installBtn" class="hidden fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg z-50">
-  ติดตั้งแอป
-</button>
     
   <!-- ปุ่มออกจากระบบ -->
   <div class="flex justify-center mt-10 px-6">
@@ -755,20 +748,6 @@
       installBtn.classList.add('hidden'); // ซ่อนปุ่มหลังจากตอบ
     }
   });
-  // JavaScript เมนู3ขีด
-  function toggleMenu() {
-  const menu = document.getElementById('sideMenu');
-  const backdrop = document.getElementById('backdrop');
-  const isOpen = !menu.classList.contains('-translate-x-full');
-
-  if (isOpen) {
-    menu.classList.add('-translate-x-full');
-    backdrop.classList.add('hidden');
-  } else {
-    menu.classList.remove('-translate-x-full');
-    backdrop.classList.remove('hidden');
-  }
-  }
 </script>                                                       <
   
 </body>
