@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>กรอกโค้ด</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAuWomazKXngJRI5eGaLs3YPNJ0fQ1-_Hc",
+      authDomain: "gzone-store.firebaseapp.com",
+      projectId: "gzone-store",
+      // ใส่ config ที่คุณผูกไว้แล้ว
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+  <style>
+    body { font-family: sans-serif; background: #1e0a2a; color: white; padding: 20px; }
+    input, button { margin-top: 10px; padding: 10px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h2>กรอกโค้ดเพื่อรับสิทธิ์</h2>
+  <input type="text" id="userCode" placeholder="ระบุโค้ดลับ">
+  <button onclick="submitCode()">ส่งโค้ด</button>
+
+  <script>
+    function submitCode() {
+      const code = document.getElementById('userCode').value.trim();
+      const user = firebase.auth().currentUser;
+
+      if (!user) {
+        alert("กรุณาเข้าสู่ระบบก่อน");
+        return;
+      }
+
+      const phone = user.phoneNumber;
+      const mySecretCode = "GZONE123"; // คุณสามารถตั้งค่าให้เปลี่ยนผ่านระบบหลังบ้านได้
+
+      if (code === mySecretCode) {
+        db.collection("users").doc(phone).get().then(doc => {
+          if (doc.exists && doc.data().redeemed) {
+            alert("คุณใช้สิทธิ์นี้ไปแล้ว");
+          } else {
+            // เปลี่ยนสถานะเป็นใช้สิทธิ์แล้ว และเปิดลิงก์ซอง
+            db.collection("users").doc(phone).set({ redeemed: true }, { merge: true }).then(() => {
+              alert("รับสิทธิ์สำเร็จ! กำลังเปิดลิงก์...");
+              window.location.href = "https://gift.truemoney.com/campaign/?v=YOUR_ENVELOPE_LINK";
+            });
+          }
+        });
+      } else {
+        alert("โค้ดไม่ถูกต้อง");
+      }
+    }
+  </script>
+</body>
+</html>
