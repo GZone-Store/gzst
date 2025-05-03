@@ -42,35 +42,38 @@
 
 <body class="flex flex-col min-h-screen">
 
-  <!-- เมนู 3 ขีด + โลโก้ -->
-<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-20 flex items-center justify-between p-4">
+ <!-- เมนู 3 ขีด + โลโก้ -->
+<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-30 flex items-center justify-between p-4">
   <button onclick="toggleMenu()" class="text-white text-3xl focus:outline-none">
     &#9776;
   </button>
   <img src="logo.png.png" alt="Logo" class="h-10" />
 </div>
 
+<!-- ฉากหลังเบลอ -->
+<div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden" onclick="toggleMenu()"></div>
+
 <!-- เมนูด้านข้าง -->
-<div id="sideMenu" class="fixed top-0 left-0 h-full w-2/3 max-w-xs bg-white shadow-lg z-30 transform -translate-x-full transition-transform duration-300">
-  <div class="p-4 border-b font-bold text-lg">เมนู</div>
-  <nav class="flex flex-col p-4 space-y-4">
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+<div id="sideMenu" class="fixed top-0 left-0 h-full w-2/3 max-w-xs bg-white shadow-xl z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
+  <div class="p-4 border-b font-bold text-lg text-purple-700">เมนู</div>
+  <nav class="flex flex-col p-4 space-y-4 text-gray-800">
+    <a href="index.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
       <img src="icon-home.png" class="w-6 h-6" alt="Home" />
       <span>หน้าแรก</span>
     </a>
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+    <a href="games.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
       <img src="icon-game.png" class="w-6 h-6" alt="Game" />
       <span>เกม</span>
     </a>
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+    <a href="android.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
       <img src="icon-android.png" class="w-6 h-6" alt="Android" />
       <span>เกม Android</span>
     </a>
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+    <a href="iphone.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
       <img src="icon-iphone.png" class="w-6 h-6" alt="iPhone" />
       <span>เกม iPhone</span>
     </a>
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+    <a href="money.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
       <img src="icon-money.png" class="w-6 h-6" alt="Money" />
       <span>หาเงินเข้าทรูมันนี่</span>
     </a>
@@ -754,22 +757,36 @@
       installBtn.classList.add('hidden'); // ซ่อนปุ่มหลังจากตอบ
     }
   });
-  // เมนู3ขีด
+  
+  // JavaScript เปิด-ปิดเมนู
   function toggleMenu() {
-    const menu = document.getElementById('sideMenu');
-    const overlay = document.getElementById('overlay');
-    const isOpen = menu.classList.contains('-translate-x-0');
+    const menu = document.getElementById("sideMenu");
+    const overlay = document.getElementById("menuOverlay");
+
+    const isOpen = !menu.classList.contains("-translate-x-full");
     if (isOpen) {
-      menu.classList.add('-translate-x-full');
-      menu.classList.remove('-translate-x-0');
-      overlay.classList.add('hidden');
+      menu.classList.add("-translate-x-full");
+      overlay.classList.add("hidden");
     } else {
-      menu.classList.remove('-translate-x-full');
-      menu.classList.add('-translate-x-0');
-      overlay.classList.remove('hidden');
+      menu.classList.remove("-translate-x-full");
+      overlay.classList.remove("hidden");
     }
   }
-</script>
 
+  // ปิดเมนูเมื่อคลิกนอกเมนู
+  document.addEventListener("click", function (event) {
+    const menu = document.getElementById("sideMenu");
+    const overlay = document.getElementById("menuOverlay");
+    const toggleBtn = document.querySelector("[onclick='toggleMenu()']");
+
+    if (!menu.contains(event.target) && !toggleBtn.contains(event.target) && !event.target.closest('#sideMenu')) {
+      if (!menu.classList.contains("-translate-x-full")) {
+        menu.classList.add("-translate-x-full");
+        overlay.classList.add("hidden");
+      }
+    }
+  });
+    </script>
+  
 </body>
 </html>
