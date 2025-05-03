@@ -39,6 +39,16 @@
     }
   </style>
 </head>
+  <!-- privacy -->
+  <div id="footer-container"></div>
+
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer-container').innerHTML = data;
+    });
+</script>
   
 <body class="flex flex-col min-h-screen">
 
@@ -110,6 +120,16 @@
       };
     </script>
   </div>
+  <!-- privacy -->
+  <div id="footer-container"></div>
+
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer-container').innerHTML = data;
+    });
+</script>
     
  <!-- หน้าค้นหา -->
 <div id="search" class="hidden flex-1 pb-16">
@@ -165,6 +185,17 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
+  
+  <!-- privacy -->
+  <div id="footer-container"></div>
+
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer-container').innerHTML = data;
+    });
+</script>
   
    <!-- หน้าบัญชี -->
  <div id="account" class="hidden flex-1 pb-16">
