@@ -2,46 +2,102 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>เงื่อนไขการใช้งาน | Gzone Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>เงื่อนไขการใช้งาน - Gzone Store</title>
   <style>
     body {
-      font-family: "Arial", sans-serif;
+      font-family: sans-serif;
+      padding: 2rem;
       background-color: #f9f9f9;
-      color: #333;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      line-height: 1.8;
     }
-    h1, h2 {
-      color: #4b0082;
+    .language-switch {
+      text-align: right;
+      margin-bottom: 1rem;
     }
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #888;
+    .language-switch button {
+      margin-left: 0.5rem;
+      cursor: pointer;
+    }
+    .back-button {
+      margin-top: 2rem;
+    }
+    .back-button a {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: #fff;
+      background-color: #4b0082;
+      padding: 10px 20px;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <h1>เงื่อนไขการใช้งาน</h1>
-  <p>ยินดีต้อนรับสู่เว็บไซต์ <strong>Gzone Store</strong> การเข้าใช้งานเว็บไซต์นี้ถือว่าคุณยอมรับข้อกำหนดและเงื่อนไขเหล่านี้ โปรดอ่านอย่างละเอียดก่อนใช้งาน</p>
+  <div class="language-switch">
+    <span>ภาษา:</span>
+    <button onclick="switchLang('th')">ไทย</button>
+    <button onclick="switchLang('en')">English</button>
+  </div>
 
-  <h2>1. การใช้บริการ</h2>
-  <p>คุณตกลงที่จะใช้เว็บไซต์นี้อย่างถูกต้องตามกฎหมาย และไม่ละเมิดสิทธิ์ของผู้อื่นหรือบริษัทผู้พัฒนาเกมใด ๆ ที่แสดงอยู่ในเว็บไซต์</p>
+  <div id="content-th">
+    <h1>เงื่อนไขการใช้งาน</h1>
+    <h2>1. การยอมรับเงื่อนไข</h2>
+    <p>เมื่อคุณเข้าใช้งานเว็บไซต์ Gzone Store ("เว็บไซต์") ถือว่าคุณได้ยอมรับเงื่อนไขทั้งหมดของเรา หากคุณไม่ยอมรับ โปรดงดเว้นการใช้งานเว็บไซต์นี้</p>
 
-  <h2>2. เนื้อหาจากบุคคลที่สาม</h2>
-  <p>เว็บไซต์นี้เชื่อมโยงไปยัง Google Play Store และบริการจากภายนอก Gzone Store ไม่เป็นเจ้าของลิขสิทธิ์ของภาพเกมหรือเนื้อหาดังกล่าว และให้เครดิตตามสมควร</p>
+    <h2>2. ทรัพย์สินทางปัญญา</h2>
+    <p>
+      เว็บไซต์นี้อาจแสดงภาพ โลโก้ หรือเนื้อหาที่เกี่ยวข้องกับเกมและแอปต่าง ๆ ซึ่งเป็นทรัพย์สินทางปัญญาของเจ้าของลิขสิทธิ์แต่ละราย Gzone Store ไม่มีความเป็นเจ้าของในลิขสิทธิ์ของภาพหรือเนื้อหาเหล่านั้น<br>
+      เว็บไซต์จัดทำขึ้นเพื่อแนะนำเกมและแอป พร้อมเชื่อมโยงไปยัง Google Play Store หรือแหล่งดาวน์โหลดที่เกี่ยวข้อง โดยให้เครดิตตามความเหมาะสม<br>
+      หากท่านเป็นเจ้าของสิทธิ์และไม่ประสงค์ให้เนื้อหาปรากฏบนเว็บไซต์นี้ กรุณาติดต่อเรา แล้วเราจะดำเนินการลบออกโดยเร็ว
+    </p>
 
-  <h2>3. การแสดงโฆษณา</h2>
-  <p>เว็บไซต์อาจแสดงโฆษณาในรูปแบบต่าง ๆ เพื่อสนับสนุนค่าใช้จ่ายในการดำเนินการ โดยไม่กระทบต่อประสบการณ์ผู้ใช้งาน</p>
+    <h2>3. การใช้งานเว็บไซต์</h2>
+    <p>คุณสามารถใช้งานเว็บไซต์นี้เพื่อดูรายละเอียดของเกม/แอปตามที่เราแสดงไว้ โดยต้องไม่กระทำการใดๆ ที่ก่อให้เกิดความเสียหายต่อระบบเว็บไซต์ เช่น การเจาะระบบหรือดัดแปลงลิงก์ดาวน์โหลด</p>
 
-  <h2>4. การเปลี่ยนแปลงข้อตกลง</h2>
-  <p>เราอาจเปลี่ยนแปลงข้อตกลงนี้ได้ทุกเมื่อโดยไม่ต้องแจ้งล่วงหน้า โปรดตรวจสอบหน้านี้เป็นระยะ</p>
+    <h2>4. ลิงก์ภายนอก</h2>
+    <p>เว็บไซต์นี้อาจมีลิงก์ไปยังเว็บไซต์ภายนอก (เช่น Google Play, MediaFire หรือแหล่งโหลดอื่น) ซึ่งอยู่นอกเหนือการควบคุมของเรา เราไม่สามารถรับประกันความปลอดภัยหรือความถูกต้องของเนื้อหาในลิงก์เหล่านั้นได้</p>
 
-  <footer>
-    © 2025 Gzone Store. All rights reserved.
-  </footer>
+    <h2>5. การเปลี่ยนแปลงเงื่อนไข</h2>
+    <p>เราอาจเปลี่ยนแปลงเงื่อนไขนี้โดยไม่ต้องแจ้งล่วงหน้า ควรตรวจสอบเงื่อนไขนี้เป็นระยะ</p>
+
+    <h2>6. ติดต่อเรา</h2>
+    <p>หากคุณมีข้อสงสัย หรือต้องการแจ้งปัญหาใดเกี่ยวกับเว็บไซต์ สามารถติดต่อได้ที่: gzonestore.help@gmail.com</p>
+  </div>
+
+  <div id="content-en" style="display:none;">
+    <h1>Terms of Service</h1>
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing Gzone Store ("the Site"), you agree to all our terms. If you do not agree, please refrain from using the site.</p>
+
+    <h2>2. Intellectual Property</h2>
+    <p>
+      This website may display images, logos, or content related to games and applications which are the intellectual property of their respective owners. Gzone Store does not claim ownership of any such content.<br>
+      The website is intended solely to introduce and link to games or apps via Google Play Store or related download sources, with credit provided where appropriate.<br>
+      If you are the rights holder and prefer your content not to appear on this site, please contact us and we will promptly remove it.
+    </p>
+
+    <h2>3. Website Usage</h2>
+    <p>You may use this site to view details of games/apps provided, but must not cause harm to the system, such as hacking or tampering with download links.</p>
+
+    <h2>4. External Links</h2>
+    <p>This site may include links to external sources (e.g. Google Play, MediaFire), which are outside our control. We cannot guarantee their safety or accuracy.</p>
+
+    <h2>5. Changes to Terms</h2>
+    <p>We may update these terms without notice. Please check them periodically.</p>
+
+    <h2>6. Contact Us</h2>
+    <p>If you have questions or need assistance, contact: gzonestore.help@gmail.com</p>
+  </div>
+
+  <div class="back-button">
+    <a href="index.html">ย้อนกลับ / Back</a>
+  </div>
+
+  <script>
+    function switchLang(lang) {
+      document.getElementById('content-th').style.display = lang === 'th' ? 'block' : 'none';
+      document.getElementById('content-en').style.display = lang === 'en' ? 'block' : 'none';
+    }
+  </script>
 </body>
 </html>
