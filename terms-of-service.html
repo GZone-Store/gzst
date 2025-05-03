@@ -1,111 +1,147 @@
-<!DOCTYPE html>
-<html lang="th">
+<!DOCTYPE html><html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>เงื่อนไขการใช้งาน - Gzone Store</title>
   <style>
     body {
       font-family: sans-serif;
-      padding: 2rem;
-      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: #333;
     }
-    .language-switch {
-      text-align: right;
-      margin-bottom: 1rem;
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ccc;
+      position: sticky;
+      top: 0;
+      z-index: 999;
     }
-    .language-switch button {
-      margin-left: 0.5rem;
+    .language-switcher {
+      display: flex;
+      gap: 10px;
+    }
+    .language-switcher button {
+      border: none;
+      background: none;
       cursor: pointer;
+      font-size: 14px;
+    }
+    .flag {
+      width: 20px;
+      vertical-align: middle;
     }
     .back-button {
-      margin-top: 2rem;
+      font-size: 14px;
+      text-decoration: underline;
+      cursor: pointer;
     }
-    .back-button a {
-      display: inline-block;
-      margin-top: 2rem;
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h2 {
+      color: #663399;
+    }
+    a {
+      color: #3366cc;
       text-decoration: none;
-      color: #fff;
-      background-color: #4b0082;
-      padding: 10px 20px;
-      border-radius: 8px;
+    }
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #663399;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      opacity: 0.8;
+    }
+    .scroll-top:hover {
+      opacity: 1;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #f9f9f9;
+      font-size: 14px;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <div class="language-switch">
-    <span>ภาษา:</span>
-    <button onclick="switchLang('th')">ไทย</button>
-    <button onclick="switchLang('en')">English</button>
-  </div>
-
-  <div id="content-th">
-    <h1>เงื่อนไขการใช้งาน</h1>
-    <h2>1. การยอมรับเงื่อนไข</h2>
-    <p>เมื่อคุณเข้าใช้งานเว็บไซต์ Gzone Store ("เว็บไซต์") ถือว่าคุณได้ยอมรับเงื่อนไขทั้งหมดของเรา หากคุณไม่ยอมรับ โปรดงดเว้นการใช้งานเว็บไซต์นี้</p>
-
-    <h2>2. ทรัพย์สินทางปัญญา</h2>
-    <p>
-      เว็บไซต์นี้อาจแสดงภาพ โลโก้ หรือเนื้อหาที่เกี่ยวข้องกับเกมและแอปต่าง ๆ ซึ่งเป็นทรัพย์สินทางปัญญาของเจ้าของลิขสิทธิ์แต่ละราย Gzone Store ไม่มีความเป็นเจ้าของในลิขสิทธิ์ของภาพหรือเนื้อหาเหล่านั้น<br>
-      เว็บไซต์จัดทำขึ้นเพื่อแนะนำเกมและแอป พร้อมเชื่อมโยงไปยัง Google Play Store หรือแหล่งดาวน์โหลดที่เกี่ยวข้อง โดยให้เครดิตตามความเหมาะสม<br>
-      หากท่านเป็นเจ้าของสิทธิ์และไม่ประสงค์ให้เนื้อหาปรากฏบนเว็บไซต์นี้ กรุณาติดต่อเรา แล้วเราจะดำเนินการลบออกโดยเร็ว
-    </p>
-
-    <h2>3. การใช้งานเว็บไซต์</h2>
-    <p>คุณสามารถใช้งานเว็บไซต์นี้เพื่อดูรายละเอียดของเกม/แอปตามที่เราแสดงไว้ โดยต้องไม่กระทำการใดๆ ที่ก่อให้เกิดความเสียหายต่อระบบเว็บไซต์ เช่น การเจาะระบบหรือดัดแปลงลิงก์ดาวน์โหลด</p>
-
-    <h2>4. ลิงก์ภายนอก</h2>
-    <p>เว็บไซต์นี้อาจมีลิงก์ไปยังเว็บไซต์ภายนอก (เช่น Google Play, หรือแหล่งโหลดอื่น) ซึ่งอยู่นอกเหนือการควบคุมของเรา เราไม่สามารถรับประกันความปลอดภัยหรือความถูกต้องของเนื้อหาในลิงก์เหล่านั้นได้</p>
-
-    <h2>5. การเปลี่ยนแปลงเงื่อนไข</h2>
-    <p>เราอาจเปลี่ยนแปลงเงื่อนไขนี้โดยไม่ต้องแจ้งล่วงหน้า ควรตรวจสอบเงื่อนไขนี้เป็นระยะ</p>
-
-    <h2>6. ติดต่อเรา</h2>
-    <p>หากคุณมีข้อสงสัย หรือต้องการแจ้งปัญหาใดเกี่ยวกับเว็บไซต์ สามารถติดต่อได้ที่: gzonestore.service@gmail.com</p>
-  </div>
+  <header>
+    <div class="back-button" onclick="history.back()">ย้อนกลับ</div>
+    <div class="language-switcher">
+      <button onclick="setLanguage('th')"><img class="flag" src="https://flagcdn.com/th.svg" /> TH</button>
+      <button onclick="setLanguage('en')"><img class="flag" src="https://flagcdn.com/gb.svg" /> EN</button>
+    </div>
+  </header>  <main id="termsContent">
+    <!-- ภาษาไทย -->
+    <h2>เงื่อนไขการใช้งาน</h2>
+    <ol>
+      <li><strong>การยอมรับเงื่อนไข</strong><br>
+        เมื่อคุณเข้าใช้งานเว็บไซต์ Gzone Store ("เว็บไซต์") ถือว่าคุณได้ยอมรับเงื่อนไขทั้งหมดของเรา หากคุณไม่ยอมรับ โปรดงดเว้นการใช้งานเว็บไซต์นี้</li>
+      <li><strong>ทรัพย์สินทางปัญญา</strong><br>
+        เว็บไซต์นี้อาจแสดงภาพ โลโก้ หรือเนื้อหาที่เกี่ยวข้องกับเกมและแอปต่าง ๆ ซึ่งเป็นทรัพย์สินทางปัญญาของเจ้าของลิขสิทธิ์แต่ละราย Gzone Store ไม่มีความเป็นเจ้าของในลิขสิทธิ์ของภาพหรือเนื้อหาเหล่านั้น<br>
+        เว็บไซต์จัดทำขึ้นเพื่อแนะนำเกมและแอป พร้อมเชื่อมโยงไปยัง Google Play Store หรือแหล่งดาวน์โหลดที่เกี่ยวข้อง โดยให้เครดิตตามความเหมาะสม<br>
+        หากท่านเป็นเจ้าของสิทธิ์และไม่ประสงค์ให้เนื้อหาปรากฏบนเว็บไซต์นี้ กรุณาติดต่อเรา แล้วเราจะดำเนินการลบออกโดยเร็ว</li>
+      <li><strong>การใช้งานเว็บไซต์</strong><br>
+        คุณสามารถใช้งานเว็บไซต์นี้เพื่อดูรายละเอียดของเกม/แอปตามที่เราแสดงไว้ โดยต้องไม่กระทำการใดๆ ที่ก่อให้เกิดความเสียหายต่อระบบเว็บไซต์ เช่น การเจาะระบบหรือดัดแปลงลิงก์ดาวน์โหลด</li>
+      <li><strong>ลิงก์ภายนอก</strong><br>
+        เว็บไซต์นี้อาจมีลิงก์ไปยังเว็บไซต์ภายนอก (เช่น Google Play, หรือแหล่งโหลดอื่น) ซึ่งอยู่นอกเหนือการควบคุมของเรา เราไม่สามารถรับประกันความปลอดภัยหรือความถูกต้องของเนื้อหาในลิงก์เหล่านั้นได้</li>
+      <li><strong>การเปลี่ยนแปลงเงื่อนไข</strong><br>
+        เราอาจเปลี่ยนแปลงเงื่อนไขนี้โดยไม่ต้องแจ้งล่วงหน้า ควรตรวจสอบเงื่อนไขนี้เป็นระยะ</li>
+      <li><strong>ติดต่อเรา</strong><br>
+        หากคุณมีข้อสงสัย หรือต้องการแจ้งปัญหาใดเกี่ยวกับเว็บไซต์ สามารถติดต่อได้ที่: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a>
+      </li>
+    </ol>
+  </main><button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
 
   <footer>
-    © 2025 Gzone Store. สงวนลิขสิทธิ์
-  </footer>
-  
-  <div id="content-en" style="display:none;">
-    <h1>Terms of Service</h1>
-    <h2>1. Acceptance of Terms</h2>
-    <p>By accessing Gzone Store ("the Site"), you agree to all our terms. If you do not agree, please refrain from using the site.</p>
-
-    <h2>2. Intellectual Property</h2>
-    <p>
-      This website may display images, logos, or content related to games and applications which are the intellectual property of their respective owners. Gzone Store does not claim ownership of any such content.<br>
-      The website is intended solely to introduce and link to games or apps via Google Play Store or related download sources, with credit provided where appropriate.<br>
-      If you are the rights holder and prefer your content not to appear on this site, please contact us and we will promptly remove it.
-    </p>
-
-    <h2>3. Website Usage</h2>
-    <p>You may use this site to view details of games/apps provided, but must not cause harm to the system, such as hacking or tampering with download links.</p>
-
-    <h2>4. External Links</h2>
-    <p>This site may include links to external sources (e.g. Google Play), which are outside our control. We cannot guarantee their safety or accuracy.</p>
-
-    <h2>5. Changes to Terms</h2>
-    <p>We may update these terms without notice. Please check them periodically.</p>
-
-    <h2>6. Contact Us</h2>
-    <p>If you have questions or need assistance, contact: gzonestore.service@gmail.com</p>
-  </div>
-
-  <footer>
-    © 2025 Gzone Store. rights reserved.
-  </footer>
-
-  <div class="back-button">
-    <a href="index.html">ย้อนกลับ / Back</a>
-  </div>
-
-  <script>
-    function switchLang(lang) {
-      document.getElementById('content-th').style.display = lang === 'th' ? 'block' : 'none';
-      document.getElementById('content-en').style.display = lang === 'en' ? 'block' : 'none';
+    © 2025 Gzone Store. สงวนลิขสิทธิ์
+  </footer>  <script>
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    window.onscroll = function () {
+      scrollBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+    };
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  </script>
-</body>
+    function setLanguage(lang) {
+      if (lang === 'en') {
+        document.getElementById('termsContent').innerHTML = `
+          <h2>Terms of Use</h2>
+          <ol>
+            <li><strong>Acceptance</strong><br>
+              By accessing Gzone Store ("Website"), you agree to all of our terms. If you do not agree, please refrain from using this website.</li>
+            <li><strong>Intellectual Property</strong><br>
+              This site may display images, logos, or content related to games or apps owned by their respective copyright holders. Gzone Store does not claim ownership of these rights.<br>
+              This site provides game and app recommendations, linking to the Google Play Store or relevant sources, with proper credit given.<br>
+              If you are a rights owner and do not wish your content to appear here, please contact us, and we will promptly remove it.</li>
+            <li><strong>Use of Website</strong><br>
+              You may use this site to view game/app details as provided. Do not tamper, hack, or alter download links in any harmful way.</li>
+            <li><strong>External Links</strong><br>
+              We may include links to third-party websites (e.g. Google Play) that we do not control. We cannot guarantee their safety or accuracy.</li>
+            <li><strong>Changes</strong><br>
+              Terms may change without notice. Please review them periodically.</li>
+            <li><strong>Contact</strong><br>
+              For any inquiries or issues, contact us at: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a></li>
+          </ol>`
+      } else {
+        location.reload();
+      }
+    }
+  </script></body>
 </html>
