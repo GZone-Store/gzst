@@ -39,16 +39,6 @@
     }
   </style>
 </head>
-  <!-- privacy -->
-  <div id="footer-container"></div>
-
-<script>
-  fetch('footer.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer-container').innerHTML = data;
-    });
-</script>
   
 <body class="flex flex-col min-h-screen">
 
@@ -120,16 +110,6 @@
       };
     </script>
   </div>
-  <!-- privacy -->
-  <div id="footer-container"></div>
-
-<script>
-  fetch('footer.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer-container').innerHTML = data;
-    });
-</script>
     
  <!-- หน้าค้นหา -->
 <div id="search" class="hidden flex-1 pb-16">
@@ -185,17 +165,6 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
-  
-  <!-- privacy -->
-  <div id="footer-container"></div>
-
-<script>
-  fetch('footer.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer-container').innerHTML = data;
-    });
-</script>
   
    <!-- หน้าบัญชี -->
  <div id="account" class="hidden flex-1 pb-16">
@@ -290,13 +259,13 @@
       </div>
     </details>
      <!-- อื่น ๆ -->
-<div class="text-left">
-  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">Download App</a>
-  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">ภาษา</a>
-  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">GZone studio</a>
-  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">เงื่อนไขการใช้งาน</a>
-  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">เปลี่ยนรหัสผ่าน</a>
-</div>
+    <div class="text-left">
+  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">เปลี่ยนรหัสผ่าน</a>
+  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">เพิ่มGZone ไปยังหน้าจอหลัก</a>
+  <a href="privacy-policy.html" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">ความเป็นส่วนตัว</a>
+  <a href="terms-of-service.html" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">เงื่อนไขการใช้งาน</a>
+  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">ความเป็นส่วนตัว</a>
+    </div>
     
   <!-- ปุ่มออกจากระบบ -->
   <div class="flex justify-center mt-10 px-6">
