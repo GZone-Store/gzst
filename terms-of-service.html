@@ -6,22 +6,34 @@
   <title>นโยบายความเป็นส่วนตัว - Gzone Store</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background: #ffffff;
+      background: #f9f9f9;
       color: #333;
     }
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
-      background-color: #f4f4f4;
-      border-bottom: 1px solid #ccc;
-      position: sticky;
-      top: 0;
-      z-index: 999;
+      padding: 15px 20px;
+      background-color: #663399;
+      color: white;
+      border-bottom: 2px solid #333;
+    }
+    .back-button {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .back-button svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
     }
     .language-switcher {
       display: flex;
@@ -32,20 +44,19 @@
       background: none;
       cursor: pointer;
       font-size: 14px;
+      color: white;
     }
     .flag {
       width: 20px;
       vertical-align: middle;
     }
-    .back-button {
-      font-size: 14px;
-      text-decoration: underline;
-      cursor: pointer;
-    }
     main {
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 900px;
+      margin: 20px auto;
       padding: 20px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
     }
     h2 {
       color: #663399;
@@ -53,6 +64,16 @@
     a {
       color: #3366cc;
       text-decoration: none;
+    }
+    ol {
+      line-height: 1.6;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #f4f4f4;
+      font-size: 14px;
+      color: #777;
     }
     .scroll-top {
       position: fixed;
@@ -72,24 +93,25 @@
     .scroll-top:hover {
       opacity: 1;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #f9f9f9;
-      font-size: 14px;
-      color: #777;
-    }
   </style>
 </head>
 <body>
   <header>
-    <div class="back-button" onclick="history.back()">ย้อนกลับ</div>
+    <a href="javascript:history.back()" class="back-button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5"></path>
+        <path d="M12 19l-7-7 7-7"></path>
+      </svg>
+      ย้อนกลับ
+    </a>
     <div class="language-switcher">
       <button onclick="setLanguage('th')"><img class="flag" src="https://flagcdn.com/th.svg" /> TH</button>
       <button onclick="setLanguage('en')"><img class="flag" src="https://flagcdn.com/gb.svg" /> EN</button>
     </div>
   </header>
+
   <main id="privacyPolicyContent">
+    <!-- ภาษาไทย -->
     <h2>นโยบายความเป็นส่วนตัว</h2>
     <p>GZONE Store ("เว็บไซต์") ให้ความสำคัญกับความเป็นส่วนตัวของผู้ใช้ เราขอชี้แจงว่าข้อมูลของคุณจะถูกเก็บ ใช้ และปกป้องอย่างไร ดังนี้:</p>
     <ol>
@@ -117,7 +139,8 @@
         ติดต่อทีมงานเพื่อให้ช่วยจัดการข้อมูลของคุณ
       </li>
       <li><strong>ลิงก์ภายนอก</strong><br>
-        เว็บไซต์อาจมีลิงก์ไปยังแหล่งอื่น (เช่น Telegram, TikTok, Google, Facebook, Google Play) ซึ่งมีนโยบายของตนเอง เราไม่สามารถควบคุมหรือรับผิดชอบเนื้อหานอกเว็บไซต์ได้
+        เว็บไซต์อาจมีลิงก์ไปยังแหล่งอื่น (เช่น Telegram, TikTok, Google, Facebook, Google play) ซึ่งมีนโยบายของตนเอง<br>
+        เราไม่สามารถควบคุมหรือรับผิดชอบเนื้อหานอกเว็บไซต์ได้
       </li>
       <li><strong>การเปลี่ยนแปลงนโยบาย</strong><br>
         เราขอสงวนสิทธิ์ในการปรับเปลี่ยนนโยบายนี้โดยไม่ต้องแจ้งล่วงหน้า โปรดตรวจสอบหน้านี้เป็นระยะ
@@ -127,58 +150,64 @@
       </li>
     </ol>
   </main>
+
   <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
-  
+
   <footer>
-    © 2025 Gzone Store. สงวนลิขสิทธิ์
+    © 2025 Gzone Store. All rights reserved.
   </footer>
+
   <script>
     const scrollBtn = document.getElementById("scrollTopBtn");
     window.onscroll = function () {
       scrollBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
     };
+
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
     function setLanguage(lang) {
       if (lang === 'en') {
         document.getElementById('privacyPolicyContent').innerHTML = `
           <h2>Privacy Policy</h2>
-          <p>GZONE Store ("Website") values your privacy. Here's how your information will be collected, used, and protected:</p>
+          <p>GZONE Store ("Website") values your privacy. Here is how your data will be collected, used, and protected:</p>
           <ol>
-            <li><strong>Information We Collect</strong><br>
+            <li><strong>Data We Collect</strong><br>
               Username / Email / Password (encrypted)<br>
               Profile picture<br>
               Usage history, such as game downloads<br>
-              We do not store passwords in readable form, and we do not have direct access to your password.
+              We do not store passwords in readable form and do not have direct access to your password.
             </li>
-            <li><strong>How We Use Your Information</strong><br>
+            <li><strong>Use of Data</strong><br>
               To allow you to log in and use the system<br>
-              To display your profile in relevant sections<br>
+              To display your profile where relevant<br>
               To improve our services<br>
               To contact or notify you when necessary
             </li>
-            <li><strong>Sharing Your Information</strong><br>
-              We will not sell or share your personal information with third parties<br>
-              Some information may be shared with external services such as Firebase, imgbb, Google Login, all of which are governed by their respective privacy policies
+            <li><strong>Sharing Data</strong><br>
+              We will not sell or share your personal information with third parties.<br>
+              Some data may be shared with external services such as Firebase, imgbb, Google Login, which are subject to the policies of those services.
             </li>
             <li><strong>Data Storage and Security</strong><br>
-              Your information is stored on secure systems such as Firebase, encrypted and protected against unauthorized access.
+              Your data is stored on secure systems such as Firebase with encryption and protection against unauthorized access.
             </li>
             <li><strong>Your Rights</strong><br>
-              You can view, edit, or delete your account at any time.<br>
-              You can contact us to manage your information.
+              You may view, edit, or delete your account at any time.<br>
+              Contact our team to manage your data.
             </li>
             <li><strong>External Links</strong><br>
-              This website may contain links to external sites (e.g., Telegram, TikTok, Google, Facebook, Google Play), which have their own privacy policies. We cannot control or be responsible for content on those sites.
+              The website may contain links to other sites (e.g. Telegram, TikTok, Google, Facebook, Google Play) that have their own policies.<br>
+              We cannot control or be responsible for the content of these external sites.
             </li>
             <li><strong>Changes to the Policy</strong><br>
-              We reserve the right to change this policy without notice. Please check this page periodically.
+              We reserve the right to change this policy without notice. Please review this page periodically.
             </li>
             <li><strong>Contact Us</strong><br>
-              If you have any questions or complaints, please contact us at: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a>
+              For any questions or concerns, contact us at: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a>
             </li>
-          </ol>`;
+          </ol>
+        `;
       } else {
         location.reload();
       }
