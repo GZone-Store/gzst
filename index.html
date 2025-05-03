@@ -42,44 +42,60 @@
 
 <body class="flex flex-col min-h-screen">
 
- <!-- เมนู 3 ขีด + โลโก้ -->
-<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-30 flex items-center justify-between p-4">
-  <button onclick="toggleMenu()" class="text-white text-3xl focus:outline-none">
-    &#9776;
+ <!-- Navbar -->
+<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-50 flex items-center justify-between p-4">
+  <!-- Hamburger Button -->
+  <button onclick="toggleMenu()" id="menuBtn" class="text-white focus:outline-none transition-transform hover:scale-110 active:rotate-90">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
   </button>
-  <img src="logo.png.png" alt="Logo" class="h-10" />
+
+  <!-- Logo Centered -->
+  <div class="absolute left-1/2 transform -translate-x-1/2">
+    <img src="logo.png.png" alt="Logo" class="h-10" />
+  </div>
+
+  <div class="w-8 h-8"></div> <!-- Spacer for alignment -->
 </div>
 
-<!-- ฉากหลังเบลอ -->
-<div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden" onclick="toggleMenu()"></div>
+<!-- Backdrop -->
+<div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleMenu()"></div>
 
-<!-- เมนูด้านข้าง -->
-<div id="sideMenu" class="fixed top-0 left-0 h-full w-2/3 max-w-xs bg-white shadow-xl z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
-  <div class="p-4 border-b font-bold text-lg text-purple-700">เมนู</div>
-  <nav class="flex flex-col p-4 space-y-4 text-gray-800">
-    <a href="index.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
+<!-- Side Menu -->
+<div id="sideMenu" class="fixed top-0 left-0 h-full w-[70%] bg-white shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out">
+  <div class="flex items-center justify-between p-4 border-b">
+    <span class="font-bold text-lg text-[#1e0a2a]">เมนู</span>
+    <button onclick="toggleMenu()" class="text-gray-700 hover:text-red-500 transition-transform">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="flex flex-col p-4 space-y-4">
+    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-home.png" class="w-6 h-6" alt="Home" />
       <span>หน้าแรก</span>
     </a>
-    <a href="games.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
+    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-game.png" class="w-6 h-6" alt="Game" />
       <span>เกม</span>
     </a>
-    <a href="android.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
+    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-android.png" class="w-6 h-6" alt="Android" />
       <span>เกม Android</span>
     </a>
-    <a href="iphone.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
+    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-iphone.png" class="w-6 h-6" alt="iPhone" />
       <span>เกม iPhone</span>
     </a>
-    <a href="money.html" class="flex items-center space-x-3 hover:text-purple-600 transition-all">
+    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-money.png" class="w-6 h-6" alt="Money" />
       <span>หาเงินเข้าทรูมันนี่</span>
     </a>
   </nav>
 </div>
-  
+
   <!-- หน้าแรก -->
   <div id="home" class="flex-1 pb-16 block pt-20">
     <!-- แบนเนอร์ -->
@@ -757,36 +773,21 @@
       installBtn.classList.add('hidden'); // ซ่อนปุ่มหลังจากตอบ
     }
   });
-  
-  // JavaScript เปิด-ปิดเมนู
+  // JavaScript เมนู3ขีด
   function toggleMenu() {
-    const menu = document.getElementById("sideMenu");
-    const overlay = document.getElementById("menuOverlay");
+  const menu = document.getElementById('sideMenu');
+  const backdrop = document.getElementById('backdrop');
+  const isOpen = !menu.classList.contains('-translate-x-full');
 
-    const isOpen = !menu.classList.contains("-translate-x-full");
-    if (isOpen) {
-      menu.classList.add("-translate-x-full");
-      overlay.classList.add("hidden");
-    } else {
-      menu.classList.remove("-translate-x-full");
-      overlay.classList.remove("hidden");
-    }
+  if (isOpen) {
+    menu.classList.add('-translate-x-full');
+    backdrop.classList.add('hidden');
+  } else {
+    menu.classList.remove('-translate-x-full');
+    backdrop.classList.remove('hidden');
   }
-
-  // ปิดเมนูเมื่อคลิกนอกเมนู
-  document.addEventListener("click", function (event) {
-    const menu = document.getElementById("sideMenu");
-    const overlay = document.getElementById("menuOverlay");
-    const toggleBtn = document.querySelector("[onclick='toggleMenu()']");
-
-    if (!menu.contains(event.target) && !toggleBtn.contains(event.target) && !event.target.closest('#sideMenu')) {
-      if (!menu.classList.contains("-translate-x-full")) {
-        menu.classList.add("-translate-x-full");
-        overlay.classList.add("hidden");
-      }
-    }
-  });
-    </script>
+  }
+</script>                                                       <
   
 </body>
 </html>
