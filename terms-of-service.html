@@ -6,7 +6,7 @@
   <title>เงื่อนไขการใช้งาน - Gzone Store</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
       background: #f9f9f9;
@@ -62,7 +62,22 @@
       color: #663399;
     }
     ol {
-      line-height: 1.6;
+      list-style-type: none;
+      padding-left: 20px;
+    }
+    ol li {
+      padding-left: 10px;
+      position: relative;
+    }
+    ol li::before {
+      content: '•';
+      position: absolute;
+      left: -15px;
+      color: #663399;
+    }
+    a {
+      color: #3366cc;
+      text-decoration: none;
     }
     footer {
       text-align: center;
@@ -109,24 +124,24 @@
   <main id="termsContent">
     <h2>เงื่อนไขการใช้งาน</h2>
     <ol>
-      <li><strong>1. การยอมรับเงื่อนไข</strong><br>
+      <li><strong>การยอมรับเงื่อนไข</strong><br>
         เมื่อคุณเข้าใช้งานเว็บไซต์ Gzone Store ("เว็บไซต์") ถือว่าคุณได้ยอมรับเงื่อนไขทั้งหมดของเรา หากคุณไม่ยอมรับ โปรดงดเว้นการใช้งานเว็บไซต์นี้
       </li>
-      <li><strong>2. ทรัพย์สินทางปัญญา</strong><br>
+      <li><strong>ทรัพย์สินทางปัญญา</strong><br>
         เว็บไซต์นี้อาจแสดงภาพ โลโก้ หรือเนื้อหาที่เกี่ยวข้องกับเกมและแอปต่าง ๆ ซึ่งเป็นทรัพย์สินทางปัญญาของเจ้าของลิขสิทธิ์แต่ละราย Gzone Store ไม่มีความเป็นเจ้าของในลิขสิทธิ์ของภาพหรือเนื้อหาเหล่านั้น
         เว็บไซต์จัดทำขึ้นเพื่อแนะนำเกมและแอป พร้อมเชื่อมโยงไปยัง Google Play Store หรือแหล่งดาวน์โหลดที่เกี่ยวข้อง โดยให้เครดิตตามความเหมาะสม
         หากท่านเป็นเจ้าของสิทธิ์และไม่ประสงค์ให้เนื้อหาปรากฏบนเว็บไซต์นี้ กรุณาติดต่อเรา แล้วเราจะดำเนินการลบออกโดยเร็ว
       </li>
-      <li><strong>3. การใช้งานเว็บไซต์</strong><br>
+      <li><strong>การใช้งานเว็บไซต์</strong><br>
         คุณสามารถใช้งานเว็บไซต์นี้เพื่อดูรายละเอียดของเกม/แอปตามที่เราแสดงไว้ โดยต้องไม่กระทำการใดๆ ที่ก่อให้เกิดความเสียหายต่อระบบเว็บไซต์ เช่น การเจาะระบบหรือดัดแปลงลิงก์ดาวน์โหลด
       </li>
-      <li><strong>4. ลิงก์ภายนอก</strong><br>
+      <li><strong>ลิงก์ภายนอก</strong><br>
         เว็บไซต์นี้อาจมีลิงก์ไปยังเว็บไซต์ภายนอก (เช่น Google Play, หรือแหล่งโหลดอื่น) ซึ่งอยู่นอกเหนือการควบคุมของเรา เราไม่สามารถรับประกันความปลอดภัยหรือความถูกต้องของเนื้อหาในลิงก์เหล่านั้นได้
       </li>
-      <li><strong>5. การเปลี่ยนแปลงเงื่อนไข</strong><br>
+      <li><strong>การเปลี่ยนแปลงเงื่อนไข</strong><br>
         เราอาจเปลี่ยนแปลงเงื่อนไขนี้โดยไม่ต้องแจ้งล่วงหน้า ควรตรวจสอบเงื่อนไขนี้เป็นระยะ
       </li>
-      <li><strong>6. ติดต่อเรา</strong><br>
+      <li><strong>ติดต่อเรา</strong><br>
         หากคุณมีข้อสงสัย หรือต้องการแจ้งปัญหาใดเกี่ยวกับเว็บไซต์ สามารถติดต่อได้ที่: gzonestore.service@gmail.com
       </li>
     </ol>
@@ -153,25 +168,25 @@
         document.getElementById('termsContent').innerHTML = `
           <h2>Terms of Use</h2>
           <ol>
-            <li><strong>1. Acceptance of Terms</strong><br>
-              By using the Gzone Store website ("Website"), you agree to all of our terms. If you do not accept, please refrain from using this website.
+            <li><strong>Acceptance of Terms</strong><br>
+              By using Gzone Store, you agree to all terms listed on this page.
             </li>
-            <li><strong>2. Intellectual Property</strong><br>
-              This website may display images, logos, or content related to games and apps, which are the intellectual property of their respective copyright holders. Gzone Store does not own the rights to these images or content.
-              This website is created to recommend games and apps, linking to Google Play Store or other download sources, giving credit where appropriate.
-              If you are the rights holder and wish to remove content from this website, please contact us and we will promptly remove it.
+            <li><strong>Intellectual Property</strong><br>
+              This website may display images, logos, or content related to games and apps, which are intellectual property of each respective copyright holder. Gzone Store does not own the rights to these images or content.
+              The website is created to recommend games and apps and link to Google Play Store or other download sources with proper attribution.
+              If you are the rights holder and do not wish for your content to appear on this site, please contact us and we will remove it promptly.
             </li>
-            <li><strong>3. Website Usage</strong><br>
-              You may use this website to view the details of games/apps as presented, but you must not engage in any activities that may damage the website's system, such as hacking or altering download links.
+            <li><strong>Using the Website</strong><br>
+              You can use this website to view details of games/apps as presented. Do not engage in any activities that may harm the website's system, such as hacking or modifying download links.
             </li>
-            <li><strong>4. External Links</strong><br>
-              This website may contain links to external websites (e.g., Google Play or other download sources) which are beyond our control. We cannot guarantee the security or accuracy of the content on these links.
+            <li><strong>External Links</strong><br>
+              This site may contain links to external websites (e.g., Google Play, or other download sources), which are beyond our control. We cannot guarantee the security or accuracy of content on those links.
             </li>
-            <li><strong>5. Changes to Terms</strong><br>
-              We may modify these terms without prior notice. Please check these terms periodically.
+            <li><strong>Changes to Terms</strong><br>
+              We may change these terms without notice. Please review these terms periodically.
             </li>
-            <li><strong>6. Contact Us</strong><br>
-              If you have any questions or issues regarding the website, you can contact us at: gzonestore.service@gmail.com
+            <li><strong>Contact Us</strong><br>
+              If you have any questions or concerns regarding the website, please contact us at: gzonestore.service@gmail.com
             </li>
           </ol>
         `;
