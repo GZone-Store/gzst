@@ -42,58 +42,40 @@
 
 <body class="flex flex-col min-h-screen">
 
- <!-- Navbar -->
-<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-50 flex items-center justify-between p-4">
-  <!-- Hamburger Button -->
-  <button onclick="toggleMenu()" id="menuBtn" class="text-white focus:outline-none transition-transform hover:scale-110 active:rotate-90">
-    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-    </svg>
+ <!-- เมนู 3 ขีด + โลโก้ -->
+<div id="logoBar" class="fixed top-0 w-full bg-[#1e0a2a] z-20 flex items-center justify-between h-[60px] px-4">
+  <button onclick="toggleMenu()" class="text-white text-2xl focus:outline-none">
+    &#9776;
   </button>
-
-  <!-- Logo Centered -->
-  <div class="absolute left-1/2 transform -translate-x-1/2">
-    <img src="logo.png.png" alt="Logo" class="h-10" />
-  </div>
-
-  <div class="w-8 h-8"></div> <!-- Spacer for alignment -->
+  <img src="logo.png.png" alt="Logo" class="h-6" />
 </div>
 
-<!-- Backdrop -->
-<div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleMenu()"></div>
-
-<!-- Side Menu -->
-<div id="sideMenu" class="fixed top-0 left-0 h-full w-[70%] bg-white shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out">
-  <div class="flex items-center justify-between p-4 border-b">
-    <span class="font-bold text-lg text-[#1e0a2a]">เมนู</span>
-    <button onclick="toggleMenu()" class="text-gray-700 hover:text-red-500 transition-transform">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-      </svg>
-    </button>
-  </div>
+<!-- เมนูด้านข้าง -->
+<div id="sideMenu" class="fixed top-0 left-0 h-full w-2/3 max-w-xs bg-white shadow-lg z-30 transform -translate-x-full transition-transform duration-300">
+  <div class="p-4 border-b font-bold text-lg">เมนู</div>
   <nav class="flex flex-col p-4 space-y-4">
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+    <a href="#home" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-home.png" class="w-6 h-6" alt="Home" />
       <span>หน้าแรก</span>
     </a>
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+    <a href="#game" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-game.png" class="w-6 h-6" alt="Game" />
       <span>เกม</span>
     </a>
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+    <a href="#android" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-android.png" class="w-6 h-6" alt="Android" />
       <span>เกม Android</span>
     </a>
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+    <a href="#iphone" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-iphone.png" class="w-6 h-6" alt="iPhone" />
       <span>เกม iPhone</span>
     </a>
-    <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
+    <a href="#money" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700">
       <img src="icon-money.png" class="w-6 h-6" alt="Money" />
       <span>หาเงินเข้าทรูมันนี่</span>
     </a>
   </nav>
+  <button onclick="toggleMenu()" class="absolute top-4 right-4 text-gray-500 text-3xl">X</button>
 </div>
 
   <!-- หน้าแรก -->
