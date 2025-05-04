@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#1e0a2a" />
-  <title>GZONE STORE</title>
+  <title>GZONE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <link rel="manifest" href="./manifest.json" />
@@ -82,7 +82,7 @@
     <div class="grid grid-cols-2 gap-4 p-4" id="gameGrid"></div>
 
     <script>
-  const referralCode = "color_lab-{"i":"52086963","h":"d1xth3drffp373.cloudfront.net","u":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36"}"; // เปลี่ยนเป็นรหัสแนะนำของคุณ
+  const referralCode = "52086963";
 
   const gameList = [
     { name: "Love Warriors", image: "game1.png.jpg", link: "https://play.google.com/store/apps/details?id=com.colorlab.android" },
@@ -109,16 +109,14 @@
     gameList.forEach(game => {
       const div = document.createElement("div");
       div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
-
-      const isLoveWarriors = game.name === "Love Warriors";
-      const button = isLoveWarriors
-        ? `<button onclick="copyAndRedirect('${game.link}')" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl w-full text-white">ดาวน์โหลด</button>`
-        : `<a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl w-full text-white">ดาวน์โหลด</a>`;
-
       div.innerHTML = `
         <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
         <div class="text-white font-semibold">${game.name}</div>
-        ${button}
+        ${
+          game.name === "Love Warriors"
+            ? `<button onclick="copyAndRedirect('${game.link}')" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl w-full text-white">ดาวน์โหลด</button>`
+            : `<a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl w-full text-white">ดาวน์โหลด</a>`
+        }
       `;
       grid.appendChild(div);
     });
