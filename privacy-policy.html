@@ -1,173 +1,248 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>นโยบายความเป็นส่วนตัว - GZONE Store</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>นโยบายความเป็นส่วนตัว - GZONE STORE</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f9f9f9;
+      background: #f9f9f9;
       color: #333;
     }
     header {
-      background-color: #6200ea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #663399;
       color: white;
-      padding: 10px 0;
-      text-align: center;
+      border-bottom: 2px solid #333;
     }
-    .container {
-      width: 80%;
+    .back-button {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .back-button svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+    }
+    .language-switcher {
+      display: flex;
+      gap: 10px;
+    }
+    .language-switcher button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: white;
+    }
+    .flag {
+      width: 20px;
+      vertical-align: middle;
+    }
+    main {
+      max-width: 900px;
       margin: 20px auto;
       padding: 20px;
-      background-color: white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
     }
     h2 {
-      color: #6200ea;
+      color: #663399;
+    }
+    a {
+      color: #3366cc;
+      text-decoration: none;
     }
     ol {
-      margin-left: 20px;
+      line-height: 1.6;
     }
-    .language-switch {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #f4f4f4;
+      font-size: 14px;
+      color: #777;
     }
-    .language-switch button {
-      margin: 0 10px;
-      padding: 10px 20px;
-      border: none;
-      background-color: #6200ea;
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #663399;
       color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
       cursor: pointer;
-      font-size: 16px;
-      border-radius: 4px;
+      display: none;
+      opacity: 0.8;
     }
-    .language-switch button:hover {
-      background-color: #3700b3;
+    .scroll-top:hover {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>นโยบายความเป็นส่วนตัว</h1>
+    <a href="javascript:history.back()" class="back-button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5"></path>
+        <path d="M12 19l-7-7 7-7"></path>
+      </svg>
+      ย้อนกลับ
+    </a>
+    <div class="language-switcher">
+      <button onclick="setLanguage('th')"><img class="flag" src="https://flagcdn.com/th.svg" /> TH</button>
+      <button onclick="setLanguage('en')"><img class="flag" src="https://flagcdn.com/gb.svg" /> EN</button>
+    </div>
   </header>
 
-  <div class="language-switch">
-    <button onclick="switchLanguage('th')">ภาษาไทย</button>
-    <button onclick="switchLanguage('en')">English</button>
-  </div>
+  <main id="privacyPolicyContent">
+    <!-- ภาษาไทย -->
+    <h2>นโยบายความเป็นส่วนตัว</h2>
+    <p>GZONE STORE ("เว็บไซต์") ให้ความสำคัญกับความเป็นส่วนตัวของผู้ใช้เราขอชี้แจงว่าข้อมูลของคุณจะถูกเก็บและปกป้องอย่างไร ดังนี้:</p>
+    
+    <!-- คำนิยามคำศัพท์ -->
+    <h3>คำนิยามคำศัพท์</h3>
+    <p>ในนโยบายนี้ "ข้อมูลส่วนตัว" หมายถึง ข้อมูลที่สามารถใช้ระบุตัวตนของคุณ เช่น ชื่อ อีเมล รหัสผ่าน ฯลฯ</p>
 
-  <div id="privacyPolicyContent" class="container">
-    <!-- Content will be loaded dynamically based on language selection -->
-  </div>
+    <!-- ข้อมูลที่เราเก็บ -->
+    <h3>ข้อมูลที่เราเก็บ</h3>
+    <ol>
+      <li><strong>ข้อมูลที่เราเก็บ</strong><br>
+        ชื่อผู้ใช้ / อีเมล / รหัสผ่าน (เข้ารหัส)<br>
+        รูปโปรไฟล์<br>
+        ประวัติการใช้งาน เช่น การดาวน์โหลดเกม<br>
+        เราไม่เก็บรหัสผ่านในรูปแบบที่สามารถอ่านได้ และไม่มีสิทธิ์เข้าถึงรหัสของคุณโดยตรง
+      </li>
+    </ol>
+
+    <!-- การใช้คุกกี้ -->
+    <h3>การใช้คุกกี้</h3>
+    <p>เว็บไซต์ของเราอาจใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานของคุณ คุกกี้เหล่านี้จะช่วยเก็บข้อมูลเช่น การตั้งค่าและข้อมูลการเข้าชมหน้าเว็บ</p>
+
+    <!-- การใช้ข้อมูล -->
+    <h3>การใช้ข้อมูล</h3>
+    <ol>
+      <li><strong>การใช้ข้อมูล</strong><br>
+        ให้คุณสามารถล็อกอินและใช้งานระบบได้<br>
+        แสดงโปรไฟล์ของคุณในส่วนที่เกี่ยวข้อง<br>
+        ปรับปรุงบริการให้ดีขึ้น<br>
+        ติดต่อหรือแจ้งเตือนคุณในกรณีที่จำเป็น
+      </li>
+    </ol>
+
+    <!-- การเก็บข้อมูลจากแหล่งภายนอก -->
+    <h3>การเก็บข้อมูลจากแหล่งภายนอก</h3>
+    <p>เราอาจเก็บข้อมูลจากแหล่งภายนอก เช่น บริการ Firebase, imgbb, Google Login และบริการอื่นๆ เพื่อช่วยในการให้บริการที่ดียิ่งขึ้น</p>
+
+    <!-- การจัดเก็บและความปลอดภัย -->
+    <h3>การจัดเก็บและความปลอดภัย</h3>
+    <ol>
+      <li><strong>การจัดเก็บและความปลอดภัย</strong><br>
+        ข้อมูลของคุณถูกจัดเก็บบนระบบที่ปลอดภัย เช่น Firebase โดยมีการเข้ารหัสและป้องกันการเข้าถึงโดยไม่ได้รับอนุญาต
+      </li>
+    </ol>
+
+    <!-- ระยะเวลาการเก็บข้อมูล -->
+    <h3>ระยะเวลาการเก็บข้อมูล</h3>
+    <p>ข้อมูลส่วนตัวของคุณจะถูกเก็บไว้ตราบเท่าที่จำเป็นต่อการให้บริการหรือจนกว่าคุณจะขอให้ลบข้อมูลนั้น</p>
+
+    <!-- สิทธิของผู้ใช้ -->
+    <h3>สิทธิของผู้ใช้</h3>
+    <ol>
+      <li><strong>สิทธิของผู้ใช้ในการเข้าถึงข้อมูล</strong><br>
+        คุณสามารถดู แก้ไข หรือลบบัญชีของคุณได้ทุกเมื่อ<br>
+        ติดต่อทีมงานเพื่อให้ช่วยจัดการข้อมูลของคุณ
+      </li>
+    </ol>
+
+    <!-- ข้อมูลที่จำเป็นต้องเปิดเผย -->
+    <h3>ข้อมูลที่จำเป็นต้องเปิดเผย</h3>
+    <p>ในบางกรณี เช่น การปฏิบัติตามกฎหมาย เราอาจจำเป็นต้องเปิดเผยข้อมูลส่วนตัวของคุณต่อหน่วยงานที่เกี่ยวข้อง</p>
+
+    <!-- ติดต่อเรา -->
+    <h3>ติดต่อเรา</h3>
+    <p>หากคุณมีคำถามหรือข้อร้องเรียน โปรดติดต่อ: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a></p>
+
+  </main>
+
+  <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+  <footer>
+    © 2025 Gzone Store. All rights reserved.
+  </footer>
 
   <script>
-    function switchLanguage(language) {
-      if (language === 'en') {
-        document.getElementById('privacyPolicyContent').innerHTML = `
-          <h2>Privacy Policy</h2>
-          <p>GZONE Store ("Website") values your privacy. We want to clarify how your data will be collected, used, and protected as follows:</p>
-          
-          <h3>Definitions</h3>
-          <p>In this policy, "Personal Data" refers to information that can identify you, such as name, email, password, etc.</p>
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    window.onscroll = function () {
+      scrollBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+    };
 
-          <h3>Information We Collect</h3>
-          <ul>
-            <li><strong>Username</strong></li>
-            <li><strong>Email</strong></li>
-            <li><strong>Profile Picture</strong></li>
-            <li><strong>Usage History</strong> (such as games downloaded or used features)</li>
-            <li><strong>Login Data</strong> (time of login)</li>
-          </ul>
-
-          <h3>Use of Cookies</h3>
-          <p>Our website may use cookies to enhance your experience. These cookies help store information such as preferences and page visit data.</p>
-
-          <h3>How We Use Your Data</h3>
-          <ol>
-            <li><strong>To provide the service</strong><br> We use your data to enable login, display your profile, and improve our services.</li>
-            <li><strong>To send notifications</strong><br> We may send you notifications for account-related activities or important updates.</li>
-          </ol>
-
-          <h3>Third-Party Data Collection</h3>
-          <p>We may collect data from third-party services, such as Firebase, imgbb, Google Login, and others to improve our services.</p>
-
-          <h3>Data Storage and Security</h3>
-          <ol>
-            <li><strong>Data Storage and Security</strong><br>Your data is stored on secure systems, such as Firebase, with encryption and protection against unauthorized access.</li>
-          </ol>
-
-          <h3>Data Retention Period</h3>
-          <p>Your personal data will be kept as long as necessary for the services or until you request that it be deleted.</p>
-
-          <h3>Your Rights</h3>
-          <ol>
-            <li><strong>Your Rights to Access Data</strong><br>You can view, modify, or delete your account data at any time. Contact our support team to manage your information.</li>
-          </ol>
-
-          <h3>Required Data Disclosure</h3>
-          <p>In certain situations, such as complying with the law, we may be required to disclose your personal data to relevant authorities.</p>
-
-          <h3>Contact Us</h3>
-          <p>If you have any questions or concerns, please contact: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a></p>
-        `;
-      } else {
-        document.getElementById('privacyPolicyContent').innerHTML = `
-          <h2>นโยบายความเป็นส่วนตัว</h2>
-          <p>GZONE Store ("เว็บไซต์") ให้ความสำคัญกับความเป็นส่วนตัวของผู้ใช้ เราขอชี้แจงว่าข้อมูลของคุณจะถูกเก็บ ใช้ และปกป้องอย่างไร ดังนี้:</p>
-
-          <h3>คำนิยามคำศัพท์</h3>
-          <p>ในนโยบายนี้ "ข้อมูลส่วนตัว" หมายถึง ข้อมูลที่สามารถใช้ระบุตัวตนของคุณ เช่น ชื่อ อีเมล รหัสผ่าน ฯลฯ</p>
-
-          <h3>ข้อมูลที่เราเก็บ</h3>
-          <ul>
-            <li><strong>ชื่อผู้ใช้</strong></li>
-            <li><strong>อีเมล</strong></li>
-            <li><strong>รูปโปรไฟล์</strong></li>
-            <li><strong>ประวัติการใช้งาน</strong> เช่น การดาวน์โหลดเกม หรือการใช้งานฟีเจอร์ต่างๆ บนเว็บไซต์</li>
-            <li><strong>ข้อมูลการล็อกอิน</strong> เช่น เวลาและสถานที่ที่คุณล็อกอิน</li>
-          </ul>
-
-          <h3>การใช้คุกกี้</h3>
-          <p>เว็บไซต์ของเราอาจใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานของคุณ คุกกี้เหล่านี้จะช่วยเก็บข้อมูลเช่น การตั้งค่าและข้อมูลการเข้าชมหน้าเว็บ</p>
-
-          <h3>การใช้ข้อมูล</h3>
-          <ol>
-            <li><strong>การใช้ข้อมูล</strong><br> ให้คุณสามารถล็อกอินและใช้งานระบบได้<br> แสดงโปรไฟล์ของคุณในส่วนที่เกี่ยวข้อง<br> ปรับปรุงบริการให้ดีขึ้น<br> ติดต่อหรือแจ้งเตือนคุณในกรณีที่จำเป็น</li>
-          </ol>
-
-          <h3>การเก็บข้อมูลจากแหล่งภายนอก</h3>
-          <p>เราอาจเก็บข้อมูลจากแหล่งภายนอก เช่น บริการ Firebase, imgbb, Google Login และบริการอื่นๆ เพื่อช่วยในการให้บริการที่ดียิ่งขึ้น</p>
-
-          <h3>การจัดเก็บและความปลอดภัย</h3>
-          <ol>
-            <li><strong>การจัดเก็บและความปลอดภัย</strong><br> ข้อมูลของคุณถูกจัดเก็บบนระบบที่ปลอดภัย เช่น Firebase โดยมีการเข้ารหัสและป้องกันการเข้าถึงโดยไม่ได้รับอนุญาต</li>
-          </ol>
-
-          <h3>ระยะเวลาการเก็บข้อมูล</h3>
-          <p>ข้อมูลส่วนตัวของคุณจะถูกเก็บไว้ตราบเท่าที่จำเป็นต่อการให้บริการหรือจนกว่าคุณจะขอให้ลบข้อมูลนั้น</p>
-
-          <h3>สิทธิของผู้ใช้</h3>
-          <ol>
-            <li><strong>สิทธิของผู้ใช้ในการเข้าถึงข้อมูล</strong><br> คุณสามารถดู แก้ไข หรือลบบัญชีของคุณได้ทุกเมื่อ<br> ติดต่อทีมงานเพื่อให้ช่วยจัดการข้อมูลของคุณ</li>
-          </ol>
-
-          <h3>ข้อมูลที่จำเป็นต้องเปิดเผย</h3>
-          <p>ในบางกรณี เช่น การปฏิบัติตามกฎหมาย เราอาจจำเป็นต้องเปิดเผยข้อมูลส่วนตัวของคุณต่อหน่วยงานที่เกี่ยวข้อง</p>
-
-          <h3>ติดต่อเรา</h3>
-          <p>หากคุณมีคำถามหรือข้อร้องเรียน โปรดติดต่อ: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a></p>
-        `;
-      }
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Default language on page load
-    switchLanguage('th');
+    function setLanguage(lang) {
+      if (lang === 'en') {
+        document.getElementById('privacyPolicyContent').innerHTML = `
+          <h2>Privacy Policy</h2>
+          <p>GZONE Store ("Website") values your privacy. Here is how your data will be collected, used, and protected:</p>
+          <h3>Definitions</h3>
+          <p>"Personal Data" refers to information that can identify you such as your name, email, password, etc.</p>
+          <h3>Data We Collect</h3>
+          <ol>
+            <li><strong>Data We Collect</strong><br>
+              Username / Email / Password (encrypted)<br>
+              Profile picture<br>
+              Usage history, such as game downloads<br>
+              We do not store passwords in readable form and do not have direct access to your password.
+            </li>
+          </ol>
+          <h3>Cookies Usage</h3>
+          <p>We use cookies to enhance your experience on our website. These cookies may store information such as your preferences and browsing history.</p>
+          <h3>Use of Data</h3>
+          <ol>
+            <li><strong>Use of Data</strong><br>
+              To allow you to log in and use the system<br>
+              To display your profile where relevant<br>
+              To improve our services<br>
+              To contact or notify you when necessary
+            </li>
+          </ol>
+          <h3>Data Collection from Third Parties</h3>
+          <p>We may collect data from third-party services like Firebase, imgbb, and Google Login to help us improve our services.</p>
+          <h3>Data Retention</h3>
+          <p>Your personal data will be retained as long as necessary to provide our services or until you request its deletion.</p>
+          <h3>Your Rights</h3>
+          <ol>
+            <li><strong>Your Rights to Access Data</strong><br>
+              You may view, edit, or delete your account at any time.<br>
+              Contact our team to manage your data.
+            </li>
+          </ol>
+          <h3>Required Disclosures</h3>
+          <p>In some cases, such as legal obligations, we may need to disclose your personal data to relevant authorities.</p>
+          <h3>Contact Us</h3>
+          <p>For any questions or concerns, contact us at: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a></p>
+        `;
+      } else {
+        location.reload();
+      }
+    }
   </script>
 </body>
 </html>
