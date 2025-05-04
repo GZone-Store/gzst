@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#1e0a2a" />
-  <title>GZONE</title>
+  <title>GZONE.com</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <link rel="manifest" href="./manifest.json" />
@@ -81,37 +81,38 @@
     <!-- รายการเกม -->
     <div class="grid grid-cols-2 gap-4 p-4" id="gameGrid"></div>
 
-    <script>
-  const gameList = [
-    { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
-    { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
-    { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
-    { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
-    { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
-    { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
-    { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
-    { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
-    { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/gzone-store" }
-  ];
+       <script>
+     const gameList = [
+       { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
+       { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
+       { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
+       { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
+       { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
+       { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
+       { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
+       { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
+       { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/gzone-store" }
+     ];
 
-  window.onload = () => {
-    const grid = document.querySelector("#gameGrid");
-    gameList.forEach(game => {
-      const div = document.createElement("div");
-      div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
-      div.innerHTML = `
-        <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
-        <div class="text-white font-semibold">${game.name}</div>
-        <a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl text-white">
-          ดาวน์โหลด
-        </a>
-      `;
-      grid.appendChild(div);
-    });
+     window.onload = () => {
+       const grid = document.querySelector("#gameGrid");
+       gameList.forEach(game => {
+         const div = document.createElement("div");
+         div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
+         div.innerHTML = `
+           <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
+           <div class="text-white font-semibold">${game.name}</div>
+           <a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl text-white">
+             ดาวน์โหลด
+           </a>
+         `;
+         grid.appendChild(div);
+       });
 
-    goTo("home"); // เปิดหน้าแรกและโชว์โลโก้เมื่อโหลด
-  };
-      </script>
+       goTo("home"); // เปิดหน้าแรกและโชว์โลโก้เมื่อโหลด
+     };
+   </script>
+ </div>
     
  <!-- หน้าค้นหา -->
 <div id="search" class="hidden flex-1 pb-16">
