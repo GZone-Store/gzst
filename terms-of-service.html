@@ -3,88 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>เงื่อนไขการใช้งาน - Gzone Store</title>
+  <title>เงื่อนไขการใช้งาน - GZONE STORE</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f9f9f9;
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
       color: #333;
     }
     header {
+      background-color: #663399;
+      color: white;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
-      background-color: #663399;
-      color: white;
-      border-bottom: 2px solid #333;
+      border-bottom: 1px solid #4c2870;
     }
     .back-button {
-      display: flex;
-      align-items: center;
-      font-size: 14px;
       color: white;
       text-decoration: none;
-      cursor: pointer;
+      display: flex;
+      align-items: center;
       font-weight: bold;
+      font-size: 14px;
     }
     .back-button svg {
       width: 20px;
       height: 20px;
       margin-right: 8px;
     }
-    .language-switcher {
-      display: flex;
-      gap: 10px;
-    }
     .language-switcher button {
-      border: none;
       background: none;
-      cursor: pointer;
-      font-size: 14px;
+      border: none;
       color: white;
+      font-size: 14px;
+      cursor: pointer;
+      margin-left: 10px;
     }
     .flag {
       width: 20px;
       vertical-align: middle;
+      margin-right: 5px;
     }
     main {
       max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      background: white;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
+      margin: 30px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
     }
     h2 {
       color: #663399;
+      margin-bottom: 20px;
     }
     ol {
-      list-style-type: none;
       padding-left: 20px;
     }
     ol li {
-      padding-left: 10px;
-      position: relative;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
-    ol li::before {
-      content: '•';
-      position: absolute;
-      left: -15px;
+    ol li strong {
       color: #663399;
     }
     a {
       color: #3366cc;
-      text-decoration: none;
     }
     footer {
       text-align: center;
-      padding: 20px;
-      background-color: #f4f4f4;
-      font-size: 14px;
+      font-size: 13px;
       color: #777;
+      padding: 20px;
+      background-color: #f1f1f1;
     }
     .scroll-top {
       position: fixed;
@@ -109,15 +101,15 @@
 <body>
   <header>
     <a href="javascript:history.back()" class="back-button">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 12H5"></path>
-        <path d="M12 19l-7-7 7-7"></path>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <path d="M19 12H5" />
+        <path d="M12 19l-7-7 7-7" />
       </svg>
       ย้อนกลับ
     </a>
     <div class="language-switcher">
-      <button onclick="setLanguage('th')"><img class="flag" src="https://flagcdn.com/th.svg" /> TH</button>
-      <button onclick="setLanguage('en')"><img class="flag" src="https://flagcdn.com/gb.svg" /> EN</button>
+      <button onclick="setLanguage('th')"><img class="flag" src="https://flagcdn.com/th.svg" />TH</button>
+      <button onclick="setLanguage('en')"><img class="flag" src="https://flagcdn.com/gb.svg" />EN</button>
     </div>
   </header>
 
@@ -125,7 +117,7 @@
     <h2>เงื่อนไขการใช้งาน</h2>
     <ol>
       <li><strong>การยอมรับเงื่อนไข</strong><br>
-        เมื่อคุณเข้าใช้งานเว็บไซต์ Gzone Store ("เว็บไซต์") ถือว่าคุณได้ยอมรับเงื่อนไขทั้งหมดของเรา หากคุณไม่ยอมรับ โปรดงดเว้นการใช้งานเว็บไซต์นี้
+        เมื่อคุณเข้าใช้งานเว็บไซต์ GZone Store ("เว็บไซต์") ถือว่าคุณได้ยอมรับเงื่อนไขทั้งหมดของเรา หากคุณไม่ยอมรับ โปรดงดเว้นการใช้งานเว็บไซต์นี้
       </li>
       <li><strong>ทรัพย์สินทางปัญญา</strong><br>
         เว็บไซต์นี้อาจแสดงภาพ โลโก้ หรือเนื้อหาที่เกี่ยวข้องกับเกมและแอปต่าง ๆ ซึ่งเป็นทรัพย์สินทางปัญญาของเจ้าของลิขสิทธิ์แต่ละราย Gzone Store ไม่มีความเป็นเจ้าของในลิขสิทธิ์ของภาพหรือเนื้อหาเหล่านั้น
@@ -133,16 +125,16 @@
         หากท่านเป็นเจ้าของสิทธิ์และไม่ประสงค์ให้เนื้อหาปรากฏบนเว็บไซต์นี้ กรุณาติดต่อเรา แล้วเราจะดำเนินการลบออกโดยเร็ว
       </li>
       <li><strong>การใช้งานเว็บไซต์</strong><br>
-        คุณสามารถใช้งานเว็บไซต์นี้เพื่อดูรายละเอียดของเกม/แอปตามที่เราแสดงไว้ โดยต้องไม่กระทำการใดๆ ที่ก่อให้เกิดความเสียหายต่อระบบเว็บไซต์ เช่น การเจาะระบบหรือดัดแปลงลิงก์ดาวน์โหลด
+        คุณสามารถใช้งานเว็บไซต์นี้เพื่อดูรายละเอียดของเกม/แอปตามที่เราแสดงไว้ โดยต้องไม่กระทำการใด ๆ ที่ก่อให้เกิดความเสียหายต่อระบบเว็บไซต์ เช่น การเจาะระบบหรือดัดแปลงลิงก์ดาวน์โหลด
       </li>
       <li><strong>ลิงก์ภายนอก</strong><br>
-        เว็บไซต์นี้อาจมีลิงก์ไปยังเว็บไซต์ภายนอก (เช่น Google Play, หรือแหล่งโหลดอื่น) ซึ่งอยู่นอกเหนือการควบคุมของเรา เราไม่สามารถรับประกันความปลอดภัยหรือความถูกต้องของเนื้อหาในลิงก์เหล่านั้นได้
+        เว็บไซต์นี้อาจมีลิงก์ไปยังเว็บไซต์ภายนอก (เช่น Google Play หรือแหล่งโหลดอื่น) ซึ่งอยู่นอกเหนือการควบคุมของเรา เราไม่สามารถรับประกันความปลอดภัยหรือความถูกต้องของเนื้อหาในลิงก์เหล่านั้นได้
       </li>
       <li><strong>การเปลี่ยนแปลงเงื่อนไข</strong><br>
         เราอาจเปลี่ยนแปลงเงื่อนไขนี้โดยไม่ต้องแจ้งล่วงหน้า ควรตรวจสอบเงื่อนไขนี้เป็นระยะ
       </li>
       <li><strong>ติดต่อเรา</strong><br>
-        หากคุณมีข้อสงสัย หรือต้องการแจ้งปัญหาใดเกี่ยวกับเว็บไซต์ สามารถติดต่อได้ที่: gzonestore.service@gmail.com
+        หากคุณมีข้อสงสัย หรือต้องการแจ้งปัญหาใดเกี่ยวกับเว็บไซต์ สามารถติดต่อได้ที่: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a>
       </li>
     </ol>
   </main>
@@ -158,35 +150,32 @@
     window.onscroll = function () {
       scrollBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
     };
-
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
     function setLanguage(lang) {
       if (lang === 'en') {
         document.getElementById('termsContent').innerHTML = `
           <h2>Terms of Use</h2>
           <ol>
             <li><strong>Acceptance of Terms</strong><br>
-              By using Gzone Store, you agree to all terms listed on this page.
+              By using GZone Store, you agree to all terms listed on this page. If you do not agree, please do not use this site.
             </li>
             <li><strong>Intellectual Property</strong><br>
-              This website may display images, logos, or content related to games and apps, which are intellectual property of each respective copyright holder. Gzone Store does not own the rights to these images or content.
-              The website is created to recommend games and apps and link to Google Play Store or other download sources with proper attribution.
-              If you are the rights holder and do not wish for your content to appear on this site, please contact us and we will remove it promptly.
+              This site may display images, logos, or content related to games and apps, which are the property of their respective copyright owners. Gzone Store does not own the rights to those materials.
+              If you are the rights holder and would like your content removed, please contact us and we will promptly remove it.
             </li>
-            <li><strong>Using the Website</strong><br>
-              You can use this website to view details of games/apps as presented. Do not engage in any activities that may harm the website's system, such as hacking or modifying download links.
+            <li><strong>Website Usage</strong><br>
+              You may use this website to browse games and apps. Do not attempt to damage the system or manipulate download links.
             </li>
             <li><strong>External Links</strong><br>
-              This site may contain links to external websites (e.g., Google Play, or other download sources), which are beyond our control. We cannot guarantee the security or accuracy of content on those links.
+              We may link to external websites (e.g., Google Play). We do not control the content or guarantee their safety.
             </li>
             <li><strong>Changes to Terms</strong><br>
-              We may change these terms without notice. Please review these terms periodically.
+              We may change these terms at any time without prior notice. Please check periodically.
             </li>
             <li><strong>Contact Us</strong><br>
-              If you have any questions or concerns regarding the website, please contact us at: gzonestore.service@gmail.com
+              For questions or concerns, contact us at: <a href="mailto:gzonestore.service@gmail.com">gzonestore.service@gmail.com</a>
             </li>
           </ol>
         `;
