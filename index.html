@@ -364,68 +364,42 @@
   </script>
   
     <!-- หน้า Auth เต็มหน้า -->
-<div id="auth-modal" class="hidden min-h-screen bg-white flex items-center justify-center px-4 pt-20 pb-10">
-  <div class="flex flex-col items-center">
-    
-    <!-- โลโก้ -->
-    <img src="gzone.png" alt="GZone" class="w-20 h-20 mb-6" />
+<div id="auth-modal" class="hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-start px-4 py-10 overflow-y-auto">
+  
+  <!-- โลโก้ -->
+  <img src="gzone.png" alt="GZone" class="w-20 h-20 mb-4 mt-6" />
 
-    <!-- กล่องฟอร์ม -->
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 animate-fade-in">
-      
-      <!-- หัวข้อ -->
-      <h2 id="auth-title" class="text-2xl font-bold mb-6 text-center text-gray-800">
-        เข้าสู่ระบบ
-      </h2>
+  <!-- กล่องฟอร์ม -->
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 animate-fade-in mt-4">
 
-      <!-- ช่องอีเมล -->
-      <input 
-        type="email" 
-        id="auth-email" 
-        placeholder="อีเมล" 
-        class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900"
-      />
+    <h2 id="auth-title" class="text-2xl font-bold mb-6 text-center text-gray-800">
+      เข้าสู่ระบบ
+    </h2>
 
-      <!-- ช่องรหัสผ่าน -->
-      <input 
-        type="password" 
-        id="auth-password" 
-        placeholder="รหัสผ่าน" 
-        class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900"
-      />
+    <input type="email" id="auth-email" placeholder="อีเมล"
+      class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900" />
 
-      <!-- ช่องยืนยันรหัสผ่าน -->
-      <input 
-        type="password" 
-        id="auth-confirm-password" 
-        placeholder="ยืนยันรหัสผ่าน" 
-        class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl hidden focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900"
-      />
+    <input type="password" id="auth-password" placeholder="รหัสผ่าน"
+      class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900" />
 
-      <!-- ปุ่มหลัก -->
-      <button 
-        id="auth-action-button" 
-        onclick="handleAuthAction()" 
-        class="bg-purple-600 hover:bg-purple-700 text-white w-full py-3 rounded-xl font-semibold transition"
-      >
-        เข้าสู่ระบบ
-      </button>
+    <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน"
+      class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl hidden focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900" />
 
-      <!-- ปุ่ม Google -->
-      <button 
-        onclick="googleLogin()" 
-        class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black"
-      >
-        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="h-5 w-5" />
-        ดำเนินการต่อด้วย Google
-      </button>
+    <button id="auth-action-button"
+      class="bg-purple-600 hover:bg-purple-700 text-white w-full py-3 rounded-xl font-semibold transition">
+      เข้าสู่ระบบ
+    </button>
 
-      <!-- ลิงก์สลับ -->
-      <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
-        ยังไม่มีบัญชี? 
-        <button onclick="switchToSignup()" class="text-purple-600 font-medium hover:underline">สมัครสมาชิก</button>
-      </p>
-    </div>
+    <button onclick="googleLogin()"
+      class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
+      <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="h-5 w-5" />
+      ดำเนินการต่อด้วย Google
+    </button>
+
+    <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
+      ยังไม่มีบัญชี?
+      <button onclick="switchToSignup()" class="text-purple-600 font-medium hover:underline">สมัครสมาชิก</button>
+    </p>
   </div>
 </div>
    
