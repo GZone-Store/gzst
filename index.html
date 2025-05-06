@@ -393,6 +393,12 @@
 
     <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน"
       class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl hidden focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900" />
+    <!-- ลืมรหัสผ่าน -->
+    <div class="text-right mt-2">
+  <button onclick="resetPassword()" class="text-sm text-purple-600 hover:underline">
+    ลืมรหัสผ่าน?
+  </button>
+  </div>
 
     <button id="auth-action-button"
       onclick="handleAuthAction()"
@@ -430,17 +436,17 @@
    </style>
 
 <!-- JavaScript -->
-<script>
+   <script>
   let isSignUp = false;
 
   function openAuthModal() {
-  document.getElementById("auth-modal").classList.remove("hidden");
-  document.body.classList.add("overflow-hidden"); // ล็อก scroll
-}
+    document.getElementById("auth-modal").classList.remove("hidden");
+    document.body.classList.add("overflow-hidden"); // ล็อก scroll
+  }
 
-function closeAuthModal() {
-  document.getElementById("auth-modal").classList.add("hidden");
-  document.body.classList.remove("overflow-hidden"); // ปลดล็อก scroll
+  function closeAuthModal() {
+    document.getElementById("auth-modal").classList.add("hidden");
+    document.body.classList.remove("overflow-hidden"); // ปลดล็อก scroll
   }
   
   function clearAuthForm() {
@@ -516,13 +522,16 @@ function closeAuthModal() {
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
-        alert('สมัครสมาชิกสำเร็จ!');
+        // ส่งอีเมลยืนยัน
+        await user.sendEmailVerification();
+
+        alert('สมัครสมาชิกสำเร็จ! กรุณาตรวจสอบอีเมลของคุณเพื่อยืนยันบัญชี');
+        closeAuthModal();
       } else {
         await firebase.auth().signInWithEmailAndPassword(email, password);
         alert('เข้าสู่ระบบสำเร็จ!');
+        closeAuthModal();
       }
-
-      closeAuthModal();
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -551,6 +560,57 @@ function closeAuthModal() {
     }
   }
 
+  // การรีเซ็ตรหัสผ่าน
+  async function resetPassword() {
+    const email = document.getElementById('auth-email').value.trim();
+
+    if (!email) {
+      alert('กรุณากรอกอีเมล');
+      return;
+    }
+
+    try {
+      await firebase.auth().sendPasswordResetEmail(email);
+      alert('เราได้ส่งอีเมลรีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว');
+      closeAuthModal();
+    } catch (error) {
+      console.error(error);
+      alert('ไม่สามารถส่งอีเมลรีเซ็ตรหัสผ่านได้: ' + error.message);
+    }
+  }
+
+  // ตรวจสอบสถานะการยืนยันอีเมล
+  firebase.auth().onAuthStateChanged(user => {
+    const loginPrompt = document.getElementById('login-prompt');
+    const userDetails = document.getElementById('user-details');
+    const userName = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
+    const signOutButton = document.getElementById('sign-out-button');
+    const profileImage = document.getElementById('accountProfileImage');
+
+    if (user) {
+      if (user.emailVerified) {
+        if (loginPrompt) loginPrompt.classList.add('hidden');
+        if (userDetails) userDetails.classList.remove('hidden');
+        if (signOutButton) signOutButton.classList.remove('hidden');
+
+        if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';
+        if (userEmail) userEmail.textContent = user.email;
+
+        if (profileImage && user.photoURL) {
+          profileImage.src = user.photoURL;
+        }
+      } else {
+        alert('กรุณายืนยันอีเมลของคุณก่อนเข้าสู่ระบบ');
+        firebase.auth().signOut();
+      }
+    } else {
+      if (loginPrompt) loginPrompt.classList.remove('hidden');
+      if (userDetails) userDetails.classList.add('hidden');
+      if (signOutButton) signOutButton.classList.add('hidden');
+    }
+  });
+
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
 
@@ -571,36 +631,7 @@ function closeAuthModal() {
         alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
       });
   }
-
-  // Auth State Monitor
-  firebase.auth().onAuthStateChanged(user => {
-  const loginPrompt = document.getElementById('login-prompt');
-  const userDetails = document.getElementById('user-details');
-  const userName = document.getElementById('user-name');
-  const userEmail = document.getElementById('user-email');
-  const signOutButton = document.getElementById('sign-out-button');
-  const profileImage = document.getElementById('accountProfileImage');
-
-  if (user) {
-    if (loginPrompt) loginPrompt.classList.add('hidden');
-    if (userDetails) userDetails.classList.remove('hidden');
-    if (signOutButton) signOutButton.classList.remove('hidden');
-
-    if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';
-    if (userEmail) userEmail.textContent = user.email;
-
-    // ดึงรูปโปรไฟล์จาก Google
-    if (profileImage && user.photoURL) {
-      profileImage.src = user.photoURL;
-    }
-
-  } else {
-    if (loginPrompt) loginPrompt.classList.remove('hidden');
-    if (userDetails) userDetails.classList.add('hidden');
-    if (signOutButton) signOutButton.classList.add('hidden');
-  }
-});
-          </script>
+    </script>
   
           <!-- เมนูด้านล่าง -->
 </div>
