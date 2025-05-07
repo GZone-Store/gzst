@@ -192,21 +192,20 @@
   <div class="mt-14 text-center" id="user-info">
   <!-- ยังไม่ได้ล็อกอิน -->
   <div class="hidden" id="login-prompt">
-  <button
-    class="inline-block bg-white border border-purple-500 text-purple-600 font-semibold py-1.5 px-4 rounded-full shadow hover:bg-purple-50 hover:shadow-md transition duration-300 text-sm"
-    id="login-button"
-    onclick="switchToLogin(); openAuthModal();"
-  >
-    เข้าสู่ระบบ
-  </button>
-  <span class="mx-2 text-gray-400">หรือ</span>
-  <button
-    class="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-1.5 px-4 rounded-full shadow-md hover:from-indigo-700 hover:to-purple-700 hover:shadow-lg transition duration-300 text-sm"
-    id="signup-button"
-    onclick="switchToSignup(); openAuthModal();"
-  >
-    สมัครสมาชิก
-  </button>
+    <button
+      class="inline-block bg-white border border-purple-500 text-purple-600 font-semibold py-1.5 px-4 rounded-full shadow hover:bg-purple-50 hover:shadow-md transition duration-300 text-sm"
+      id="login-button"
+    >
+      เข้าสู่ระบบ
+    </button>
+    <span class="mx-2 text-gray-400">หรือ</span>
+    <button
+      class="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-1.5 px-4 rounded-full shadow-md hover:from-indigo-700 hover:to-purple-700 hover:shadow-lg transition duration-300 text-sm"
+      id="signup-button"
+    >
+      สมัครสมาชิก
+    </button>
+  </div>
   </div>
     
     <!-- เมื่อล็อกอินแล้ว -->
@@ -495,61 +494,45 @@
   }
 
   async function handleAuthAction() {
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value.trim();
-  const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value.trim();
+    const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
 
-  if (!email || !password || (isSignUp && !confirmPassword)) {
-    alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-    return;
+    if (!email || !password || (isSignUp && !confirmPassword)) {
+      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+      return;
+    }
+
+    if (isSignUp && password !== confirmPassword) {
+      alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
+      return;
+    }
+
+    try {
+      if (isSignUp) {
+        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        const uniqueUsername = await generateUniqueUsername();
+
+        await user.updateProfile({ displayName: uniqueUsername });
+        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+          uid: user.uid,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        alert('สมัครสมาชิกสำเร็จ!');
+      } else {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+        alert('เข้าสู่ระบบสำเร็จ!');
+      }
+
+      closeAuthModal();
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
   }
-
-  if (isSignUp && password !== confirmPassword) {
-    alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
-    return;
-  }
-
-  try {
-    if (isSignUp) {
-      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-      const uniqueUsername = await generateUniqueUsername();
-
-      await user.updateProfile({ displayName: uniqueUsername });
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      // ส่งอีเมลยืนยัน
-      await user.sendEmailVerification();
-
-      alert('กรุณายืนยันอีเมลก่อนเข้าใช้งาน เราได้ส่งลิงก์ยืนยันไปที่อีเมลของคุณแล้ว');
-
-      // สลับไปหน้า Login และเคลียร์ฟอร์ม
-      switchToLogin();
-      clearAuthForm();
-      return;
-    } else {
-      const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-
-      if (!user.emailVerified) {
-        await firebase.auth().signOut();
-        alert('กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ');
-        return;
-      }
-
-      alert('เข้าสู่ระบบสำเร็จ!');
-    }
-
-    closeAuthModal();
-  } catch (error) {
-    console.error(error);
-    alert(error.message);
-  }
-  }
-
+  
   async function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
