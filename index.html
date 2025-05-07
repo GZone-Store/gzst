@@ -494,43 +494,59 @@
   }
 
   async function handleAuthAction() {
-    const email = document.getElementById('auth-email').value.trim();
-    const password = document.getElementById('auth-password').value.trim();
-    const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value.trim();
+  const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
 
-    if (!email || !password || (isSignUp && !confirmPassword)) {
-      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+  if (!email || !password || (isSignUp && !confirmPassword)) {
+    alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+    return;
+  }
+
+  if (isSignUp && password !== confirmPassword) {
+    alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
+    return;
+  }
+
+  try {
+    if (isSignUp) {
+      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+      const uniqueUsername = await generateUniqueUsername();
+
+      await user.updateProfile({ displayName: uniqueUsername });
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      // ส่งอีเมลยืนยัน
+      await user.sendEmailVerification();
+
+      alert('กรุณายืนยันอีเมลก่อนเข้าใช้งาน เราได้ส่งลิงก์ยืนยันไปที่อีเมลของคุณแล้ว');
+
+      // สลับไปหน้า Login และเคลียร์ฟอร์ม
+      switchToLogin();
+      clearAuthForm();
       return;
-    }
+    } else {
+      const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+      const user = userCredential.user;
 
-    if (isSignUp && password !== confirmPassword) {
-      alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
-      return;
-    }
-
-    try {
-      if (isSignUp) {
-        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-        const user = userCredential.user;
-        const uniqueUsername = await generateUniqueUsername();
-
-        await user.updateProfile({ displayName: uniqueUsername });
-        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-          uid: user.uid,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
-        alert('สมัครสมาชิกสำเร็จ!');
-      } else {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-        alert('เข้าสู่ระบบสำเร็จ!');
+      if (!user.emailVerified) {
+        await firebase.auth().signOut();
+        alert('กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ');
+        return;
       }
 
-      closeAuthModal();
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
+      alert('เข้าสู่ระบบสำเร็จ!');
     }
+
+    closeAuthModal();
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
   }
 
   async function googleLogin() {
