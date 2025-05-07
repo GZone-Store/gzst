@@ -285,10 +285,9 @@
      <!-- อื่น ๆ -->
     <div class="text-left">
   <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">เปลี่ยนรหัสผ่าน</a>
-  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">เพิ่มGZone ไปยังหน้าจอหลัก</a>
+  <a href="#" id="installButton" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3" style="display:none;">เพิ่มGZone ไปยังหน้าจอหลัก</a>
   <a href="privacy-policy.html" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">ความเป็นส่วนตัว</a>
   <a href="terms-of-service.html" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium mb-3">เงื่อนไขการใช้งาน</a>
-  <a href="#" class="block bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium">ความเป็นส่วนตัว</a>
     </div>
     
   <!-- ปุ่มออกจากระบบ -->
@@ -724,29 +723,33 @@
     renderGames(matched);
   });
 
+  // ทำงานเพิ่มไปยังหน้าหลัก
   let deferredPrompt;
-  const installBtn = document.getElementById('installBtn');
+  const installButton = document.getElementById('installButton');
 
-  // ดักจับอีเวนต์ beforeinstallprompt
   window.addEventListener('beforeinstallprompt', (e) => {
+    // ป้องกัน Chrome แสดง default prompt
     e.preventDefault();
     deferredPrompt = e;
-    installBtn.classList.remove('hidden'); // แสดงปุ่มติดตั้ง
-  });
+    installButton.style.display = 'block';
 
-  // เมื่อกดปุ่มติดตั้ง
-  installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
+    installButton.addEventListener('click', async () => {
+      installButton.style.display = 'none';
       deferredPrompt.prompt();
-      const result = await deferredPrompt.userChoice;
-      if (result.outcome === 'accepted') {
-        console.log('ติดตั้งแล้ว');
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('ผู้ใช้ติดตั้งแล้ว');
       } else {
-        console.log('ยกเลิกการติดตั้ง');
+        console.log('ผู้ใช้ยกเลิกการติดตั้ง');
       }
       deferredPrompt = null;
-      installBtn.classList.add('hidden'); // ซ่อนปุ่มหลังจากตอบ
-    }
+    });
+  });
+
+  // ซ่อนปุ่มถ้าติดตั้งแล้ว
+  window.addEventListener('appinstalled', () => {
+    console.log('ติดตั้งแอปแล้ว');
+    installButton.style.display = 'none';
   });
 </script>                                                       
   
