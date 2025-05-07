@@ -390,6 +390,12 @@
     <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน"
       class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl hidden focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900" />
 
+    <div class="flex justify-end mt-2">
+  <button onclick="handleForgotPassword()" class="text-sm text-purple-500 hover:underline">
+    ลืมรหัสผ่าน?
+  </button>
+    </div>
+
     <button id="auth-action-button"
       onclick="handleAuthAction()"
       class="bg-purple-600 hover:bg-purple-700 text-white w-full py-3 rounded-xl font-semibold transition">
@@ -563,6 +569,23 @@
     firebase.auth().signOut()
       .then(() => logoutPopup.classList.add('hidden'))
       .catch(error => alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message));
+  }
+  
+  function handleForgotPassword() {
+  const email = document.getElementById('auth-email').value.trim();
+
+  if (!email) {
+    alert("กรุณากรอกอีเมลก่อน");
+    return;
+  }
+
+  firebase.auth().sendPasswordResetEmail(email)
+    .then(() => {
+      alert("ส่งอีเมลรีเซ็ตรหัสผ่านเรียบร้อยแล้ว กรุณาตรวจสอบกล่องอีเมลของคุณ");
+    })
+    .catch((error) => {
+      alert("เกิดข้อผิดพลาด: " + error.message);
+    });
   }
 
   firebase.auth().onAuthStateChanged(user => {
