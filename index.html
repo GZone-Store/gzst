@@ -192,20 +192,21 @@
   <div class="mt-14 text-center" id="user-info">
   <!-- ยังไม่ได้ล็อกอิน -->
   <div class="hidden" id="login-prompt">
-    <button
-      class="inline-block bg-white border border-purple-500 text-purple-600 font-semibold py-1.5 px-4 rounded-full shadow hover:bg-purple-50 hover:shadow-md transition duration-300 text-sm"
-      id="login-button"
-    >
-      เข้าสู่ระบบ
-    </button>
-    <span class="mx-2 text-gray-400">หรือ</span>
-    <button
-      class="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-1.5 px-4 rounded-full shadow-md hover:from-indigo-700 hover:to-purple-700 hover:shadow-lg transition duration-300 text-sm"
-      id="signup-button"
-    >
-      สมัครสมาชิก
-    </button>
-  </div>
+  <button
+    class="inline-block bg-white border border-purple-500 text-purple-600 font-semibold py-1.5 px-4 rounded-full shadow hover:bg-purple-50 hover:shadow-md transition duration-300 text-sm"
+    id="login-button"
+    onclick="switchToLogin(); openAuthModal();"
+  >
+    เข้าสู่ระบบ
+  </button>
+  <span class="mx-2 text-gray-400">หรือ</span>
+  <button
+    class="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-1.5 px-4 rounded-full shadow-md hover:from-indigo-700 hover:to-purple-700 hover:shadow-lg transition duration-300 text-sm"
+    id="signup-button"
+    onclick="switchToSignup(); openAuthModal();"
+  >
+    สมัครสมาชิก
+  </button>
   </div>
     
     <!-- เมื่อล็อกอินแล้ว -->
