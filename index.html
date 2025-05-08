@@ -408,12 +408,12 @@
       ดำเนินการต่อด้วย Google
     </button>
     
-     <a href="https://gzone-store.glitch.me/auth"
-   class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
-  <img src="https://scdn.line-apps.com/n/line_regulation/files/ver2/LINE_AppIcon.png"
-       alt="LINE" class="h-5 w-5" />
+     <!-- ปุ่ม Login ด้วย LINE -->
+<button onclick="lineLogin()"
+  class="w-full mt-4 flex items-center justify-center gap-3 border border-green-500 py-3 rounded-xl hover:bg-green-50 transition text-sm font-medium text-black">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" alt="LINE" class="h-5 w-5" />
   ดำเนินการต่อด้วย LINE
-     </a>
+</button>
     
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
       ยังไม่มีบัญชี?
@@ -560,6 +560,12 @@
       alert(error.message);
     }
   }
+
+  function lineLogin() {
+    const redirectURL = "https://gzone-line-login.glitch.me"; // ใส่ Glitch URL ของคุณ
+    window.location.href = redirectURL;
+  }
+
   
 // ฟังก์ชันที่สร้างชื่อผู้ใช้ที่ไม่ซ้ำ
 async function generateUniqueUsername() {
