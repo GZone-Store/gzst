@@ -408,13 +408,13 @@
       ดำเนินการต่อด้วย Google
     </button>
     
-     <!-- ปุ่มดำเนินการต่อด้วย LINE -->
-<button onclick="lineLogin()"
-    class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/LINE_Logo.svg" alt="LINE" class="h-5 w-5" />
-    ดำเนินการต่อด้วย LINE
-</button>
-
+     <a href="https://gzone-store.glitch.me/auth"
+   class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
+  <img src="https://scdn.line-apps.com/n/line_regulation/files/ver2/LINE_AppIcon.png"
+       alt="LINE" class="h-5 w-5" />
+  ดำเนินการต่อด้วย LINE
+     </a>
+    
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
       ยังไม่มีบัญชี?
       <button onclick="switchToSignup()" class="text-purple-600 font-medium hover:underline">สมัครสมาชิก</button>
@@ -560,25 +560,6 @@
       alert(error.message);
     }
   }
-
-async function lineLogin() {
-  const provider = new firebase.auth.OAuthProvider('google.com'); // หากเป็นแบบ OAuth ต้องกำหนด provider
-  try {
-    const result = await firebase.auth().signInWithPopup(provider);
-    const user = result.user;
-    const userInfo = result.additionalUserInfo;
-
-    if (userInfo.isNewUser) {
-      console.log("New user signed in with LINE:", user.displayName);
-    }
-
-    // คุณสามารถดึงข้อมูลผู้ใช้ที่ได้จาก LINE เช่น ชื่อ, อีเมล, หรือรูปโปรไฟล์
-    alert(`Hello, ${user.displayName}`);
-  } catch (error) {
-    console.error(error);
-    alert('เกิดข้อผิดพลาดในการล็อกอินผ่าน LINE');
-  }
-}
   
 // ฟังก์ชันที่สร้างชื่อผู้ใช้ที่ไม่ซ้ำ
 async function generateUniqueUsername() {
