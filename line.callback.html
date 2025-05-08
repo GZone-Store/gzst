@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LINE Login Result</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ยินดีต้อนรับ</h1>
+  <p id="name"></p>
+  <p id="email"></p>
+  <img id="picture" alt="Profile Picture" />
+
+  <script>
+    // ดึงค่าจาก URL
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const email = params.get("email");
+    const picture = params.get("picture");
+
+    // แสดงผล
+    if (name) document.getElementById("name").textContent = `ชื่อ: ${name}`;
+    if (email) document.getElementById("email").textContent = `อีเมล: ${email}`;
+    if (picture) document.getElementById("picture").src = picture;
+  </script>
+</body>
+</html>
