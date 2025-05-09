@@ -415,12 +415,11 @@
       ดำเนินการต่อด้วย Google
     </button>
     
-     <!-- ปุ่ม Login ด้วย LINE -->
-<button onclick="lineLogin()"
-  class="w-full mt-4 flex items-center justify-center gap-3 border border-green-500 py-3 rounded-xl hover:bg-green-50 transition text-sm font-medium text-black">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" alt="LINE" class="h-5 w-5" />
+     <button onclick="loginWithLine()"
+  class="w-full mt-4 flex items-center justify-center gap-3 border border-green-500 py-3 rounded-xl hover:bg-green-50 transition text-sm font-medium text-green-700">
+  <img src="https://www.svgrepo.com/show/419289/line-logo.svg" alt="LINE" class="h-5 w-5" />
   ดำเนินการต่อด้วย LINE
-</button>
+     </button> 
     
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
       ยังไม่มีบัญชี?
@@ -600,6 +599,22 @@ async function generateUniqueUsername() {
     firebase.auth().signOut()
       .then(() => logoutPopup.classList.add('hidden'))
       .catch(error => alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message));
+  }
+  
+  window.onload = function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const email = urlParams.get('email');
+
+    if (name && email) {
+      document.getElementById("user-name").textContent = name;
+      document.getElementById("user-email").textContent = email;
+      document.getElementById("user-details").classList.remove("hidden");
+    }
+  };
+
+  function loginWithLine() {
+    window.location.href = "https://gzone-line-login.glitch.me";
   }
 
   firebase.auth().onAuthStateChanged(user => {
@@ -782,24 +797,6 @@ async function generateUniqueUsername() {
     console.log('ติดตั้งแอปแล้ว');
     installButton.style.display = 'none';
   });
-
-  // เช็กว่ามีข้อมูลจาก LINE Login มามั้ย
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get("displayName");
-  const email = params.get("email");
-  const pictureUrl = params.get("pictureUrl");
-  const userId = params.get("userId");
-
-  if (name || email || pictureUrl || userId) {
-    document.getElementById("line-name").textContent = "ชื่อ: " + (name || "-");
-    document.getElementById("line-email").textContent = "อีเมล: " + (email || "-");
-    document.getElementById("line-userId").textContent = "LINE ID: " + (userId || "-");
-    if (pictureUrl) {
-      document.getElementById("line-picture").src = pictureUrl;
-      document.getElementById("line-picture").style.display = "block";
-    }
-    document.getElementById("line-profile").style.display = "block";
-  }
 </script>                                                       
   
 </body>
