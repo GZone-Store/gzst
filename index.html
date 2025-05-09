@@ -415,11 +415,9 @@
       ดำเนินการต่อด้วย Google
     </button>
     
-     <button onclick="loginWithLine()"
-  class="w-full mt-4 flex items-center justify-center gap-3 border border-green-500 py-3 rounded-xl hover:bg-green-50 transition text-sm font-medium text-green-700">
-  <img src="https://www.svgrepo.com/show/419289/line-logo.svg" alt="LINE" class="h-5 w-5" />
-  ดำเนินการต่อด้วย LINE
-     </button> 
+     <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2007355204&redirect_uri=https%3A%2F%2Fgzone-store.github.io%2Fgzst%2Fline-callback.html&state=12345abcde&scope=profile%20openid%20email">
+  <img src="https://static.line-scdn.net/line_login_button/web/en.png" alt="Login with LINE" />
+     </a>
     
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
       ยังไม่มีบัญชี?
@@ -567,22 +565,6 @@
     }
   }
 
-  function lineLogin() {
-    const redirectURL = "https://gzone-line-login.glitch.me"; // ใส่ Glitch URL ของคุณ
-    window.location.href = redirectURL;
-  }
-
-  
-// ฟังก์ชันที่สร้างชื่อผู้ใช้ที่ไม่ซ้ำ
-async function generateUniqueUsername() {
-  let username;
-  const usernamesRef = firebase.firestore().collection('usernames');
-  do {
-    username = 'user' + Math.floor(Math.random() * 10000); // สร้างชื่อผู้ใช้ที่ไม่ซ้ำ
-  } while (await usernamesRef.doc(username).get().exists);
-
-  return username;
-}
   
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
