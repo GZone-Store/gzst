@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>LINE Login Callback</title>
 </head>
 <body>
-  <h2>กำลังตรวจสอบข้อมูลจาก LINE...</h2>
+  <p>กำลังตรวจสอบข้อมูลล็อกอิน...</p>
   <script>
+    // ดึงค่า code ที่ LINE ส่งกลับมา
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
     const state = urlParams.get('state');
 
-    if (!code) {
-      document.body.innerHTML = "<p>ไม่ได้รับ code จาก LINE</p>";
-    } else {
-      fetch'https://billowy-spiny-ski.glitch.me', {
+    if (code) {
+      // ส่ง code ไปยัง backend ที่ Glitch เพื่อขอ access_token
+      fetch('https://billowy-spiny-ski.glitch.me', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: code })
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ code, state })
       })
-      .then(res => res.json())
+      .then(response => response.json())
       .then(data => {
         if (data.name) {
-          document.body.innerHTML = `
-            <h2>เข้าสู่ระบบสำเร็จ!</h2>
-            <p><strong>ชื่อ:</strong> ${data.name}</p>
-            <p><strong>อีเมล:</strong> ${data.email}</p>
-            <img src="${data.picture}" alt="Profile Picture" width="100">
-          `;
+          document.body.innerHTML = `<h2>ยินดีต้อนรับคุณ ${data.name}</h2><p>Email: ${data.email}</p>`;
         } else {
-          document.body.innerHTML = `<p>เกิดข้อผิดพลาด: ${data.error}</p>`;
+          document.body.innerHTML = `<p>เกิดข้อผิดพลาด: ${JSON.stringify(data)}</p>`;
         }
+      })
+      .catch(error => {
+        document.body.innerHTML = `<p>ข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์: ${error}</p>`;
       });
+    } else {
+      document.body.innerHTML = '<p>ไม่พบ code ที่ส่งมาจาก LINE</p>';
     }
   </script>
 </body>
