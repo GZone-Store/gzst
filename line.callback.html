@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LINE Callback</title>
+  <meta charset="UTF-8">
+  <title>LINE Login Callback</title>
 </head>
 <body>
-  <h2>เข้าสู่ระบบด้วย LINE สำเร็จ</h2>
-  <p id="user-info"></p>
+  <h2>กำลังตรวจสอบข้อมูลจาก LINE...</h2>
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get("name");
-    const email = urlParams.get("email");
-    const picture = urlParams.get("picture");
+    const code = urlParams.get('code');
+    const state = urlParams.get('state');
 
-    document.getElementById("user-info").innerHTML = `
-      <img src="${picture}" width="100"><br>
-      ชื่อ: ${name}<br>
-      อีเมล: ${email}
-    `;
+    if (!code) {
+      document.body.innerHTML = "<p>ไม่ได้รับ code จาก LINE</p>";
+    } else {
+      fetch'https://billowy-spiny-ski.glitch.me', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.name) {
+          document.body.innerHTML = `
+            <h2>เข้าสู่ระบบสำเร็จ!</h2>
+            <p><strong>ชื่อ:</strong> ${data.name}</p>
+            <p><strong>อีเมล:</strong> ${data.email}</p>
+            <img src="${data.picture}" alt="Profile Picture" width="100">
+          `;
+        } else {
+          document.body.innerHTML = `<p>เกิดข้อผิดพลาด: ${data.error}</p>`;
+        }
+      });
+    }
   </script>
 </body>
 </html>
