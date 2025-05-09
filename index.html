@@ -219,6 +219,13 @@
     แก้ไขโปรไฟล์
   </button>
 </div>
+   
+   <div id="line-profile" style="display:none; text-align:center; margin-top: 2rem;">
+  <img id="line-picture" src="" alt="รูปโปรไฟล์" style="width: 100px; border-radius: 50%; display: none;" />
+  <h3 id="line-name">ชื่อ: -</h3>
+  <p id="line-email">อีเมล: -</p>
+  <p id="line-userId">LINE ID: -</p>
+   </div>
     
   <!-- ย้ายเมนูทั้งหมดมาอยู่ในนี้ -->
   <div class="mt-8 space-y-3 px-6" id="account-menu">
@@ -775,6 +782,24 @@ async function generateUniqueUsername() {
     console.log('ติดตั้งแอปแล้ว');
     installButton.style.display = 'none';
   });
+
+  // เช็กว่ามีข้อมูลจาก LINE Login มามั้ย
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("displayName");
+  const email = params.get("email");
+  const pictureUrl = params.get("pictureUrl");
+  const userId = params.get("userId");
+
+  if (name || email || pictureUrl || userId) {
+    document.getElementById("line-name").textContent = "ชื่อ: " + (name || "-");
+    document.getElementById("line-email").textContent = "อีเมล: " + (email || "-");
+    document.getElementById("line-userId").textContent = "LINE ID: " + (userId || "-");
+    if (pictureUrl) {
+      document.getElementById("line-picture").src = pictureUrl;
+      document.getElementById("line-picture").style.display = "block";
+    }
+    document.getElementById("line-profile").style.display = "block";
+  }
 </script>                                                       
   
 </body>
