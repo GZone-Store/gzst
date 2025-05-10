@@ -52,18 +52,18 @@
     <!-- หน้าแรก -->
     <div id="home" class="flex-1 pb-16 block pt-20">
       <!-- แบนเนอร์ -->
-      <div class="relative w-full overflow-hidden h-40">
-        <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
-          <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-          <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-          <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-        </div>
-        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">
-          <div class="dot" id="dot0"></div>
-          <div class="dot" id="dot1"></div>
-          <div class="dot" id="dot2"></div>
-        </div>
-      </div>
+<div class="relative w-full overflow-hidden h-40">
+  <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
+    <img src="banner1.png" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
+    <img src="banner2.png" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
+    <img src="banner3.png" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
+  </div>
+  <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+    <div class="dot w-2 h-2 bg-gray-300 rounded-full" id="dot0"></div>
+    <div class="dot w-2 h-2 bg-gray-300 rounded-full" id="dot1"></div>
+    <div class="dot w-2 h-2 bg-gray-300 rounded-full" id="dot2"></div>
+  </div>
+</div>
 
       <!-- ประกาศ -->
       <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">
@@ -617,11 +617,16 @@
     document.getElementById("dot1"),
     document.getElementById("dot2"),
   ];
-  let index = 1, total = 3, allowClick = true;
+
+  let index = 0;
+  let total = 3;
+  let allowClick = true;
+  let interval;
 
   const updateDots = () => {
     dots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === (index - 1 + total) % total);
+      dot.classList.toggle("bg-white", i === index);
+      dot.classList.toggle("bg-gray-300", i !== index);
     });
   };
 
@@ -632,29 +637,25 @@
   };
 
   const nextSlide = () => {
-    if (!allowClick) return;
-    allowClick = false;
-    index++;
+    index = (index + 1) % total;
     goToSlide(index);
-
-    setTimeout(() => {
-      if (index === total + 1) {
-        carousel.style.transition = "none";
-        index = 1;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-      }
-      allowClick = true;
-    }, 600);
   };
 
-  let interval = setInterval(nextSlide, 3000);
-  carousel.style.transform = `translateX(-${index * 100}%)`;
-  updateDots();
+  const startAutoSlide = () => {
+    clearInterval(interval);
+    interval = setInterval(nextSlide, 3000);
+  };
 
-  // Swipe gesture
+  // เริ่ม
+  goToSlide(index);
+  startAutoSlide();
+
+  // รองรับการเลื่อนด้วยมือ (Touch)
   let startX = 0;
+
   carousel.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
+    clearInterval(interval);
   });
 
   carousel.addEventListener("touchend", (e) => {
@@ -662,12 +663,13 @@
     const diff = startX - endX;
     if (Math.abs(diff) > 50) {
       if (diff > 0) {
-        nextSlide();
+        index = (index + 1) % total;
       } else {
-        index = (index - 2 + total) % total + 1;
-        goToSlide(index);
+        index = (index - 1 + total) % total;
       }
+      goToSlide(index);
     }
+    startAutoSlide();
   });
 
   // Navigation
