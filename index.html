@@ -415,10 +415,6 @@
       ดำเนินการต่อด้วย Google
     </button>
     
-     <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2007355204&redirect_uri=https%3A%2F%2Fgzone-store.github.io%2Fgzst%2Fline-callback.html&state=12345abcde&scope=profile%20openid%20email">
-  <img src="https://static.line-scdn.net/line_login_button/web/en.png" alt="Login with LINE" />
-     </a>
-    
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
       ยังไม่มีบัญชี?
       <button onclick="switchToSignup()" class="text-purple-600 font-medium hover:underline">สมัครสมาชิก</button>
@@ -594,10 +590,6 @@
       document.getElementById("user-details").classList.remove("hidden");
     }
   };
-
-  function loginWithLine() {
-    window.location.href = "https://gzone-line-login.glitch.me";
-  }
 
   firebase.auth().onAuthStateChanged(user => {
     const loginPrompt = document.getElementById('login-prompt');
