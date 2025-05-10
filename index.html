@@ -49,7 +49,7 @@
   </div>
 </div>
 
- <!-- หน้าแรก -->
+    <!-- หน้าแรก -->
 <div id="home" class="flex-1 pb-16 block pt-20">
 
   <!-- แบนเนอร์ -->
@@ -112,7 +112,7 @@
   </div>
 </div>
 
-    <!-- หน้าค้นหา -->
+<!-- หน้าค้นหา -->
 <div id="search" class="hidden flex-1 pb-16">
   <div class="fixed top-0 w-full bg-[#1e0a2a] z-10 p-4 flex items-center">
     <input
@@ -684,7 +684,7 @@
     }
   });
 
-  // Navigation
+   // Navigation
 function goTo(page) {
   ["home", "search", "account"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
@@ -720,6 +720,18 @@ document.getElementById("searchButton").addEventListener("click", () => {
         .join("")
     : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
 });
+
+// For dynamic navigation
+window.onload = () => {
+  // Initial page load
+  goTo("home");
+
+  // Handle search input if enter key is pressed
+  document.getElementById("searchInput").addEventListener("keypress", (e) => {
+    if (e.key === 'Enter') {
+      document.getElementById("searchButton").click();
+    }
+  });
 
   // ทำงานเพิ่มไปยังหน้าหลัก
   let deferredPrompt;
