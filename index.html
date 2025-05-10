@@ -51,17 +51,17 @@
 
     <!-- หน้าแรก -->
     <div id="home" class="flex-1 pb-16 block pt-20">
-      <!-- แบนเนอร์ -->
+     <!-- แบนเนอร์ -->
 <div class="relative w-full overflow-hidden h-40">
   <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
-    <img src="banner1.png" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
-    <img src="banner2.png" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
-    <img src="banner3.png" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
+    <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
+    <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
+    <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
   </div>
-  <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-    <div class="dot w-2 h-2 bg-gray-300 rounded-full" id="dot0"></div>
-    <div class="dot w-2 h-2 bg-gray-300 rounded-full" id="dot1"></div>
-    <div class="dot w-2 h-2 bg-gray-300 rounded-full" id="dot2"></div>
+  <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
+    <div class="dot w-1.5 h-1.5 rounded-full bg-white" id="dot0"></div>
+    <div class="dot w-1.5 h-1.5 rounded-full bg-white" id="dot1"></div>
+    <div class="dot w-1.5 h-1.5 rounded-full bg-white" id="dot2"></div>
   </div>
 </div>
 
@@ -619,14 +619,12 @@
   ];
 
   let index = 0;
-  let total = 3;
-  let allowClick = true;
-  let interval;
+  const total = 3;
 
   const updateDots = () => {
     dots.forEach((dot, i) => {
-      dot.classList.toggle("bg-white", i === index);
-      dot.classList.toggle("bg-gray-300", i !== index);
+      dot.classList.remove("bg-purple-500", "bg-white");
+      dot.classList.add(i === index ? "bg-purple-500" : "bg-white");
     });
   };
 
@@ -641,26 +639,20 @@
     goToSlide(index);
   };
 
-  const startAutoSlide = () => {
-    clearInterval(interval);
-    interval = setInterval(nextSlide, 3000);
-  };
-
-  // เริ่ม
+  let autoSlide = setInterval(nextSlide, 3000);
   goToSlide(index);
-  startAutoSlide();
 
-  // รองรับการเลื่อนด้วยมือ (Touch)
+  // รองรับการสัมผัส
   let startX = 0;
-
   carousel.addEventListener("touchstart", (e) => {
+    clearInterval(autoSlide);
     startX = e.touches[0].clientX;
-    clearInterval(interval);
   });
 
   carousel.addEventListener("touchend", (e) => {
     const endX = e.changedTouches[0].clientX;
     const diff = startX - endX;
+
     if (Math.abs(diff) > 50) {
       if (diff > 0) {
         index = (index + 1) % total;
@@ -669,7 +661,8 @@
       }
       goToSlide(index);
     }
-    startAutoSlide();
+
+    autoSlide = setInterval(nextSlide, 3000); // กลับมาเลื่อนอัตโนมัติ
   });
 
   // Navigation
