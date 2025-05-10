@@ -219,13 +219,6 @@
     แก้ไขโปรไฟล์
   </button>
 </div>
-   
-   <div id="line-profile" style="display:none; text-align:center; margin-top: 2rem;">
-  <img id="line-picture" src="" alt="รูปโปรไฟล์" style="width: 100px; border-radius: 50%; display: none;" />
-  <h3 id="line-name">ชื่อ: -</h3>
-  <p id="line-email">อีเมล: -</p>
-  <p id="line-userId">LINE ID: -</p>
-   </div>
     
   <!-- ย้ายเมนูทั้งหมดมาอยู่ในนี้ -->
   <div class="mt-8 space-y-3 px-6" id="account-menu">
@@ -415,6 +408,11 @@
       ดำเนินการต่อด้วย Google
     </button>
     
+    <button onclick="lineLogin()"
+  class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
+  <img src="https://www.svgrepo.com/show/475662/line-color.svg" alt="LINE" class="h-5 w-5" />
+  ดำเนินการต่อด้วย LINE
+    </button>
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
       ยังไม่มีบัญชี?
       <button onclick="switchToSignup()" class="text-purple-600 font-medium hover:underline">สมัครสมาชิก</button>
@@ -561,6 +559,16 @@
     }
   }
 
+   function lineLogin() {
+  const clientId = '2007355204'; // LINE Channel ID ของคุณ
+  const redirectUri = encodeURIComponent('https://line.login.gzone.glitch.me/callback'); // ไปที่ backend Glitch ก่อน
+  const state = encodeURIComponent(location.href); // URL ปัจจุบันเพื่อกลับมาแสดงข้อมูล
+  const scope = encodeURIComponent('profile openid email');
+
+  const lineAuthUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}&prompt=consent`;
+
+  window.location.href = lineAuthUrl;
+   }
   
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
