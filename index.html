@@ -51,13 +51,21 @@
 
     <!-- หน้าแรก -->
     <div id="home" class="flex-1 pb-16 block pt-20">
-     <!-- แบนเนอร์ -->
-<div class="relative w-full overflow-hidden h-40">
+     <!-- เเบนเนอร์ -->
+      <div class="relative w-full overflow-hidden h-40">
   <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
-    <img src="banner1.jpg" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
-    <img src="banner2.jpg" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
-    <img src="banner3.png" class="w-full h-40 object-cover flex-shrink-0 rounded-none" />
+    <!-- Clone of last image (for smooth loop) -->
+    <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+    
+    <!-- Real images -->
+    <img src="banner1.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+    <img src="banner2.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+    <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+
+    <!-- Clone of first image -->
+    <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
   </div>
+
   <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
     <div class="dot w-1.5 h-1.5 rounded-full bg-white" id="dot0"></div>
     <div class="dot w-1.5 h-1.5 rounded-full bg-white" id="dot1"></div>
@@ -618,31 +626,39 @@
     document.getElementById("dot2"),
   ];
 
-  let index = 0;
   const total = 3;
+  let index = 1;
 
   const updateDots = () => {
+    const dotIndex = (index - 1 + total) % total;
     dots.forEach((dot, i) => {
       dot.classList.remove("bg-purple-500", "bg-white");
-      dot.classList.add(i === index ? "bg-purple-500" : "bg-white");
+      dot.classList.add(i === dotIndex ? "bg-purple-500" : "bg-white");
     });
   };
 
-  const goToSlide = (i) => {
-    carousel.style.transition = "transform 0.5s ease-in-out";
+  const goToSlide = (i, smooth = true) => {
+    carousel.style.transition = smooth ? "transform 0.5s ease-in-out" : "none";
     carousel.style.transform = `translateX(-${i * 100}%)`;
     updateDots();
   };
 
   const nextSlide = () => {
-    index = (index + 1) % total;
+    index++;
     goToSlide(index);
+
+    if (index === total + 1) {
+      setTimeout(() => {
+        index = 1;
+        goToSlide(index, false); // jump to real first
+      }, 600); // wait for transition to complete
+    }
   };
 
   let autoSlide = setInterval(nextSlide, 3000);
   goToSlide(index);
 
-  // รองรับการสัมผัส
+  // Touch support
   let startX = 0;
   carousel.addEventListener("touchstart", (e) => {
     clearInterval(autoSlide);
@@ -655,14 +671,22 @@
 
     if (Math.abs(diff) > 50) {
       if (diff > 0) {
-        index = (index + 1) % total;
+        nextSlide();
       } else {
-        index = (index - 1 + total) % total;
+        index--;
+        if (index === 0) {
+          goToSlide(0);
+          setTimeout(() => {
+            index = total;
+            goToSlide(index, false);
+          }, 600);
+        } else {
+          goToSlide(index);
+        }
       }
-      goToSlide(index);
     }
 
-    autoSlide = setInterval(nextSlide, 3000); // กลับมาเลื่อนอัตโนมัติ
+    autoSlide = setInterval(nextSlide, 3000);
   });
 
   // Navigation
