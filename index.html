@@ -91,27 +91,28 @@
     { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
     { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
     { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
-    { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/puzzle-love" },
+    { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/gzone" }
   ];
 
   window.onload = () => {
-    const grid = document.querySelector("#home .grid");
+    const grid = document.getElementById("gameGrid");
+    if (grid) {
+      gameList.forEach(game => {
+        const div = document.createElement("div");
+        div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
+        div.innerHTML = `
+          <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
+          <div class="text-white font-semibold">${game.name}</div>
+          <a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl">ดาวน์โหลด</a>
+        `;
+        grid.appendChild(div);
+      });
+    }
 
-    gameList.forEach(game => {
-      const div = document.createElement("div");
-      div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
-      div.innerHTML = `
-        <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
-        <div class="text-white font-semibold">${game.name}</div>
-        <a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl">ดาวน์โหลด</a>
-      `;
-      grid.appendChild(div);
-    });
-
-    goTo("home"); // เปิดหน้าแรกและโชว์โลโก้เมื่อโหลด
+    goTo("home"); // เปิดหน้าแรกเมื่อโหลด
   };
-</script>
-</div>
+    </script>
+  </div>
 </div>
     
  <!-- หน้าค้นหา -->
