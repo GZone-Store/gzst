@@ -51,15 +51,14 @@
 
     <!-- หน้าแรก -->
 <div id="home" class="flex-1 pb-16 block pt-20">
-
   <!-- แบนเนอร์ -->
   <div class="relative w-full overflow-hidden h-40">
     <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
-      <img src="banner3.png" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner1.png" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner2.png" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner3.png" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner1.png" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
     </div>
     <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">
       <div class="dot" id="dot0"></div>
@@ -80,65 +79,83 @@
   <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>
 
   <!-- รายการเกม -->
-  <div class="grid grid-cols-2 gap-4 p-4">
-    <script>
-      const gameList = [
-        { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
-        { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
-        { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
-        { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
-        { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
-        { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
-        { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
-        { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
-        { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/puzzle-love" },
-      ];
+  <div class="grid grid-cols-2 gap-4 p-4" id="gameGrid"></div>
 
-      window.onload = () => {
-        const grid = document.querySelector("#home .grid");
-        gameList.forEach(game => {
-          const div = document.createElement("div");
-          div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
-          div.innerHTML = `
-            <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
-            <div class="text-white font-semibold">${game.name}</div>
-            <a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl">ดาวน์โหลด</a>
-          `;
-          grid.appendChild(div);
-        });
-        goTo("home"); // เปิดหน้าแรกและโชว์โลโก้เมื่อโหลด
-      };
-    </script>
-  </div>
+  <script>
+    const referralCode = "52086963";
+
+    const gameList = [
+      { name: "Love Warriors", image: "game1.png.jpg", link: "https://play.google.com/store/apps/details?id=com.colorlab.android" },
+      { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
+      { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
+      { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
+      { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
+      { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
+      { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
+      { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
+      { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/gzone-store" }
+    ];
+
+    function copyAndRedirect(link) {
+      navigator.clipboard.writeText(referralCode).then(() => {
+        window.location.href = link;
+      }).catch(() => {
+        window.location.href = link;
+      });
+    }
+
+    window.onload = () => {
+      const grid = document.querySelector("#gameGrid");
+      gameList.forEach(game => {
+        const div = document.createElement("div");
+        div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
+        div.innerHTML = `
+          <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
+          <div class="text-white font-semibold">${game.name}</div>
+          ${
+            game.name === "Love Warriors"
+              ? `<button onclick="copyAndRedirect('${game.link}')" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl w-full text-white">ดาวน์โหลด</button>`
+              : `<a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl w-full text-white">ดาวน์โหลด</a>`
+          }
+        `;
+        grid.appendChild(div);
+      });
+      goTo("home");
+    };
+  </script>
 </div>
+</div 
 
-<!-- หน้าค้นหา -->
+  <!-- หน้าค้นหา -->
 <div id="search" class="hidden flex-1 pb-16">
-  <div class="fixed top-0 w-full bg-[#1e0a2a] z-10 p-4 flex items-center">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="ค้นหาเกมที่นี่..."
-      class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"
-    />
-    <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-5 h-5 text-white"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"
-        />
-      </svg>
-    </button>
-  </div>
-  <div class="pt-20 px-4 pb-4 space-y-3 text-white text-sm" id="searchResults"></div>
+  <!-- แถบค้นหาด้านบน -->
+  <div class="fixed top-0 w-full bg-[#1e0a2a] z-10 p-4 flex items-center">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="ค้นหาเกมที่นี่..."
+      class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm text-black"
+    />
+    <button id="searchButton" class="ml-2 p-2 bg-purple-500 rounded-full">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <!-- พื้นที่แสดงผลลัพธ์การค้นหา -->
+  <div class="pt-20 px-4 pb-4 space-y-3 text-white text-sm" id="searchResults"></div>
 </div>
   
     <!-- Firebase App -->
@@ -686,52 +703,38 @@
 
    // Navigation
 function goTo(page) {
-  ["home", "search", "account"].forEach(id => {
-    document.getElementById(id).classList.add("hidden");
-  });
-  document.getElementById(page).classList.remove("hidden");
+  const pages = ["home", "search", "account"];
+  pages.forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+  document.getElementById(page).classList.remove("hidden");
 
-  const logoBar = document.getElementById("logoBar");
-  if (page === "home") {
-    logoBar.classList.remove("hidden");
-  } else {
-    logoBar.classList.add("hidden");
-  }
+  const logoBar = document.getElementById("logoBar");
+  if (page === "home") {
+    logoBar.classList.remove("hidden");
+  } else {
+    logoBar.classList.add("hidden");
+  }
 }
 
 // Search
 document.getElementById("searchButton").addEventListener("click", () => {
-  const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
-  const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
-  const container = document.getElementById("searchResults");
+  const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+  const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
+  const container = document.getElementById("searchResults");
 
-  container.innerHTML = matched.length
-    ? matched
-        .map(
-          g => `
-    <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl">
-      <div class="flex items-center space-x-3">
-        <img src="${g.image}" class="w-14 h-14 rounded-lg object-cover" />
-        <div>${g.name}</div>
-      </div>
-      <a href="${g.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm">ดาวน์โหลด</a>
-    </div>`
-        )
-        .join("")
-    : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
+  container.innerHTML = matched.length
+    ? matched.map(g => `
+        <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl">
+          <div class="flex items-center space-x-3">
+            <img src="${g.image}" class="w-14 h-14 rounded-lg object-cover" />
+            <div>${g.name}</div>
+          </div>
+          <a href="${g.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm">ดาวน์โหลด</a>
+        </div>
+      `).join("")
+    : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
 });
-
-// For dynamic navigation
-window.onload = () => {
-  // Initial page load
-  goTo("home");
-
-  // Handle search input if enter key is pressed
-  document.getElementById("searchInput").addEventListener("keypress", (e) => {
-    if (e.key === 'Enter') {
-      document.getElementById("searchButton").click();
-    }
-  });
 
   // ทำงานเพิ่มไปยังหน้าหลัก
   let deferredPrompt;
