@@ -51,25 +51,21 @@
 
     <!-- หน้าแรก -->
     <div id="home" class="flex-1 pb-16 block pt-20">
-     <!-- เเบนเนอร์ -->
-      <div class="relative w-full overflow-hidden h-40">
+     <!-- แบนเนอร์ -->
+<div class="relative w-full overflow-hidden h-40">
   <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
-    <!-- Clone of last image (for smooth loop) -->
     <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-    
-    <!-- Real images -->
-    <img src="banner1.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-    <img src="banner2.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+    <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+    <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
     <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-
-    <!-- Clone of first image -->
+    <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
     <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
   </div>
-
-  <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
-    <div class="dot w-1.5 h-1.5 rounded-full bg-white" id="dot0"></div>
-    <div class="dot w-1.5 h-1.5 rounded-full bg-white" id="dot1"></div>
-    <div class="dot w-1.5 h-1.5 rounded-full bg-white" id="dot2"></div>
+  
+  <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">
+    <div class="dot" id="dot0"></div>
+    <div class="dot" id="dot1"></div>
+    <div class="dot" id="dot2"></div>
   </div>
 </div>
 
@@ -625,68 +621,56 @@
     document.getElementById("dot1"),
     document.getElementById("dot2"),
   ];
-
-  const total = 3;
-  let index = 1;
+  let index = 1, total = 3, allowClick = true;
 
   const updateDots = () => {
-    const dotIndex = (index - 1 + total) % total;
     dots.forEach((dot, i) => {
-      dot.classList.remove("bg-purple-500", "bg-white");
-      dot.classList.add(i === dotIndex ? "bg-purple-500" : "bg-white");
+      dot.classList.toggle("active", i === (index - 1 + total) % total);
     });
   };
 
-  const goToSlide = (i, smooth = true) => {
-    carousel.style.transition = smooth ? "transform 0.5s ease-in-out" : "none";
+  const goToSlide = (i) => {
+    carousel.style.transition = "transform 0.5s ease-in-out";
     carousel.style.transform = `translateX(-${i * 100}%)`;
     updateDots();
   };
 
   const nextSlide = () => {
+    if (!allowClick) return;
+    allowClick = false;
     index++;
     goToSlide(index);
-
-    if (index === total + 1) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (index === total + 1) {
+        carousel.style.transition = "none";
         index = 1;
-        goToSlide(index, false); // jump to real first
-      }, 600); // wait for transition to complete
-    }
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+      }
+      allowClick = true;
+    }, 600);
   };
 
-  let autoSlide = setInterval(nextSlide, 3000);
-  goToSlide(index);
+  let interval = setInterval(nextSlide, 3000);
+  carousel.style.transform = `translateX(-${index * 100}%)`;
+  updateDots();
 
-  // Touch support
+  // Swipe gesture
   let startX = 0;
   carousel.addEventListener("touchstart", (e) => {
-    clearInterval(autoSlide);
     startX = e.touches[0].clientX;
   });
 
   carousel.addEventListener("touchend", (e) => {
     const endX = e.changedTouches[0].clientX;
     const diff = startX - endX;
-
     if (Math.abs(diff) > 50) {
       if (diff > 0) {
         nextSlide();
       } else {
-        index--;
-        if (index === 0) {
-          goToSlide(0);
-          setTimeout(() => {
-            index = total;
-            goToSlide(index, false);
-          }, 600);
-        } else {
-          goToSlide(index);
-        }
+        index = (index - 2 + total) % total + 1;
+        goToSlide(index);
       }
     }
-
-    autoSlide = setInterval(nextSlide, 3000);
   });
 
   // Navigation
