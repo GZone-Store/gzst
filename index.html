@@ -50,67 +50,63 @@
 </div>
 
   <!-- หน้าแรก -->
-  <div id="home" class="flex-1 pb-16 block pt-20">
-    <!-- แบนเนอร์ -->
-    <div class="relative w-full overflow-hidden h-40">
-      <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
-        <img src="banner3.png" class="w-full h-40 object-cover flex-shrink-0" />
-        <img src="banner1.png" class="w-full h-40 object-cover flex-shrink-0" />
-        <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-        <img src="banner3.png" class="w-full h-40 object-cover flex-shrink-0" />
-        <img src="banner1.png" class="w-full h-40 object-cover flex-shrink-0" />
-      </div>
-      <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">
-        <div class="dot" id="dot0"></div>
-        <div class="dot" id="dot1"></div>
-        <div class="dot" id="dot2"></div>
-      </div>
+<div id="home" class="flex-1 pb-16 block pt-20">
+  <!-- แบนเนอร์ -->
+  <div class="relative w-full overflow-hidden h-40">
+    <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
+      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
     </div>
-
-    <!-- ประกาศ -->
-    <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">
-      <div class="whitespace-nowrap animate-marquee">
-        <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
-        <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>
-      </div>
+    <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">
+      <div class="dot" id="dot0"></div>
+      <div class="dot" id="dot1"></div>
+      <div class="dot" id="dot2"></div>
     </div>
+  </div>
 
-    <!-- หัวข้อ -->
-    <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>
+  <!-- ประกาศ -->
+  <div class="bg-[#2e1b44] px-4 py-2 mt-2 overflow-hidden text-sm">
+    <div class="whitespace-nowrap animate-marquee">
+      <span class="mr-6">ประกาศ: เกมใหม่มาแล้ว! อย่าลืมลองโหลดดูนะครับ</span>
+      <span class="mr-6">โปรโมชั่นเดือนนี้ โหลดฟรีไม่เสียค่าใช้จ่าย!</span>
+    </div>
+  </div>
 
-    <!-- รายการเกม -->
-    <div class="grid grid-cols-2 gap-4 p-4" id="gameGrid"></div>
+  <!-- หัวข้อ -->
+  <h2 class="text-lg font-bold px-4 pt-4">เกมยอดนิยม</h2>
 
+  <!-- รายการเกม -->
+  <div class="grid grid-cols-2 gap-4 p-4">
     <script>
-  const gameList = [
-    { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
-    { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
-    { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
-    { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
-    { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
-    { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
-    { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
-    { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
-    { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/gzone" }
-  ];
+      const gameList = [
+        { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },
+        { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },
+        { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },
+        { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },
+        { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },
+        { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },
+        { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },
+        { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },
+        { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/puzzle-love" },
+      ];
 
-  window.onload = () => {
-    const grid = document.getElementById("gameGrid");
-    if (grid) {
-      gameList.forEach(game => {
-        const div = document.createElement("div");
-        div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
-        div.innerHTML = `
-          <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
-          <div class="text-white font-semibold">${game.name}</div>
-          <a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl">ดาวน์โหลด</a>
-        `;
-        grid.appendChild(div);
-      });
-    }
-
-    goTo("home"); // เปิดหน้าแรกเมื่อโหลด
-  };
+      window.onload = () => {
+        const grid = document.querySelector("#home .grid");
+        gameList.forEach(game => {
+          const div = document.createElement("div");
+          div.className = "bg-[#2b1140] rounded-2xl p-2 text-left";
+          div.innerHTML = `
+            <img src="${game.image}" alt="${game.name}" class="rounded-xl mb-2" />
+            <div class="text-white font-semibold">${game.name}</div>
+            <a href="${game.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl">ดาวน์โหลด</a>
+          `;
+          grid.appendChild(div);
+        });
+        goTo("home"); // เปิดหน้าแรกและโชว์โลโก้เมื่อโหลด
+      };
     </script>
   </div>
 </div>
