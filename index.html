@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#1e0a2a" />
-  <title>GZONE</title>
+  <title>GZONE.app</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <link rel="manifest" href="./manifest.json" />
@@ -49,16 +49,17 @@
   </div>
 </div>
 
-  <!-- หน้าแรก -->
+ <!-- หน้าแรก -->
 <div id="home" class="flex-1 pb-16 block pt-20">
+
   <!-- แบนเนอร์ -->
   <div class="relative w-full overflow-hidden h-40">
     <div id="banner-carousel" class="flex transition-transform duration-500 ease-in-out">
-      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner2.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner3.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
-      <img src="banner1.png.jpg" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner3.png" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner1.png" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner2.png" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner3.png" class="w-full h-40 object-cover flex-shrink-0" />
+      <img src="banner1.png" class="w-full h-40 object-cover flex-shrink-0" />
     </div>
     <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex">
       <div class="dot" id="dot0"></div>
@@ -110,10 +111,9 @@
     </script>
   </div>
 </div>
-    
- <!-- หน้าค้นหา -->
+
+    <!-- หน้าค้นหา -->
 <div id="search" class="hidden flex-1 pb-16">
-  <!-- แถบค้นหาด้านบน -->
   <div class="fixed top-0 w-full bg-[#1e0a2a] z-10 p-4 flex items-center">
     <input
       type="text"
@@ -138,12 +138,7 @@
       </svg>
     </button>
   </div>
-
-  <!-- พื้นที่แสดงผลลัพธ์การค้นหา -->
-  <div
-    class="pt-20 px-4 pb-4 space-y-3 text-white text-sm"
-    id="searchResults"
-  ></div>
+  <div class="pt-20 px-4 pb-4 space-y-3 text-white text-sm" id="searchResults"></div>
 </div>
   
     <!-- Firebase App -->
@@ -690,53 +685,41 @@
   });
 
   // Navigation
-  function goTo(page) {
-    ["home", "search", "account"].forEach(id => {
-      document.getElementById(id).classList.add("hidden");
-    });
-    document.getElementById(page).classList.remove("hidden");
+function goTo(page) {
+  ["home", "search", "account"].forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+  document.getElementById(page).classList.remove("hidden");
 
-    const logoBar = document.getElementById("logoBar");
-    if (page === "home") logoBar.classList.remove("hidden");
-    else logoBar.classList.add("hidden");
+  const logoBar = document.getElementById("logoBar");
+  if (page === "home") {
+    logoBar.classList.remove("hidden");
+  } else {
+    logoBar.classList.add("hidden");
   }
+}
 
 // Search
+document.getElementById("searchButton").addEventListener("click", () => {
+  const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+  const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
   const container = document.getElementById("searchResults");
-  const searchInput = document.getElementById("searchInput");
 
-  // แสดงเกม
-  function renderGames(games) {
-    container.innerHTML = games.length
-      ? games.map(g => `
-          <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl mb-2">
-            <div class="flex items-center space-x-3">
-              <img src="${g.image}" class="w-14 h-14 rounded-lg object-cover" />
-              <div>${g.name}</div>
-            </div>
-            <a href="${g.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm">
-              ดาวน์โหลด
-            </a>
-          </div>
-        `).join("")
-      : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
-  }
-
-  // เมื่อเปิดหน้า "ค้นหา" แสดงเกมทั้งหมด
-  const searchSection = document.getElementById("search");
-  const observer = new MutationObserver(() => {
-    if (!searchSection.classList.contains("hidden")) {
-      renderGames(gameList); // แสดงเกมทั้งหมด
-    }
-  });
-  observer.observe(searchSection, { attributes: true });
-
-  // เมื่อคลิกค้นหา
-  document.getElementById("searchButton").addEventListener("click", () => {
-    const keyword = searchInput.value.trim().toLowerCase();
-    const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
-    renderGames(matched);
-  });
+  container.innerHTML = matched.length
+    ? matched
+        .map(
+          g => `
+    <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl">
+      <div class="flex items-center space-x-3">
+        <img src="${g.image}" class="w-14 h-14 rounded-lg object-cover" />
+        <div>${g.name}</div>
+      </div>
+      <a href="${g.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm">ดาวน์โหลด</a>
+    </div>`
+        )
+        .join("")
+    : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
+});
 
   // ทำงานเพิ่มไปยังหน้าหลัก
   let deferredPrompt;
