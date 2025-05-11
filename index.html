@@ -381,12 +381,15 @@
       <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="h-5 w-5" />
       ดำเนินการต่อด้วย Google
     </button>
-    
-    <button onclick="lineLogin()"
-  class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
-  <img src="https://www.svgrepo.com/show/475662/line-color.svg" alt="LINE" class="h-5 w-5" />
-  ดำเนินการต่อด้วย LINE
+
+    <button
+  onclick="lineLogin()"
+  class="mt-2 bg-green-500 text-white font-semibold py-1 px-4 rounded-full hover:bg-green-600 text-sm"
+>
+  เข้าสู่ระบบด้วย LINE
     </button>
+    
+    
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
       ยังไม่มีบัญชี?
       <button onclick="switchToSignup()" class="text-purple-600 font-medium hover:underline">สมัครสมาชิก</button>
@@ -533,16 +536,32 @@
     }
   }
 
-   function lineLogin() {
-  const clientId = '2007355204'; // LINE Channel ID ของคุณ
-  const redirectUri = encodeURIComponent('https://gzone-store.github.io/gzst/'); // ไปที่ backend Glitch ก่อน
-  const state = encodeURIComponent(location.href); // URL ปัจจุบันเพื่อกลับมาแสดงข้อมูล
-  const scope = encodeURIComponent('profile openid email');
+  // javascript line login
+  function lineLogin() {
+    const clientId = '2007355204';
+    const redirectUri = encodeURIComponent('https://gzonelinelogin.glitch.me/callback');
+    const state = encodeURIComponent(location.href);
+    const scope = encodeURIComponent('profile openid email');
 
-  const lineAuthUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}&prompt=consent`;
+    const lineAuthUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}&prompt=consent`;
 
-  window.location.href = lineAuthUrl;
-   }
+    window.location.href = lineAuthUrl;
+  }
+
+  window.onload = function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const name = urlParams.get('name');
+  const email = urlParams.get('email');
+  const picture = urlParams.get('picture');
+
+  if (name && email) {
+    document.getElementById("user-name").textContent = decodeURIComponent(name);
+    document.getElementById("user-email").textContent = decodeURIComponent(email);
+    if (picture) document.getElementById("accountProfileImage").src = decodeURIComponent(picture);
+    document.getElementById("user-details").classList.remove("hidden");
+    document.getElementById("login-prompt")?.classList.add("hidden");
+  }
+};
   
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
