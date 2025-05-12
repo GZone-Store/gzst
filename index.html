@@ -470,7 +470,8 @@
   async function handleAuthAction() {
   const email = document.getElementById('auth-email').value.trim();
   const password = document.getElementById('auth-password').value.trim();
-  const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
+  const confirmPassword = document.getElementById('auth-confirm-password')?.value.trim();
+  const actionBtn = document.getElementById('auth-action-button');
 
   if (!email || !password || (isSignUp && !confirmPassword)) {
     alert('กรุณากรอกข้อมูลให้ครบถ้วน');
@@ -482,12 +483,24 @@
     return;
   }
 
+  // ปิดปุ่มชั่วคราว
+  actionBtn.disabled = true;
+  actionBtn.innerText = isSignUp ? 'กำลังสมัคร...' : 'กำลังเข้าสู่ระบบ...';
+
   try {
     if (isSignUp) {
       const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
-      const uniqueUsername = await generateUniqueUsername();
 
+      // ตรวจสอบว่าผู้ใช้เคยสมัครแล้ว (จาก message)
+      if (!userCredential.additionalUserInfo?.isNewUser) {
+        await user.sendEmailVerification();
+        alert('อีเมลนี้มีในระบบแล้ว เราได้ส่งอีเมลยืนยันอีกครั้ง กรุณาตรวจสอบอีเมลของคุณ');
+        switchToLogin();
+        return;
+      }
+
+      const uniqueUsername = await generateUniqueUsername();
       await user.updateProfile({ displayName: uniqueUsername });
       await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
         uid: user.uid,
@@ -496,25 +509,33 @@
 
       await user.sendEmailVerification();
       alert('สมัครสมาชิกสำเร็จ! กรุณาตรวจสอบอีเมลเพื่อยืนยันบัญชีของคุณ');
-
-      switchToLogin(); // ย้ายกลับไปหน้าเข้าสู่ระบบ
+      switchToLogin();
     } else {
       const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
       const user = userCredential.user;
 
       if (!user.emailVerified) {
-        await user.sendEmailVerification(); // ส่งใหม่อัตโนมัติ
-        alert('บัญชีนี้ยังไม่ได้ยืนยันอีเมล เราได้ส่งอีเมลยืนยันใหม่ให้แล้ว กรุณาตรวจสอบอีเมลของคุณ');
-        await firebase.auth().signOut(); // ไม่ให้เข้าใช้งาน
+        await user.sendEmailVerification();
+        alert('บัญชียังไม่ได้ยืนยันอีเมล เราได้ส่งอีเมลยืนยันใหม่ให้แล้ว กรุณาตรวจสอบอีเมลของคุณ');
+        await firebase.auth().signOut();
         return;
       }
 
       alert('เข้าสู่ระบบสำเร็จ!');
-      closeAuthModal();
+      closeAuthModal(); // ปิด modal อัตโนมัติ
     }
   } catch (error) {
     console.error(error);
-    alert(error.message);
+    if (error.code === 'auth/email-already-in-use' && isSignUp) {
+      alert('อีเมลนี้ถูกใช้งานไปแล้ว หากคุณมีบัญชีอยู่แล้วโปรดเข้าสู่ระบบ');
+      switchToLogin();
+    } else {
+      alert(error.message);
+    }
+  } finally {
+    // เปิดปุ่มกลับ
+    actionBtn.disabled = false;
+    actionBtn.innerText = isSignUp ? 'สมัครสมาชิก' : 'เข้าสู่ระบบ';
   }
   }
   
