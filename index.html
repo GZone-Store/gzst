@@ -382,12 +382,15 @@
       ดำเนินการต่อด้วย Google
     </button>
 
-    <button
-  onclick="lineLogin()"
-  class="inline-block bg-green-500 text-white font-semibold py-1.5 px-4 rounded-full shadow hover:bg-green-600 transition duration-300 text-sm"
->
-  เข้าสู่ระบบด้วย LINE
-    </button>
+     <!-- ปุ่มล็อกอิน LINE -->
+<div id="login-prompt" class="text-center mt-4">
+  <button onclick="lineLogin()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+    ดำเนินการต่อด้วย LINE
+  </button>
+</div>
+
+<!-- เชื่อม JavaScript -->
+<script src="line-login.js"></script>
     
     
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
@@ -535,32 +538,6 @@
       alert(error.message);
     }
   }
-
-  // javascript line login
-  function lineLogin() {
-  const clientId = '2007355204';
-  const redirectUri = encodeURIComponent('https://gzonelineloginwebapp.glitch.me/callback');
-  const state = encodeURIComponent(window.location.href);
-  const scope = encodeURIComponent('profile openid email');
-
-  const url = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}&prompt=consent`;
-  window.location.href = url;
-}
-
-window.onload = function () {
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get('name');
-  const email = params.get('email');
-  const picture = params.get('picture');
-
-  if (name && email) {
-    document.getElementById('user-name').textContent = name;
-    document.getElementById('user-email').textContent = email;
-    document.getElementById('accountProfileImage').src = picture;
-    document.getElementById('user-details').classList.remove('hidden');
-    document.getElementById('login-prompt').classList.add('hidden');
-  }
-};
   
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
