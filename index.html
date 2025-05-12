@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#1e0a2a" />
   <title>GZONE</title>
+  <script defer src="line-login.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <link rel="manifest" href="./manifest.json" />
@@ -382,15 +383,11 @@
       ดำเนินการต่อด้วย Google
     </button>
 
-     <!-- ปุ่มล็อกอิน LINE -->
-<div id="login-prompt" class="text-center mt-4">
-  <button onclick="lineLogin()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+     <!-- ปุ่มล็อกอินด้วย LINE -->
+<div id="login-prompt" class="text-center">
+  <button onclick="lineLogin()" class="bg-green-500 px-6 py-2 rounded-full text-white text-lg shadow hover:bg-green-600">
     ดำเนินการต่อด้วย LINE
   </button>
-</div>
-
-<!-- เชื่อม JavaScript -->
-<script src="line-login.js"></script>
     
     
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
