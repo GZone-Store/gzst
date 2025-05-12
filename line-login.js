@@ -1,6 +1,6 @@
 function lineLogin() {
   const clientId = '2007355204'; // LINE Channel ID
-  const redirectUri = encodeURIComponent('https://gzonelineloginappweb.glitch.me/callback'); // Backend URL
+  const redirectUri = encodeURIComponent('https://gzonelineloginvip.glitch.me/callback'); // Backend URL
   const state = encodeURIComponent(location.href); // กลับมาหน้าเดิม
   const scope = encodeURIComponent('profile openid email');
 
