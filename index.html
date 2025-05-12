@@ -467,43 +467,54 @@
   }
 
   async function handleAuthAction() {
-    const email = document.getElementById('auth-email').value.trim();
-    const password = document.getElementById('auth-password').value.trim();
-    const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value.trim();
+  const confirmPassword = document.getElementById('auth-confirm-password').value.trim();
 
-    if (!email || !password || (isSignUp && !confirmPassword)) {
-      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-      return;
-    }
+  if (!email || !password || (isSignUp && !confirmPassword)) {
+    alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+    return;
+  }
 
-    if (isSignUp && password !== confirmPassword) {
-      alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
-      return;
-    }
+  if (isSignUp && password !== confirmPassword) {
+    alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
+    return;
+  }
 
-    try {
-      if (isSignUp) {
-        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-        const user = userCredential.user;
-        const uniqueUsername = await generateUniqueUsername();
+  try {
+    if (isSignUp) {
+      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+      const uniqueUsername = await generateUniqueUsername();
 
-        await user.updateProfile({ displayName: uniqueUsername });
-        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-          uid: user.uid,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+      await user.updateProfile({ displayName: uniqueUsername });
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
 
-        alert('สมัครสมาชิกสำเร็จ!');
-      } else {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-        alert('เข้าสู่ระบบสำเร็จ!');
-      }
+      await user.sendEmailVerification();
+      alert('สมัครสมาชิกสำเร็จ! กรุณาตรวจสอบอีเมลเพื่อยืนยันบัญชีของคุณ');
 
-      closeAuthModal();
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
-    }
+      switchToLogin(); // ย้ายกลับไปหน้าเข้าสู่ระบบ
+    } else {
+      const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+
+      if (!user.emailVerified) {
+        await user.sendEmailVerification(); // ส่งใหม่อัตโนมัติ
+        alert('บัญชีนี้ยังไม่ได้ยืนยันอีเมล เราได้ส่งอีเมลยืนยันใหม่ให้แล้ว กรุณาตรวจสอบอีเมลของคุณ');
+        await firebase.auth().signOut(); // ไม่ให้เข้าใช้งาน
+        return;
+      }
+
+      alert('เข้าสู่ระบบสำเร็จ!');
+      closeAuthModal();
+    }
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
   }
   
   async function googleLogin() {
