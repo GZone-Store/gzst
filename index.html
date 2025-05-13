@@ -382,6 +382,12 @@
       <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="h-5 w-5" />
       ดำเนินการต่อด้วย Google
     </button>
+
+    <button onclick="twitterLogin()"
+  class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
+  <img src="https://www.svgrepo.com/show/448234/twitter.svg" alt="Twitter" class="h-5 w-5" />
+  ดำเนินการต่อด้วย Twitter
+    </button>
     
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
       ยังไม่มีบัญชี?
@@ -552,6 +558,30 @@ async function handleAuthAction() {
       console.error(error);
       alert(error.message);
     }
+  }
+
+  async function twitterLogin() {
+  const provider = new firebase.auth.TwitterAuthProvider();
+
+  try {
+    const result = await firebase.auth().signInWithPopup(provider);
+    const user = result.user;
+
+    if (result.additionalUserInfo.isNewUser) {
+      const uniqueUsername = await generateUniqueUsername(); // สร้างชื่อผู้ใช้ไม่ซ้ำ
+      await user.updateProfile({ displayName: uniqueUsername });
+
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+    closeAuthModal(); // ปิด modal หลังล็อกอินสำเร็จ
+  } catch (error) {
+    console.error(error);
+    alert("Twitter Login Error: " + error.message);
+  }
   }
   
   // Logout Popup control
