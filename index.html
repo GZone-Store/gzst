@@ -388,6 +388,12 @@
   <img src="https://www.svgrepo.com/show/448234/twitter.svg" alt="Twitter" class="h-5 w-5" />
   ดำเนินการต่อด้วย Twitter
     </button>
+
+    <button onclick="lineLogin()"
+  class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" alt="LINE" class="h-5 w-5" />
+  ดำเนินการต่อด้วย LINE
+    </button>
     
     <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
       ยังไม่มีบัญชี?
@@ -583,6 +589,50 @@ async function handleAuthAction() {
     alert("Twitter Login Error: " + error.message);
   }
   }
+
+// ฟังก์ชันล็อกอินด้วย LINE
+async function lineLogin() {
+  const backendUrl = "https://line-login-firebase.glitch.me";
+  const clientId = "2007355204";
+  const redirectUri = `${backendUrl}/callback`;
+  const state = "gzone";
+  const scope = "profile openid email";
+
+  window.location.href =
+    `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
+}
+
+// รับ token จาก URL และเข้าสู่ระบบ Firebase
+async function handleLineCallback() {
+  const token = new URLSearchParams(window.location.hash.slice(1)).get("token");
+  if (!token) return;
+
+  try {
+    const result = await firebase.auth().signInWithCustomToken(token);
+    const user = result.user;
+
+    if (result.additionalUserInfo.isNewUser) {
+      const uniqueUsername = await generateUniqueUsername();
+      await user.updateProfile({ displayName: uniqueUsername });
+
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+    closeAuthModal(); // ปิด modal ถ้ามี
+  } catch (error) {
+    alert("LINE Login Error: " + error.message);
+    console.error(error);
+  }
+}
+
+// เรียกเมื่อหน้าโหลด
+window.onload = () => {
+  handleLineCallback();
+};
+
   
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
