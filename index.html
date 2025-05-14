@@ -633,6 +633,29 @@ window.onload = () => {
   handleLineCallback();
 };
 
+  async function lineLogin() {
+  const provider = new firebase.auth.OAuthProvider('oidc.line');
+
+  try {
+    const result = await firebase.auth().signInWithPopup(provider);
+    const user = result.user;
+
+    if (result.additionalUserInfo.isNewUser) {
+      const uniqueUsername = await generateUniqueUsername();
+      await user.updateProfile({ displayName: uniqueUsername });
+
+      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+    closeAuthModal(); // ปิด modal หลังล็อกอินสำเร็จ
+  } catch (error) {
+    console.error("LINE Login Error:", error);
+    alert("LINE Login Error: " + error.message);
+  }
+  }
   
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
