@@ -182,6 +182,8 @@
   </div>
     
     <!-- เมื่อล็อกอินแล้ว -->
+<!-- กล่องแสดงข้อมูลผู้ใช้ -->
+<div id="lineProfile" class="mt-4 text-center"></div>
 <div class="hidden text-center flex flex-col items-center mt-4" id="user-details">
   <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
   <div class="text-sm text-gray-300" id="user-email">email@example.com</div>
@@ -590,72 +592,40 @@ async function handleAuthAction() {
   }
   }
 
-// ฟังก์ชันล็อกอินด้วย LINE
-async function lineLogin() {
-  const backendUrl = "https://line-login-firebase.glitch.me";
-  const clientId = "2007355204";
-  const redirectUri = `${backendUrl}/callback`;
-  const state = "gzone";
-  const scope = "profile openid email";
-
-  window.location.href =
-    `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
-}
-
-// รับ token จาก URL และเข้าสู่ระบบ Firebase
-async function handleLineCallback() {
-  const token = new URLSearchParams(window.location.hash.slice(1)).get("token");
-  if (!token) return;
-
-  try {
-    const result = await firebase.auth().signInWithCustomToken(token);
-    const user = result.user;
-
-    if (result.additionalUserInfo.isNewUser) {
-      const uniqueUsername = await generateUniqueUsername();
-      await user.updateProfile({ displayName: uniqueUsername });
-
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    }
-
-    closeAuthModal(); // ปิด modal ถ้ามี
-  } catch (error) {
-    alert("LINE Login Error: " + error.message);
-    console.error(error);
-  }
-}
-
-// เรียกเมื่อหน้าโหลด
-window.onload = () => {
-  handleLineCallback();
-};
-
   async function lineLogin() {
-  const provider = new firebase.auth.OAuthProvider('oidc.line');
+    const provider = new firebase.auth.OAuthProvider('oidc.line');
 
-  try {
-    const result = await firebase.auth().signInWithPopup(provider);
-    const user = result.user;
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      const user = result.user;
 
-    if (result.additionalUserInfo.isNewUser) {
-      const uniqueUsername = await generateUniqueUsername();
-      await user.updateProfile({ displayName: uniqueUsername });
+      // ถ้าเป็นผู้ใช้ใหม่ ให้ตั้งชื่อผู้ใช้
+      if (result.additionalUserInfo.isNewUser) {
+        const uniqueUsername = await generateUniqueUsername();
+        await user.updateProfile({ displayName: uniqueUsername });
 
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+          uid: user.uid,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
+
+      // แสดงชื่อ อีเมล รูปโปรไฟล์
+      document.getElementById("lineProfile").innerHTML = `
+        <div class="flex flex-col items-center mt-4">
+          <img src="${user.photoURL}" class="w-20 h-20 rounded-full mb-2 border border-gray-300" alt="Profile Picture">
+          <p class="font-semibold">${user.displayName || 'ไม่มีชื่อผู้ใช้'}</p>
+          <p class="text-sm text-gray-600">${user.email || 'ไม่มีอีเมลจาก LINE'}</p>
+        </div>
+      `;
+
+      closeAuthModal(); // ปิด modal หลังเข้าสู่ระบบสำเร็จ
+    } catch (error) {
+      console.error("LINE Login Error:", error);
+      alert("LINE Login Error: " + error.message);
     }
+  }
 
-    closeAuthModal(); // ปิด modal หลังล็อกอินสำเร็จ
-  } catch (error) {
-    console.error("LINE Login Error:", error);
-    alert("LINE Login Error: " + error.message);
-  }
-  }
   
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
