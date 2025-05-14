@@ -593,33 +593,32 @@ async function handleAuthAction() {
   }
 
   
-   async function lineLogin() {
-    const clientId = "2007355204";
-    const redirectUri = encodeURIComponent("https://gzonelineloginappgz.glitch.me/callback");
-    const state = "gzone";
-    const scope = "profile openid email";
+  function lineLogin() {
+  const clientId = "2007355204";
+  const redirectUri = encodeURIComponent("https://gzonelinelogingzapp.glitch.me/callback");
+  const scope = "profile openid email";
+  const state = "gzone";
 
-    window.location.href =
-      `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
+  window.location.href =
+    `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
+}
+
+window.onload = () => {
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("name");
+  const picture = params.get("picture");
+  const id = params.get("id");
+
+  if (name && picture) {
+    document.getElementById("profile").innerHTML = `
+      <div>
+        <img src="${picture}" width="100" style="border-radius: 50%;">
+        <h2>${name}</h2>
+        <p>LINE ID: ${id}</p>
+      </div>
+    `;
   }
-
-  // แสดงข้อมูลผู้ใช้หลัง redirect กลับมา
-  window.onload = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get("name");
-    const picture = urlParams.get("picture");
-    const id = urlParams.get("id");
-
-    if (name && picture) {
-      document.getElementById("profile").innerHTML = `
-        <div class="flex flex-col items-center mt-4">
-          <img src="${picture}" class="w-20 h-20 rounded-full mb-2 border border-gray-300" alt="Profile Picture">
-          <p class="font-semibold">${name}</p>
-          <p class="text-sm text-gray-600">LINE ID: ${id}</p>
-        </div>
-      `;
-    }
-  };
+};
   
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
