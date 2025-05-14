@@ -183,7 +183,7 @@
     
     <!-- เมื่อล็อกอินแล้ว -->
 <!-- กล่องแสดงข้อมูลผู้ใช้ -->
-<div id="lineProfile" class="mt-4 text-center"></div>
+<div id="profile" class="mt-4 text-center"></div>
 <div class="hidden text-center flex flex-col items-center mt-4" id="user-details">
   <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
   <div class="text-sm text-gray-300" id="user-email">email@example.com</div>
@@ -593,45 +593,33 @@ async function handleAuthAction() {
   }
 
   
-  async function lineLogin() {
-  const provider = new firebase.auth.OAuthProvider('oidc.line');
+   async function lineLogin() {
+    const clientId = "2007355204";
+    const redirectUri = encodeURIComponent("https://gzonelineloginappgz.glitch.me/callback");
+    const state = "gzone";
+    const scope = "profile openid email";
 
-  try {
-    await firebase.auth().signInWithRedirect(provider); // ใช้ redirect แทน popup
-  } catch (error) {
-    console.error("LINE Login Error:", error);
-    alert("LINE Login Error: " + error.message);
+    window.location.href =
+      `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
   }
-}
 
-// เมื่อ redirect กลับมา ให้ดึงข้อมูลผู้ใช้
-firebase.auth().getRedirectResult().then(async (result) => {
-  if (result.user) {
-    const user = result.user;
+  // แสดงข้อมูลผู้ใช้หลัง redirect กลับมา
+  window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get("name");
+    const picture = urlParams.get("picture");
+    const id = urlParams.get("id");
 
-    if (result.additionalUserInfo.isNewUser) {
-      const uniqueUsername = await generateUniqueUsername();
-      await user.updateProfile({ displayName: uniqueUsername });
-
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+    if (name && picture) {
+      document.getElementById("profile").innerHTML = `
+        <div class="flex flex-col items-center mt-4">
+          <img src="${picture}" class="w-20 h-20 rounded-full mb-2 border border-gray-300" alt="Profile Picture">
+          <p class="font-semibold">${name}</p>
+          <p class="text-sm text-gray-600">LINE ID: ${id}</p>
+        </div>
+      `;
     }
-
-    document.getElementById("lineProfile").innerHTML = `
-      <div class="flex flex-col items-center mt-4">
-        <img src="${user.photoURL}" class="w-20 h-20 rounded-full mb-2 border border-gray-300" alt="Profile Picture">
-        <p class="font-semibold">${user.displayName || 'ไม่มีชื่อผู้ใช้'}</p>
-        <p class="text-sm text-gray-600">${user.email || 'ไม่มีอีเมลจาก LINE'}</p>
-      </div>
-    `;
-
-    closeAuthModal();
-  }
-}).catch((error) => {
-  console.error("Redirect Error:", error);
-});
+  };
   
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
