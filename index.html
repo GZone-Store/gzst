@@ -422,6 +422,23 @@
     }
   }
 
+     // Logout Popup control
+  const logoutPopup = document.getElementById('logout-confirm-popup');
+
+  function showLogoutConfirm() {
+    logoutPopup.classList.remove('hidden');
+  }
+
+  function cancelLogout() {
+    logoutPopup.classList.add('hidden');
+  }
+
+  function confirmLogout() {
+    firebase.auth().signOut()
+      .then(() => logoutPopup.classList.add('hidden'))
+      .catch(error => alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message));
+  }
+
   firebase.auth().onAuthStateChanged(user => {
     const loginPrompt = document.getElementById('login-prompt');
     const userDetails = document.getElementById('user-details');
