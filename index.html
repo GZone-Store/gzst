@@ -163,30 +163,23 @@
    </div>
 
   <div class="mt-14 text-center" id="user-info">
-  <!-- เมื่อยังไม่ล็อคอิน -->
-    <div class="hidden" id="login-prompt">  
-    <button  
-      class="inline-block bg-white border border-purple-500 text-purple-600 font-semibold py-1.5 px-4 rounded-full shadow hover:bg-purple-50 hover:shadow-md transition duration-300 text-sm"  
-      id="login-button"  
-    >  
-      เข้าสู่ระบบ  
-    </button>  
-    <span class="mx-2 text-gray-400">หรือ</span>  
-    <button  
-      class="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-1.5 px-4 rounded-full shadow-md hover:from-indigo-700 hover:to-purple-700 hover:shadow-lg transition duration-300 text-sm"  
-      id="signup-button"  
-    >  
-      สมัครสมาชิก  
-    </button>  
-  </div>  
-  </div>
+  <!-- เมื่อยังไม่ล็อกอิน -->
+<div id="login-prompt" class="flex items-center gap-4">
+  <button
+    class="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-1.5 px-4 rounded-full shadow-md hover:from-indigo-700 hover:to-purple-700 hover:shadow-lg transition duration-300 text-sm"
+    id="login-button"
+    onclick="openAuthModal()"
+  >
+    เข้าสู่ระบบ | สมัครสมาชิก
+  </button>
+</div>
     
     <!-- เมื่อล็อกอินแล้ว -->
 <!-- กล่องแสดงข้อมูลผู้ใช้ -->
 <div id="profile" class="mt-4 text-center"></div>
 <div class="hidden text-center flex flex-col items-center mt-4" id="user-details">
-  <div class="text-xl font-bold" id="user-name">ชื่อของคุณ</div>
-  <div class="text-sm text-gray-300" id="user-email">email@example.com</div>
+  <div class="text-xl font-bold" id="user-name">name</div>
+  <div class="text-sm text-gray-300" id="user-email">email</div>
   <button onclick="window.location.href='editprofile.html'" class="mt-2 text-sm text-purple-400 hover:underline">
     <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z" />
@@ -326,105 +319,44 @@
   }
   </script>
 
+  <!-- Modal ล็อกอิน -->
+   <div id="auth-modal" class="hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-start px-4 py-10 overflow-y-auto">
+     <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl font-bold" aria-label="Close">&times;</button>
+     <img src="gzone.png" alt="GZone" class="w-60 h-auto mb-4 mt-6" />  
+     <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 animate-fade-in relative">
+       <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">เข้าสู่ระบบ / สมัครสมาชิก</h2>
 
-  <script>
-  document.getElementById('login-button').addEventListener('click', () => {
-    openAuthModal();
-    switchToLogin();
-  });
+       <button onclick="googleLogin()" class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
+         <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="h-5 w-5" />
+         ดำเนินการต่อด้วย Google
+       </button>
 
-  document.getElementById('signup-button').addEventListener('click', () => {
-    openAuthModal();
-    switchToSignup();
-  });
-  </script>
-
-     <!-- หน้า Auth เต็มหน้า -->
-<div id="auth-modal" class="hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-start px-4 py-10 overflow-y-auto">
-  <!-- ปุ่มปิด -->
-  <button
-    onclick="closeAuthModal()"
-    class="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl font-bold"
-    aria-label="Close"
-  >
-    &times;
-  </button>
-
-  <!-- โลโก้ -->
-  <img src="gzone.png" alt="GZone" class="w-60 h-auto mb-4 mt-6" />
-
-  <!-- กล่องฟอร์ม -->
-  <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 animate-fade-in relative">
-    <h2 id="auth-title" class="text-2xl font-bold mb-6 text-center text-gray-800">เข้าสู่ระบบ</h2>
-
-    <input type="email" id="auth-email" placeholder="อีเมล"
-      class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900" />
-
-    <input type="password" id="auth-password" placeholder="รหัสผ่าน"
-      class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900" />
-
-    <input type="password" id="auth-confirm-password" placeholder="ยืนยันรหัสผ่าน"
-      class="w-full mb-4 px-4 py-3 border border-gray-300 rounded-xl hidden focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm text-gray-900" />
-
-    <!-- ปุ่ม ลืมรหัสผ่าน? -->
-<div class="flex justify-end mt-2">
-  <a href="forgot-password.html" class="text-purple-600 hover:underline text-sm">
-    ลืมรหัสผ่าน?
-  </a>
-</div>
-
-    <button id="auth-action-button"
-      onclick="handleAuthAction()"
-      class="bg-purple-600 hover:bg-purple-700 text-white w-full py-3 rounded-xl font-semibold transition">
-      เข้าสู่ระบบ
-    </button>
-
-    <button onclick="googleLogin()"
-      class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
-      <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="h-5 w-5" />
-      ดำเนินการต่อด้วย Google
-    </button>
-
-    <button onclick="twitterLogin()"
-  class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
-  <img src="https://www.svgrepo.com/show/448234/twitter.svg" alt="Twitter" class="h-5 w-5" />
-  ดำเนินการต่อด้วย Twitter
-    </button>
-
-    <button onclick="LineLogin()"
-  class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" alt="LINE" class="h-5 w-5" />
-  ดำเนินการต่อด้วย LINE
-    </button>
-    
-    <p class="text-center text-sm text-gray-600 mt-6" id="auth-switch">
-      ยังไม่มีบัญชี?
-      <button onclick="switchToSignup()" class="text-purple-600 font-medium hover:underline">สมัครสมาชิก</button>
-    </p>
-  </div>
-</div>
-
-<!-- CSS Animation -->
-<style>
-  .animate-fade-in {
-    animation: fadeInUp 0.3s ease-out;
-  }
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
-
-<!-- JavaScript -->
-<script>
-  let isSignUp = false;
-
+       <button onclick="twitterLogin()" class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
+         <img src="https://www.svgrepo.com/show/448234/twitter.svg" alt="Twitter" class="h-5 w-5" />
+         ดำเนินการต่อด้วย Twitter
+       </button>
+     </div>
+   </div>
+   
+   <!-- CSS Animation -->
+   <style>
+     .animate-fade-in {
+       animation: fadeInUp 0.3s ease-out;
+     }
+     @keyframes fadeInUp {
+       from {
+         opacity: 0;
+         transform: translateY(30px);
+       }
+       to {
+         opacity: 1;
+         transform: translateY(0);
+       }
+     }
+   </style>
+   
+   <!-- JavaScript -->
+   <script>
   function openAuthModal() {
     document.getElementById("auth-modal").classList.remove("hidden");
     document.body.classList.add("overflow-hidden");
@@ -435,123 +367,26 @@
     document.body.classList.remove("overflow-hidden");
   }
 
-  function clearAuthForm() {
-    document.getElementById('auth-email').value = '';
-    document.getElementById('auth-password').value = '';
-    if (document.getElementById('auth-confirm-password')) {
-      document.getElementById('auth-confirm-password').value = '';
-    }
-  }
-
-  function switchToSignup() {
-    isSignUp = true;
-    document.getElementById('auth-title').innerText = 'สมัครสมาชิก';
-    document.getElementById('auth-action-button').innerText = 'สมัครสมาชิก';
-    document.getElementById('auth-switch').innerHTML = `
-      มีบัญชีอยู่แล้ว?
-      <button onclick="switchToLogin()" class="text-purple-600">เข้าสู่ระบบ</button>
-    `;
-    document.getElementById('auth-confirm-password').classList.remove('hidden');
-  }
-
-  function switchToLogin() {
-    isSignUp = false;
-    document.getElementById('auth-title').innerText = 'เข้าสู่ระบบ';
-    document.getElementById('auth-action-button').innerText = 'เข้าสู่ระบบ';
-    document.getElementById('auth-switch').innerHTML = `
-      ยังไม่มีบัญชี?
-      <button onclick="switchToSignup()" class="text-purple-600">สมัครสมาชิก</button>
-    `;
-    document.getElementById('auth-confirm-password').classList.add('hidden');
-  }
-
-async function generateUniqueUsername() {
-  const db = firebase.firestore();
-  let uniqueUsername = '';
-  let isUnique = false;
-
-  while (!isUnique) {
-    const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
-    const doc = await db.collection('usernames').doc(randomUsername).get();
-    if (!doc.exists) {
-      uniqueUsername = randomUsername;
-      isUnique = true;
-    }
-  }
-  return uniqueUsername;
-}
-
-async function handleAuthAction() {
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value.trim();
-  const confirmPassword = document.getElementById('auth-confirm-password')?.value.trim();
-
-  if (!email || !password || (isSignUp && !confirmPassword)) {
-    alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-    return;
-  }
-
-  if (isSignUp && password !== confirmPassword) {
-    alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
-    return;
-  }
-
-  try {
-    if (isSignUp) {
-      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-      const uniqueUsername = await generateUniqueUsername();
-
-      await user.updateProfile({ displayName: uniqueUsername });
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      await user.sendEmailVerification();
-      alert('สมัครสมาชิกสำเร็จ! กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ');
-      closeAuthModal(); // ปิด modal อัตโนมัติ
-    } else {
-      const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-
-      if (!user.emailVerified) {
-        await user.sendEmailVerification();
-        alert('บัญชียังไม่ได้ยืนยันอีเมล เราได้ส่งอีเมลยืนยันให้ใหม่ กรุณาตรวจสอบกล่องอีเมลของคุณ');
-        await firebase.auth().signOut();
-        return;
+  async function generateUniqueUsername() {
+    const db = firebase.firestore();
+    let uniqueUsername = '';
+    let isUnique = false;
+    while (!isUnique) {
+      const randomUsername = 'gzon_user' + Math.floor(Math.random() * 1000000);
+      const doc = await db.collection('usernames').doc(randomUsername).get();
+      if (!doc.exists) {
+        uniqueUsername = randomUsername;
+        isUnique = true;
       }
-
-      alert('เข้าสู่ระบบสำเร็จ!');
-      closeAuthModal();
     }
-  } catch (error) {
-    if (isSignUp && error.code === 'auth/email-already-in-use') {
-      const methods = await firebase.auth().fetchSignInMethodsForEmail(email);
-      if (methods.includes('password')) {
-        alert('อีเมลนี้ถูกใช้ไปแล้ว เราได้ส่งอีเมลยืนยันให้คุณอีกครั้ง กรุณาตรวจสอบกล่องอีเมล');
-        try {
-          const tempUser = await firebase.auth().signInWithEmailAndPassword(email, password);
-          if (!tempUser.user.emailVerified) {
-            await tempUser.user.sendEmailVerification();
-            await firebase.auth().signOut();
-          }
-        } catch (err) {
-          console.log('ไม่สามารถล็อกอินอัตโนมัติเพื่อส่งยืนยันได้');
-        }
-      }
-    } else {
-      alert(error.message);
-    }
+    return uniqueUsername;
   }
-}
-  
+
   async function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       const result = await firebase.auth().signInWithPopup(provider);
       const user = result.user;
-
       if (result.additionalUserInfo.isNewUser) {
         const uniqueUsername = await generateUniqueUsername();
         await user.updateProfile({ displayName: uniqueUsername });
@@ -560,7 +395,6 @@ async function handleAuthAction() {
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
       }
-
       closeAuthModal();
     } catch (error) {
       console.error(error);
@@ -569,128 +403,24 @@ async function handleAuthAction() {
   }
 
   async function twitterLogin() {
-  const provider = new firebase.auth.TwitterAuthProvider();
-
-  try {
-    const result = await firebase.auth().signInWithPopup(provider);
-    const user = result.user;
-
-    if (result.additionalUserInfo.isNewUser) {
-      const uniqueUsername = await generateUniqueUsername(); // สร้างชื่อผู้ใช้ไม่ซ้ำ
-      await user.updateProfile({ displayName: uniqueUsername });
-
-      await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
-        uid: user.uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+    const provider = new firebase.auth.TwitterAuthProvider();
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      const user = result.user;
+      if (result.additionalUserInfo.isNewUser) {
+        const uniqueUsername = await generateUniqueUsername();
+        await user.updateProfile({ displayName: uniqueUsername });
+        await firebase.firestore().collection('usernames').doc(uniqueUsername).set({
+          uid: user.uid,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
+      closeAuthModal();
+    } catch (error) {
+      console.error(error);
+      alert("Twitter Login Error: " + error.message);
     }
-
-    closeAuthModal(); // ปิด modal หลังล็อกอินสำเร็จ
-  } catch (error) {
-    console.error(error);
-    alert("Twitter Login Error: " + error.message);
   }
-  }
-
-  async function LineLogin() {
-  try {
-    const clientId = "2007355204";
-    const clientSecret = "708c01abfd6ff4539730209e588fbb7d";
-    const redirectUri = "https://gzone-store.github.io/gzst/";
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
-
-    if (!code) {
-      // ถ้ายังไม่มี code → เริ่ม login
-      const state = "gzone";
-      const scope = "profile openid email";
-      const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}&scope=${scope}`;
-      window.location.href = loginUrl;
-      return;
-    }
-
-    // แลก token ด้วย code (ทำฝั่ง client ชั่วคราว — ไม่ปลอดภัย)
-    const tokenRes = await fetch("https://api.line.me/oauth2/v2.1/token", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        grant_type: "authorization_code",
-        code,
-        redirect_uri: redirectUri,
-        client_id: clientId,
-        client_secret: clientSecret
-      })
-    });
-    const tokenData = await tokenRes.json();
-    const accessToken = tokenData.access_token;
-
-    // ดึงโปรไฟล์
-    const profileRes = await fetch("https://api.line.me/v2/profile", {
-      headers: { Authorization: `Bearer ${accessToken}` }
-    });
-    const profile = await profileRes.json();
-
-    // ดึงอีเมลจาก id_token
-    let email = "";
-    if (tokenData.id_token) {
-      const payload = JSON.parse(atob(tokenData.id_token.split(".")[1]));
-      email = payload.email || "";
-    }
-
-    // จำลอง Firestore check (คุณอาจใช้ Firestore หรือ localStorage สำหรับ demo)
-    const isNewUser = true; // ปลอมว่าเป็นผู้ใช้ใหม่ (เพราะไม่มี Firebase Auth)
-    let uniqueUsername = profile.displayName;
-
-    if (isNewUser) {
-      uniqueUsername = await generateUniqueUsername();
-      // คุณสามารถบันทึก uniqueUsername ไปยัง Firestore ได้ที่นี่ (ถ้าใช้ Firebase)
-    }
-
-    // แสดงผล
-    document.getElementById("profile").innerHTML = `
-      <div class="flex flex-col items-center mt-4">
-        <img src="${profile.pictureUrl}" class="w-20 h-20 rounded-full mb-2 border border-gray-300" />
-        <p class="font-semibold">${uniqueUsername}</p>
-        <p class="text-sm text-gray-600">${email || 'ไม่มีอีเมลจาก LINE'}</p>
-      </div>
-    `;
-
-    closeAuthModal(); // ปิด modal
-  } catch (error) {
-    console.error("LINE Login Error:", error);
-    alert("LINE Login Error: " + error.message);
-  }
-  }
-  
-  // Logout Popup control
-  const logoutPopup = document.getElementById('logout-confirm-popup');
-
-  function showLogoutConfirm() {
-    logoutPopup.classList.remove('hidden');
-  }
-
-  function cancelLogout() {
-    logoutPopup.classList.add('hidden');
-  }
-
-  function confirmLogout() {
-    firebase.auth().signOut()
-      .then(() => logoutPopup.classList.add('hidden'))
-      .catch(error => alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message));
-  }
-  
-  window.onload = function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    const email = urlParams.get('email');
-
-    if (name && email) {
-      document.getElementById("user-name").textContent = name;
-      document.getElementById("user-email").textContent = email;
-      document.getElementById("user-details").classList.remove("hidden");
-    }
-  };
 
   firebase.auth().onAuthStateChanged(user => {
     const loginPrompt = document.getElementById('login-prompt');
@@ -706,7 +436,7 @@ async function handleAuthAction() {
       signOutButton?.classList.remove('hidden');
 
       if (userName) userName.textContent = user.displayName || 'ชื่อของคุณ';
-      if (userEmail) userEmail.textContent = user.email;
+      if (userEmail) userEmail.textContent = user.email || '';
       if (profileImage && user.photoURL) profileImage.src = user.photoURL;
     } else {
       loginPrompt?.classList.remove('hidden');
