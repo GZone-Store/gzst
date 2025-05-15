@@ -391,7 +391,7 @@
   ดำเนินการต่อด้วย Twitter
     </button>
 
-    <button onclick="lineLogin()"
+    <button onclick="startLineLogin()"
   class="w-full mt-4 flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-black">
   <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" alt="LINE" class="h-5 w-5" />
   ดำเนินการต่อด้วย LINE
@@ -592,34 +592,68 @@ async function handleAuthAction() {
   }
   }
 
-  
-  function lineLogin() {
   const clientId = "2007355204";
-  const redirectUri = encodeURIComponent("https://gzonelinelogingzapp.glitch.me/callback");
-  const scope = "profile openid email";
-  const state = "gzone";
+  const clientSecret = "708c01abfd6ff4539730209e588fbb7d";
+  const redirectUri = "https://gzone-store.github.io/gzst/";
 
-  window.location.href =
-    `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
-}
-
-window.onload = () => {
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get("name");
-  const picture = params.get("picture");
-  const id = params.get("id");
-
-  if (name && picture) {
-    document.getElementById("profile").innerHTML = `
-      <div>
-        <img src="${picture}" width="100" style="border-radius: 50%;">
-        <h2>${name}</h2>
-        <p>LINE ID: ${id}</p>
-      </div>
-    `;
+  function startLineLogin() {
+    const state = "saraburi";
+    const scope = "profile openid email";
+    const url = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}&scope=${scope}`;
+    window.location.href = url;
   }
-};
-  
+
+  async function handleLineCallback() {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    if (!code) return;
+
+    try {
+      const tokenRes = await fetch("https://api.line.me/oauth2/v2.1/token", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          grant_type: "authorization_code",
+          code,
+          redirect_uri: redirectUri,
+          client_id: clientId,
+          client_secret: clientSecret
+        })
+      });
+      const tokenData = await tokenRes.json();
+      const accessToken = tokenData.access_token;
+
+      // ดึงโปรไฟล์จาก LINE
+      const profileRes = await fetch("https://api.line.me/v2/profile", {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+      const profile = await profileRes.json();
+
+      // ดึง email (ใช้ id_token ที่แนบมา)
+      const idToken = tokenData.id_token;
+      let email = "(ไม่พบอีเมล)";
+      if (idToken) {
+        const payload = JSON.parse(atob(idToken.split('.')[1]));
+        if (payload.email) email = payload.email;
+      }
+
+      // แสดงผลใน DOM
+      document.getElementById("profile").innerHTML = `
+        <div class="flex flex-col items-center mt-4">
+          <img src="${profile.pictureUrl}" class="w-20 h-20 rounded-full mb-2 border border-gray-300" />
+          <p class="font-semibold">${profile.displayName}</p>
+          <p class="text-sm text-gray-600">${email}</p>
+        </div>
+      `;
+    } catch (err) {
+      console.error("LINE Login Error:", err);
+      alert("Login Failed: " + err.message);
+    }
+  }
+
+  window.onload = handleLineCallback;
+  }
+  }
   // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
 
