@@ -128,7 +128,7 @@
       </svg>
     </button>
   </div>
-  <div class="pt-20 px-4 pb-4 space-y-3 text-white text-sm" id="searchResults"></div>
+  <div class="pt-20 px-4 pb-4 space-y-3 text-white text-sm" id="game-list"></div>
 </div>
   
     <!-- Firebase App -->
@@ -563,7 +563,7 @@
 
   // ฟังก์ชันแสดงเกม
 function renderGames(games) {
-  const container = document.getElementById("searchResults");
+  const container = document.getElementById("game-list");
   container.innerHTML = games.length
     ? games.map(g => `
       <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl">
