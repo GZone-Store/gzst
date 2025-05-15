@@ -561,24 +561,39 @@
     }
   }
 
-  // ฟังก์ชันค้นหา
-  document.getElementById("searchButton").addEventListener("click", () => {
-    const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
-    const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
-    const container = document.getElementById("searchResults");
+  // ฟังก์ชันแสดงเกม
+function renderGames(games) {
+  const container = document.getElementById("searchResults");
+  container.innerHTML = games.length
+    ? games.map(g => `
+      <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl">
+        <div class="flex items-center space-x-3">
+          <img src="${g.image}" class="w-14 h-14 rounded-lg object-cover" />
+          <div>${g.name}</div>
+        </div>
+        <a href="${g.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm">ดาวน์โหลด</a>
+      </div>`).join("")
+    : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
+}
 
-    // แสดงผลการค้นหาหรือข้อความไม่พบ
-    container.innerHTML = matched.length
-      ? matched.map(g => `
-        <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl">
-          <div class="flex items-center space-x-3">
-            <img src="${g.image}" class="w-14 h-14 rounded-lg object-cover" />
-            <div>${g.name}</div>
-          </div>
-          <a href="${g.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm">ดาวน์โหลด</a>
-        </div>`).join("")
-      : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
-  });
+// แสดงเกมทั้งหมดเมื่อเข้าเพจ
+document.addEventListener("DOMContentLoaded", () => {
+  renderGames(gameList);
+});
+
+// ค้นหาเมื่อกดแว่นขยาย
+document.getElementById("searchButton").addEventListener("click", () => {
+  const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+  const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
+  renderGames(matched);
+});
+
+// ค้นหาเมื่อกด Enter
+document.getElementById("searchInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    document.getElementById("searchButton").click();
+  }
+});
 
   // ทำงานเพิ่มไปยังหน้าหลัก
   let deferredPrompt;
