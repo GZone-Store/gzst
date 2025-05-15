@@ -84,62 +84,17 @@
 <div class="grid grid-cols-2 gap-4 p-4" id="game-list"></div>
 
 <script>
-  const gameList = [
-  {
-    name: "Love Warriors",
-    alias: ["เลิฟวอริเออร์", "เลิฟ วอริเออร์", "เลิฟ วอริเอ้อร์"],
-    image: "game1.png.jpg",
-    link: "https://example.com/love-warriors"
-  },
-  {
-    name: "Love & Battle",
-    alias: ["เลิฟ แอนด์ แบทเทิล", "เลิฟแบทเทิล"],
-    image: "game2.png.jpg",
-    link: "https://example.com/love-battle"
-  },
-  {
-    name: "Zombie Fight",
-    alias: ["ซอมบี้ไฟท์", "ซอมบี้ ไฟต์"],
-    image: "game3.png.jpg",
-    link: "https://example.com/zombie-fight"
-  },
-  {
-    name: "Car Drift",
-    alias: ["คาร์ดริฟท์", "รถดริฟต์"],
-    image: "game4.png.jpg",
-    link: "https://example.com/car-drift"
-  },
-  {
-    name: "Shooting Pro",
-    alias: ["ชูตติ้งโปร", "ยิงโปร"],
-    image: "game5.png.jpg",
-    link: "https://example.com/shooting-pro"
-  },
-  {
-    name: "Dragon Love",
-    alias: ["ดราก้อนเลิฟ", "เลิฟดราก้อน"],
-    image: "game6.png.jpg",
-    link: "https://example.com/dragon-love"
-  },
-  {
-    name: "Adventure World",
-    alias: ["แอดเวนเจอร์เวิลด์", "โลกผจญภัย"],
-    image: "game7.png.jpg",
-    link: "https://example.com/adventure-world"
-  },
-  {
-    name: "Puzzle Love",
-    alias: ["พัซเซิลเลิฟ", "เกมต่อเลิฟ"],
-    image: "game8.png.jpg",
-    link: "https://example.com/puzzle-love"
-  },
-  {
-    name: "GZONE STORE",
-    alias: ["จีโซน", "ร้านเกม", "gzone"],
-    image: "gzone.png.png",
-    link: "https://example.com/gzone-store"
-  },
-];
+  const gameList = [  
+    { name: "Love Warriors", image: "game1.png.jpg", link: "https://example.com/love-warriors" },  
+    { name: "Love & Battle", image: "game2.png.jpg", link: "https://example.com/love-battle" },  
+    { name: "Zombie Fight", image: "game3.png.jpg", link: "https://example.com/zombie-fight" },  
+    { name: "Car Drift", image: "game4.png.jpg", link: "https://example.com/car-drift" },  
+    { name: "Shooting Pro", image: "game5.png.jpg", link: "https://example.com/shooting-pro" },  
+    { name: "Dragon Love", image: "game6.png.jpg", link: "https://example.com/dragon-love" },  
+    { name: "Adventure World", image: "game7.png.jpg", link: "https://example.com/adventure-world" },  
+    { name: "Puzzle Love", image: "game8.png.jpg", link: "https://example.com/puzzle-love" },  
+    { name: "GZONE STORE", image: "gzone.png.png", link: "https://example.com/gzone-store" },  
+  ];
   
   document.addEventListener("DOMContentLoaded", () => {
     const grid = document.querySelector("#game-list");
@@ -507,25 +462,24 @@
     }
   });
 </script>
-  
-          <!-- เมนูด้านล่าง -->
-</div>
-</div>
-
-<nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
-  <button onclick="goTo('home')" class="flex flex-col items-center">
-    <img src="icon-home.png" class="w-6 h-6" />
-    <span class="text-xs">หน้าแรก</span>
-  </button>
-  <button onclick="goTo('search')" class="flex flex-col items-center">
-    <img src="icon-search.png" class="w-6 h-6" />
-    <span class="text-xs">ค้นหา</span>
-  </button>
-  <button onclick="goTo('account')" class="flex flex-col items-center">
-    <img src="icon-user.png" class="w-6 h-6" />
-    <span class="text-xs">บัญชี</span>
-  </button>
-</nav>
+    
+<!-- เมนูด้านล่าง -->
+  </div>
+ </div>
+  <nav class="fixed bottom-0 left-0 right-0 bg-[#1a0526] text-white flex justify-around items-center h-16 border-t border-purple-800">
+    <button onclick="goTo('home')" class="flex flex-col items-center">
+      <img src="icon-home.png" class="w-6 h-6" />
+      <span class="text-xs">หน้าแรก</span>
+    </button>
+    <button onclick="goTo('search')" class="flex flex-col items-center">
+      <img src="icon-search.png" class="w-6 h-6" />
+      <span class="text-xs">ค้นหา</span>
+    </button>
+    <button onclick="goTo('account')" class="flex flex-col items-center">
+      <img src="icon-user.png" class="w-6 h-6" />
+      <span class="text-xs">บัญชี</span>
+    </button>
+  </nav>
 
 <script>
   const carousel = document.getElementById("banner-carousel");
@@ -608,33 +562,28 @@
 
   // ฟังก์ชันแสดงเกม
 function renderGames(games) {
-  const container = document.getElementById("game-list");
+  const container = document.getElementById("searchResults");
   container.innerHTML = games.length
     ? games.map(g => `
-      <div class="bg-[#2b1140] rounded-2xl p-2 text-left">
-        <img src="${g.image}" alt="${g.name}" class="rounded-xl mb-2" />
-        <div class="text-white font-semibold">${g.name}</div>
-        <a href="${g.link}" target="_blank" class="bg-purple-500 block text-center mt-2 py-1 rounded-xl">ดาวน์โหลด</a>
+      <div class="flex justify-between items-center bg-[#2e1b44] p-2 rounded-xl">
+        <div class="flex items-center space-x-3">
+          <img src="${g.image}" class="w-14 h-14 rounded-lg object-cover" />
+          <div>${g.name}</div>
+        </div>
+        <a href="${g.link}" target="_blank" class="bg-purple-500 px-4 py-1 rounded-xl text-sm">ดาวน์โหลด</a>
       </div>`).join("")
-    : `<div class="text-center text-gray-400 mt-6 col-span-2">ไม่พบเกมที่คุณค้นหา</div>`;
+    : `<div class="text-center text-gray-400 mt-6">ไม่พบเกมที่คุณค้นหา</div>`;
 }
 
 // แสดงเกมทั้งหมดเมื่อเข้าเพจ
 document.addEventListener("DOMContentLoaded", () => {
   renderGames(gameList);
-  if (typeof goTo === 'function') {
-    goTo("home");
-  }
 });
 
-// ค้นหาเมื่อคลิกปุ่ม
+// ค้นหาเมื่อกดแว่นขยาย
 document.getElementById("searchButton").addEventListener("click", () => {
   const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
-  const matched = gameList.filter(g => {
-    const nameMatch = g.name.toLowerCase().includes(keyword);
-    const aliasMatch = g.alias?.some(alias => alias.toLowerCase().includes(keyword));
-    return nameMatch || aliasMatch;
-  });
+  const matched = gameList.filter(g => g.name.toLowerCase().includes(keyword));
   renderGames(matched);
 });
 
