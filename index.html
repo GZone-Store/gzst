@@ -188,13 +188,13 @@
   </button>
 </div>
     
-  <!-- ย้ายเมนูทั้งหมดมาอยู่ในนี้ -->
+   <!-- ย้ายเมนูทั้งหมดมาอยู่ในนี้ -->
 <div class="mt-8 space-y-3 px-6" id="account-menu">
   <!-- Support / Donate -->
   <details class="group bg-[#2e1b44] rounded-xl px-4 py-3">
     <summary class="cursor-pointer text-white font-medium flex items-center justify-between">
       <div class="flex items-center space-x-2">
-        <img src="donet.png" alt="Support" class="w-5 h-5" />
+        <img src="donet.png" alt="Support" class="w-6 h-6 aspect-square object-contain object-center" />
         <span>Support / Donate</span>
       </div>
       <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180"
@@ -204,12 +204,12 @@
     </summary>
     <div class="mt-1 space-y-2 pl-4 text-sm text-purple-300">
       <a href="https://line.me/..." target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-        <img src="line-icon.png" alt="LINE" class="w-6 h-6" />
+        <img src="line-icon.png" alt="LINE" class="w-6 h-6 aspect-square object-contain object-center" />
         <span>LINE</span>
       </a>
 
       <a href="https://t.me/..." target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-        <img src="telegram-icon.png" alt="Telegram" class="w-6 h-6" />
+        <img src="telegram-icon.png" alt="Telegram" class="w-6 h-6 aspect-square object-contain object-center" />
         <span>Telegram</span>
       </a>
     </div>
@@ -219,7 +219,7 @@
   <details class="group bg-[#2e1b44] rounded-xl px-4 py-3">
     <summary class="cursor-pointer text-white font-medium flex items-center justify-between">
       <div class="flex items-center space-x-2">
-        <img src="support.png" alt="Contact" class="w-5 h-5" />
+        <img src="support.png" alt="Contact" class="w-6 h-6 aspect-square object-contain object-center" />
         <span>ติดต่อเรา</span>
       </div>
       <svg class="w-4 h-4 text-white transition-transform duration-300 group-open:rotate-180"
@@ -229,41 +229,42 @@
     </summary>
     <div class="space-y-2 pl-4 text-sm text-purple-300">
       <a href="mailto:contact@example.com" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-        <img src="email-icon.png" alt="Email" class="w-6 h-6" />
+        <img src="email-icon.png" alt="Email" class="w-6 h-6 aspect-square object-contain object-center" />
         <span>อีเมล</span>
       </a>
 
       <a href="https://facebook.com/example" target="_blank" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-        <img src="facebook-icon.png" alt="Facebook" class="w-6 h-6" />
+        <img src="facebook-icon.png" alt="Facebook" class="w-6 h-6 aspect-square object-contain object-center" />
         <span>Facebook</span>
       </a>
 
       <a href="tel:0800000000" class="flex items-center space-x-2 hover:underline rounded-xl bg-[#1e0a2a] px-4 py-2">
-        <img src="phone-icon.png" alt="Phone" class="w-6 h-6" />
+        <img src="phone-icon.png" alt="Phone" class="w-6 h-6 aspect-square object-contain object-center" />
         <span>โทรศัพท์</span>
       </a>
     </div>
   </details>
 
   <!-- อื่น ๆ -->
-    <a href="privacy-policy.html" class="flex items-center bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium space-x-3">
-      <img src="privacy-policy.png" alt="Privacy" class="w-6 h-6" />
-      <span>ความเป็นส่วนตัว</span>
-    </a>
+  <a href="privacy-policy.html" class="flex items-center bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium space-x-3">
+    <img src="privacy-policy.png" alt="Privacy" class="w-6 h-6 aspect-square object-contain object-center" />
+    <span>ความเป็นส่วนตัว</span>
+  </a>
 
-    <a href="terms-of-service.html" class="flex items-center bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium space-x-3">
-      <img src="terms.png" alt="Terms" class="w-6 h-6" />
-      <span>เงื่อนไขการใช้งาน</span>
-    </a>
-    
+  <a href="terms-of-service.html" class="flex items-center bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium space-x-3">
+    <img src="terms.png" alt="Terms" class="w-6 h-6 aspect-square object-contain object-center" />
+    <span>เงื่อนไขการใช้งาน</span>
+  </a>
+
   <!-- ปุ่มออกจากระบบ -->
   <div class="flex justify-center mt-10 px-6">
-  <button id="sign-out-button"
-    onclick="showLogoutConfirm()"
-    class="hidden bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:from-red-600 hover:to-pink-600 transition duration-300">
-    ออกจากระบบ
-  </button>
+    <button id="sign-out-button"
+      onclick="showLogoutConfirm()"
+      class="hidden bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:from-red-600 hover:to-pink-600 transition duration-300">
+      ออกจากระบบ
+    </button>
   </div>
+</div>
     
 <!-- Popup ยืนยันออกจากระบบ -->
    <div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50 hidden">
