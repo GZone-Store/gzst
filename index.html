@@ -252,11 +252,6 @@
       <span>เปลี่ยนรหัสผ่าน</span>
     </a>
 
-    <a href="#" id="installButton" style="display:none;" class="flex items-center bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium space-x-3">
-      <img src="install-icon.png" alt="Install" class="w-6 h-6" />
-      <span>เพิ่ม GZone ไปยังหน้าจอหลัก</span>
-    </a>
-
     <a href="privacy-policy.html" class="flex items-center bg-[#2e1b44] rounded-xl px-4 py-3 text-white font-medium space-x-3">
       <img src="privacy-icon.png" alt="Privacy" class="w-6 h-6" />
       <span>ความเป็นส่วนตัว</span>
@@ -608,35 +603,6 @@ document.getElementById("searchInput").addEventListener("keydown", (e) => {
     document.getElementById("searchButton").click();
   }
 });
-
-  // ทำงานเพิ่มไปยังหน้าหลัก
-  let deferredPrompt;
-  const installButton = document.getElementById('installButton');
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    // ป้องกัน Chrome แสดง default prompt
-    e.preventDefault();
-    deferredPrompt = e;
-    installButton.style.display = 'block';
-
-    installButton.addEventListener('click', async () => {
-      installButton.style.display = 'none';
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        console.log('ผู้ใช้ติดตั้งแล้ว');
-      } else {
-        console.log('ผู้ใช้ยกเลิกการติดตั้ง');
-      }
-      deferredPrompt = null;
-    });
-  });
-
-  // ซ่อนปุ่มถ้าติดตั้งแล้ว
-  window.addEventListener('appinstalled', () => {
-    console.log('ติดตั้งแอปแล้ว');
-    installButton.style.display = 'none';
-  });
 </script>                                                       
   
 </body>
