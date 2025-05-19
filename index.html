@@ -157,6 +157,44 @@
    <div class="relative">
      <img src="cover.png" class="w-full h-32 object-cover" />
      <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+       <!-- ปุ่มตั้งค่า -->
+<button onclick="toggleSettingsPanel()" class="absolute top-3 right-3 bg-white/10 hover:bg-white/20 text-white p-2 rounded-full z-10">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v2m0 12v2m8.485-8.485l-1.415 1.415M4 12H2m2.929-4.243l1.414 1.414m12.728 0l1.414-1.414M12 2a10 10 0 100 20 10 10 0 000-20z" />
+  </svg>
+</button>
+       <div id="settings-panel" class="fixed top-0 right-0 h-full w-80 bg-[#1e1b2e] text-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 p-5 overflow-y-auto rounded-l-2xl border-l border-white/10">
+  <h2 class="text-xl font-bold mb-4">ตั้งค่าบัญชี</h2>
+
+  <div class="mb-4">
+    <p class="text-sm text-gray-300">อีเมล:</p>
+    <div class="flex items-center justify-between mt-1">
+      <span id="account-email" class="text-white font-medium">example@email.com</span>
+      <button onclick="copyEmail()" class="text-sm bg-purple-600 hover:bg-purple-700 px-2 py-1 rounded">คัดลอก</button>
+    </div>
+  </div>
+
+  <button onclick="deleteAccount()" id="delete-account-btn" class="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded mt-3 hidden">ลบบัญชี (Google เท่านั้น)</button>
+
+  <div class="mt-6">
+    <label for="language" class="block mb-1">ภาษา:</label>
+    <select id="language" class="w-full p-2 rounded bg-gray-800 text-white">
+      <option value="th">ไทย</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+  <div class="mt-4">
+    <label class="flex items-center">
+      <input type="checkbox" id="notify-toggle" class="mr-2">
+      เปิดการแจ้งเตือน
+    </label>
+  </div>
+
+  <div class="mt-6 flex justify-end">
+    <button onclick="confirmLogout()" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white px-4 py-2 rounded">ออกจากระบบ</button>
+  </div>
+       </div>
        <!-- เพิ่ม id ให้กับรูปโปรไฟล์เพื่อให้สามารถอัปเดตได้ -->
        <img id="accountProfileImage" src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" />
      </div>
@@ -420,6 +458,60 @@
     }
   }
 
+function toggleSettingsPanel() {
+  const panel = document.getElementById('settings-panel');
+  const user = firebase.auth().currentUser;
+  if (!user) return;
+
+  document.getElementById('account-email').textContent = user.email || '-';
+  const deleteBtn = document.getElementById('delete-account-btn');
+  const isGoogle = user.providerData.some(p => p.providerId === 'google.com');
+  deleteBtn.classList.toggle('hidden', !isGoogle);
+
+  panel.classList.toggle('translate-x-full');
+}
+
+function copyEmail() {
+  const email = document.getElementById('account-email').textContent;
+  navigator.clipboard.writeText(email).then(() => {
+    alert("คัดลอกอีเมลแล้ว");
+  });
+}
+
+function deleteAccount() {
+  if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบบัญชีนี้?")) {
+    const user = firebase.auth().currentUser;
+    user.delete().then(() => {
+      alert("ลบบัญชีแล้ว");
+      toggleSettingsPanel();
+    }).catch(error => {
+      alert("ลบบัญชีไม่สำเร็จ: " + error.message);
+    });
+  }
+}
+
+function confirmLogout() {
+  firebase.auth().signOut().then(() => {
+    alert("ออกจากระบบแล้ว");
+    toggleSettingsPanel();
+    location.reload();
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('language').value = localStorage.getItem('language') || 'th';
+  document.getElementById('notify-toggle').checked = localStorage.getItem('notify') === 'true';
+
+  document.getElementById('language').addEventListener('change', (e) => {
+    localStorage.setItem('language', e.target.value);
+    alert("เปลี่ยนภาษาแล้ว (ยังไม่เปลี่ยนทันที)");
+  });
+
+  document.getElementById('notify-toggle').addEventListener('change', (e) => {
+    localStorage.setItem('notify', e.target.checked);
+  });
+});
+     
      // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
 
