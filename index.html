@@ -334,6 +334,37 @@
 </style>
 </div>
 
+  <div id="settings-modal" class="hidden" aria-hidden="true" role="dialog" aria-modal="true" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;justify-content:center;align-items:center;">
+  <div style="background:white;padding:20px;border-radius:8px;width:300px;position:relative;">
+    <button id="close-settings-btn" class="close-btn" style="position:absolute;top:10px;right:10px;cursor:pointer;">X</button>
+    <h2>ตั้งค่าบัญชี</h2>
+
+    <p>อีเมล: <span id="user-email">-</span> <button onclick="copyEmail()">คัดลอก</button></p>
+    <p>ชื่อ: <span id="user-name-setting">-</span></p>
+
+    <label for="language">ภาษา:</label>
+    <select id="language" name="language">
+      <option value="th">ไทย</option>
+      <option value="en">English</option>
+    </select>
+
+    <br /><br />
+
+    <label for="notify-toggle">แจ้งเตือน:</label>
+    <input type="checkbox" id="notify-toggle" name="notify-toggle" />
+
+    <br /><br />
+
+    <button id="delete-account-btn" style="cursor:pointer;">ลบบัญชี</button>
+    <br /><br />
+    <button id="logout-btn" style="cursor:pointer;">ออกจากระบบ</button>
+  </div>
+</div>
+
+<style>
+  .hidden { display: none; }
+</style>
+
   <script>
   window.addEventListener('DOMContentLoaded', () => {
     if (window.location.hash === "#account") {
@@ -709,34 +740,4 @@ document.getElementById("searchInput").addEventListener("keydown", (e) => {
 </script>                                                       
   
 </body>
-  <div id="settings-modal" class="hidden" aria-hidden="true" role="dialog" aria-modal="true" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;justify-content:center;align-items:center;">
-  <div style="background:white;padding:20px;border-radius:8px;width:300px;position:relative;">
-    <button id="close-settings-btn" class="close-btn" style="position:absolute;top:10px;right:10px;cursor:pointer;">X</button>
-    <h2>ตั้งค่าบัญชี</h2>
-
-    <p>อีเมล: <span id="account-email">-</span> <button onclick="copyEmail()">คัดลอก</button></p>
-    <p>ชื่อ: <span id="account-name-setting">-</span></p>
-
-    <label for="language">ภาษา:</label>
-    <select id="language" name="language">
-      <option value="th">ไทย</option>
-      <option value="en">English</option>
-    </select>
-
-    <br /><br />
-
-    <label for="notify-toggle">แจ้งเตือน:</label>
-    <input type="checkbox" id="notify-toggle" name="notify-toggle" />
-
-    <br /><br />
-
-    <button id="delete-account-btn" style="cursor:pointer;">ลบบัญชี</button>
-    <br /><br />
-    <button id="logout-btn" style="cursor:pointer;">ออกจากระบบ</button>
-  </div>
-</div>
-
-<style>
-  .hidden { display: none; }
-</style>
 </html>
