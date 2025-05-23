@@ -152,40 +152,16 @@
     firebase.analytics();
   </script>
   
-  <!-- หน้าบัญชี -->
-<div id="account" class="hidden flex-1 pb-16">
-  <div class="relative">
-    <img src="cover.png" class="w-full h-32 object-cover" />
-    
-    <!-- ปุ่มไอคอนตั้งค่า -->
-    <button id="open-settings-btn" aria-label="ตั้งค่า" 
-      style="
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        background: rgba(0,0,0,0.5);
-        border-radius: 50%;
-        padding: 6px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        border: none;
-      "
-      onmouseover="this.style.background='rgba(0,0,0,0.8)'" 
-      onmouseout="this.style.background='rgba(0,0,0,0.5)'"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" 
-          d="M11.983 4.533c.29-.28.79-.28 1.08 0l1.383 1.346a2 2 0 002.57.145l1.403-1.22a.75.75 0 011.04.41l1.02 2.528a.75.75 0 01-.338 1.02l-1.352.72a2 2 0 00-.81 2.37l.45 1.33a.75.75 0 01-1.15.87l-1.457-1.25a2 2 0 00-2.658.12l-1.35 1.38a.75.75 0 01-1.08 0l-1.353-1.38a2 2 0 00-2.658-.12l-1.457 1.25a.75.75 0 01-1.15-.87l.45-1.33a2 2 0 00-.81-2.37l-1.352-.72a.75.75 0 01-.338-1.02l1.02-2.528a.75.75 0 011.04-.41l1.403 1.22a2 2 0 002.57-.145l1.383-1.346z"/>
-        <circle cx="12" cy="12" r="3"/>
-      </svg>
-    </button>
-
-    <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-      <!-- รูปโปรไฟล์ -->
-      <img id="accountProfileImage" src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" />
-    </div>
-  </div>
-
+    <!-- หน้าบัญชี -->
+ <div id="account" class="hidden flex-1 pb-16">
+   <div class="relative">
+     <img src="cover.png" class="w-full h-32 object-cover" />
+     <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+       <!-- เพิ่ม id ให้กับรูปโปรไฟล์เพื่อให้สามารถอัปเดตได้ -->
+       <img id="accountProfileImage" src="profile.png" class="w-20 h-20 rounded-full border-4 border-[#1e0a2a] object-cover" />
+     </div>
+   </div>
+  
   <div class="mt-14 text-center" id="user-info">
     <!-- เมื่อยังไม่ล็อกอิน -->
     <div id="login-prompt" class="flex justify-center mt-4 w-full">
@@ -335,39 +311,6 @@
 </div>
 
   <script>
-  <div id="settings-modal" class="hidden" aria-hidden="true" role="dialog" aria-modal="true" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;justify-content:center;align-items:center;">
-  <div style="background:white;padding:20px;border-radius:8px;width:300px;position:relative;">
-    <button id="close-settings-btn" class="close-btn" style="position:absolute;top:10px;right:10px;cursor:pointer;">X</button>
-    <h2>ตั้งค่าบัญชี</h2>
-
-    <p>อีเมล: <span id="user-email">-</span> <button onclick="copyEmail()">คัดลอก</button></p>
-    <p>ชื่อ: <span id="user-name-setting">-</span></p>
-
-    <label for="language">ภาษา:</label>
-    <select id="language" name="language">
-      <option value="th">ไทย</option>
-      <option value="en">English</option>
-    </select>
-
-    <br /><br />
-
-    <label for="notify-toggle">แจ้งเตือน:</label>
-    <input type="checkbox" id="notify-toggle" name="notify-toggle" />
-
-    <br /><br />
-
-    <button id="delete-account-btn" style="cursor:pointer;">ลบบัญชี</button>
-    <br /><br />
-    <button id="logout-btn" style="cursor:pointer;">ออกจากระบบ</button>
-  </div>
-</div>
-    </script>
-<style>
-  .hidden { display: none; }
-</style>
-
-
-  <script>
   window.addEventListener('DOMContentLoaded', () => {
     if (window.location.hash === "#account") {
       document.getElementById("home").classList.add("hidden"); // ซ่อนหน้าหลัก
@@ -492,7 +435,6 @@
     }
   }
      
-     
      // Logout Popup control
   const logoutPopup = document.getElementById('logout-confirm-popup');
 
@@ -509,81 +451,6 @@
       .then(() => logoutPopup.classList.add('hidden'))
       .catch(error => alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message));
   }
-
-     const openSettingsBtn = document.getElementById("open-settings-btn");
-const closeSettingsBtn = document.getElementById("close-settings-btn");
-const settingsModal = document.getElementById("settings-modal");
-const accountEmail = document.getElementById("account-email");
-const accountNameSetting = document.getElementById("account-name-setting");
-const languageSelect = document.getElementById("language");
-const notifyToggle = document.getElementById("notify-toggle");
-const deleteAccountBtn = document.getElementById("delete-account-btn");
-const logoutBtn = document.getElementById("logout-btn");
-
-openSettingsBtn.addEventListener("click", () => {
-  settingsModal.classList.remove("hidden");
-  loadUserData();
-});
-
-closeSettingsBtn.addEventListener("click", () => {
-  settingsModal.classList.add("hidden");
-});
-
-function loadUserData() {
-  const user = firebase.auth().currentUser;
-  if (!user) return;
-
-  accountEmail.textContent = user.email || "-";
-  accountNameSetting.textContent = user.displayName || "-";
-
-  // แสดงปุ่มลบเฉพาะ Google login
-  const isGoogle = user.providerData.some(p => p.providerId === "google.com");
-  deleteAccountBtn.style.display = isGoogle ? "inline-block" : "none";
-
-  languageSelect.value = localStorage.getItem("language") || "th";
-  notifyToggle.checked = localStorage.getItem("notify") === "true";
-}
-
-function copyEmail() {
-  const email = accountEmail.textContent;
-  navigator.clipboard.writeText(email).then(() => {
-    alert("คัดลอกอีเมลแล้ว");
-  });
-}
-
-languageSelect.addEventListener("change", (e) => {
-  localStorage.setItem("language", e.target.value);
-  alert("เปลี่ยนภาษาแล้ว (รีเฟรชหน้าเว็บเพื่อให้เปลี่ยนจริง)");
-});
-
-notifyToggle.addEventListener("change", (e) => {
-  localStorage.setItem("notify", e.target.checked);
-});
-
-deleteAccountBtn.addEventListener("click", () => {
-  if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบบัญชีนี้?")) {
-    const user = firebase.auth().currentUser;
-    user.delete()
-      .then(() => {
-        alert("ลบบัญชีแล้ว");
-        settingsModal.classList.add("hidden");
-        location.reload();
-      })
-      .catch((error) => {
-        alert("ลบบัญชีไม่สำเร็จ: " + error.message);
-      });
-  }
-});
-
-logoutBtn.addEventListener("click", () => {
-  firebase.auth().signOut()
-    .then(() => {
-      alert("ออกจากระบบแล้ว");
-      settingsModal.classList.add("hidden");
-      location.reload();
-    })
-    .catch(error => alert("เกิดข้อผิดพลาดในการออกจากระบบ: " + error.message));
-});
 
   firebase.auth().onAuthStateChanged(user => {
     const loginPrompt = document.getElementById('login-prompt');
