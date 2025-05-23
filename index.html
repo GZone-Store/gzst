@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#1e0a2a" />
-  <title>GZONE</title>
+  <title>GZONE.app</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.min.js"></script>
   <link rel="manifest" href="./manifest.json" />
@@ -294,16 +294,6 @@
   animation: fade-in-up 0.3s ease-out;
 }
 </style>
-</div>
-
-  <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    if (window.location.hash === "#account") {
-      document.getElementById("home").classList.add("hidden"); // ซ่อนหน้าหลัก
-      document.getElementById("account").classList.remove("hidden"); // แสดงหน้าบัญชี
-    }
-  });
-  </script>
   
   <!--ทำงานดาวโหลดเเอป-->
   <script>
@@ -593,6 +583,5 @@ document.getElementById("searchInput").addEventListener("keydown", (e) => {
   }
 });
 </script>                                                       
-  
 </body>
 </html>
