@@ -267,7 +267,6 @@
       ออกจากระบบ
     </button>
   </div>
-</div>
     
 <!-- Popup ยืนยันออกจากระบบ -->
    <div id="logout-confirm-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm z-50 hidden">
@@ -439,27 +438,6 @@
       .then(() => logoutPopup.classList.add('hidden'))
       .catch(error => alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message));
   }
-     
-     // JavaScript เปิดอัตโนมัติหน้าบัญชี
-     document.addEventListener("DOMContentLoaded", () => {
-  const accountSection = document.getElementById("account");
-
-  if (!accountSection) return;
-
-  const observer = new MutationObserver(() => {
-    const user = firebase.auth().currentUser;
-    const isAccountVisible = !accountSection.classList.contains("hidden");
-    if (!user && isAccountVisible) {
-      openAuthModal(); // เปิด modal ถ้ายังไม่ได้ล็อกอินและกดมาหน้าบัญชี
-    }
-  });
-
-  observer.observe(accountSection, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-});
-  // จบ
 
   firebase.auth().onAuthStateChanged(user => {
     const loginPrompt = document.getElementById('login-prompt');
